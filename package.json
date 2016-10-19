@@ -1,0 +1,26 @@
+{
+  "name": "@conveyal/commute",
+  "version": "0.0.1",
+  "description": "Commute analysis",
+  "main": "index.js",
+  "scripts": {
+    "test": "mastarm lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conveyal/commute.git"
+  },
+  "keywords": [
+    "Modeify",
+    "tdm"
+  ],
+  "author": "Conveyal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/conveyal/commute/issues"
+  },
+  "homepage": "https://github.com/conveyal/commute#readme",
+  "devDependencies": {
+    "mastarm": "^1.1.3"
+  }
+}
