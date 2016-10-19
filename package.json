@@ -1,14 +1,14 @@
 {
   "name": "@conveyal/commute",
-  "version": "0.0.1",
   "description": "Commute analysis",
   "main": "index.js",
   "scripts": {
-    "test": "mastarm lint"
+    "test": "mastarm lint",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/conveyal/commute.git"
+    "url": "https://github.com/conveyal/commute.git"
   },
   "keywords": [
     "Modeify",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/conveyal/commute#readme",
   "devDependencies": {
-    "mastarm": "^1.1.3"
+    "mastarm": "^1.1.3",
+    "semantic-release": "^4.3.5"
   }
 }
