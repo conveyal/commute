@@ -10,6 +10,12 @@ export default class Application extends Component {
   }
 
   render () {
-    return <h1>Hello World</h1>
+    const {children} = this.props
+    return (
+      <div>
+        <h1>Hello World</h1>
+        {children}
+      </div>
+    )
   }
 }
