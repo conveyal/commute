@@ -7,3 +7,5 @@
 [npm-url]: https://www.npmjs.com/package/@conveyal/commute
 [travis-image]: https://img.shields.io/travis/conveyal/commute.svg?style=flat-square
 [travis-url]: https://travis-ci.org/conveyal/commute
+
+A website for analyzing commuting patterns and more.
