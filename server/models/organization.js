@@ -1,8 +1,8 @@
 const {Schema} = require('mongoose')
 
 const Organization = module.exports = new Schema({
-  createdBy: String,
-  name: String
+  name: String,
+  owner: String
 })
 
 Organization.methods.update = function (properties) {

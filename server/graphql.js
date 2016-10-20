@@ -7,14 +7,45 @@ const {
 const schema = buildSchema(`
   input Find {
     _id: ID
-    createdBy: String
+    owner: String
+  }
+
+  type Point {
+    type: String!
+    coordinates: [Float]
+  }
+
+  type Commuter {
+    _id: ID!
+    name: String!
+    location: Point
+  }
+
+  type Group {
+    _id: ID!
+    name: String!
+    organization: Organization!
+    commuters: [Commuter]
   }
 
   type Organization {
     _id: ID!
-    createdBy: String!
+    owner: String!
     name: String!
     update(name: String!): Organization
+  }
+
+  type Site {
+    _id: ID!
+    location: Point!
+    organization: Organization!
+  }
+
+  type SiteAnalysis {
+    _id: ID!
+    group: Group!
+    organization: Organization!
+    site: Site!
   }
 
   type Query {
@@ -39,7 +70,7 @@ const rootValue = {
   },
   createOrganization (properties, request) {
     const o = new Organization({
-      createdBy: request.user || 'Trevor',
+      owner: request.user || 'Trevor',
       name: properties.name
     })
     return o.save()
