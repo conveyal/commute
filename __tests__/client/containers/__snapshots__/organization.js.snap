@@ -1,0 +1,11 @@
+exports[`Container > Organization renders correctly 1`] = `
+<Connect(Organization)>
+  <Organization
+    dispatch={[Function]}
+    user={Object {}}>
+    <h1>
+      Organization
+    </h1>
+  </Organization>
+</Connect(Organization)>
+`;

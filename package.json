@@ -25,12 +25,16 @@
   },
   "homepage": "https://github.com/conveyal/commute#readme",
   "devDependencies": {
+    "enzyme": "^2.5.1",
+    "enzyme-to-json": "^1.1.4",
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
     "express-jwt": "^5.1.0",
     "mastarm": "^1.2.1",
     "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.1",
+    "react-addons-test-utils": "^15.3.2",
+    "redux-mock-store": "^1.2.1",
     "semantic-release": "^4.3.5"
   },
   "dependencies": {

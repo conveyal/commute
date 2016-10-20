@@ -1,0 +1,11 @@
+exports[`Container > EditGroup renders correctly 1`] = `
+<Connect(EditGroup)>
+  <EditGroup
+    dispatch={[Function]}
+    user={Object {}}>
+    <h1>
+      Edit Group
+    </h1>
+  </EditGroup>
+</Connect(EditGroup)>
+`;

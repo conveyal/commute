@@ -1,0 +1,11 @@
+exports[`Container > Site renders correctly 1`] = `
+<Connect(Site)>
+  <Site
+    dispatch={[Function]}
+    user={Object {}}>
+    <h1>
+      Site
+    </h1>
+  </Site>
+</Connect(Site)>
+`;
