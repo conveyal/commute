@@ -2,11 +2,13 @@
   "name": "@conveyal/commute",
   "description": "Commute analysis",
   "scripts": {
+    "build": "mastarm build client/index.js:assets/index.js client/index.css:assets/index.css --skip-check-dependencies",
+    "cover": "npm test -- --coverage --coverage-paths \"client/**/*.js server/**/*.js\"",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "start": "npm-run-all --parallel start:client start:server",
     "start:client": "mastarm build client/index.js:assets/index.js client/index.css:assets/index.css --skip-check-dependencies --watch",
     "start:server": "nodemon --watch server server/development.js",
-    "test": "mastarm lint"
+    "test": "mastarm lint --skip-check-dependencies && NODE_ENV=test mastarm test --skip-check-dependencies"
   },
   "repository": {
     "type": "git",

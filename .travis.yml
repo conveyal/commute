@@ -2,15 +2,22 @@ sudo: false
 language: node_js
 cache:
   directories:
-    - node_modules
+    - ~/.yarn-cache
 notifications:
   email: false
 node_js:
   - '6'
 before_install:
   - npm i -g npm@^3 yarn
+  - npm i -g codecov
+before_script:
+  - npm prune
 install:
   - yarn
+script:
+  - npm run cover
+  - codecov
+  - npm run build
 after_success:
   - npm run semantic-release
 branches:
