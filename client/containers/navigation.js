@@ -1,6 +1,6 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 
-import { login, logout } from '../actions/user'
+import {login, logout} from '../actions/user'
 import Navigation from '../components/navigation'
 
 function mapStateToProps (state) {

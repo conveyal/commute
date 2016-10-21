@@ -1,8 +1,7 @@
 exports[`Container > Group renders correctly 1`] = `
 <Connect(Group)>
   <Group
-    dispatch={[Function]}
-    user={Object {}}>
+    dispatch={[Function]}>
     <h1>
       Group
     </h1>

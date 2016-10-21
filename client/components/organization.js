@@ -27,10 +27,30 @@ export default class Organization extends Component {
   }
 }
 
-const ListSites = ({sites}) =>
-  (sites || []).map(({_id, organization, name}) =>
-    <li><Link to={`/organizations/${organization}/sites/${_id}/`}>{name}</Link></li>)
+const ListSites = ({sites}) => {
+  if (sites.length === 0) {
+    return (
+      <p>No sites found</p>
+    )
+  }
+  return (
+    <ul>
+      {(sites || []).map(({_id, organization, name}) =>
+        <li><Link to={`/organizations/${organization}/sites/${_id}/`}>{name}</Link></li>)}
+    </ul>
+  )
+}
 
-const ListGroups = ({groups}) =>
-  (groups || []).map(({_id, organization, name}) =>
-    <li><Link to={`/organizations/${organization}/groups/${_id}`}>{name}</Link></li>)
+const ListGroups = ({groups}) => {
+  if (groups.length === 0) {
+    return (
+      <p>No groups found</p>
+    )
+  }
+  return (
+    <ul>
+      {(groups || []).map(({_id, organization, name}) =>
+        <li><Link to={`/organizations/${organization}/groups/${_id}`}>{name}</Link></li>)}
+    </ul>
+  )
+}

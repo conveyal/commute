@@ -5,9 +5,16 @@ import { mountToJson } from 'enzyme-to-json'
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import { makeMockStore, mockStoreData } from '../../../test-utils/mock-store.js'
+import { makeMockStore, mockStoreData } from '../../test-utils/mock-store.js'
 
 import Organization from '../../../client/containers/organization'
+
+mockStoreData.organization.currentOrganization = {
+  id: '1',
+  groups: [],
+  name: 'Mock Organization',
+  sites: []
+}
 
 const mockStore = makeMockStore(mockStoreData)
 

@@ -2,10 +2,43 @@ exports[`Container > Organizations renders correctly 1`] = `
 <Connect(Organizations)>
   <Organizations
     dispatch={[Function]}
-    user={Object {}}>
-    <h1>
-      Organizations
-    </h1>
+    organizations={Array []}>
+    <div>
+      <h1>
+        <Link
+          onlyActiveOnIndex={false}
+          style={Object {}}
+          to="/organizations/create">
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            <pure(Icon)
+              type="object-shield">
+              <i
+                className="fa fa-object-shield fa-fw " />
+            </pure(Icon)>
+          </a>
+        </Link>
+      </h1>
+      <p>
+        <pure(Icon)
+          type="building">
+          <i
+            className="fa fa-building fa-fw " />
+        </pure(Icon)>
+        <pure(Icon)
+          type="users">
+          <i
+            className="fa fa-users fa-fw " />
+        </pure(Icon)>
+      </p>
+      <OrganizationsList
+        organizations={Array []}>
+        <p>
+          No organizations found
+        </p>
+      </OrganizationsList>
+    </div>
   </Organizations>
 </Connect(Organizations)>
 `;

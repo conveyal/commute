@@ -1,8 +1,7 @@
 exports[`Container > EditSite renders correctly 1`] = `
 <Connect(EditSite)>
   <EditSite
-    dispatch={[Function]}
-    user={Object {}}>
+    dispatch={[Function]}>
     <h1>
       Edit Site
     </h1>

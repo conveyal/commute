@@ -1,11 +1,74 @@
 exports[`Container > Organization renders correctly 1`] = `
 <Connect(Organization)>
   <Organization
+    _id="1"
     dispatch={[Function]}
-    user={Object {}}>
-    <h1>
-      Organization
-    </h1>
+    groups={Array []}
+    name="Mock Organization"
+    sites={Array []}>
+    <div>
+      <h1>
+        <pure(Icon)
+          type="object-ungroup">
+          <i
+            className="fa fa-object-ungroup fa-fw " />
+        </pure(Icon)>
+      </h1>
+      <p>
+        Below are this organizations sites and commuter groups.
+      </p>
+      <h1>
+        <Link
+          onlyActiveOnIndex={false}
+          style={Object {}}
+          to="/organizations/1/sites/create">
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            <pure(Icon)
+              type="building">
+              <i
+                className="fa fa-building fa-fw " />
+            </pure(Icon)>
+          </a>
+        </Link>
+      </h1>
+      <p>
+        A site is a location of a building or new address that you want to use as the centerpoint of your commutes.
+      </p>
+      <ul>
+        <ListSites
+          sites={Array []}>
+          <p>
+            No sites found
+          </p>
+        </ListSites>
+      </ul>
+      <h1>
+        <Link
+          onlyActiveOnIndex={false}
+          style={Object {}}
+          to="/organizations/1/groups/create">
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            <pure(Icon)
+              type="users">
+              <i
+                className="fa fa-users fa-fw " />
+            </pure(Icon)>
+          </a>
+        </Link>
+      </h1>
+      <ul>
+        <ListGroups
+          groups={Array []}>
+          <p>
+            No groups found
+          </p>
+        </ListGroups>
+      </ul>
+    </div>
   </Organization>
 </Connect(Organization)>
 `;

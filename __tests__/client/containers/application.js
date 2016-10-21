@@ -4,7 +4,7 @@ import { mount } from 'enzyme'
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import { makeMockStore, mockStoreData } from '../../../test-utils/mock-store.js'
+import { makeMockStore, mockStoreData } from '../../test-utils/mock-store.js'
 
 import Application from '../../../client/containers/application'
 

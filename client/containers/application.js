@@ -1,10 +1,10 @@
-import { connect } from 'react-redux'
-import { refreshUser } from 'mastarm/react/auth0'
+import {connect} from 'react-redux'
+import {refreshUser} from 'mastarm/react/auth0'
 
 import Application from '../components/application'
 
 function mapStateToProps (state) {
-  return state
+  return {}
 }
 
 function mapDispatchToProps (dispatch) {

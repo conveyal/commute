@@ -4,5 +4,10 @@ import promise from 'redux-promise'
 export const makeMockStore = configureStore([promise])
 
 export const mockStoreData = {
-  user: {}
+  user: {},
+  organization: {
+    currentOrganization: null,
+    organizations: [],
+    organizationsById: {}
+  }
 }

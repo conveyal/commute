@@ -12,14 +12,24 @@ export default class Organizations extends Component {
     const {organizations} = this.props
     return (
       <div>
-        <h1><Link to='/organizations/create'>Create a new organization <Icon type='object-ungroup' /></Link></h1>
+        <h1><Link to='/organizations/create'>Create a new organization <Icon type='object-shield' /></Link></h1>
         <p>An organization is a collection of sites <Icon type='building' /> and commuters <Icon type='users' />.</p>
-        <ul><OrganizationsList organizations={organizations} /></ul>
+        <OrganizationsList organizations={organizations} />
       </div>
     )
   }
 }
 
-const OrganizationsList = ({organizations}) =>
-  (organizations || []).map(({_id, name}) =>
-    <li><Link to={`/organizations/${_id}`}>{name}</Link></li>)
+const OrganizationsList = ({organizations}) => {
+  if (organizations.length === 0) {
+    return (
+      <p>No organizations found</p>
+    )
+  }
+  return (
+    <ul>
+      {(organizations || []).map(({_id, name}) =>
+        <li><Link to={`/organizations/${_id}`}>{name}</Link></li>)}
+    </ul>
+  )
+}

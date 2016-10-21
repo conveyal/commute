@@ -1,0 +1,19 @@
+exports[`client > reducers > organization should handle default state 1`] = `
+Object {
+  "currentOrganization": null,
+  "organizations": Array [],
+  "organizationsById": Object {},
+}
+`;
+
+exports[`client > reducers > organization should handle set organizations 1`] = `
+Object {
+  "currentOrganization": null,
+  "organizations": Array [
+    Object {},
+  ],
+  "organizationsById": Object {
+    "undefined": Object {},
+  },
+}
+`;

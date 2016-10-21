@@ -1,0 +1,7 @@
+exports[`utils > reducers arrayToObj should work 1`] = `
+Object {
+  "1": Object {
+    "id": "1",
+  },
+}
+`;
