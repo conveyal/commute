@@ -1,7 +1,11 @@
 import React, {Component, PropTypes} from 'react'
 
+import Footer from '../components/footer'
+import Navigation from '../containers/navigation'
+
 export default class Application extends Component {
   static propTypes = {
+    // actions
     refreshUserToken: PropTypes.func.isRequired
   }
 
@@ -13,8 +17,9 @@ export default class Application extends Component {
     const {children} = this.props
     return (
       <div>
-        <h1>Hello World</h1>
+        <Navigation />
         {children}
+        <Footer />
       </div>
     )
   }

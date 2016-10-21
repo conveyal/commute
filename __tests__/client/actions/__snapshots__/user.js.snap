@@ -1,0 +1,11 @@
+exports[`actions > user login should work 1`] = `
+Object {
+  "type": "log in",
+}
+`;
+
+exports[`actions > user logout should work 1`] = `
+Object {
+  "type": "log out",
+}
+`;
