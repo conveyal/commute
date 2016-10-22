@@ -1,13 +1,13 @@
 /* global describe, expect, it */
 
-import * as map from '../../../client/actions/user'
+import * as user from '../../../client/actions/user'
 
 describe('actions > user', () => {
   it('login should work', () => {
-    expect(map.login()).toMatchSnapshot()
+    expect(user.login()).toMatchSnapshot()
   })
 
   it('logout should work', () => {
-    expect(map.logout()).toMatchSnapshot()
+    expect(user.logout()).toMatchSnapshot()
   })
 })

@@ -50,7 +50,8 @@
     "react-router-redux": "^4.0.6",
     "recompose": "^0.20.2",
     "redux": "^3.6.0",
-    "redux-actions": "^0.12.0"
+    "redux-actions": "^0.12.0",
+    "uuid": "^2.0.3"
   },
   "standard": {
     "parser": "babel-eslint"

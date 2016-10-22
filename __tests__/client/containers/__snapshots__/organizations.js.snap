@@ -3,42 +3,98 @@ exports[`Container > Organizations renders correctly 1`] = `
   <Organizations
     dispatch={[Function]}
     organizations={Array []}>
-    <div>
-      <h1>
-        <Link
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/organizations/create">
-          <a
-            onClick={[Function]}
-            style={Object {}}>
-            <pure(Icon)
-              type="object-shield">
-              <i
-                className="fa fa-object-shield fa-fw " />
-            </pure(Icon)>
-          </a>
-        </Link>
-      </h1>
-      <p>
-        <pure(Icon)
-          type="building">
-          <i
-            className="fa fa-building fa-fw " />
-        </pure(Icon)>
-        <pure(Icon)
-          type="users">
-          <i
-            className="fa fa-users fa-fw " />
-        </pure(Icon)>
-      </p>
-      <OrganizationsList
-        organizations={Array []}>
-        <p>
-          No organizations found
-        </p>
-      </OrganizationsList>
-    </div>
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}>
+      <div
+        className="container">
+        <Row
+          bsClass="row"
+          componentClass="div">
+          <div
+            className="row">
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <h2>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/organizations/create">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <pure(Icon)
+                            type="shield">
+                            <i
+                              className="fa fa-shield fa-fw " />
+                          </pure(Icon)>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h2>
+                <p>
+                  <pure(Icon)
+                    type="building">
+                    <i
+                      className="fa fa-building fa-fw " />
+                  </pure(Icon)>
+                  <pure(Icon)
+                    type="users">
+                    <i
+                      className="fa fa-users fa-fw " />
+                  </pure(Icon)>
+                </p>
+                <OrganizationsList
+                  organizations={Array []}>
+                  <table
+                    className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Sites
+                        </th>
+                        <th>
+                          Groups
+                        </th>
+                        <th />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td
+                          colSpan={4}>
+                          No Organizations have been created yet.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </OrganizationsList>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </div>
+    </Grid>
   </Organizations>
 </Connect(Organizations)>
 `;

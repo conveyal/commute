@@ -1,0 +1,22 @@
+exports[`actions > organization create should work 1`] = `
+Object {
+  "payload": Object {
+    "groups": Array [],
+    "name": "mockOrg",
+    "sites": Array [],
+  },
+  "type": "add organization",
+}
+`;
+
+exports[`actions > organization create should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

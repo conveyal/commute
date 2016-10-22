@@ -1,6 +1,6 @@
 /* globals describe, expect, it */
 
-import { handleActions } from 'redux-actions'
+import {handleActions} from 'redux-actions'
 
 import * as organization from '../../../client/reducers/organization'
 
@@ -13,8 +13,13 @@ describe('client > reducers > organization', () => {
   })
 
   // Specific Handler Tests
+  it('should handle add organization', () => {
+    const action = { type: 'add organization', payload: { id: 1 } }
+    expect(reducer(undefined, action)).toMatchSnapshot()
+  })
+
   it('should handle set organizations', () => {
-    const action = { type: 'set organizations', payload: {} }
+    const action = { type: 'set organizations', payload: [{ id: 1 }] }
     expect(reducer(undefined, action)).toMatchSnapshot()
   })
 })

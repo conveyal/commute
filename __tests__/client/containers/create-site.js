@@ -1,11 +1,11 @@
 /* global describe, expect, it */
 
-import { mount } from 'enzyme'
-import { mountToJson } from 'enzyme-to-json'
+import {mount} from 'enzyme'
+import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 
-import { makeMockStore, mockStoreData } from '../../test-utils/mock-store.js'
+import {makeMockStore, mockStoreData} from '../../test-utils/mock-store.js'
 
 import CreateSite from '../../../client/containers/create-site'
 

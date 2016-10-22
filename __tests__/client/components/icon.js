@@ -1,7 +1,7 @@
 /* global describe, expect, it */
 
-import { mount } from 'enzyme'
-import { mountToJson } from 'enzyme-to-json'
+import {mount} from 'enzyme'
+import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 
 import Icon from '../../../client/components/icon'

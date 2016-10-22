@@ -1,6 +1,6 @@
 /* globals describe, expect, it */
 
-import { handleActions } from 'redux-actions'
+import {handleActions} from 'redux-actions'
 
 import * as user from '../../../client/reducers/user'
 
@@ -19,12 +19,12 @@ describe('client > reducers > user', () => {
   })
 
   it('should handle set auth0 user', () => {
-    const action = { type: 'set auth0 user', payload: {} }
+    const action = { type: 'set auth0 user', payload: { id: 1 } }
     expect(reducer(undefined, action)).toMatchSnapshot()
   })
 
   it('should handle set id token', () => {
-    const action = { type: 'set id token', payload: {} }
+    const action = { type: 'set id token', payload: 'abcd' }
     expect(reducer(undefined, action)).toMatchSnapshot()
   })
 })
