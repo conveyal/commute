@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, HelpBlock, Row} from 'react-bootstrap'
+import {Button, Col, Grid, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
 
+import FieldGroup from './fieldgroup'
 import Icon from './icon'
 
 export default class CreateOrganization extends Component {
@@ -72,14 +73,3 @@ export default class CreateOrganization extends Component {
     )
   }
 }
-
-const FieldGroup = ({ help, label, name, ...props }) => (
-  <FormGroup controlId={`create-org-${name}`}>
-    <ControlLabel>{label}</ControlLabel>
-    <FormControl
-      {...props}
-      onChange={(e) => props.onChange(name, e)}
-      />
-    {help && <HelpBlock>{help}</HelpBlock>}
-  </FormGroup>
-)

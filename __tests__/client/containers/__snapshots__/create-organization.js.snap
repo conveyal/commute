@@ -84,7 +84,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                     type="text">
                     <FormGroup
                       bsClass="form-group"
-                      controlId="create-org-name">
+                      controlId="group-item-name">
                       <div
                         className="form-group">
                         <ControlLabel
@@ -92,7 +92,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           srOnly={false}>
                           <label
                             className="control-label"
-                            htmlFor="create-org-name">
+                            htmlFor="group-item-name">
                             Name
                           </label>
                         </ControlLabel>
@@ -104,7 +104,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           type="text">
                           <input
                             className="form-control"
-                            id="create-org-name"
+                            id="group-item-name"
                             onChange={[Function]}
                             placeholder="Enter name"
                             type="text" />
@@ -120,7 +120,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                     type="text">
                     <FormGroup
                       bsClass="form-group"
-                      controlId="create-org-main_url">
+                      controlId="group-item-main_url">
                       <div
                         className="form-group">
                         <ControlLabel
@@ -128,7 +128,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           srOnly={false}>
                           <label
                             className="control-label"
-                            htmlFor="create-org-main_url">
+                            htmlFor="group-item-main_url">
                             Main URL
                           </label>
                         </ControlLabel>
@@ -140,7 +140,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           type="text">
                           <input
                             className="form-control"
-                            id="create-org-main_url"
+                            id="group-item-main_url"
                             onChange={[Function]}
                             placeholder="Enter url"
                             type="text" />
@@ -156,7 +156,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                     type="text">
                     <FormGroup
                       bsClass="form-group"
-                      controlId="create-org-logo_url">
+                      controlId="group-item-logo_url">
                       <div
                         className="form-group">
                         <ControlLabel
@@ -164,7 +164,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           srOnly={false}>
                           <label
                             className="control-label"
-                            htmlFor="create-org-logo_url">
+                            htmlFor="group-item-logo_url">
                             Logo URL
                           </label>
                         </ControlLabel>
@@ -176,7 +176,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           type="text">
                           <input
                             className="form-control"
-                            id="create-org-logo_url"
+                            id="group-item-logo_url"
                             onChange={[Function]}
                             placeholder="Enter logo url"
                             type="text" />
@@ -192,7 +192,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                     type="text">
                     <FormGroup
                       bsClass="form-group"
-                      controlId="create-org-contact">
+                      controlId="group-item-contact">
                       <div
                         className="form-group">
                         <ControlLabel
@@ -200,7 +200,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           srOnly={false}>
                           <label
                             className="control-label"
-                            htmlFor="create-org-contact">
+                            htmlFor="group-item-contact">
                             Contact
                           </label>
                         </ControlLabel>
@@ -212,7 +212,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           type="text">
                           <input
                             className="form-control"
-                            id="create-org-contact"
+                            id="group-item-contact"
                             onChange={[Function]}
                             placeholder="Enter contact"
                             type="text" />
@@ -228,7 +228,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                     type="text">
                     <FormGroup
                       bsClass="form-group"
-                      controlId="create-org-email">
+                      controlId="group-item-email">
                       <div
                         className="form-group">
                         <ControlLabel
@@ -236,7 +236,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           srOnly={false}>
                           <label
                             className="control-label"
-                            htmlFor="create-org-email">
+                            htmlFor="group-item-email">
                             Email
                           </label>
                         </ControlLabel>
@@ -248,7 +248,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
                           type="text">
                           <input
                             className="form-control"
-                            id="create-org-email"
+                            id="group-item-email"
                             onChange={[Function]}
                             placeholder="Enter email"
                             type="text" />
@@ -282,7 +282,7 @@ exports[`Container > CreateOrganization renders correctly 1`] = `
 </Connect(CreateOrganization)>
 `;
 
-exports[`actions > organization create should work 1`] = `
+exports[`actions > organization create organization should work 1`] = `
 Object {
   "payload": Object {
     "groups": Array [],
@@ -293,11 +293,33 @@ Object {
 }
 `;
 
-exports[`actions > organization create should work 2`] = `
+exports[`actions > organization create organization should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
       "/",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > organization create site should work 1`] = `
+Object {
+  "payload": Object {
+    "name": "mockSite",
+    "organizationId": "1",
+  },
+  "type": "add site",
+}
+`;
+
+exports[`actions > organization create site should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/1",
     ],
     "method": "push",
   },

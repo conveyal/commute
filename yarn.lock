@@ -1615,7 +1615,7 @@ circular-json@^0.3.0:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
-classnames@^2.1.2, classnames@^2.2.5:
+classnames@^2.1.2, classnames@^2.2.4, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -3754,6 +3754,14 @@ isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
 
+isomorphic-mapzen-search@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/isomorphic-mapzen-search/-/isomorphic-mapzen-search-0.0.4.tgz#22f34672b461df7c06fc71a9933260eb3e29428f"
+  dependencies:
+    isomorphic-fetch "^2.2.1"
+    lonlng "0.1.0"
+    qs "^6.2.0"
+
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -4642,6 +4650,10 @@ log-symbols@^1.0.2:
 longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
+
+lonlng@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/lonlng/-/lonlng-0.1.0.tgz#dadb99421275b5d780f8a22fdcadbb93bf42d2cd"
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0:
   version "1.2.0"
@@ -5958,7 +5970,7 @@ q@^1.1.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.4.1.tgz#55705bcd93c5f3673530c2c2cbc0c2b3addc286e"
 
-qs@^6.2.1:
+qs@^6.2.0, qs@^6.2.1:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"
 
@@ -6065,6 +6077,10 @@ react-bootstrap-table:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
+react-input-autosize@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
+
 react-overlays@^0.6.10:
   version "0.6.10"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.6.10.tgz#e7e52dad47f00a0fc784eb044428c3a9e874bfa3"
@@ -6079,6 +6095,10 @@ react-prop-types@^0.4.0:
   resolved "https://registry.yarnpkg.com/react-prop-types/-/react-prop-types-0.4.0.tgz#f99b0bfb4006929c9af2051e7c1414a5c75b93d0"
   dependencies:
     warning "^3.0.0"
+
+react-pure-render@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-pure-render/-/react-pure-render-1.0.2.tgz#9d8a928c7f2c37513c2d064e57b3e3c356e9fabb"
 
 react-redux@^4.4.5:
   version "4.4.5"
@@ -6102,6 +6122,22 @@ react-router@^2.8.1:
     invariant "^2.2.1"
     loose-envify "^1.2.0"
     warning "^3.0.0"
+
+react-select-geocoder:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-select-geocoder/-/react-select-geocoder-0.2.1.tgz#8c76f553d8cd6c13bba5a5513fb0f791f1fbd389"
+  dependencies:
+    isomorphic-mapzen-search "^0.0.4"
+    react-pure-render "^1.0.2"
+    react-select "^1.0.0-beta14"
+    throttleit "^1.0.0"
+
+react-select@^1.0.0-beta14:
+  version "1.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.2.tgz#9fc11b149a3dc1ac831289d21b40a59742f82f8d"
+  dependencies:
+    classnames "^2.2.4"
+    react-input-autosize "^1.1.0"
 
 react-toastr@^2.8.0:
   version "2.8.1"
@@ -7131,6 +7167,10 @@ text-table@~0.2.0:
 throat@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-3.0.0.tgz#e7c64c867cbb3845f10877642f7b60055b8ec0d6"
+
+throttleit@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/throttleit/-/throttleit-1.0.0.tgz#9e785836daf46743145a5984b6268d828528ac6c"
 
 through@^2.3.6, through@^2.3.7, "through@>=2.2.7 <3", through@~2.3, through@~2.3.1, through@~2.3.4, through@2:
   version "2.3.8"

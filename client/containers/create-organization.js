@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import {create} from '../actions/organization'
+import {createOrganization as createOrganizationAction} from '../actions/organization'
 import CreateOrganization from '../components/create-organization'
 
 function mapStateToProps (state) {
@@ -9,7 +9,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts) => dispatch(create(opts))
+    create: (opts) => dispatch(createOrganizationAction(opts))
   }
 }
 

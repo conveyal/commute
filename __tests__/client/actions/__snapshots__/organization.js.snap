@@ -1,4 +1,4 @@
-exports[`actions > organization create should work 1`] = `
+exports[`actions > organization create organization should work 1`] = `
 Object {
   "payload": Object {
     "groups": Array [],
@@ -9,11 +9,33 @@ Object {
 }
 `;
 
-exports[`actions > organization create should work 2`] = `
+exports[`actions > organization create organization should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
       "/",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > organization create site should work 1`] = `
+Object {
+  "payload": Object {
+    "name": "mockSite",
+    "organizationId": "1",
+  },
+  "type": "add site",
+}
+`;
+
+exports[`actions > organization create site should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/1",
     ],
     "method": "push",
   },

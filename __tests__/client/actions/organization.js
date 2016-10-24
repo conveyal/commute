@@ -3,11 +3,21 @@
 import * as organization from '../../../client/actions/organization'
 
 describe('actions > organization', () => {
-  it('create should work', () => {
+  it('create organization should work', () => {
     const fieldData = {
       name: 'mockOrg'
     }
-    const result = organization.create(fieldData)
+    const result = organization.createOrganization(fieldData)
+
+    expectCreateAction(result)
+  })
+
+  it('create site should work', () => {
+    const fieldData = {
+      name: 'mockSite',
+      organizationId: '1'
+    }
+    const result = organization.createSite(fieldData)
 
     expectCreateAction(result)
   })

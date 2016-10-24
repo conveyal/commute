@@ -33,7 +33,7 @@ describe('Container > CreateOrganization', () => {
       </Provider>
     )
 
-    // give each text field some input`
+    // give each text field some input
     tree.find('input').map((input) => input.simulate('change', {target: {value: 'My new value'}}))
 
     // submit form
