@@ -1,8 +1,10 @@
 import React, {Component, PropTypes} from 'react'
 import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
 import Icon from './icon'
+import {arrayCountRenderer} from '../utils/table'
 
 export default class Organizations extends Component {
   static propTypes = {
@@ -21,7 +23,12 @@ export default class Organizations extends Component {
               </Button>
             </h2>
             <p>An organization is a collection of sites <Icon type='building' /> and commuters <Icon type='users' />.</p>
-            <OrganizationsList organizations={organizations} />
+            <BootstrapTable data={organizations}>
+              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='name' dataFormat={nameRenderer}>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField='sites' dataFormat={arrayCountRenderer}>Sites</TableHeaderColumn>
+              <TableHeaderColumn dataField='groups' dataFormat={arrayCountRenderer}>Groups</TableHeaderColumn>
+            </BootstrapTable>
           </Col>
         </Row>
       </Grid>
@@ -29,32 +36,6 @@ export default class Organizations extends Component {
   }
 }
 
-const OrganizationsList = ({organizations}) => (
-  <table className='table table-striped'>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Sites</th>
-        <th>Groups</th>
-        <th />
-      </tr>
-    </thead>
-    <tbody>
-      {organizations.length === 0 &&
-        <tr>
-          <td colSpan={4}>No Organizations have been created yet.</td>
-        </tr>
-      }
-      {organizations.length > 0 &&
-        organizations.map(({id, groups, name, sites}, idx) =>
-          <tr key={idx}>
-            <td><Link to={`/organizations/${id}`}>{name}</Link></td>
-            <td>{sites.length}</td>
-            <td>{groups.length}</td>
-            <td />
-          </tr>
-        )
-      }
-    </tbody>
-  </table>
-)
+const nameRenderer = (cell, row) => {
+  return <Link to={`/organizations/${row.id}`}>{cell}</Link>
+}

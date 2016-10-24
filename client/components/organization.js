@@ -1,7 +1,10 @@
 import React, {Component, PropTypes} from 'react'
+import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
 import Icon from './icon'
+import {arrayCountRenderer} from '../utils/table'
 
 export default class Organization extends Component {
   static propTypes = {
@@ -13,44 +16,43 @@ export default class Organization extends Component {
 
   render () {
     const {_id, groups, name, sites} = this.props
+    const siteNameRenderer = (cell, row) => {
+      return <Link to={`/organizations/${_id}/sites/${row.id}/`}>{row.name}</Link>
+    }
+    const groupNameRenderer = (cell, row) => {
+      return <Link to={`/organizations/${_id}/groups/${row.id}`}>{row.name}</Link>
+    }
     return (
-      <div>
-        <h1>{name} <Icon type='object-ungroup' /></h1>
-        <p>Below are this organization's sites and commuter groups.</p>
-        <h1><Link to={`/organizations/${_id}/sites/create`}>Create a new site <Icon type='building' /></Link></h1>
-        <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
-        <ul><ListSites sites={sites} /></ul>
-        <h1><Link to={`/organizations/${_id}/groups/create`}>Create a new group <Icon type='users' /></Link></h1>
-        <ul><ListGroups groups={groups} /></ul>
-      </div>
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <h2><Icon type='shield' />{name}</h2>
+            <p>Below are this organization's sites and commuter groups.</p>
+            <h3>Sites
+              <Button className='pull-right'>
+                <Link to={`/organizations/${_id}/sites/create`}>Create a new site <Icon type='building' /></Link>
+              </Button>
+            </h3>
+            <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
+            <BootstrapTable data={sites}>
+              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='name' dataFormat={siteNameRenderer}>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+            </BootstrapTable>
+            <h3>Commuter Groups
+              <Button className='pull-right'>
+                <Link to={`/organizations/${_id}/groups/create`}>Create a new group <Icon type='users' /></Link>
+              </Button>
+            </h3>
+            <p>A commuter group is a list of commuters that can commute to a particular site.</p>
+            <BootstrapTable data={groups}>
+              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='name' dataFormat={groupNameRenderer}>Name</TableHeaderColumn>
+              <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}>Sites</TableHeaderColumn>
+            </BootstrapTable>
+          </Col>
+        </Row>
+      </Grid>
     )
   }
-}
-
-const ListSites = ({sites}) => {
-  if (sites.length === 0) {
-    return (
-      <p>No sites found</p>
-    )
-  }
-  return (
-    <ul>
-      {(sites || []).map(({_id, organization, name}) =>
-        <li><Link to={`/organizations/${organization}/sites/${_id}/`}>{name}</Link></li>)}
-    </ul>
-  )
-}
-
-const ListGroups = ({groups}) => {
-  if (groups.length === 0) {
-    return (
-      <p>No groups found</p>
-    )
-  }
-  return (
-    <ul>
-      {(groups || []).map(({_id, organization, name}) =>
-        <li><Link to={`/organizations/${organization}/groups/${_id}`}>{name}</Link></li>)}
-    </ul>
-  )
 }

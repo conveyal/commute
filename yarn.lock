@@ -1615,7 +1615,7 @@ circular-json@^0.3.0:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
-classnames@^2.2.5:
+classnames@^2.1.2, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -2279,6 +2279,10 @@ ecdsa-sig-formatter@^1.0.0:
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
+
+element-class@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/element-class/-/element-class-0.2.2.tgz#9d3bbd0767f9013ef8e1c8ebe722c1402a60050e"
 
 elliptic@^6.0.0:
   version "6.3.2"
@@ -4617,7 +4621,7 @@ lodash@^3.6.0, lodash@^3.9.3:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.1.0, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.8.0:
+lodash@^4.0.0, lodash@^4.1.0, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.16.1, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.8.0:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
 
@@ -6032,6 +6036,10 @@ react-addons-test-utils:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.3.2.tgz#c09a44f583425a4a9c1b38444d7a6c3e6f0f41f6"
 
+"react-addons-update@^0.14.0 || ^15.0.0":
+  version "15.3.2"
+  resolved "https://registry.yarnpkg.com/react-addons-update/-/react-addons-update-15.3.2.tgz#b6385c4db1e5df371825e0615b04360ed94430fe"
+
 react-bootstrap:
   version "0.30.5"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.30.5.tgz#22d9bdab13b9eec04918206602709e1c8a0d76e2"
@@ -6046,7 +6054,14 @@ react-bootstrap:
     uncontrollable "^4.0.1"
     warning "^3.0.0"
 
-"react-dom@^15.0.0 || ^16.0.0", react-dom@^15.3.2:
+react-bootstrap-table:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-table/-/react-bootstrap-table-2.5.6.tgz#4a7fe78d2ab9d4b7ff86e460f13cc02637f66457"
+  dependencies:
+    classnames "^2.1.2"
+    react-toastr "^2.8.0"
+
+"react-dom@^0.14.0 || ^15.0.0", "react-dom@^15.0.0 || ^16.0.0", react-dom@^15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
@@ -6087,6 +6102,16 @@ react-router@^2.8.1:
     invariant "^2.2.1"
     loose-envify "^1.2.0"
     warning "^3.0.0"
+
+react-toastr@^2.8.0:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/react-toastr/-/react-toastr-2.8.1.tgz#17dfbccf37caec55e165b712e70fb35e6940205b"
+  dependencies:
+    classnames "^2.2.5"
+    element-class "^0.2.2"
+    lodash "^4.16.1"
+    react-addons-update "^0.14.0 || ^15.0.0"
+    react-dom "^0.14.0 || ^15.0.0"
 
 "react@^15.0.0 || ^16.0.0", react@^15.3.2:
   version "15.3.2"

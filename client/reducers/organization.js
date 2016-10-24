@@ -20,7 +20,6 @@ export const reducers = {
 }
 
 export const initialState = {
-  currentOrganization: null,
   organizations: [],
   organizationsById: {}
 }

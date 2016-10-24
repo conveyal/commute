@@ -5,25 +5,30 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {makeMockStore, mockStoreData} from '../../test-utils/mock-store.js'
+import {makeMockStore, mockStores} from '../../test-utils/mock-store.js'
 
 import Organization from '../../../client/containers/organization'
 
-mockStoreData.organization.currentOrganization = {
-  id: '1',
-  groups: [],
-  name: 'Mock Organization',
-  sites: []
-}
-
-const mockStore = makeMockStore(mockStoreData)
-
 describe('Container > Organization', () => {
-  it('renders correctly', () => {
+  it('renders correctly with simple organization', () => {
     // mount component
     const tree = mount(
-      <Provider store={mockStore}>
-        <Organization />
+      <Provider store={makeMockStore(mockStores.oneSimpleOrganization)}>
+        <Organization
+          params={{organizationId: '1'}}
+          />
+      </Provider>
+    )
+    expect(mountToJson(tree.find(Organization))).toMatchSnapshot()
+  })
+
+  it('renders correctly with complex organization', () => {
+    // mount component
+    const tree = mount(
+      <Provider store={makeMockStore(mockStores.complexOrganization)}>
+        <Organization
+          params={{organizationId: '1'}}
+          />
       </Provider>
     )
     expect(mountToJson(tree.find(Organization))).toMatchSnapshot()

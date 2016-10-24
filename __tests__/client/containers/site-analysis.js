@@ -5,11 +5,11 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {makeMockStore, mockStoreData} from '../../test-utils/mock-store.js'
+import {makeMockStore, mockStores} from '../../test-utils/mock-store.js'
 
 import SiteAnalysis from '../../../client/containers/site-analysis'
 
-const mockStore = makeMockStore(mockStoreData)
+const mockStore = makeMockStore(mockStores.init)
 
 describe('Container > SiteAnalysis', () => {
   it('renders correctly', () => {

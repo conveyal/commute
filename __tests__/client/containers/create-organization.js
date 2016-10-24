@@ -6,13 +6,13 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {expectCreateAction} from '../actions/organization'
-import {makeMockStore, mockStoreData} from '../../test-utils/mock-store.js'
+import {makeMockStore, mockStores} from '../../test-utils/mock-store.js'
 
 import CreateOrganization from '../../../client/containers/create-organization'
 
 describe('Container > CreateOrganization', () => {
   it('renders correctly', () => {
-    const mockStore = makeMockStore(mockStoreData)
+    const mockStore = makeMockStore(mockStores.init)
 
     // mount component
     const tree = mount(
@@ -24,7 +24,7 @@ describe('Container > CreateOrganization', () => {
   })
 
   it('can create an organization', () => {
-    const mockStore = makeMockStore(mockStoreData)
+    const mockStore = makeMockStore(mockStores.init)
 
     // mount component
     const tree = mount(

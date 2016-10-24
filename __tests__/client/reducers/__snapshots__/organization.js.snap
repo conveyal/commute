@@ -1,6 +1,5 @@
 exports[`client > reducers > organization should handle add organization 1`] = `
 Object {
-  "currentOrganization": null,
   "organizations": Array [
     Object {
       "id": 1,
@@ -16,7 +15,6 @@ Object {
 
 exports[`client > reducers > organization should handle default state 1`] = `
 Object {
-  "currentOrganization": null,
   "organizations": Array [],
   "organizationsById": Object {},
 }
@@ -24,7 +22,6 @@ Object {
 
 exports[`client > reducers > organization should handle set organizations 1`] = `
 Object {
-  "currentOrganization": null,
   "organizations": Array [
     Array [
       Object {

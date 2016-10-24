@@ -4,7 +4,9 @@ import Organization from '../components/organization'
 
 function mapStateToProps (state, props) {
   const {organization} = state
-  const {id: _id, groups, name, sites} = organization.currentOrganization
+  const {params} = props
+  const currentOrganization = organization.organizationsById[params.organizationId]
+  const {id: _id, groups, name, sites} = currentOrganization
   return {_id, groups, name, sites}
 }
 
