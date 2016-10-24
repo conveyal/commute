@@ -8,7 +8,9 @@
     "start": "npm-run-all --parallel start:client start:server",
     "start:client": "mastarm build client/index.js:assets/index.js client/index.css:assets/index.css --skip-check-dependencies --watch",
     "start:server": "nodemon --watch server server/development.js",
-    "test": "mastarm lint --skip-check-dependencies && NODE_ENV=test mastarm test --skip-check-dependencies"
+    "pretest": "node __tests__/test-utils/setup-teardown.js setup",
+    "test": "mastarm lint --skip-check-dependencies && NODE_ENV=test mastarm test --skip-check-dependencies",
+    "posttest": "node __tests__/test-utils/setup-teardown.js teardown"
   },
   "repository": {
     "type": "git",
@@ -25,16 +27,19 @@
   },
   "homepage": "https://github.com/conveyal/commute#readme",
   "devDependencies": {
+    "buffer-equal-constant-time": "^1.0.1",
     "enzyme": "^2.5.1",
     "enzyme-to-json": "^1.1.4",
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
     "express-jwt": "^5.1.0",
+    "fs-extra": "^0.30.0",
     "mastarm": "^1.2.1",
     "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.1",
     "react-addons-test-utils": "^15.3.2",
     "redux-mock-store": "^1.2.1",
+    "rimraf": "^2.5.4",
     "semantic-release": "^4.3.5"
   },
   "dependencies": {

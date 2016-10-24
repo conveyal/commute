@@ -120,13 +120,13 @@ exports[`Container > CreateSite renders correctly 1`] = `
                     </FormGroup>
                   </FieldGroup>
                   <Geocoder
-                    apiKey={undefined}
+                    apiKey="test-search-key"
                     featureToLabel={[Function]}
                     featureToValue={[Function]}
                     onChange={[Function]}
                     search={[Function]}>
                     <Async
-                      apiKey={undefined}
+                      apiKey="test-search-key"
                       autoload={false}
                       cache={Object {}}
                       cacheAsyncResults={false}
@@ -145,7 +145,7 @@ exports[`Container > CreateSite renders correctly 1`] = `
                       value={null}>
                       <Select
                         addLabelText="Add \"{label}\"?"
-                        apiKey={undefined}
+                        apiKey="test-search-key"
                         arrowRenderer={[Function]}
                         autoload={false}
                         autosize={true}

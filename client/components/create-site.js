@@ -47,7 +47,7 @@ export default class CreateSite extends Component {
                 type='text'
                 />
               <Geocoder
-                apiKey={process.env.MAPZEN_KEY}
+                apiKey={process.env.MAPZEN_SEARCH_KEY}
                 onChange={this.handleGeocoderChange}
                 />
               <FieldGroup

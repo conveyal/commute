@@ -25,9 +25,9 @@ const ApplicationRouter = ({history}) => (
     <Route path='/' component={Application}>
       <IndexRoute component={Organizations} />
       <Route path='/organizations/create' component={CreateOrganization} />
+      <Route path='/organizations/:organizationId/sites/create' component={CreateSite} />
       <Route path='/organizations/:organizationId' component={Organization}>
         <Route path='edit' component={EditOrganization} />
-        <Route path='sites/create' component={CreateSite} />
         <Route path='sites/:siteId' component={Site}>
           <Route path='edit' component={EditSite} />
           <Route path='analysis/create' component={CreateSiteAnalysis} />
