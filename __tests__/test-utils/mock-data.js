@@ -4,7 +4,7 @@ import promise from 'redux-promise'
 
 export const makeMockStore = configureStore([multi, promise])
 
-const simpleOrganization = {
+export const simpleOrganization = {
   id: '1',
   contact: 'someone',
   email: 'abc@def.ghi',
@@ -15,7 +15,9 @@ const simpleOrganization = {
   sites: []
 }
 
-const complexOrganization = {
+export const mockSite = { id: '1', name: 'Acme Corp', address: '123 ABC St' }
+
+export const complexOrganization = {
   id: '2',
   contact: 'someone',
   email: 'abc@def.ghi',
@@ -23,7 +25,7 @@ const complexOrganization = {
   logo_url: 'https://placekitten.com/80/80',
   main_url: 'https://placekitten.com/',
   name: 'Mock Organization',
-  sites: [{ id: '1', name: 'Acme Corp', address: '123 ABC St' }]
+  sites: [mockSite]
 }
 
 export const mockStores = {

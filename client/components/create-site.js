@@ -5,6 +5,7 @@ import Geocoder from 'react-select-geocoder'
 
 import FieldGroup from './fieldgroup'
 import Icon from './icon'
+import {settings} from '../utils/env'
 
 export default class CreateSite extends Component {
   static propTypes = {
@@ -20,7 +21,7 @@ export default class CreateSite extends Component {
   }
 
   handleGeocoderChange = (value) => {
-    this.setState({ address: value })
+    this.setState({ address: value.properties.label })
   }
 
   handleSubmit = () => {
@@ -48,6 +49,7 @@ export default class CreateSite extends Component {
                 />
               <Geocoder
                 apiKey={process.env.MAPZEN_SEARCH_KEY}
+                focusLatlng={settings.mapzen_search.focus}
                 onChange={this.handleGeocoderChange}
                 />
               <FieldGroup

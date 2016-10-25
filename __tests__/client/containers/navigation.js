@@ -5,7 +5,7 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {makeMockStore, mockStores} from '../../test-utils/mock-store.js'
+import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import Navigation from '../../../client/containers/navigation'
 

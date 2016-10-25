@@ -16,6 +16,14 @@ export const reducers = {
       organizations,
       organizationsById: arrayToObj(action.payload)
     }
+  },
+  'add site' (state, action) {
+    const site = action.payload
+    const affectedOrganization = state.organizationsById[site.organizationId]
+    affectedOrganization.sites = [...affectedOrganization.sites, site]
+    return {
+      ...state
+    }
   }
 }
 

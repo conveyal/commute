@@ -6,7 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {expectCreateAction} from '../actions/organization'
-import {makeMockStore, mockStores} from '../../test-utils/mock-store.js'
+import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import CreateSite from '../../../client/containers/create-site'
 

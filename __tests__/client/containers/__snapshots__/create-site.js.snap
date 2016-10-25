@@ -123,6 +123,12 @@ exports[`Container > CreateSite renders correctly 1`] = `
                     apiKey="test-search-key"
                     featureToLabel={[Function]}
                     featureToValue={[Function]}
+                    focusLatlng={
+                      Object {
+                        "lat": 38.8886,
+                        "lng": -77.043,
+                      }
+                    }
                     onChange={[Function]}
                     search={[Function]}>
                     <Async
@@ -133,6 +139,12 @@ exports[`Container > CreateSite renders correctly 1`] = `
                       featureToLabel={[Function]}
                       featureToValue={[Function]}
                       filterOptions={false}
+                      focusLatlng={
+                        Object {
+                          "lat": 38.8886,
+                          "lng": -77.043,
+                        }
+                      }
                       ignoreAccents={true}
                       ignoreCase={true}
                       loadOptions={[Function]}
@@ -162,6 +174,12 @@ exports[`Container > CreateSite renders correctly 1`] = `
                         featureToLabel={[Function]}
                         featureToValue={[Function]}
                         filterOptions={false}
+                        focusLatlng={
+                          Object {
+                            "lat": 38.8886,
+                            "lng": -77.043,
+                          }
+                        }
                         ignoreAccents={true}
                         ignoreCase={true}
                         inputProps={Object {}}
