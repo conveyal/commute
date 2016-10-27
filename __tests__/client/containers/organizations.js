@@ -10,7 +10,7 @@ import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 import Organizations from '../../../client/containers/organizations'
 
 describe('Container > Organizations', () => {
-  it('renders correctly without any organizations', () => {
+  it('Organizations View loads', () => {
     // mount component
     const tree = mount(
       <Provider store={makeMockStore(mockStores.init)}>
@@ -20,7 +20,7 @@ describe('Container > Organizations', () => {
     expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
   })
 
-  it('renders correctly with one organization', () => {
+  it('Organizations View loads with one organization', () => {
     // mount component
     const tree = mount(
       <Provider store={makeMockStore(mockStores.oneSimpleOrganization)}>
@@ -28,5 +28,21 @@ describe('Container > Organizations', () => {
       </Provider>
     )
     expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
+  })
+
+  it('Navigate to Create/Edit Organization View in create mode', () => {
+    throw new Error('unimplemented')
+  })
+
+  it('Navigate to Organization View', () => {
+    throw new Error('unimplemented')
+  })
+
+  it('Navigate to Create/Edit Organization View in edit mode', () => {
+    throw new Error('unimplemented')
+  })
+
+  it('Delete Organization', () => {
+    throw new Error('unimplemented')
   })
 })

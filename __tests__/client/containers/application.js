@@ -11,7 +11,7 @@ import Application from '../../../client/containers/application'
 const mockStore = makeMockStore(mockStores.init)
 
 describe('Container > Application', () => {
-  it('renders correctly', () => {
+  it('Website Loads With Existing User', () => {
     // mount component
     mount(
       <Provider store={mockStore}>

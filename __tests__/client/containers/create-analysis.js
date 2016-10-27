@@ -12,7 +12,7 @@ import CreateSiteAnalysis from '../../../client/containers/create-site-analysis'
 const mockStore = makeMockStore(mockStores.init)
 
 describe('Container > CreateSiteAnalysis', () => {
-  it('renders correctly', () => {
+  it('Create Analysis View loads', () => {
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
@@ -20,5 +20,13 @@ describe('Container > CreateSiteAnalysis', () => {
       </Provider>
     )
     expect(mountToJson(tree.find(CreateSiteAnalysis))).toMatchSnapshot()
+  })
+
+  it('Create analysis', () => {
+    throw new Error('unimplemented')
+  })
+
+  it('Navigate back to Organization View', () => {
+    throw new Error('unimplemented')
   })
 })

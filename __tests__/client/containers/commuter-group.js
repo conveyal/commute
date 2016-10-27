@@ -7,34 +7,42 @@ import {Provider} from 'react-redux'
 
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
-import EditSite from '../../../client/containers/edit-site'
+import CommuterGroup from '../../../client/containers/commuter-group'
 
 const mockStore = makeMockStore(mockStores.init)
 
-describe('Container > EditSite', () => {
-  it('Create/Edit Site View loads (create or edit mode)', () => {
+describe('Container > CommuterGroup', () => {
+  it('Commuter Group View loads', () => {
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <EditSite />
+        <CommuterGroup />
       </Provider>
     )
-    expect(mountToJson(tree.find(EditSite))).toMatchSnapshot()
+    expect(mountToJson(tree.find(CommuterGroup))).toMatchSnapshot()
   })
 
-  it('Create/Edit Site View loads in edit mode', () => {
+  it('Edit commuter group name', () => {
     throw new Error('unimplemented')
   })
 
-  it('Create/Edit site', () => {
+  it('Add Single Commuter', () => {
     throw new Error('unimplemented')
   })
 
-  it('Delete Site', () => {
+  it('Bulk Add Commuters', () => {
     throw new Error('unimplemented')
   })
 
-  it('Navigate back to Organization View', () => {
+  it('Edit Commuter', () => {
+    throw new Error('unimplemented')
+  })
+
+  it('Delete Commuter', () => {
+    throw new Error('unimplemented')
+  })
+
+  it('Show Commuter in Ridematch', () => {
     throw new Error('unimplemented')
   })
 })

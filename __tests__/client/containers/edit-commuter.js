@@ -7,34 +7,34 @@ import {Provider} from 'react-redux'
 
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
-import EditSite from '../../../client/containers/edit-site'
+import EditCommuter from '../../../client/containers/edit-commuter'
 
 const mockStore = makeMockStore(mockStores.init)
 
-describe('Container > EditSite', () => {
-  it('Create/Edit Site View loads (create or edit mode)', () => {
+describe('Container > EditCommuter', () => {
+  it('Create/Edit Commuter View loads (create or edit mode)', () => {
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <EditSite />
+        <EditCommuter />
       </Provider>
     )
-    expect(mountToJson(tree.find(EditSite))).toMatchSnapshot()
+    expect(mountToJson(tree.find(EditCommuter))).toMatchSnapshot()
   })
 
-  it('Create/Edit Site View loads in edit mode', () => {
+  it('Create/Edit Commuter View loads in edit mode', () => {
     throw new Error('unimplemented')
   })
 
-  it('Create/Edit site', () => {
+  it('Create/Edit commuter', () => {
     throw new Error('unimplemented')
   })
 
-  it('Delete Site', () => {
+  it('Delete commuter', () => {
     throw new Error('unimplemented')
   })
 
-  it('Navigate back to Organization View', () => {
+  it('Navigate back to Commuter Group View', () => {
     throw new Error('unimplemented')
   })
 })
