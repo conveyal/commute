@@ -8,15 +8,36 @@ import Icon from './icon'
 export default class EditOrganization extends Component {
   static propTypes = {
     // dispatch
-    create: PropTypes.func.isRequired
+    create: PropTypes.func,
+    delete: PropTypes.func,
+    update: PropTypes.func,
+
+    // props
+    organization: PropTypes.object
+  }
+
+  componentWillMount () {
+    if (this.props.editMode) {
+      this.setState({...this.props.organization})
+    } else {
+      this.state = {}
+    }
   }
 
   handleChange = (name, event) => {
     this.setState({ [name]: event.target.value })
   }
 
+  handleDelete = () => {
+    this.props.delete(this.props.organization.id)
+  }
+
   handleSubmit = () => {
-    this.props.create(this.state)
+    if (this.props.editMode) {
+      this.props.update(this.state)
+    } else {
+      this.props.create(this.state)
+    }
   }
 
   render () {
@@ -36,6 +57,7 @@ export default class EditOrganization extends Component {
                 onChange={this.handleChange}
                 placeholder='Enter name'
                 type='text'
+                value={this.state.name}
                 />
               <FieldGroup
                 label='Main URL'
@@ -43,6 +65,7 @@ export default class EditOrganization extends Component {
                 onChange={this.handleChange}
                 placeholder='Enter url'
                 type='text'
+                value={this.state.main_url}
                 />
               <FieldGroup
                 label='Logo URL'
@@ -50,6 +73,7 @@ export default class EditOrganization extends Component {
                 onChange={this.handleChange}
                 placeholder='Enter logo url'
                 type='text'
+                value={this.state.logo_url}
                 />
               <FieldGroup
                 label='Contact'
@@ -57,6 +81,7 @@ export default class EditOrganization extends Component {
                 onChange={this.handleChange}
                 placeholder='Enter contact'
                 type='text'
+                value={this.state.contact}
                 />
               <FieldGroup
                 label='Email'
@@ -64,8 +89,22 @@ export default class EditOrganization extends Component {
                 onChange={this.handleChange}
                 placeholder='Enter email'
                 type='text'
+                value={this.state.email}
                 />
-              <Button onClick={this.handleSubmit}>Create</Button>
+              <Button
+                bsStyle={this.props.editMode ? 'warning' : 'success'}
+                onClick={this.handleSubmit}
+                >
+                {this.props.editMode ? 'Create' : 'Update'}
+              </Button>
+              {this.props.editMode &&
+                <Button
+                  bsStyle='danger'
+                  onClick={this.handleDelete}
+                  >
+                  Delete
+                </Button>
+              }
             </form>
           </Col>
         </Row>

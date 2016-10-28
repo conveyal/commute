@@ -20,5 +20,17 @@ const deleteLocally = createAction('delete organization')
     options: {
       method: 'delete'
     }
-  }) */
+  }) */ // TODO delete on server
 export const deleteOrganization = (id) => [deleteLocally(id)]
+
+export const updateOrganization = (organization) => [setLocally(organization)]
+/* const updateOnServer = (organization) =>
+  serverAction({
+    url: `/api/organization/${organization.id}`,
+    options: {
+      body: JSON.stringify(organization),
+      method: 'put'
+    }
+  }) */  // TODO: update on server
+
+export const setLocally = createAction('set organization')

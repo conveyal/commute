@@ -5,7 +5,7 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectCreateAction} from '../../test-utils/actions'
+import {expectCreateAction, expectDeleteOrganization} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import EditOrganization from '../../../client/containers/edit-organization'
@@ -23,9 +23,19 @@ describe('Container > EditOrganization', () => {
     expect(mountToJson(tree.find(EditOrganization))).toMatchSnapshot()
   })
 
-  /* it('Create/Edit Organization View loads in edit mode', () => {
-    throw new Error('unimplemented')
-  }) */
+  it('Create/Edit Organization View loads in edit mode', () => {
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <EditOrganization
+          params={{organizationId: '1'}}
+          />
+      </Provider>
+    )
+    expect(mountToJson(tree.find(EditOrganization))).toMatchSnapshot()
+  })
 
   it('Create organization', () => {
     const mockStore = makeMockStore(mockStores.init)
@@ -47,7 +57,49 @@ describe('Container > EditOrganization', () => {
     expectCreateAction(mockStore.getActions())
   })
 
-  /* it('Delete organization', () => {
-    throw new Error('unimplemented')
-  }) */
+  it('Update organization', () => {
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <EditOrganization
+          params={{organizationId: '1'}}
+          />
+      </Provider>
+    )
+
+    // give each text field some input
+    tree.find('input').map((input) => input.simulate('change', {target: {value: 'My new value'}}))
+
+    // submit form
+    tree.find('form').find('button').first().simulate('click')
+
+    // expect create action
+    const actions = mockStore.getActions()
+    expect(actions.length).toBe(1)
+    expect(actions).toMatchSnapshot()
+  })
+
+  it('Delete organization', () => {
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    window.confirm = () => true
+
+    // Given a logged-in user is viewing the Create/Edit Organization View
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <EditOrganization
+          params={{organizationId: '1'}}
+          />
+      </Provider>
+    )
+
+    // When the user clicks the delete button for an existing organization
+    // And the user confirms the Confirm Deletion dialog
+    const deleteButton = tree.find('button').last()
+    deleteButton.simulate('click')
+
+    expectDeleteOrganization(mockStore.getActions())
+  })
 })

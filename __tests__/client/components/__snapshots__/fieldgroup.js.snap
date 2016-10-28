@@ -24,13 +24,15 @@ exports[`Container > FieldGroup renders correctly as input 1`] = `
         componentClass="input"
         onChange={[Function]}
         placeholder="Enter name"
-        type="text">
+        type="text"
+        value="">
         <input
           className="form-control"
           id="group-item-name"
           onChange={[Function]}
           placeholder="Enter name"
-          type="text" />
+          type="text"
+          value="" />
       </FormControl>
     </div>
   </FormGroup>

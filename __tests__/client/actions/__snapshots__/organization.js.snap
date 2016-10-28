@@ -29,3 +29,21 @@ Array [
   },
 ]
 `;
+
+exports[`actions > organization update organization should work 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "contact": "someone",
+      "email": "abc@def.ghi",
+      "groups": Array [],
+      "id": "1",
+      "logo_url": "https://placekitten.com/80/80",
+      "main_url": "https://placekitten.com/",
+      "name": "Mock Organization",
+      "sites": Array [],
+    },
+    "type": "set organization",
+  },
+]
+`;

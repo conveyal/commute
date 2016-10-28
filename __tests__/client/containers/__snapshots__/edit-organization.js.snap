@@ -28,7 +28,9 @@ Object {
 exports[`Container > EditOrganization Create/Edit Organization View loads (create or edit mode) 1`] = `
 <Connect(EditOrganization)>
   <EditOrganization
-    create={[Function]}>
+    create={[Function]}
+    delete={[Function]}
+    update={[Function]}>
     <Grid
       bsClass="container"
       componentClass="div"
@@ -81,7 +83,8 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="name"
                     onChange={[Function]}
                     placeholder="Enter name"
-                    type="text">
+                    type="text"
+                    value={undefined}>
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-name">
@@ -101,13 +104,15 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                           componentClass="input"
                           onChange={[Function]}
                           placeholder="Enter name"
-                          type="text">
+                          type="text"
+                          value="">
                           <input
                             className="form-control"
                             id="group-item-name"
                             onChange={[Function]}
                             placeholder="Enter name"
-                            type="text" />
+                            type="text"
+                            value="" />
                         </FormControl>
                       </div>
                     </FormGroup>
@@ -117,7 +122,8 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="main_url"
                     onChange={[Function]}
                     placeholder="Enter url"
-                    type="text">
+                    type="text"
+                    value={undefined}>
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-main_url">
@@ -137,13 +143,15 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                           componentClass="input"
                           onChange={[Function]}
                           placeholder="Enter url"
-                          type="text">
+                          type="text"
+                          value="">
                           <input
                             className="form-control"
                             id="group-item-main_url"
                             onChange={[Function]}
                             placeholder="Enter url"
-                            type="text" />
+                            type="text"
+                            value="" />
                         </FormControl>
                       </div>
                     </FormGroup>
@@ -153,7 +161,8 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="logo_url"
                     onChange={[Function]}
                     placeholder="Enter logo url"
-                    type="text">
+                    type="text"
+                    value={undefined}>
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-logo_url">
@@ -173,13 +182,15 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                           componentClass="input"
                           onChange={[Function]}
                           placeholder="Enter logo url"
-                          type="text">
+                          type="text"
+                          value="">
                           <input
                             className="form-control"
                             id="group-item-logo_url"
                             onChange={[Function]}
                             placeholder="Enter logo url"
-                            type="text" />
+                            type="text"
+                            value="" />
                         </FormControl>
                       </div>
                     </FormGroup>
@@ -189,7 +200,8 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="contact"
                     onChange={[Function]}
                     placeholder="Enter contact"
-                    type="text">
+                    type="text"
+                    value={undefined}>
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-contact">
@@ -209,13 +221,15 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                           componentClass="input"
                           onChange={[Function]}
                           placeholder="Enter contact"
-                          type="text">
+                          type="text"
+                          value="">
                           <input
                             className="form-control"
                             id="group-item-contact"
                             onChange={[Function]}
                             placeholder="Enter contact"
-                            type="text" />
+                            type="text"
+                            value="" />
                         </FormControl>
                       </div>
                     </FormGroup>
@@ -225,7 +239,8 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="email"
                     onChange={[Function]}
                     placeholder="Enter email"
-                    type="text">
+                    type="text"
+                    value={undefined}>
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-email">
@@ -245,13 +260,15 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                           componentClass="input"
                           onChange={[Function]}
                           placeholder="Enter email"
-                          type="text">
+                          type="text"
+                          value="">
                           <input
                             className="form-control"
                             id="group-item-email"
                             onChange={[Function]}
                             placeholder="Enter email"
-                            type="text" />
+                            type="text"
+                            value="" />
                         </FormControl>
                       </div>
                     </FormGroup>
@@ -260,15 +277,15 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     active={false}
                     block={false}
                     bsClass="btn"
-                    bsStyle="default"
+                    bsStyle="success"
                     disabled={false}
                     onClick={[Function]}>
                     <button
-                      className="btn btn-default"
+                      className="btn btn-success"
                       disabled={false}
                       onClick={[Function]}
                       type="button">
-                      Create
+                      Update
                     </button>
                   </Button>
                 </form>
@@ -280,4 +297,343 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
     </Grid>
   </EditOrganization>
 </Connect(EditOrganization)>
+`;
+
+exports[`Container > EditOrganization Create/Edit Organization View loads in edit mode 1`] = `
+<Connect(EditOrganization)
+  params={
+    Object {
+      "organizationId": "1",
+    }
+  }>
+  <EditOrganization
+    create={[Function]}
+    delete={[Function]}
+    editMode={true}
+    organization={
+      Object {
+        "contact": "someone",
+        "email": "abc@def.ghi",
+        "groups": Array [],
+        "id": "1",
+        "logo_url": "https://placekitten.com/80/80",
+        "main_url": "https://placekitten.com/",
+        "name": "Mock Organization",
+        "sites": Array [],
+      }
+    }
+    params={
+      Object {
+        "organizationId": "1",
+      }
+    }
+    update={[Function]}>
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}>
+      <div
+        className="container">
+        <Row
+          bsClass="row"
+          componentClass="div">
+          <div
+            className="row">
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <h3>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <Icon
+                            type="arrow-left">
+                            <i
+                              className="fa fa-arrow-left fa-fw " />
+                          </Icon>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h3>
+                <form>
+                  <FieldGroup
+                    label="Name"
+                    name="name"
+                    onChange={[Function]}
+                    placeholder="Enter name"
+                    type="text"
+                    value="Mock Organization">
+                    <FormGroup
+                      bsClass="form-group"
+                      controlId="group-item-name">
+                      <div
+                        className="form-group">
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}>
+                          <label
+                            className="control-label"
+                            htmlFor="group-item-name">
+                            Name
+                          </label>
+                        </ControlLabel>
+                        <FormControl
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          placeholder="Enter name"
+                          type="text"
+                          value="Mock Organization">
+                          <input
+                            className="form-control"
+                            id="group-item-name"
+                            onChange={[Function]}
+                            placeholder="Enter name"
+                            type="text"
+                            value="Mock Organization" />
+                        </FormControl>
+                      </div>
+                    </FormGroup>
+                  </FieldGroup>
+                  <FieldGroup
+                    label="Main URL"
+                    name="main_url"
+                    onChange={[Function]}
+                    placeholder="Enter url"
+                    type="text"
+                    value="https://placekitten.com/">
+                    <FormGroup
+                      bsClass="form-group"
+                      controlId="group-item-main_url">
+                      <div
+                        className="form-group">
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}>
+                          <label
+                            className="control-label"
+                            htmlFor="group-item-main_url">
+                            Main URL
+                          </label>
+                        </ControlLabel>
+                        <FormControl
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          placeholder="Enter url"
+                          type="text"
+                          value="https://placekitten.com/">
+                          <input
+                            className="form-control"
+                            id="group-item-main_url"
+                            onChange={[Function]}
+                            placeholder="Enter url"
+                            type="text"
+                            value="https://placekitten.com/" />
+                        </FormControl>
+                      </div>
+                    </FormGroup>
+                  </FieldGroup>
+                  <FieldGroup
+                    label="Logo URL"
+                    name="logo_url"
+                    onChange={[Function]}
+                    placeholder="Enter logo url"
+                    type="text"
+                    value="https://placekitten.com/80/80">
+                    <FormGroup
+                      bsClass="form-group"
+                      controlId="group-item-logo_url">
+                      <div
+                        className="form-group">
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}>
+                          <label
+                            className="control-label"
+                            htmlFor="group-item-logo_url">
+                            Logo URL
+                          </label>
+                        </ControlLabel>
+                        <FormControl
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          placeholder="Enter logo url"
+                          type="text"
+                          value="https://placekitten.com/80/80">
+                          <input
+                            className="form-control"
+                            id="group-item-logo_url"
+                            onChange={[Function]}
+                            placeholder="Enter logo url"
+                            type="text"
+                            value="https://placekitten.com/80/80" />
+                        </FormControl>
+                      </div>
+                    </FormGroup>
+                  </FieldGroup>
+                  <FieldGroup
+                    label="Contact"
+                    name="contact"
+                    onChange={[Function]}
+                    placeholder="Enter contact"
+                    type="text"
+                    value="someone">
+                    <FormGroup
+                      bsClass="form-group"
+                      controlId="group-item-contact">
+                      <div
+                        className="form-group">
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}>
+                          <label
+                            className="control-label"
+                            htmlFor="group-item-contact">
+                            Contact
+                          </label>
+                        </ControlLabel>
+                        <FormControl
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          placeholder="Enter contact"
+                          type="text"
+                          value="someone">
+                          <input
+                            className="form-control"
+                            id="group-item-contact"
+                            onChange={[Function]}
+                            placeholder="Enter contact"
+                            type="text"
+                            value="someone" />
+                        </FormControl>
+                      </div>
+                    </FormGroup>
+                  </FieldGroup>
+                  <FieldGroup
+                    label="Email"
+                    name="email"
+                    onChange={[Function]}
+                    placeholder="Enter email"
+                    type="text"
+                    value="abc@def.ghi">
+                    <FormGroup
+                      bsClass="form-group"
+                      controlId="group-item-email">
+                      <div
+                        className="form-group">
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}>
+                          <label
+                            className="control-label"
+                            htmlFor="group-item-email">
+                            Email
+                          </label>
+                        </ControlLabel>
+                        <FormControl
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          placeholder="Enter email"
+                          type="text"
+                          value="abc@def.ghi">
+                          <input
+                            className="form-control"
+                            id="group-item-email"
+                            onChange={[Function]}
+                            placeholder="Enter email"
+                            type="text"
+                            value="abc@def.ghi" />
+                        </FormControl>
+                      </div>
+                    </FormGroup>
+                  </FieldGroup>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="warning"
+                    disabled={false}
+                    onClick={[Function]}>
+                    <button
+                      className="btn btn-warning"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="button">
+                      Create
+                    </button>
+                  </Button>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="danger"
+                    disabled={false}
+                    onClick={[Function]}>
+                    <button
+                      className="btn btn-danger"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="button">
+                      Delete
+                    </button>
+                  </Button>
+                </form>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </div>
+    </Grid>
+  </EditOrganization>
+</Connect(EditOrganization)>
+`;
+
+exports[`Container > EditOrganization Delete organization 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete organization",
+  },
+]
+`;
+
+exports[`Container > EditOrganization Update organization 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "contact": "My new value",
+      "email": "My new value",
+      "groups": Array [],
+      "id": "1",
+      "logo_url": "My new value",
+      "main_url": "My new value",
+      "name": "My new value",
+      "sites": Array [],
+    },
+    "type": "set organization",
+  },
+]
 `;

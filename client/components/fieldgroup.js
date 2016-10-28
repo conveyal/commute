@@ -7,6 +7,7 @@ const FieldGroup = ({ help, label, name, ...props }) => (
     <FormControl
       {...props}
       onChange={(e) => props.onChange(name, e)}
+      value={props.value || ''}
       />
     {help && <HelpBlock>{help}</HelpBlock>}
   </FormGroup>
