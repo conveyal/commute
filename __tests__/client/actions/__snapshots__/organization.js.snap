@@ -21,24 +21,11 @@ Object {
 }
 `;
 
-exports[`actions > organization create site should work 1`] = `
-Object {
-  "payload": Object {
-    "name": "mockSite",
-    "organizationId": "1",
+exports[`actions > organization delete organization should work 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete organization",
   },
-  "type": "add site",
-}
-`;
-
-exports[`actions > organization create site should work 2`] = `
-Object {
-  "payload": Object {
-    "args": Array [
-      "/organizations/1",
-    ],
-    "method": "push",
-  },
-  "type": "@@router/CALL_HISTORY_METHOD",
-}
+]
 `;

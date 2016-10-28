@@ -1,0 +1,10 @@
+exports[`Container > Analysis Analysis View loads (base case) 1`] = `
+<Connect(Analysis)>
+  <Analysis
+    dispatch={[Function]}>
+    <h1>
+      Analysis
+    </h1>
+  </Analysis>
+</Connect(Analysis)>
+`;

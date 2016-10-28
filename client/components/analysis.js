@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 
-export default class Site extends Component {
+export default class Analysis extends Component {
   static propTypes = {}
 
   render () {
-    return <h1>Site</h1>
+    return <h1>Analysis</h1>
   }
 }

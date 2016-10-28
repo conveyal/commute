@@ -48,7 +48,7 @@ export default class Organization extends Component {
             <BootstrapTable data={groups}>
               <TableHeaderColumn dataField='id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={groupNameRenderer}>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}>Sites</TableHeaderColumn>
+              <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}>Commuters</TableHeaderColumn>
             </BootstrapTable>
           </Col>
         </Row>

@@ -22,7 +22,7 @@ describe('Container > EditSite', () => {
     expect(mountToJson(tree.find(EditSite))).toMatchSnapshot()
   })
 
-  it('Create/Edit Site View loads in edit mode', () => {
+  /* it('Create/Edit Site View loads in edit mode', () => {
     throw new Error('unimplemented')
   })
 
@@ -32,9 +32,5 @@ describe('Container > EditSite', () => {
 
   it('Delete Site', () => {
     throw new Error('unimplemented')
-  })
-
-  it('Navigate back to Organization View', () => {
-    throw new Error('unimplemented')
-  })
+  }) */
 })

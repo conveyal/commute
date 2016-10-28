@@ -1,5 +1,5 @@
 exports[`Container > Footer renders correctly 1`] = `
-<pure(Footer)>
+<Footer>
   <footer>
     <Grid
       bsClass="container"
@@ -17,5 +17,5 @@ exports[`Container > Footer renders correctly 1`] = `
       </div>
     </Grid>
   </footer>
-</pure(Footer)>
+</Footer>
 `;

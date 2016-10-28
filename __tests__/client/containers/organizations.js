@@ -3,6 +3,7 @@
 import {mount} from 'enzyme'
 import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
+import {Button} from 'react-bootstrap'
 import {Provider} from 'react-redux'
 
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
@@ -30,19 +31,20 @@ describe('Container > Organizations', () => {
     expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
   })
 
-  it('Navigate to Create/Edit Organization View in create mode', () => {
-    throw new Error('unimplemented')
-  })
-
-  it('Navigate to Organization View', () => {
-    throw new Error('unimplemented')
-  })
-
-  it('Navigate to Create/Edit Organization View in edit mode', () => {
-    throw new Error('unimplemented')
-  })
-
   it('Delete Organization', () => {
-    throw new Error('unimplemented')
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    window.confirm = () => true
+
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <Organizations />
+      </Provider>
+    )
+    const deleteButton = tree.find('table').find(Button).last()
+    deleteButton.simulate('click')
+    const actions = mockStore.getActions()
+    expect(actions.length).toBeGreaterThan(0)
+    expect(actions).toMatchSnapshot()
   })
 })

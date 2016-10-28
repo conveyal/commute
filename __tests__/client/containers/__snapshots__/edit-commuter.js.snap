@@ -1,0 +1,10 @@
+exports[`Container > EditCommuter Create/Edit Commuter View loads (create or edit mode) 1`] = `
+<Connect(EditCommuter)>
+  <EditCommuter
+    dispatch={[Function]}>
+    <h1>
+      Edit Site
+    </h1>
+  </EditCommuter>
+</Connect(EditCommuter)>
+`;

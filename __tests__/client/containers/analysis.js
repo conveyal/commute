@@ -22,7 +22,7 @@ describe('Container > Analysis', () => {
     expect(mountToJson(tree.find(Analysis))).toMatchSnapshot()
   })
 
-  it('Analysis View loads (commuter group or site has changed)', () => {
+  /* it('Analysis View loads (commuter group or site has changed)', () => {
     throw new Error('unimplemented')
   })
 
@@ -36,5 +36,5 @@ describe('Container > Analysis', () => {
 
   it('Delete analysis', () => {
     throw new Error('unimplemented')
-  })
+  }) */
 })

@@ -1,0 +1,10 @@
+exports[`Container > AddCommuters Add Commuters View loads (base case) 1`] = `
+<Connect(AddCommuters)>
+  <AddCommuters
+    dispatch={[Function]}>
+    <h1>
+      Add Commuters
+    </h1>
+  </AddCommuters>
+</Connect(AddCommuters)>
+`;

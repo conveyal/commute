@@ -1,5 +1,7 @@
 /* global describe, expect, it */
 
+import {expectCreateAction} from '../../test-utils/actions'
+
 import * as organization from '../../../client/actions/organization'
 
 describe('actions > organization', () => {
@@ -12,26 +14,10 @@ describe('actions > organization', () => {
     expectCreateAction(result)
   })
 
-  it('create site should work', () => {
-    const fieldData = {
-      name: 'mockSite',
-      organizationId: '1'
-    }
-    const result = organization.createSite(fieldData)
+  it('delete organization should work', () => {
+    const result = organization.deleteOrganization('1')
 
-    expectCreateAction(result)
+    expect(result.length).toBe(1)
+    expect(result).toMatchSnapshot()
   })
 })
-
-export function expectCreateAction (action) {
-  // expect 2 actions
-  // - add organization
-  // - react-router navigate to home
-  expect(action.length).toBe(2)
-  const create = action[0]
-  delete create.payload.id
-  expect(create).toMatchSnapshot()
-
-  // react-router
-  expect(action[1]).toMatchSnapshot()
-}

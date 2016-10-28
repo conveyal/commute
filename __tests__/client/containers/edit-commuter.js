@@ -22,7 +22,7 @@ describe('Container > EditCommuter', () => {
     expect(mountToJson(tree.find(EditCommuter))).toMatchSnapshot()
   })
 
-  it('Create/Edit Commuter View loads in edit mode', () => {
+  /* it('Create/Edit Commuter View loads in edit mode', () => {
     throw new Error('unimplemented')
   })
 
@@ -32,9 +32,5 @@ describe('Container > EditCommuter', () => {
 
   it('Delete commuter', () => {
     throw new Error('unimplemented')
-  })
-
-  it('Navigate back to Commuter Group View', () => {
-    throw new Error('unimplemented')
-  })
+  }) */
 })

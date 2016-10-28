@@ -1,4 +1,4 @@
-exports[`Container > EditSite renders correctly 1`] = `
+exports[`Container > EditSite Create/Edit Site View loads (create or edit mode) 1`] = `
 <Connect(EditSite)>
   <EditSite
     dispatch={[Function]}>

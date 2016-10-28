@@ -1,0 +1,9 @@
+exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
+<Connect(CreateAnalysis)>
+  <CreateAnalysis>
+    <h1>
+      Create Analysis
+    </h1>
+  </CreateAnalysis>
+</Connect(CreateAnalysis)>
+`;

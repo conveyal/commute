@@ -8,3 +8,5 @@ network:
   timeout: Request timed out.
   checkConnection: Check your connection and reload the page?
   saving: Saving . . .
+organization:
+  deleteConfirmation: Are you sure you want to delete this organization?

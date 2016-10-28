@@ -1,6 +1,5 @@
 import React from 'react'
 import {Grid} from 'react-bootstrap'
-import {pure} from 'recompose'
 
 const Footer = () =>
   <footer>
@@ -9,4 +8,4 @@ const Footer = () =>
     </Grid>
   </footer>
 
-export default pure(Footer)
+export default Footer

@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 
-export default class Group extends Component {
+export default class EditCommuter extends Component {
   static propTypes = {}
 
   render () {
-    return <h1>Group</h1>
+    return <h1>Edit Site</h1>
   }
 }

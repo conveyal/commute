@@ -7,26 +7,22 @@ import {Provider} from 'react-redux'
 
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
-import CreateSiteAnalysis from '../../../client/containers/create-site-analysis'
+import CreateAnalysis from '../../../client/containers/create-analysis'
 
 const mockStore = makeMockStore(mockStores.init)
 
-describe('Container > CreateSiteAnalysis', () => {
+describe('Container > CreateAnalysis', () => {
   it('Create Analysis View loads', () => {
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <CreateSiteAnalysis />
+        <CreateAnalysis />
       </Provider>
     )
-    expect(mountToJson(tree.find(CreateSiteAnalysis))).toMatchSnapshot()
+    expect(mountToJson(tree.find(CreateAnalysis))).toMatchSnapshot()
   })
 
-  it('Create analysis', () => {
+  /* it('Create analysis', () => {
     throw new Error('unimplemented')
-  })
-
-  it('Navigate back to Organization View', () => {
-    throw new Error('unimplemented')
-  })
+  }) */
 })

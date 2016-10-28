@@ -1,0 +1,10 @@
+exports[`Container > CommuterGroup Commuter Group View loads 1`] = `
+<Connect(CommuterGroup)>
+  <CommuterGroup
+    dispatch={[Function]}>
+    <h1>
+      Commuter Group
+    </h1>
+  </CommuterGroup>
+</Connect(CommuterGroup)>
+`;
