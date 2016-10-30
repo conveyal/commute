@@ -13,6 +13,7 @@ export default class EditOrganization extends Component {
     update: PropTypes.func,
 
     // props
+    editMode: PropTypes.bool,
     organization: PropTypes.object
   }
 
@@ -95,7 +96,7 @@ export default class EditOrganization extends Component {
                 bsStyle={this.props.editMode ? 'warning' : 'success'}
                 onClick={this.handleSubmit}
                 >
-                {this.props.editMode ? 'Create' : 'Update'}
+                {this.props.editMode ? 'Update' : 'Create'}
               </Button>
               {this.props.editMode &&
                 <Button

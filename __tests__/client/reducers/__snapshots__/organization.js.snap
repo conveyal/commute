@@ -17,9 +17,12 @@ exports[`client > reducers > organization should handle add site 1`] = `
 Object {
   "organizations": Array [
     Object {
+      "analyses": Array [],
+      "analysesById": Object {},
       "contact": "someone",
       "email": "abc@def.ghi",
       "groups": Array [],
+      "groupsById": Object {},
       "id": "1",
       "logo_url": "https://placekitten.com/80/80",
       "main_url": "https://placekitten.com/",
@@ -32,13 +35,24 @@ Object {
           "organizationId": "1",
         },
       ],
+      "sitesById": Object {
+        "1": Object {
+          "address": "123 ABC St",
+          "id": "1",
+          "name": "Acme Corp",
+          "organizationId": "1",
+        },
+      },
     },
   ],
   "organizationsById": Object {
     "1": Object {
+      "analyses": Array [],
+      "analysesById": Object {},
       "contact": "someone",
       "email": "abc@def.ghi",
       "groups": Array [],
+      "groupsById": Object {},
       "id": "1",
       "logo_url": "https://placekitten.com/80/80",
       "main_url": "https://placekitten.com/",
@@ -51,6 +65,14 @@ Object {
           "organizationId": "1",
         },
       ],
+      "sitesById": Object {
+        "1": Object {
+          "address": "123 ABC St",
+          "id": "1",
+          "name": "Acme Corp",
+          "organizationId": "1",
+        },
+      },
     },
   },
 }

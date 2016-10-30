@@ -1,6 +1,7 @@
 exports[`Container > Organizations Delete Organization 1`] = `
 Array [
   Object {
+    "payload": "1",
     "type": "delete organization",
   },
 ]
@@ -665,14 +666,18 @@ exports[`Container > Organizations Organizations View loads with one organizatio
     organizations={
       Array [
         Object {
+          "analyses": Array [],
+          "analysesById": Object {},
           "contact": "someone",
           "email": "abc@def.ghi",
           "groups": Array [],
+          "groupsById": Object {},
           "id": "1",
           "logo_url": "https://placekitten.com/80/80",
           "main_url": "https://placekitten.com/",
           "name": "Mock Organization",
           "sites": Array [],
+          "sitesById": Object {},
         },
       ]
     }>
@@ -755,14 +760,18 @@ exports[`Container > Organizations Organizations View loads with one organizatio
                   data={
                     Array [
                       Object {
+                        "analyses": Array [],
+                        "analysesById": Object {},
                         "contact": "someone",
                         "email": "abc@def.ghi",
                         "groups": Array [],
+                        "groupsById": Object {},
                         "id": "1",
                         "logo_url": "https://placekitten.com/80/80",
                         "main_url": "https://placekitten.com/",
                         "name": "Mock Organization",
                         "sites": Array [],
+                        "sitesById": Object {},
                       },
                     ]
                   }
@@ -1223,14 +1232,18 @@ exports[`Container > Organizations Organizations View loads with one organizatio
                         data={
                           Array [
                             Object {
+                              "analyses": Array [],
+                              "analysesById": Object {},
                               "contact": "someone",
                               "email": "abc@def.ghi",
                               "groups": Array [],
+                              "groupsById": Object {},
                               "id": "1",
                               "logo_url": "https://placekitten.com/80/80",
                               "main_url": "https://placekitten.com/",
                               "name": "Mock Organization",
                               "sites": Array [],
+                              "sitesById": Object {},
                             },
                           ]
                         }

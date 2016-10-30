@@ -1,13 +1,17 @@
 exports[`Container > EditOrganization Create organization 1`] = `
 Object {
   "payload": Object {
+    "analyses": Array [],
+    "analysesById": Object {},
     "contact": "My new value",
     "email": "My new value",
     "groups": Array [],
+    "groupsById": Object {},
     "logo_url": "My new value",
     "main_url": "My new value",
     "name": "My new value",
     "sites": Array [],
+    "sitesById": Object {},
   },
   "type": "add organization",
 }
@@ -285,7 +289,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                       disabled={false}
                       onClick={[Function]}
                       type="button">
-                      Update
+                      Create
                     </button>
                   </Button>
                 </form>
@@ -312,14 +316,18 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
     editMode={true}
     organization={
       Object {
+        "analyses": Array [],
+        "analysesById": Object {},
         "contact": "someone",
         "email": "abc@def.ghi",
         "groups": Array [],
+        "groupsById": Object {},
         "id": "1",
         "logo_url": "https://placekitten.com/80/80",
         "main_url": "https://placekitten.com/",
         "name": "Mock Organization",
         "sites": Array [],
+        "sitesById": Object {},
       }
     }
     params={
@@ -582,7 +590,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
                       disabled={false}
                       onClick={[Function]}
                       type="button">
-                      Create
+                      Update
                     </button>
                   </Button>
                   <Button
@@ -624,14 +632,18 @@ exports[`Container > EditOrganization Update organization 1`] = `
 Array [
   Object {
     "payload": Object {
+      "analyses": Array [],
+      "analysesById": Object {},
       "contact": "My new value",
       "email": "My new value",
       "groups": Array [],
+      "groupsById": Object {},
       "id": "1",
       "logo_url": "My new value",
       "main_url": "My new value",
       "name": "My new value",
       "sites": Array [],
+      "sitesById": Object {},
     },
     "type": "set organization",
   },

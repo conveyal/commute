@@ -5,8 +5,12 @@ import uuid from 'uuid'
 const addLocally = createAction('add organization')
 export const createOrganization = (newOrganization) => {
   newOrganization.id = uuid.v4()
+  newOrganization.analyses = []
+  newOrganization.analysesById = {}
   newOrganization.sites = []
+  newOrganization.sitesById = {}
   newOrganization.groups = []
+  newOrganization.groupsById = {}
   return [
     addLocally(newOrganization),
     push('/')

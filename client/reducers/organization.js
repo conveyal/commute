@@ -9,6 +9,16 @@ export const reducers = {
       organizationsById: arrayToObj(organizations)
     }
   },
+  'delete organization' (state, action) {
+    const organizationsById = state.organizationsById
+    delete organizationsById[action.payload]
+    const organizations = Object.values(organizationsById)
+    return {
+      ...state,
+      organizations,
+      organizationsById
+    }
+  },
   'set organizations' (state, action) {
     const organizations = [...state.organizations, action.payload]
     return {
@@ -19,8 +29,10 @@ export const reducers = {
   },
   'add site' (state, action) {
     const site = action.payload
+    // TODO: figure out if the following lines of code mutate state
     const affectedOrganization = state.organizationsById[site.organizationId]
     affectedOrganization.sites = [...affectedOrganization.sites, site]
+    affectedOrganization.sitesById = arrayToObj(affectedOrganization.sites)
     return {
       ...state
     }

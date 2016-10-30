@@ -6,30 +6,30 @@ import {Link} from 'react-router'
 import Icon from './icon'
 import {messages} from '../utils/env'
 import {arrayCountRenderer} from '../utils/table'
+import {actUponConfirmation} from '../utils/ui'
 
 export default class Organizations extends Component {
   static propTypes = {
+    // dispatch
+    deleteOrganization: PropTypes.func,
+
+    // props
     organizations: PropTypes.array
   }
 
-  _handleDelete = (organzationId) => {
-    if (window.confirm(messages.organization.deleteConfirmation)) {
-      this.props.deleteOrganization()
-    }
+  _toolsRenderer = (cell, row) => {
+    const doDelete = () => { this.props.deleteOrganization(row.id) }
+    const onClick = actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+    return <div>
+      <Button bsStyle='warning'>
+        <Link to={`/organizations/${row.id}/edit`}>Edit</Link>
+      </Button>
+      <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+    </div>
   }
-
-  _makeDeleteHandler = (organzationId) => () => this._handleDelete(organzationId)
 
   render () {
     const {organizations} = this.props
-    const toolsRenderer = (cell, row) => {
-      return <div>
-        <Button bsStyle='warning'>
-          <Link to={`/organizations/${row.id}/edit`}>Edit</Link>
-        </Button>
-        <Button bsStyle='danger' onClick={this._makeDeleteHandler(row.id)}>Delete</Button>
-      </div>
-    }
     return (
       <Grid>
         <Row>
@@ -45,7 +45,7 @@ export default class Organizations extends Component {
               <TableHeaderColumn dataField='name' dataFormat={nameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='sites' dataFormat={arrayCountRenderer}>Sites</TableHeaderColumn>
               <TableHeaderColumn dataField='groups' dataFormat={arrayCountRenderer}>Groups</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={toolsRenderer}>Tools</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={this._toolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
           </Col>
         </Row>
