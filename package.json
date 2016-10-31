@@ -46,6 +46,7 @@
     "font-awesome": "^4.6.3",
     "graphql": "^0.7.2",
     "lodash.isequal": "^4.4.0",
+    "moment": "^2.15.2",
     "mongoose": "^4.6.4",
     "normalize.css": "^5.0.0",
     "react": "^15.3.2",

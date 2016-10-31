@@ -13,7 +13,7 @@ export const createOrganization = (newOrganization) => {
   newOrganization.groupsById = {}
   return [
     addLocally(newOrganization),
-    push('/')
+    push(`/organizations/${newOrganization.id}`)
   ] // TODO save to server
 }
 
@@ -25,7 +25,7 @@ const deleteLocally = createAction('delete organization')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteOrganization = (id) => [deleteLocally(id)]
+export const deleteOrganization = (id) => [deleteLocally(id), push('/')]
 
 export const updateOrganization = (organization) => [setLocally(organization)]
 /* const updateOnServer = (organization) =>

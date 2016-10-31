@@ -1,18 +1,20 @@
-exports[`actions > site create site should work 1`] = `
+exports[`actions > analysis create analysis should work 1`] = `
 Object {
   "payload": Object {
-    "name": "mockSite",
-    "organizationId": "1",
+    "groupId": "1",
+    "name": "Mock Analysis",
+    "siteId": "1",
+    "trips": Array [],
   },
-  "type": "add site",
+  "type": "add analysis",
 }
 `;
 
-exports[`actions > site create site should work 2`] = `
+exports[`actions > analysis create analysis should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/1",
+      "/organizations/undefined/analysis/new-entity-id",
     ],
     "method": "push",
   },
@@ -20,11 +22,11 @@ Object {
 }
 `;
 
-exports[`actions > site delete site should work 1`] = `
+exports[`actions > analysis delete analysis should work 1`] = `
 Array [
   Object {
     "payload": "1",
-    "type": "delete site",
+    "type": "delete analysis",
   },
   Object {
     "payload": Object {

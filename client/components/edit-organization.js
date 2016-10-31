@@ -4,6 +4,8 @@ import {Link} from 'react-router'
 
 import FieldGroup from './fieldgroup'
 import Icon from './icon'
+import {messages} from '../utils/env'
+import {actUponConfirmation} from '../utils/ui'
 
 export default class EditOrganization extends Component {
   static propTypes = {
@@ -30,7 +32,8 @@ export default class EditOrganization extends Component {
   }
 
   handleDelete = () => {
-    this.props.delete(this.props.organization.id)
+    const doDelete = () => this.props.delete(this.props.organization.id)
+    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
   handleSubmit = () => {

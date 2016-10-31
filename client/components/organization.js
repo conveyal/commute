@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
@@ -10,6 +10,13 @@ import {actUponConfirmation} from '../utils/ui'
 
 export default class Organization extends Component {
   static propTypes = {
+    // dispatch
+    deleteAnalysis: PropTypes.func,
+    deleteGroup: PropTypes.func,
+    deleteOrganization: PropTypes.func,
+    deleteSite: PropTypes.func,
+
+    // props
     organization: PropTypes.object
   }
 
@@ -31,9 +38,16 @@ export default class Organization extends Component {
   }
 
   _analysisToolsRenderer = (cell, row) => {
-    const doDelete = () => { this.props.deleteGroup(row.id) }
-    const onClick = actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
+    const doDelete = () => {
+      this.props.deleteAnalysis(row.id, this.props.organization.id)
+    }
+    const onClick = () => actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+  }
+
+  _handleDelete = () => {
+    const doDelete = () => this.props.deleteOrganization(this.props.organization.id)
+    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
   _groupNameRenderer = (cell, row) => {
@@ -42,8 +56,8 @@ export default class Organization extends Component {
   }
 
   _groupToolsRenderer = (cell, row) => {
-    const doDelete = () => { this.props.deleteGroup(row.id) }
-    const onClick = actUponConfirmation(messages.group.deleteConfirmation, doDelete)
+    const doDelete = () => this.props.deleteGroup(row.id, this.props.organization.id)
+    const onClick = () => actUponConfirmation(messages.group.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
   }
 
@@ -54,8 +68,8 @@ export default class Organization extends Component {
 
   _siteToolsRenderer = (cell, row) => {
     const organzationId = this.props.organization.id
-    const doDelete = () => { this.props.deleteSite(row.id) }
-    const onClick = actUponConfirmation(messages.site.deleteConfirmation, doDelete)
+    const doDelete = () => this.props.deleteSite(row.id, organzationId)
+    const onClick = () => actUponConfirmation(messages.site.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
         <Link to={`/organizations/${organzationId}/sites/${row.id}/edit`}>Edit</Link>
@@ -72,7 +86,13 @@ export default class Organization extends Component {
         <Row>
           <Col xs={12}>
             <h2><Icon type='shield' />{name}</h2>
-            <p>Below are this organization's sites and commuter groups.</p>
+            <ButtonGroup>
+              <Button bsStyle='warning'>
+                <Link to={`/organizations/${_id}/edit`}>Edit</Link>
+              </Button>
+              <Button bsStyle='danger' onClick={this._handleDelete}>Delete</Button>
+            </ButtonGroup>
+            <p>Below are this organization's sites, commuter groups and analyses.</p>
             <h3>Sites
               <Button className='pull-right'>
                 <Link to={`/organizations/${_id}/sites/create`}>Create a new site <Icon type='building' /></Link>

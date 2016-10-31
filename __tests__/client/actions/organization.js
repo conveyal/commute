@@ -1,16 +1,16 @@
 /* global describe, expect, it */
 
-import {expectCreateAction} from '../../test-utils/actions'
+import {expectCreateAction, expectDeleteOrganization} from '../../test-utils/actions'
 import {simpleOrganization} from '../../test-utils/mock-data'
 
 import * as organization from '../../../client/actions/organization'
 
 describe('actions > organization', () => {
   it('create organization should work', () => {
-    const fieldData = {
+    const data = {
       name: 'mockOrg'
     }
-    const result = organization.createOrganization(fieldData)
+    const result = organization.createOrganization(data)
 
     expectCreateAction(result)
   })
@@ -25,7 +25,6 @@ describe('actions > organization', () => {
   it('delete organization should work', () => {
     const result = organization.deleteOrganization('1')
 
-    expect(result.length).toBe(1)
-    expect(result).toMatchSnapshot()
+    expectDeleteOrganization(result)
   })
 })

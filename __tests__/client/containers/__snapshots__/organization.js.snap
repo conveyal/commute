@@ -1,12 +1,87 @@
+exports[`Container > Organization Delete Analysis 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete analysis",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/2",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`Container > Organization Delete Commuter Group 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete group",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/2",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`Container > Organization Delete Organization 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete organization",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`Container > Organization Delete Site 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete site",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/2",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
 exports[`Container > Organization Organization View loads 1`] = `
 <Connect(Organization)
   params={
     Object {
-      "organizationId": "1",
+      "organizationId": "2",
     }
   }>
   <Organization
-    dispatch={[Function]}
+    deleteAnalysis={[Function]}
+    deleteGroup={[Function]}
+    deleteOrganization={[Function]}
+    deleteSite={[Function]}
     organization={
       Object {
         "analyses": Array [
@@ -67,7 +142,7 @@ exports[`Container > Organization Organization View loads 1`] = `
     }
     params={
       Object {
-        "organizationId": "1",
+        "organizationId": "2",
       }
     }>
     <Grid
@@ -94,8 +169,54 @@ exports[`Container > Organization Organization View loads 1`] = `
                       className="fa fa-shield fa-fw " />
                   </Icon>
                 </h2>
+                <ButtonGroup
+                  block={false}
+                  bsClass="btn-group"
+                  justified={false}
+                  vertical={false}>
+                  <div
+                    className="btn-group">
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="warning"
+                      disabled={false}>
+                      <button
+                        className="btn btn-warning"
+                        disabled={false}
+                        type="button">
+                        <Link
+                          onlyActiveOnIndex={false}
+                          style={Object {}}
+                          to="/organizations/2/edit">
+                          <a
+                            onClick={[Function]}
+                            style={Object {}}>
+                            Edit
+                          </a>
+                        </Link>
+                      </button>
+                    </Button>
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="danger"
+                      disabled={false}
+                      onClick={[Function]}>
+                      <button
+                        className="btn btn-danger"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="button">
+                        Delete
+                      </button>
+                    </Button>
+                  </div>
+                </ButtonGroup>
                 <p>
-                  Below are this organization\'s sites and commuter groups.
+                  Below are this organization\'s sites, commuter groups and analyses.
                 </p>
                 <h3>
                   <Button

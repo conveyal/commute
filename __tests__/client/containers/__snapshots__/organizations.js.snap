@@ -4,6 +4,15 @@ Array [
     "payload": "1",
     "type": "delete organization",
   },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
 ]
 `;
 

@@ -1,17 +1,22 @@
 /* global describe, it */
 
-import {expectCreateAction} from '../../test-utils/actions'
-
+import {expectCreateSite, expectDeleteSite} from '../../test-utils/actions'
 import * as site from '../../../client/actions/site'
 
 describe('actions > site', () => {
   it('create site should work', () => {
-    const fieldData = {
+    const data = {
       name: 'mockSite',
       organizationId: '1'
     }
-    const result = site.createSite(fieldData)
+    const actions = site.createSite(data)
 
-    expectCreateAction(result)
+    expectCreateSite(actions)
+  })
+
+  it('delete site should work', () => {
+    const result = site.deleteSite('1', '1')
+
+    expectDeleteSite(result)
   })
 })

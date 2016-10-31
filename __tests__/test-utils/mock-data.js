@@ -64,7 +64,7 @@ export const mockStores = {
     user: {},
     organization: {
       organizations: [complexOrganization],
-      organizationsById: { '1': complexOrganization }
+      organizationsById: { '2': complexOrganization }
     }
   },
   twoOrganizations: {

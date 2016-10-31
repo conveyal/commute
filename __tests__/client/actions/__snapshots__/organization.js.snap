@@ -17,7 +17,7 @@ exports[`actions > organization create organization should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/",
+      "/organizations/new-entity-id",
     ],
     "method": "push",
   },
@@ -30,6 +30,15 @@ Array [
   Object {
     "payload": "1",
     "type": "delete organization",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
   },
 ]
 `;

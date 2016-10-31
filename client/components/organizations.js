@@ -19,7 +19,7 @@ export default class Organizations extends Component {
 
   _toolsRenderer = (cell, row) => {
     const doDelete = () => { this.props.deleteOrganization(row.id) }
-    const onClick = actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+    const onClick = () => actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
         <Link to={`/organizations/${row.id}/edit`}>Edit</Link>
