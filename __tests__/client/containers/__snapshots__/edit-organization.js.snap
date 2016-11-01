@@ -53,6 +53,9 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
               <div
                 className="col-xs-12">
                 <h3>
+                  <span>
+                    Create Organization
+                  </span>
                   <Button
                     active={false}
                     block={false}
@@ -354,6 +357,9 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
               <div
                 className="col-xs-12">
                 <h3>
+                  <span>
+                    Edit Organization
+                  </span>
                   <Button
                     active={false}
                     block={false}

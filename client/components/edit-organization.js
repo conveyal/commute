@@ -49,7 +49,8 @@ export default class EditOrganization extends Component {
       <Grid>
         <Row>
           <Col xs={12}>
-            <h3>Create Organization
+            <h3>
+              <span>{`${this.props.editMode ? 'Edit' : 'Create'} Organization`}</span>
               <Button className='pull-right'>
                 <Link to='/'><Icon type='arrow-left' />Back</Link>
               </Button>

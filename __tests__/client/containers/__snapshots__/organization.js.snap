@@ -128,14 +128,20 @@ exports[`Container > Organization Organization View loads 1`] = `
           Object {
             "address": "123 ABC St",
             "id": "1",
+            "lat": 38.8886,
+            "lng": -77.043,
             "name": "Acme Corp",
+            "radius": 1,
           },
         ],
         "sitesById": Object {
           "1": Object {
             "address": "123 ABC St",
             "id": "1",
+            "lat": 38.8886,
+            "lng": -77.043,
             "name": "Acme Corp",
+            "radius": 1,
           },
         },
       }
@@ -273,7 +279,10 @@ exports[`Container > Organization Organization View loads 1`] = `
                       Object {
                         "address": "123 ABC St",
                         "id": "1",
+                        "lat": 38.8886,
+                        "lng": -77.043,
                         "name": "Acme Corp",
+                        "radius": 1,
                       },
                     ]
                   }
@@ -673,7 +682,10 @@ exports[`Container > Organization Organization View loads 1`] = `
                             Object {
                               "address": "123 ABC St",
                               "id": "1",
+                              "lat": 38.8886,
+                              "lng": -77.043,
                               "name": "Acme Corp",
+                              "radius": 1,
                             },
                           ]
                         }

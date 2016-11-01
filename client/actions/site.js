@@ -4,11 +4,11 @@ import uuid from 'uuid'
 
 // site stuff
 const addSite = createAction('add site')
-export const createSite = (newSite) => {
+export const createSite = (newSite, organizationId) => {
   newSite.id = uuid.v4()
   return [
     addSite(newSite),
-    push(`/organizations/${newSite.organizationId}`)
+    push(`/organizations/${organizationId}`)
   ] // TODO save to server
 }
 
@@ -22,5 +22,18 @@ const deleteLocally = createAction('delete site')
   }) */ // TODO delete on server
 export const deleteSite = (id, organzationId) => [
   deleteLocally(id),
+  push(`/organizations/${organzationId}`)
+]
+
+const updateLocally = createAction('update site')
+/* const updateOnServer = (id) =>
+  serverAction({
+    url: `/api/site/${id}`,
+    options: {
+      method: 'update'
+    }
+  }) */ // TODO update on server
+export const updateSite = (site, organzationId) => [
+  updateLocally(site),
   push(`/organizations/${organzationId}`)
 ]

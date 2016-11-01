@@ -4,11 +4,11 @@ import uuid from 'uuid'
 
 // site stuff
 const addGroup = createAction('add group')
-export const createGroup = (newGroup) => {
+export const createGroup = (newGroup, organizationId) => {
   newGroup.id = uuid.v4()
   return [
     addGroup(newGroup),
-    push(`/organizations/${newGroup.organizationId}/group/${newGroup.id}`)
+    push(`/organizations/${organizationId}/group/${newGroup.id}`)
   ] // TODO save to server
 }
 

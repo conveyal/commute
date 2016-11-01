@@ -5,13 +5,13 @@ import uuid from 'uuid'
 
 // site stuff
 const addAnalysis = createAction('add analysis')
-export const createAnalysis = (newAnalysis) => {
+export const createAnalysis = (newAnalysis, organizationId) => {
   newAnalysis.id = uuid.v4()
   newAnalysis.lastRunDateTime = moment().unix()
   newAnalysis.trips = []
   return [
     addAnalysis(newAnalysis),
-    push(`/organizations/${newAnalysis.organizationId}/analysis/${newAnalysis.id}`)
+    push(`/organizations/${organizationId}/analysis/${newAnalysis.id}`)
   ] // TODO save to server
 }
 

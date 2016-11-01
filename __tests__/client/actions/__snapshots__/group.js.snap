@@ -11,7 +11,7 @@ exports[`actions > group create group should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/undefined/group/new-entity-id",
+      "/organizations/1/group/new-entity-id",
     ],
     "method": "push",
   },

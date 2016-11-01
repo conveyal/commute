@@ -2,6 +2,7 @@
 @import url(node_modules/normalize.css/normalize.css);
 @import url(node_modules/font-awesome/css/font-awesome.css);
 @import url(node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css);
+@import url(node_modules/leaflet/dist/leaflet.css);
 @import url(node_modules/react-select/dist/react-select.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
 
@@ -9,4 +10,14 @@ footer {
   border-top: 1px solid gray;
   margin-top: 3em;
   padding: 1em;
+}
+
+/*
+ * react-leaflet is silly, you have to manually style the divs it creates
+ * https://github.com/PaulLeCam/react-leaflet/blob/master/example/index.html
+ * https://github.com/PaulLeCam/react-leaflet/issues/108
+ */
+.leaflet-container {
+	height: 100%;
+	width: 100%;
 }

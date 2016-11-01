@@ -2,7 +2,6 @@ exports[`actions > site create site should work 1`] = `
 Object {
   "payload": Object {
     "name": "mockSite",
-    "organizationId": "1",
   },
   "type": "add site",
 }
@@ -36,4 +35,25 @@ Array [
     "type": "@@router/CALL_HISTORY_METHOD",
   },
 ]
+`;
+
+exports[`actions > site update site should work 1`] = `
+Object {
+  "payload": Object {
+    "name": "mockSite",
+  },
+  "type": "update site",
+}
+`;
+
+exports[`actions > site update site should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/1",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;

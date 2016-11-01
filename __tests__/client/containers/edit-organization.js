@@ -75,7 +75,7 @@ describe('Container > EditOrganization', () => {
     // submit form
     tree.find('form').find('button').first().simulate('click')
 
-    // expect create action
+    // expect update action
     const actions = mockStore.getActions()
     expect(actions.length).toBe(1)
     expect(actions).toMatchSnapshot()

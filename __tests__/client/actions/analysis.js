@@ -11,7 +11,7 @@ describe('actions > analysis', () => {
       name: 'Mock Analysis',
       siteId: '1'
     }
-    const result = analysis.createAnalysis(data)
+    const result = analysis.createAnalysis(data, '1')
 
     expectCreateAction(result)
   })

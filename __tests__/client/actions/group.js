@@ -9,7 +9,7 @@ describe('actions > group', () => {
     const data = {
       name: 'Mock Group'
     }
-    const result = group.createGroup(data)
+    const result = group.createGroup(data, '1')
 
     expectCreateAction(result)
   })

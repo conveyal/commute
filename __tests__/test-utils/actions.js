@@ -69,3 +69,22 @@ export function expectDeleteSite (actions) {
   expect(actions.length).toBeGreaterThan(0)
   expect(actions).toMatchSnapshot()
 }
+
+export function expectUpdateAction (actions) {
+  // Then the website should update the entity in the database
+  // And the website should modify the entity in the redux store
+  // And the website should navigate to the appropriate view
+
+  // expect 2 actions
+  // - update entity
+  // - react-router navigation
+  expect(actions.length).toBe(2)
+
+  // handle update
+  const update = actions[0]
+  expect(update).toMatchSnapshot()
+
+  // react-router
+  const navigate = actions[1]
+  expect(navigate).toMatchSnapshot()
+}

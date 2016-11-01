@@ -14,7 +14,7 @@ exports[`actions > analysis create analysis should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/undefined/analysis/new-entity-id",
+      "/organizations/1/analysis/new-entity-id",
     ],
     "method": "push",
   },

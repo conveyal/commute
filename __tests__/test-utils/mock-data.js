@@ -28,7 +28,14 @@ export const mockAnalysis = {
   trips: []
 }
 export const mockGroup = { id: '1', name: 'Mock Group', commuters: [] }
-export const mockSite = { id: '1', name: 'Acme Corp', address: '123 ABC St' }
+export const mockSite = {
+  id: '1',
+  name: 'Acme Corp',
+  address: '123 ABC St',
+  lat: 38.8886,
+  lng: -77.0430,
+  radius: 1
+}
 
 export const complexOrganization = {
   analyses: [mockAnalysis],
