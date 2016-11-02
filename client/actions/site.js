@@ -7,7 +7,7 @@ const addSite = createAction('add site')
 export const createSite = (newSite, organizationId) => {
   newSite.id = uuid.v4()
   return [
-    addSite(newSite),
+    addSite({ organizationId, site: newSite }),
     push(`/organizations/${organizationId}`)
   ] // TODO save to server
 }
@@ -33,7 +33,7 @@ const updateLocally = createAction('update site')
       method: 'update'
     }
   }) */ // TODO update on server
-export const updateSite = (site, organzationId) => [
-  updateLocally(site),
-  push(`/organizations/${organzationId}`)
+export const updateSite = (site, organizationId) => [
+  updateLocally({ organizationId, site }),
+  push(`/organizations/${organizationId}`)
 ]

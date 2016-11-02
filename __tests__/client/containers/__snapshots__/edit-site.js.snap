@@ -1,11 +1,14 @@
 exports[`Container > EditSite Create site 1`] = `
 Object {
   "payload": Object {
-    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-    "lat": 38.89011,
-    "lng": -76.9897,
-    "name": "Mock Site",
-    "radius": 0.5,
+    "organizationId": "1",
+    "site": Object {
+      "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
+      "lat": 38.89011,
+      "lng": -76.9897,
+      "name": "Mock Site",
+      "radius": 0.5,
+    },
   },
   "type": "add site",
 }
@@ -293,7 +296,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
       name="radius"
       onChange={[Function]}
       placeholder="Enter radius"
-      type="text">
+      type="text"
+      value={undefined}>
       <FormGroup
         bsClass="form-group"
         controlId="group-item-radius">
@@ -621,7 +625,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
       name="radius"
       onChange={[Function]}
       placeholder="Enter radius"
-      type="text">
+      type="text"
+      value={1}>
       <FormGroup
         bsClass="form-group"
         controlId="group-item-radius">
@@ -642,14 +647,14 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
             onChange={[Function]}
             placeholder="Enter radius"
             type="text"
-            value="">
+            value={1}>
             <input
               className="form-control"
               id="group-item-radius"
               onChange={[Function]}
               placeholder="Enter radius"
               type="text"
-              value="" />
+              value={1} />
           </FormControl>
         </div>
       </FormGroup>
@@ -723,12 +728,15 @@ Array [
 exports[`Container > EditSite Update site 1`] = `
 Object {
   "payload": Object {
-    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-    "id": "1",
-    "lat": 38.89011,
-    "lng": -76.9897,
-    "name": "Mock Site",
-    "radius": 0.5,
+    "organizationId": "2",
+    "site": Object {
+      "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
+      "id": "1",
+      "lat": 38.89011,
+      "lng": -76.9897,
+      "name": "Mock Site",
+      "radius": 0.5,
+    },
   },
   "type": "update site",
 }

@@ -33,8 +33,7 @@ describe('client > reducers > organization', () => {
 
   // Site Tests
   it('should handle add site', () => {
-    mockSite.organizationId = '1'
-    const action = { type: 'add site', payload: mockSite }
+    const action = { type: 'add site', payload: { organizationId: '1', site: mockSite } }
     const result = reducer(mockStores.oneSimpleOrganization.organization, action)
     expect(result.organizationsById['1'].sites.length).toBe(1)
     expect(result).toMatchSnapshot()

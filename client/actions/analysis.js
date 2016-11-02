@@ -10,7 +10,7 @@ export const createAnalysis = (newAnalysis, organizationId) => {
   newAnalysis.lastRunDateTime = moment().unix()
   newAnalysis.trips = []
   return [
-    addAnalysis(newAnalysis),
+    addAnalysis({ analysis: newAnalysis, organizationId }),
     push(`/organizations/${organizationId}/analysis/${newAnalysis.id}`)
   ] // TODO save to server
 }

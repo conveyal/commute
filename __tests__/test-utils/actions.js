@@ -2,20 +2,25 @@
 
 import moment from 'moment'
 
-export function expectCreateAction (actions) {
+export function expectCreateAction (actions, entity) {
   // expect 2 actions
-  // - add organization
+  // - add entity
   // - react-router navigate to newly created entity
   expect(actions.length).toBe(2)
 
   // handle create
   const create = actions[0]
-  const newId = create.payload.id
-  delete create.payload.id
+  if (entity) {
+    entity = create.payload[entity]
+  } else {
+    entity = create.payload
+  }
+  const newId = entity.id
+  delete entity.id
   // handle analysis lastRunDateTime if present
-  if (create.payload.lastRunDateTime) {
-    expect(create.payload.lastRunDateTime).toBeGreaterThan(moment().unix() - 10)
-    delete create.payload.lastRunDateTime
+  if (entity.lastRunDateTime) {
+    expect(entity.lastRunDateTime).toBeGreaterThan(moment().unix() - 10)
+    delete entity.lastRunDateTime
   }
   expect(create).toMatchSnapshot()
 
@@ -26,13 +31,21 @@ export function expectCreateAction (actions) {
   expect(navigate).toMatchSnapshot()
 }
 
+export function expectCreateAnalysis (actions) {
+  expectCreateAction(actions, 'analysis')
+}
+
+export function expectCreateGroup (actions) {
+  expectCreateAction(actions, 'group')
+}
+
 export function expectCreateSite (actions) {
   // expect 2 actions
   // - add organization
   // - react-router navigate back to organization
   expect(actions.length).toBe(2)
   const create = actions[0]
-  delete create.payload.id
+  delete create.payload.site.id
   expect(create).toMatchSnapshot()
 
   // react-router

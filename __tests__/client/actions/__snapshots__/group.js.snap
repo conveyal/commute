@@ -1,7 +1,10 @@
 exports[`actions > group create group should work 1`] = `
 Object {
   "payload": Object {
-    "name": "Mock Group",
+    "group": Object {
+      "name": "Mock Group",
+    },
+    "organizationId": "1",
   },
   "type": "add group",
 }

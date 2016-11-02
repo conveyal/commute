@@ -21,7 +21,8 @@ export default class EditSite extends Component {
 
     // props
     editMode: PropTypes.bool,
-    organization: PropTypes.object
+    organizationId: PropTypes.string.isRequired,
+    site: PropTypes.object
   }
 
   componentWillMount () {
@@ -108,6 +109,7 @@ export default class EditSite extends Component {
                 onChange={this.handleChange}
                 placeholder='Enter radius'
                 type='text'
+                value={this.state.radius}
                 />
             </form>
           </Col>

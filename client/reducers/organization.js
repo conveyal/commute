@@ -28,9 +28,9 @@ export const reducers = {
     }
   },
   'add site' (state, action) {
-    const site = action.payload
+    const {organizationId, site} = action.payload
     // TODO: figure out if the following lines of code mutate state
-    const affectedOrganization = state.organizationsById[site.organizationId]
+    const affectedOrganization = state.organizationsById[organizationId]
     affectedOrganization.sites = [...affectedOrganization.sites, site]
     affectedOrganization.sitesById = arrayToObj(affectedOrganization.sites)
     return {

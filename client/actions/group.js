@@ -7,7 +7,7 @@ const addGroup = createAction('add group')
 export const createGroup = (newGroup, organizationId) => {
   newGroup.id = uuid.v4()
   return [
-    addGroup(newGroup),
+    addGroup({ group: newGroup, organizationId }),
     push(`/organizations/${organizationId}/group/${newGroup.id}`)
   ] // TODO save to server
 }
@@ -20,7 +20,7 @@ const deleteLocally = createAction('delete group')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteGroup = (id, organzationId) => [
+export const deleteGroup = (id, organizationId) => [
   deleteLocally(id),
-  push(`/organizations/${organzationId}`)
+  push(`/organizations/${organizationId}`)
 ]

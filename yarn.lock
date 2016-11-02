@@ -6261,6 +6261,13 @@ react-router@^2.8.1:
     loose-envify "^1.2.0"
     warning "^3.0.0"
 
+react-select, react-select@^1.0.0-beta14:
+  version "1.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.2.tgz#9fc11b149a3dc1ac831289d21b40a59742f82f8d"
+  dependencies:
+    classnames "^2.2.4"
+    react-input-autosize "^1.1.0"
+
 react-select-geocoder:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/react-select-geocoder/-/react-select-geocoder-0.2.1.tgz#8c76f553d8cd6c13bba5a5513fb0f791f1fbd389"
@@ -6269,13 +6276,6 @@ react-select-geocoder:
     react-pure-render "^1.0.2"
     react-select "^1.0.0-beta14"
     throttleit "^1.0.0"
-
-react-select@^1.0.0-beta14:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.2.tgz#9fc11b149a3dc1ac831289d21b40a59742f82f8d"
-  dependencies:
-    classnames "^2.2.4"
-    react-input-autosize "^1.1.0"
 
 react-toastr@^2.8.0:
   version "2.8.1"

@@ -1,6 +1,6 @@
 /* global describe, it */
 
-import {expectCreateAction, expectDeleteAnalysis} from '../../test-utils/actions'
+import {expectCreateAnalysis, expectDeleteAnalysis} from '../../test-utils/actions'
 
 import * as analysis from '../../../client/actions/analysis'
 
@@ -13,7 +13,7 @@ describe('actions > analysis', () => {
     }
     const result = analysis.createAnalysis(data, '1')
 
-    expectCreateAction(result)
+    expectCreateAnalysis(result)
   })
 
   it('delete analysis should work', () => {

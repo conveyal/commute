@@ -1,13 +1,24 @@
 import {connect} from 'react-redux'
 
+import {createAnalysis} from '../actions/analysis'
 import CreateAnalysis from '../components/create-analysis'
 
 function mapStateToProps (state, props) {
-  return {}
+  const {organization} = state
+  const {params} = props
+  const currentOrganizationId = params.organizationId
+  const currentOrganization = organization.organizationsById[currentOrganizationId]
+  return {
+    groups: currentOrganization.groups,
+    organizationId: currentOrganizationId,
+    sites: currentOrganization.sites
+  }
 }
 
 function mapDispatchToProps (dispatch, props) {
-  return {}
+  return {
+    create: (opts, organizationId) => dispatch(createAnalysis(opts, organizationId))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateAnalysis)

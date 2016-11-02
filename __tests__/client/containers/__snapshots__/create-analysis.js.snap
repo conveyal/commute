@@ -1,9 +1,405 @@
 exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
-<Connect(CreateAnalysis)>
-  <CreateAnalysis>
-    <h1>
-      Create Analysis
-    </h1>
+<Connect(CreateAnalysis)
+  params={
+    Object {
+      "organizationId": "2",
+    }
+  }>
+  <CreateAnalysis
+    create={[Function]}
+    groups={
+      Array [
+        Object {
+          "commuters": Array [],
+          "id": "1",
+          "name": "Mock Group",
+        },
+      ]
+    }
+    organizationId="2"
+    params={
+      Object {
+        "organizationId": "2",
+      }
+    }
+    sites={
+      Array [
+        Object {
+          "address": "123 ABC St",
+          "id": "1",
+          "lat": 38.8886,
+          "lng": -77.043,
+          "name": "Acme Corp",
+          "radius": 1,
+        },
+      ]
+    }>
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}>
+      <div
+        className="container">
+        <Row
+          bsClass="row"
+          componentClass="div">
+          <div
+            className="row">
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <h3>
+                  <span>
+                    Create Analysis
+                  </span>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/organization/2">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <Icon
+                            type="arrow-left">
+                            <i
+                              className="fa fa-arrow-left fa-fw " />
+                          </Icon>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h3>
+                <form>
+                  <Select
+                    addLabelText="Add \"{label}\"?"
+                    arrowRenderer={[Function]}
+                    autosize={true}
+                    backspaceRemoves={true}
+                    backspaceToRemoveMessage="Press backspace to remove {label}"
+                    clearAllText="Clear all"
+                    clearValueText="Clear value"
+                    clearable={true}
+                    delimiter=","
+                    disabled={false}
+                    escapeClearsValue={true}
+                    filterOptions={[Function]}
+                    ignoreAccents={true}
+                    ignoreCase={true}
+                    inputProps={Object {}}
+                    isLoading={false}
+                    joinValues={false}
+                    labelKey="label"
+                    matchPos="any"
+                    matchProp="any"
+                    menuBuffer={0}
+                    menuRenderer={[Function]}
+                    multi={false}
+                    noResultsText="No results found"
+                    onBlurResetsInput={true}
+                    onChange={[Function]}
+                    onCloseResetsInput={true}
+                    openAfterFocus={false}
+                    optionComponent={[Function]}
+                    options={
+                      Array [
+                        Object {
+                          "label": "Acme Corp",
+                          "value": "1",
+                        },
+                      ]
+                    }
+                    pageSize={5}
+                    placeholder="Select a Site..."
+                    required={false}
+                    scrollMenuIntoView={true}
+                    searchable={true}
+                    simpleValue={false}
+                    tabSelectsValue={true}
+                    valueComponent={[Function]}
+                    valueKey="value">
+                    <div
+                      className="Select Select--single is-searchable"
+                      style={undefined}>
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={undefined}>
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-2--value">
+                          <div
+                            className="Select-placeholder">
+                            Select a Site...
+                          </div>
+                          <AutosizeInput
+                            aria-activedescendant="react-select-2--value"
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            minWidth="5px"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            tabIndex={undefined}
+                            value="">
+                            <div
+                              className="Select-input"
+                              style={
+                                Object {
+                                  "display": "inline-block",
+                                }
+                              }>
+                              <input
+                                aria-activedescendant="react-select-2--value"
+                                aria-expanded="false"
+                                aria-haspopup="false"
+                                aria-label={undefined}
+                                aria-labelledby={undefined}
+                                aria-owns=""
+                                className={undefined}
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                required={false}
+                                role="combobox"
+                                style={
+                                  Object {
+                                    "boxSizing": "content-box",
+                                    "width": "5pxpx",
+                                  }
+                                }
+                                tabIndex={undefined}
+                                value="" />
+                              <div
+                                style={
+                                  Object {
+                                    "height": 0,
+                                    "left": 0,
+                                    "overflow": "scroll",
+                                    "position": "absolute",
+                                    "top": 0,
+                                    "visibility": "hidden",
+                                    "whiteSpace": "pre",
+                                  }
+                                } />
+                            </div>
+                          </AutosizeInput>
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}>
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]} />
+                        </span>
+                      </div>
+                    </div>
+                  </Select>
+                  <Select
+                    addLabelText="Add \"{label}\"?"
+                    arrowRenderer={[Function]}
+                    autosize={true}
+                    backspaceRemoves={true}
+                    backspaceToRemoveMessage="Press backspace to remove {label}"
+                    clearAllText="Clear all"
+                    clearValueText="Clear value"
+                    clearable={true}
+                    delimiter=","
+                    disabled={false}
+                    escapeClearsValue={true}
+                    filterOptions={[Function]}
+                    ignoreAccents={true}
+                    ignoreCase={true}
+                    inputProps={Object {}}
+                    isLoading={false}
+                    joinValues={false}
+                    labelKey="label"
+                    matchPos="any"
+                    matchProp="any"
+                    menuBuffer={0}
+                    menuRenderer={[Function]}
+                    multi={false}
+                    noResultsText="No results found"
+                    onBlurResetsInput={true}
+                    onChange={[Function]}
+                    onCloseResetsInput={true}
+                    openAfterFocus={false}
+                    optionComponent={[Function]}
+                    options={
+                      Array [
+                        Object {
+                          "label": "Mock Group",
+                          "value": "1",
+                        },
+                      ]
+                    }
+                    pageSize={5}
+                    placeholder="Select a Commuter Group..."
+                    required={false}
+                    scrollMenuIntoView={true}
+                    searchable={true}
+                    simpleValue={false}
+                    tabSelectsValue={true}
+                    valueComponent={[Function]}
+                    valueKey="value">
+                    <div
+                      className="Select Select--single is-searchable"
+                      style={undefined}>
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={undefined}>
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-3--value">
+                          <div
+                            className="Select-placeholder">
+                            Select a Commuter Group...
+                          </div>
+                          <AutosizeInput
+                            aria-activedescendant="react-select-3--value"
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            minWidth="5px"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            tabIndex={undefined}
+                            value="">
+                            <div
+                              className="Select-input"
+                              style={
+                                Object {
+                                  "display": "inline-block",
+                                }
+                              }>
+                              <input
+                                aria-activedescendant="react-select-3--value"
+                                aria-expanded="false"
+                                aria-haspopup="false"
+                                aria-label={undefined}
+                                aria-labelledby={undefined}
+                                aria-owns=""
+                                className={undefined}
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                required={false}
+                                role="combobox"
+                                style={
+                                  Object {
+                                    "boxSizing": "content-box",
+                                    "width": "5pxpx",
+                                  }
+                                }
+                                tabIndex={undefined}
+                                value="" />
+                              <div
+                                style={
+                                  Object {
+                                    "height": 0,
+                                    "left": 0,
+                                    "overflow": "scroll",
+                                    "position": "absolute",
+                                    "top": 0,
+                                    "visibility": "hidden",
+                                    "whiteSpace": "pre",
+                                  }
+                                } />
+                            </div>
+                          </AutosizeInput>
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}>
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]} />
+                        </span>
+                      </div>
+                    </div>
+                  </Select>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="success"
+                    disabled={false}
+                    onClick={[Function]}>
+                    <button
+                      className="btn btn-success"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="button">
+                      \'Create\'
+                    </button>
+                  </Button>
+                </form>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </div>
+    </Grid>
   </CreateAnalysis>
 </Connect(CreateAnalysis)>
+`;
+
+exports[`Container > CreateAnalysis Create analysis 1`] = `
+Object {
+  "payload": Object {
+    "analysis": Object {
+      "groupId": "1",
+      "siteId": "1",
+      "trips": Array [],
+    },
+    "organizationId": "2",
+  },
+  "type": "add analysis",
+}
+`;
+
+exports[`Container > CreateAnalysis Create analysis 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/2/analysis/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
