@@ -2,6 +2,14 @@
 
 import moment from 'moment'
 
+export function expectAppendCommuters (actions) {
+  // expect 2 actions
+  // - append commuters
+  // - react-router navigate to commuter group
+  expect(actions.length).toBe(2)
+  expect(actions).toMatchSnapshot()
+}
+
 export function expectCreateAction (actions, entity) {
   // expect 2 actions
   // - add entity

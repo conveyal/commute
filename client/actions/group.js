@@ -2,8 +2,14 @@ import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
 import uuid from 'uuid'
 
-// site stuff
 const addGroup = createAction('add group')
+const appendCommuters = createAction('append commuters')
+export const appendToGroup = (newCommuters, groupId, organizationId) => {
+  return [
+    appendCommuters({ commuters: newCommuters, groupId, organizationId }),
+    push(`/organizations/${organizationId}/group/${groupId}`)
+  ] // TODO save to server
+}
 export const createGroup = (newGroup, organizationId) => {
   newGroup.id = uuid.v4()
   return [

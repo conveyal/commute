@@ -25,7 +25,7 @@ export default class Navigation extends Component {
       <Navbar fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href='#'>Commute</a>
+            <a href='/'>Commute</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

@@ -3,7 +3,6 @@ import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
 import uuid from 'uuid'
 
-// site stuff
 const addAnalysis = createAction('add analysis')
 export const createAnalysis = (newAnalysis, organizationId) => {
   newAnalysis.id = uuid.v4()

@@ -37,7 +37,7 @@ export default class CreateAnalysis extends Component {
             <h3>
               <span>Create Analysis</span>
               <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
               </Button>
             </h3>
             <form>

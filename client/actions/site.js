@@ -2,7 +2,6 @@ import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
 import uuid from 'uuid'
 
-// site stuff
 const addSite = createAction('add site')
 export const createSite = (newSite, organizationId) => {
   newSite.id = uuid.v4()

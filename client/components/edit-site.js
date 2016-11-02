@@ -82,7 +82,7 @@ export default class EditSite extends Component {
             <h3>
               <span>{`${editMode ? 'Edit' : 'Create'} Site`}</span>
               <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
               </Button>
             </h3>
           </Col>
