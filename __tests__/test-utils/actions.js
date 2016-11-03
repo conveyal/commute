@@ -43,13 +43,26 @@ export function expectCreateAnalysis (actions) {
   expectCreateAction(actions, 'analysis')
 }
 
+export function expectCreateCommuter (actions) {
+  // expect 2 actions
+  // - add commuter
+  // - react-router navigate back to commuter group
+  expect(actions.length).toBe(2)
+  const create = actions[0]
+  delete create.payload.commuter.id
+  expect(create).toMatchSnapshot()
+
+  // react-router
+  expect(actions[1]).toMatchSnapshot()
+}
+
 export function expectCreateGroup (actions) {
   expectCreateAction(actions, 'group')
 }
 
 export function expectCreateSite (actions) {
   // expect 2 actions
-  // - add organization
+  // - add site
   // - react-router navigate back to organization
   expect(actions.length).toBe(2)
   const create = actions[0]
@@ -61,6 +74,13 @@ export function expectCreateSite (actions) {
 }
 
 export function expectDeleteAnalysis (actions) {
+  // Then the analysis should be deleted from the database
+  // And the analysis should be removed from the respective organization on the website
+  expect(actions.length).toBeGreaterThan(0)
+  expect(actions).toMatchSnapshot()
+}
+
+export function expectDeleteCommuter (actions) {
   // Then the analysis should be deleted from the database
   // And the analysis should be removed from the respective organization on the website
   expect(actions.length).toBeGreaterThan(0)

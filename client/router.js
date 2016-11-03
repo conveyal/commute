@@ -29,7 +29,7 @@ const ApplicationRouter = ({history}) => (
       <Route path='/organizations/:organizationId/groups/create' component={AddCommuters} />
       <Route path='/organizations/:organizationId/groups/:groupId' component={Group} />
       <Route path='/organizations/:organizationId/groups/:groupId/add' component={AddCommuters} />
-      <Route path='/organizations/:organizationId/groups/:groupId/edit-commuter' component={EditCommuter} />
+      <Route path='/organizations/:organizationId/groups/:groupId/commuter/:commuterId/edit' component={EditCommuter} />
       <Route path='/organizations/:organizationId/analysis/create' component={CreateAnalysis} />
       <Route path='/organizations/:organizationId/analysis/:analysisId' component={Analysis} />
     </Route>

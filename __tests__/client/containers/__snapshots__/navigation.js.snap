@@ -33,7 +33,7 @@ exports[`Container > Navigation renders correctly 1`] = `
                   <NavbarBrand>
                     <a
                       className="navbar-brand"
-                      href="#">
+                      href="/">
                       Commute
                     </a>
                   </NavbarBrand>

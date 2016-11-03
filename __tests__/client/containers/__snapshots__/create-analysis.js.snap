@@ -10,7 +10,26 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
     groups={
       Array [
         Object {
-          "commuters": Array [],
+          "commuters": Array [
+            Object {
+              "address": "4321 XYZ Boulevard",
+              "email": "luke@warm.cold",
+              "id": "1",
+              "lat": 38.916089,
+              "lng": -76.970221,
+              "name": "Luke Warm",
+            },
+          ],
+          "commutersById": Object {
+            "1": Object {
+              "address": "4321 XYZ Boulevard",
+              "email": "luke@warm.cold",
+              "id": "1",
+              "lat": 38.916089,
+              "lng": -76.970221,
+              "name": "Luke Warm",
+            },
+          },
           "id": "1",
           "name": "Mock Group",
         },
@@ -69,7 +88,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                       <Link
                         onlyActiveOnIndex={false}
                         style={Object {}}
-                        to="/organization/2">
+                        to="/organizations/2">
                         <a
                           onClick={[Function]}
                           style={Object {}}>

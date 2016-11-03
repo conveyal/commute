@@ -176,7 +176,26 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
     create={[Function]}
     group={
       Object {
-        "commuters": Array [],
+        "commuters": Array [
+          Object {
+            "address": "4321 XYZ Boulevard",
+            "email": "luke@warm.cold",
+            "id": "1",
+            "lat": 38.916089,
+            "lng": -76.970221,
+            "name": "Luke Warm",
+          },
+        ],
+        "commutersById": Object {
+          "1": Object {
+            "address": "4321 XYZ Boulevard",
+            "email": "luke@warm.cold",
+            "id": "1",
+            "lat": 38.916089,
+            "lng": -76.970221,
+            "name": "Luke Warm",
+          },
+        },
         "id": "1",
         "name": "Mock Group",
       }
@@ -324,7 +343,7 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
                           defaultExpanded={false}
                           eventKey="1"
                           expanded={false}
-                          header="0 Existing Commuters"
+                          header="1 Existing Commuters"
                           headerRole="tab"
                           onSelect={[Function]}
                           panelRole="tabpanel">
@@ -343,7 +362,7 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
                                   href={undefined}
                                   onClick={[Function]}
                                   role="tab">
-                                  0 Existing Commuters
+                                  1 Existing Commuters
                                 </a>
                               </h4>
                             </div>
@@ -403,7 +422,18 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
                                       containerClass={null}
                                       containerStyle={undefined}
                                       csvFileName="spreadsheet.csv"
-                                      data={Array []}
+                                      data={
+                                        Array [
+                                          Object {
+                                            "address": "4321 XYZ Boulevard",
+                                            "email": "luke@warm.cold",
+                                            "id": "1",
+                                            "lat": 38.916089,
+                                            "lng": -76.970221,
+                                            "name": "Luke Warm",
+                                          },
+                                        ]
+                                      }
                                       deleteRow={false}
                                       exportCSV={false}
                                       fetchInfo={
@@ -797,7 +827,18 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
                                               ]
                                             }
                                             condensed={false}
-                                            data={Array []}
+                                            data={
+                                              Array [
+                                                Object {
+                                                  "address": "4321 XYZ Boulevard",
+                                                  "email": "luke@warm.cold",
+                                                  "id": "1",
+                                                  "lat": 38.916089,
+                                                  "lng": -76.970221,
+                                                  "name": "Luke Warm",
+                                                },
+                                              ]
+                                            }
                                             hover={false}
                                             keyField="id"
                                             noDataText={undefined}
@@ -873,20 +914,139 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
                                                 </colgroup>
                                                 <tbody>
                                                   <TableRow
-                                                    onRowClick={undefined}
-                                                    onRowDoubleClick={undefined}>
+                                                    className=""
+                                                    enableCellEdit={false}
+                                                    isSelected={false}
+                                                    onRowClick={[Function]}
+                                                    onRowDoubleClick={[Function]}
+                                                    onRowMouseOut={[Function]}
+                                                    onRowMouseOver={[Function]}
+                                                    onSelectRow={[Function]}
+                                                    selectRow={undefined}
+                                                    unselectableRow={false}>
                                                     <tr
                                                       className=""
+                                                      onClick={[Function]}
+                                                      onDoubleClick={[Function]}
+                                                      onMouseOut={[Function]}
+                                                      onMouseOver={[Function]}
                                                       style={
                                                         Object {
                                                           "backgroundColor": null,
                                                         }
                                                       }>
-                                                      <td
-                                                        className="react-bs-table-no-data"
-                                                        colSpan={4}>
-                                                        There is no data to display
-                                                      </td>
+                                                      <TableColumn
+                                                        cellEdit={
+                                                          Object {
+                                                            "__onCompleteEdit__": [Function],
+                                                            "afterSaveCell": undefined,
+                                                            "beforeSaveCell": undefined,
+                                                            "blurToSave": false,
+                                                            "mode": "none",
+                                                          }
+                                                        }
+                                                        className=""
+                                                        columnTitle={null}
+                                                        dataAlign="left"
+                                                        hidden={true}
+                                                        onEdit={[Function]}
+                                                        width={null}>
+                                                        <td
+                                                          className=""
+                                                          style={
+                                                            Object {
+                                                              "display": "none",
+                                                              "textAlign": "left",
+                                                            }
+                                                          }
+                                                          title={null}>
+                                                          1
+                                                        </td>
+                                                      </TableColumn>
+                                                      <TableColumn
+                                                        cellEdit={
+                                                          Object {
+                                                            "__onCompleteEdit__": [Function],
+                                                            "afterSaveCell": undefined,
+                                                            "beforeSaveCell": undefined,
+                                                            "blurToSave": false,
+                                                            "mode": "none",
+                                                          }
+                                                        }
+                                                        className=""
+                                                        columnTitle={null}
+                                                        dataAlign="left"
+                                                        hidden={false}
+                                                        onEdit={[Function]}
+                                                        width={null}>
+                                                        <td
+                                                          className=""
+                                                          style={
+                                                            Object {
+                                                              "display": null,
+                                                              "textAlign": "left",
+                                                            }
+                                                          }
+                                                          title={null}>
+                                                          Luke Warm
+                                                        </td>
+                                                      </TableColumn>
+                                                      <TableColumn
+                                                        cellEdit={
+                                                          Object {
+                                                            "__onCompleteEdit__": [Function],
+                                                            "afterSaveCell": undefined,
+                                                            "beforeSaveCell": undefined,
+                                                            "blurToSave": false,
+                                                            "mode": "none",
+                                                          }
+                                                        }
+                                                        className=""
+                                                        columnTitle={null}
+                                                        dataAlign="left"
+                                                        hidden={false}
+                                                        onEdit={[Function]}
+                                                        width={null}>
+                                                        <td
+                                                          className=""
+                                                          style={
+                                                            Object {
+                                                              "display": null,
+                                                              "textAlign": "left",
+                                                            }
+                                                          }
+                                                          title={null}>
+                                                          luke@warm.cold
+                                                        </td>
+                                                      </TableColumn>
+                                                      <TableColumn
+                                                        cellEdit={
+                                                          Object {
+                                                            "__onCompleteEdit__": [Function],
+                                                            "afterSaveCell": undefined,
+                                                            "beforeSaveCell": undefined,
+                                                            "blurToSave": false,
+                                                            "mode": "none",
+                                                          }
+                                                        }
+                                                        className=""
+                                                        columnTitle={null}
+                                                        dataAlign="left"
+                                                        hidden={false}
+                                                        onEdit={[Function]}
+                                                        width={null}>
+                                                        <td
+                                                          className=""
+                                                          style={
+                                                            Object {
+                                                              "display": null,
+                                                              "textAlign": "left",
+                                                            }
+                                                          }
+                                                          title={null}>
+                                                          4321 XYZ Boulevard
+                                                        </td>
+                                                      </TableColumn>
                                                     </tr>
                                                   </TableRow>
                                                 </tbody>

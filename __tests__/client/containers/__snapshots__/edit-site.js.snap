@@ -47,7 +47,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
         <Link
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/organization/1">
+          to="/organizations/1">
           <a
             onClick={[Function]}
             style={Object {}}>
@@ -376,7 +376,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
         <Link
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/organization/2">
+          to="/organizations/2">
           <a
             onClick={[Function]}
             style={Object {}}>

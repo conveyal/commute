@@ -27,7 +27,20 @@ export const mockAnalysis = {
   siteId: '1',
   trips: []
 }
-export const mockGroup = { id: '1', name: 'Mock Group', commuters: [] }
+const mockCommuter = {
+  address: '4321 XYZ Boulevard',
+  email: 'luke@warm.cold',
+  id: '1',
+  lat: 38.916089,
+  lng: -76.970221,
+  name: 'Luke Warm'
+}
+export const mockGroup = {
+  id: '1',
+  name: 'Mock Group',
+  commuters: [mockCommuter],
+  commutersById: { '1': mockCommuter }
+}
 export const mockSite = {
   id: '1',
   name: 'Acme Corp',
