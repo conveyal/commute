@@ -90,6 +90,14 @@ class MapMock extends Leaflet.Map {
     return this._zoom
   }
 
+  latLngToLayerPoint () {
+    return { x: 100, y: 100 }
+  }
+
+  layerPointToLatLng () {
+    return { lat: 38.92, lng: -76.97 }
+  }
+
   setMaxBounds (bounds) {
     bounds = Leaflet.latLngBounds(bounds)
     this.options.maxBounds = bounds
