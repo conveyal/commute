@@ -12,6 +12,10 @@ footer {
   padding: 1em;
 }
 
+h4 strong {
+  margin-right: 1em;
+}
+
 /* react-dropzone stuff */
 .dropzone {
   margin-bottom: 15px;

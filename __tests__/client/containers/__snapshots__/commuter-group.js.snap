@@ -8,7 +8,9 @@ exports[`Container > CommuterGroup Commuter Group View loads 1`] = `
     <div
       className="col-xs-12">
       <h3>
-        <span />
+        <span>
+          Mock Group
+        </span>
         <Button
           active={false}
           block={false}
@@ -828,8 +830,4 @@ exports[`Container > CommuterGroup Commuter Group View loads 1`] = `
 </div>
 `;
 
-exports[`Container > CommuterGroup Commuter Group View loads 2`] = `
-"<div class=\"leaflet-objects-pane leaflet-marker-pane leaflet-zoom-hide react-leaflet-cluster-layer\">
-  <div style=\"border-radius: 8px; background-color: white; padding: 1em; text-align: center; left: 100px; top: 100px;\">Luke Warm</div>
-</div>"
-`;
+exports[`Container > CommuterGroup Commuter Group View loads 2`] = `"<div class=\"leaflet-objects-pane leaflet-marker-pane leaflet-zoom-hide react-leaflet-cluster-layer\"></div>"`;

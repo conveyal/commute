@@ -5,21 +5,23 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
+import {makeMockStore, mockStores} from '../../../test-utils/mock-data.js'
 
-import Analysis from '../../../client/containers/analysis'
+import {Summary} from '../../../../client/containers/analysis'
 
-const mockStore = makeMockStore(mockStores.init)
+const mockStore = makeMockStore(mockStores.complexOrganization)
 
-describe('Container > Analysis', () => {
-  it('Analysis View loads (base case)', () => {
+describe('Container > Analysis > Summary', () => {
+  it('Analysis Summary View loads (base case)', () => {
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <Analysis />
+        <Summary
+          params={{organizationId: '2', analysisId: '1'}}
+          />
       </Provider>
     )
-    expect(mountToJson(tree.find(Analysis))).toMatchSnapshot()
+    expect(mountToJson(tree.find(Summary))).toMatchSnapshot()
   })
 
   /* it('Analysis View loads (commuter group or site has changed)', () => {

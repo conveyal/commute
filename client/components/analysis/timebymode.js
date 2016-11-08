@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-export default class Analysis extends Component {
+export default class TimeByMode extends Component {
   static propTypes = {}
 
   render () {

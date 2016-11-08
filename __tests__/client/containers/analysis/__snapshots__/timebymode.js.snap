@@ -1,0 +1,41 @@
+exports[`Container > Analysis > TimeByMode Commute Time By Mode View loads (base case) 1`] = `
+<Connect(TimeByMode)
+  params={
+    Object {
+      "analysisId": "1",
+      "organizationId": "2",
+    }
+  }>
+  <TimeByMode
+    analysis={
+      Object {
+        "groupId": "1",
+        "id": "1",
+        "lastRunDateTime": 1477697490,
+        "name": "An Analysis",
+        "siteId": "1",
+        "summary": Object {
+          "avgDistance": 12.34,
+          "avgTravelTime": 1234,
+          "savingsPerTrip": 1.23,
+          "savingsPerYear": 12345,
+        },
+        "trips": Array [],
+      }
+    }
+    dispatch={[Function]}
+    groupName="Mock Group"
+    organizationId="2"
+    params={
+      Object {
+        "analysisId": "1",
+        "organizationId": "2",
+      }
+    }
+    siteName="Acme Corp">
+    <h1>
+      Analysis
+    </h1>
+  </TimeByMode>
+</Connect(TimeByMode)>
+`;

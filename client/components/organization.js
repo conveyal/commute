@@ -113,7 +113,7 @@ export default class Organization extends Component {
             <p>A commuter group is a list of commuters that can commute to a particular site.</p>
             <BootstrapTable data={groups}>
               <TableHeaderColumn dataField='id' isKey hidden />
-              <TableHeaderColumn dataFormat={this.groupNameRenderer}>Name</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={this._groupNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}>Commuters</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._groupToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>

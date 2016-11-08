@@ -1,0 +1,275 @@
+exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 1`] = `
+<Connect(Summary)
+  params={
+    Object {
+      "analysisId": "1",
+      "organizationId": "2",
+    }
+  }>
+  <Summary
+    analysis={
+      Object {
+        "groupId": "1",
+        "id": "1",
+        "lastRunDateTime": 1477697490,
+        "name": "An Analysis",
+        "siteId": "1",
+        "summary": Object {
+          "avgDistance": 12.34,
+          "avgTravelTime": 1234,
+          "savingsPerTrip": 1.23,
+          "savingsPerYear": 12345,
+        },
+        "trips": Array [],
+      }
+    }
+    deleteAnalysis={[Function]}
+    groupName="Mock Group"
+    organizationId="2"
+    params={
+      Object {
+        "analysisId": "1",
+        "organizationId": "2",
+      }
+    }
+    siteName="Acme Corp">
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}>
+      <div
+        className="container">
+        <Row
+          bsClass="row"
+          componentClass="div">
+          <div
+            className="row">
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <h3>
+                  <span>
+                    An Analysis
+                  </span>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/organizations/2">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <Icon
+                            type="arrow-left">
+                            <i
+                              className="fa fa-arrow-left fa-fw " />
+                          </Icon>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h3>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              md={6}
+              xs={12}>
+              <div
+                className="col-md-6 col-xs-12">
+                <h4>
+                  <strong>
+                    Site:
+                  </strong>
+                  <span>
+                    Acme Corp
+                  </span>
+                </h4>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              md={6}
+              xs={12}>
+              <div
+                className="col-md-6 col-xs-12">
+                <h4>
+                  <strong>
+                    Group:
+                  </strong>
+                  <span>
+                    Mock Group
+                  </span>
+                </h4>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <h4>
+                  <strong>
+                    Progress:
+                  </strong>
+                  <span>
+                    100%
+                  </span>
+                </h4>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              md={4}
+              xs={12}>
+              <div
+                className="col-md-4 col-xs-12">
+                <h4>
+                  <strong>
+                    Potential Savings
+                  </strong>
+                </h4>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              md={8}
+              xs={12}>
+              <div
+                className="col-md-8 col-xs-12">
+                <table
+                  className="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td>
+                        Cost Per Trip
+                      </td>
+                      <td>
+                        $1.23
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Cost Per Year
+                      </td>
+                      <td>
+                        $12345
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              md={4}
+              xs={12}>
+              <div
+                className="col-md-4 col-xs-12">
+                <h4>
+                  <strong>
+                    Mode Shift Stats
+                  </strong>
+                </h4>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              md={8}
+              xs={12}>
+              <div
+                className="col-md-8 col-xs-12">
+                <table
+                  className="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td>
+                        Average Travel Time
+                      </td>
+                      <td>
+                        20 minutes, 34 seconds
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Average Distance
+                      </td>
+                      <td>
+                        12.34 miles
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <p>
+                  <Link
+                    onlyActiveOnIndex={false}
+                    style={Object {}}
+                    to="/organizations/2/analysis/1/timebymode">
+                    <a
+                      onClick={[Function]}
+                      style={Object {}}>
+                      Commute Time By Mode Histogram
+                    </a>
+                  </Link>
+                </p>
+                <p>
+                  <Link
+                    onlyActiveOnIndex={false}
+                    style={Object {}}
+                    to="/organizations/2/analysis/1/possibilities">
+                    <a
+                      onClick={[Function]}
+                      style={Object {}}>
+                      Possibilities Analysis
+                    </a>
+                  </Link>
+                </p>
+                <p>
+                  <Link
+                    onlyActiveOnIndex={false}
+                    style={Object {}}
+                    to="/organizations/2/analysis/1/individuals">
+                    <a
+                      onClick={[Function]}
+                      style={Object {}}>
+                      Individual Commuter Analysis
+                    </a>
+                  </Link>
+                </p>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </div>
+    </Grid>
+  </Summary>
+</Connect(Summary)>
+`;

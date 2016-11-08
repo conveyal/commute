@@ -71,7 +71,7 @@ class MapMock extends Leaflet.Map {
   }
 
   getBounds () {
-    return this._bounds
+    return this._bounds || Leaflet.latLngBounds([[1, 2], [3, 4]])
   }
 
   getCenter () {

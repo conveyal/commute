@@ -17,7 +17,7 @@ export default class CommuterGroup extends Component {
     deleteGroup: PropTypes.func,
     update: PropTypes.func,
 
-    // props]
+    // props
     organizationId: PropTypes.string.isRequired,
     group: PropTypes.object.isRequired
   }
@@ -42,7 +42,8 @@ export default class CommuterGroup extends Component {
 
   render () {
     const {group, organizationId} = this.props
-    const {commuters, groupName} = group
+    const {commuters} = group
+    const groupName = group.name
     const {bounds, markers, position, zoom} = mapCommuters(commuters)
     return (
       <Grid>
@@ -112,6 +113,19 @@ const mapCommuters = (commuters) => {
   if (commuters.length === 0) {
     return {
       markers: [],
+      position: settings.map.focus,
+      zoom: 8
+    }
+  } else if (commuters.length === 1) {
+    return {
+      markers: [{
+        id: commuters[0].id,
+        name: commuters[0].name,
+        position: {
+          lat: commuters[0].lat,
+          lng: commuters[0].lng
+        }
+      }],
       position: settings.map.focus,
       zoom: 8
     }

@@ -25,6 +25,12 @@ export const mockAnalysis = {
   lastRunDateTime: 1477697490,
   name: 'An Analysis',
   siteId: '1',
+  summary: {
+    avgTravelTime: 1234,
+    avgDistance: 12.34,
+    savingsPerTrip: 1.23,
+    savingsPerYear: 12345
+  },
   trips: []
 }
 const mockCommuter = {

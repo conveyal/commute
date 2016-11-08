@@ -91,6 +91,12 @@ exports[`Container > Organization Organization View loads 1`] = `
             "lastRunDateTime": 1477697490,
             "name": "An Analysis",
             "siteId": "1",
+            "summary": Object {
+              "avgDistance": 12.34,
+              "avgTravelTime": 1234,
+              "savingsPerTrip": 1.23,
+              "savingsPerYear": 12345,
+            },
             "trips": Array [],
           },
         ],
@@ -101,6 +107,12 @@ exports[`Container > Organization Organization View loads 1`] = `
             "lastRunDateTime": 1477697490,
             "name": "An Analysis",
             "siteId": "1",
+            "summary": Object {
+              "avgDistance": 12.34,
+              "avgTravelTime": 1234,
+              "savingsPerTrip": 1.23,
+              "savingsPerYear": 12345,
+            },
             "trips": Array [],
           },
         },
@@ -1239,7 +1251,7 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   csvFormat={undefined}
                                   csvHeader={undefined}
                                   dataAlign="left"
-                                  dataFormat={undefined}
+                                  dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
                                   filter={undefined}
@@ -1400,7 +1412,7 @@ exports[`Container > Organization Organization View loads 1`] = `
                               "export": undefined,
                               "filterFormatted": false,
                               "filterValue": undefined,
-                              "format": undefined,
+                              "format": [Function],
                               "formatExtraData": undefined,
                               "hidden": false,
                               "hiddenOnInsert": false,
@@ -1636,7 +1648,18 @@ exports[`Container > Organization Organization View loads 1`] = `
                                           "textAlign": "left",
                                         }
                                       }
-                                      title={null} />
+                                      title={null}>
+                                      <Link
+                                        onlyActiveOnIndex={false}
+                                        style={Object {}}
+                                        to="/organizations/2/groups/1/">
+                                        <a
+                                          onClick={[Function]}
+                                          style={Object {}}>
+                                          Mock Group
+                                        </a>
+                                      </Link>
+                                    </td>
                                   </TableColumn>
                                   <TableColumn
                                     cellEdit={
@@ -1780,6 +1803,12 @@ exports[`Container > Organization Organization View loads 1`] = `
                         "lastRunDateTime": 1477697490,
                         "name": "An Analysis",
                         "siteId": "1",
+                        "summary": Object {
+                          "avgDistance": 12.34,
+                          "avgTravelTime": 1234,
+                          "savingsPerTrip": 1.23,
+                          "savingsPerYear": 12345,
+                        },
                         "trips": Array [],
                       },
                     ]
@@ -2243,6 +2272,12 @@ exports[`Container > Organization Organization View loads 1`] = `
                               "lastRunDateTime": 1477697490,
                               "name": "An Analysis",
                               "siteId": "1",
+                              "summary": Object {
+                                "avgDistance": 12.34,
+                                "avgTravelTime": 1234,
+                                "savingsPerTrip": 1.23,
+                                "savingsPerYear": 12345,
+                              },
                               "trips": Array [],
                             },
                           ]
