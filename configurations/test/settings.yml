@@ -2,3 +2,16 @@ map:
   focus:
     lat: 38.8886
     lng: -77.0430
+modeDisplay:
+  bike:
+    color: red
+    title: Bike
+  car:
+    color: brown
+    title: Car
+  transit:
+    color: orange
+    title: Transit
+  walk:
+    color: blue
+    title: Walk

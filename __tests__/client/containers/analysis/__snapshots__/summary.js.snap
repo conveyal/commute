@@ -20,7 +20,35 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
           "savingsPerTrip": 1.23,
           "savingsPerYear": 12345,
         },
-        "trips": Array [],
+        "trips": Array [
+          Object {
+            "bike": Object {
+              "cost": 0.12,
+              "distance": 23,
+              "polygon": "encoded",
+              "time": 2345,
+            },
+            "car": Object {
+              "cost": 6.78,
+              "distance": 18,
+              "polygon": "encoded",
+              "time": 1234,
+            },
+            "commuterId": "1",
+            "transit": Object {
+              "cost": 3.45,
+              "distance": 30,
+              "polygon": "encoded",
+              "time": 3456,
+            },
+            "walk": Object {
+              "cost": 0,
+              "distance": 19,
+              "polygon": "encoded",
+              "time": 6789,
+            },
+          },
+        ],
       }
     }
     deleteAnalysis={[Function]}

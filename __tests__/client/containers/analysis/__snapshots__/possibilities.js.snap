@@ -1,41 +1,528 @@
 exports[`Container > Analysis > Possibilities Analysis Possibilities View loads (base case) 1`] = `
-<Connect(Possibilities)
-  params={
-    Object {
-      "analysisId": "1",
-      "organizationId": "2",
-    }
-  }>
-  <Possibilities
-    analysis={
-      Object {
-        "groupId": "1",
-        "id": "1",
-        "lastRunDateTime": 1477697490,
-        "name": "An Analysis",
-        "siteId": "1",
-        "summary": Object {
-          "avgDistance": 12.34,
-          "avgTravelTime": 1234,
-          "savingsPerTrip": 1.23,
-          "savingsPerYear": 12345,
-        },
-        "trips": Array [],
-      }
-    }
-    dispatch={[Function]}
-    groupName="Mock Group"
-    organizationId="2"
-    params={
-      Object {
-        "analysisId": "1",
-        "organizationId": "2",
-      }
-    }
-    siteName="Acme Corp">
-    <h1>
-      Analysis
-    </h1>
-  </Possibilities>
-</Connect(Possibilities)>
+<div
+  className="possibilities-header row">
+  <Col
+    bsClass="col"
+    componentClass="div"
+    xs={12}>
+    <div
+      className="col-xs-12">
+      <h3>
+        <span>
+          An Analysis
+        </span>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}>
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
+            type="button">
+            <Link
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to="/organizations/2/analysis/1">
+              <a
+                onClick={[Function]}
+                style={Object {}}>
+                <Icon
+                  type="arrow-left">
+                  <i
+                    className="fa fa-arrow-left fa-fw " />
+                </Icon>
+                <span>
+                  Back
+                </span>
+              </a>
+            </Link>
+          </button>
+        </Button>
+      </h3>
+      <h3>
+        Possibilities Analysis
+      </h3>
+    </div>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={6}
+    xs={12}>
+    <div
+      className="col-md-6 col-xs-12">
+      <h4>
+        <strong>
+          Site:
+        </strong>
+        <span>
+          Acme Corp
+        </span>
+      </h4>
+    </div>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={6}
+    xs={12}>
+    <div
+      className="col-md-6 col-xs-12">
+      <h4>
+        <strong>
+          Group:
+        </strong>
+        <span>
+          Mock Group
+        </span>
+      </h4>
+    </div>
+  </Col>
+</div>
+`;
+
+exports[`Container > Analysis > Possibilities Analysis Possibilities View loads (base case) 2`] = `
+<table
+  className="table table-bordered">
+  <tbody>
+    <tr>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "red",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Bike
+        </span>
+      </td>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "brown",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Car
+        </span>
+      </td>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "orange",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Transit
+        </span>
+      </td>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "blue",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Walk
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Container > Analysis > Possibilities Analysis Possibilities View loads (base case) 3`] = `
+<div
+  className="possibilities-settings col-xs-12">
+  <h4>
+    Settings
+  </h4>
+  <Panel
+    bsClass="panel"
+    bsStyle="default"
+    defaultExpanded={false}>
+    <div
+      className="panel panel-default"
+      id={undefined}>
+      <div
+        className="panel-body">
+        <p>
+          Maximum Travel Time
+        </p>
+        <Slider
+          allowCross={true}
+          className=""
+          defaultValue={30}
+          disabled={false}
+          dots={false}
+          handle={
+            <function CustomHandle(props) {
+              var style = (0, _assign2.default)({ left: props.offset + '%' }, handleStyle);
+              return (
+                _react2.default.createElement('div', { style: style }, props.formatter(props.value)));
+            
+            }
+              formatter={[Function]} />
+          }
+          included={true}
+          marks={Object {}}
+          max={200}
+          min={0}
+          onAfterChange={[Function]}
+          onBeforeChange={[Function]}
+          onChange={[Function]}
+          prefixCls="rc-slider"
+          pushable={false}
+          range={false}
+          step={1}
+          tipFormatter={[Function]}
+          tipTransitionName=""
+          vertical={false}>
+          <div
+            className="rc-slider"
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}>
+            <div
+              className="rc-slider-rail" />
+            <Track
+              className="rc-slider-track rc-slider-track-1"
+              included={true}
+              length={15}
+              offset={0}
+              vertical={false}>
+              <div
+                className="rc-slider-track rc-slider-track-1"
+                style={
+                  Object {
+                    "left": "0%",
+                    "visibility": "visible",
+                    "width": "15%",
+                  }
+                } />
+            </Track>
+            <Steps
+              dots={false}
+              included={true}
+              lowerBound={0}
+              marks={Object {}}
+              max={200}
+              min={0}
+              prefixCls="rc-slider"
+              step={1}
+              upperBound={30}
+              vertical={false}>
+              <div
+                className="rc-slider-step" />
+            </Steps>
+            <CustomHandle
+              className="rc-slider-handle rc-slider-handle-2 rc-slider-handle-upper"
+              dragging={false}
+              formatter={[Function]}
+              noTip={false}
+              offset={15}
+              prefixCls="rc-slider"
+              tipFormatter={[Function]}
+              tipTransitionName=""
+              tooltipPrefixCls={undefined}
+              value={30}
+              vertical={false}>
+              <div
+                style={
+                  Object {
+                    "background": "#fff",
+                    "border": "2px solid #abe2fb",
+                    "borderRadius": "3px",
+                    "cursor": "pointer",
+                    "fontSize": "14px",
+                    "left": "15%",
+                    "padding": "2px",
+                    "position": "absolute",
+                    "textAlign": "center",
+                    "transform": "translate(-50%, -50%)",
+                  }
+                }>
+                30 minutes
+              </div>
+            </CustomHandle>
+            <Marks
+              className="rc-slider-mark"
+              included={true}
+              lowerBound={0}
+              marks={Object {}}
+              max={200}
+              min={0}
+              upperBound={30}
+              vertical={false}>
+              <div
+                className="rc-slider-mark" />
+            </Marks>
+          </div>
+        </Slider>
+      </div>
+    </div>
+  </Panel>
+  <Panel
+    bsClass="panel"
+    bsStyle="default"
+    defaultExpanded={false}>
+    <div
+      className="panel panel-default"
+      id={undefined}>
+      <div
+        className="panel-body">
+        <p>
+          Maximum Distance
+        </p>
+        <Slider
+          allowCross={true}
+          className=""
+          defaultValue={25}
+          disabled={false}
+          dots={false}
+          handle={
+            <function CustomHandle(props) {
+              var style = (0, _assign2.default)({ left: props.offset + '%' }, handleStyle);
+              return (
+                _react2.default.createElement('div', { style: style }, props.formatter(props.value)));
+            
+            }
+              formatter={[Function]} />
+          }
+          included={true}
+          marks={Object {}}
+          max={100}
+          min={0}
+          onAfterChange={[Function]}
+          onBeforeChange={[Function]}
+          onChange={[Function]}
+          prefixCls="rc-slider"
+          pushable={false}
+          range={false}
+          step={1}
+          tipFormatter={[Function]}
+          tipTransitionName=""
+          vertical={false}>
+          <div
+            className="rc-slider"
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}>
+            <div
+              className="rc-slider-rail" />
+            <Track
+              className="rc-slider-track rc-slider-track-1"
+              included={true}
+              length={25}
+              offset={0}
+              vertical={false}>
+              <div
+                className="rc-slider-track rc-slider-track-1"
+                style={
+                  Object {
+                    "left": "0%",
+                    "visibility": "visible",
+                    "width": "25%",
+                  }
+                } />
+            </Track>
+            <Steps
+              dots={false}
+              included={true}
+              lowerBound={0}
+              marks={Object {}}
+              max={100}
+              min={0}
+              prefixCls="rc-slider"
+              step={1}
+              upperBound={25}
+              vertical={false}>
+              <div
+                className="rc-slider-step" />
+            </Steps>
+            <CustomHandle
+              className="rc-slider-handle rc-slider-handle-2 rc-slider-handle-upper"
+              dragging={false}
+              formatter={[Function]}
+              noTip={false}
+              offset={25}
+              prefixCls="rc-slider"
+              tipFormatter={[Function]}
+              tipTransitionName=""
+              tooltipPrefixCls={undefined}
+              value={25}
+              vertical={false}>
+              <div
+                style={
+                  Object {
+                    "background": "#fff",
+                    "border": "2px solid #abe2fb",
+                    "borderRadius": "3px",
+                    "cursor": "pointer",
+                    "fontSize": "14px",
+                    "left": "25%",
+                    "padding": "2px",
+                    "position": "absolute",
+                    "textAlign": "center",
+                    "transform": "translate(-50%, -50%)",
+                  }
+                }>
+                25 miles
+              </div>
+            </CustomHandle>
+            <Marks
+              className="rc-slider-mark"
+              included={true}
+              lowerBound={0}
+              marks={Object {}}
+              max={100}
+              min={0}
+              upperBound={25}
+              vertical={false}>
+              <div
+                className="rc-slider-mark" />
+            </Marks>
+          </div>
+        </Slider>
+      </div>
+    </div>
+  </Panel>
+  <Panel
+    bsClass="panel"
+    bsStyle="default"
+    defaultExpanded={false}>
+    <div
+      className="panel panel-default"
+      id={undefined}>
+      <div
+        className="panel-body">
+        <p>
+          Maximum Cost
+        </p>
+        <Slider
+          allowCross={true}
+          className=""
+          defaultValue={20}
+          disabled={false}
+          dots={false}
+          handle={
+            <function CustomHandle(props) {
+              var style = (0, _assign2.default)({ left: props.offset + '%' }, handleStyle);
+              return (
+                _react2.default.createElement('div', { style: style }, props.formatter(props.value)));
+            
+            }
+              formatter={[Function]} />
+          }
+          included={true}
+          marks={Object {}}
+          max={100}
+          min={0}
+          onAfterChange={[Function]}
+          onBeforeChange={[Function]}
+          onChange={[Function]}
+          prefixCls="rc-slider"
+          pushable={false}
+          range={false}
+          step={1}
+          tipFormatter={[Function]}
+          tipTransitionName=""
+          vertical={false}>
+          <div
+            className="rc-slider"
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}>
+            <div
+              className="rc-slider-rail" />
+            <Track
+              className="rc-slider-track rc-slider-track-1"
+              included={true}
+              length={20}
+              offset={0}
+              vertical={false}>
+              <div
+                className="rc-slider-track rc-slider-track-1"
+                style={
+                  Object {
+                    "left": "0%",
+                    "visibility": "visible",
+                    "width": "20%",
+                  }
+                } />
+            </Track>
+            <Steps
+              dots={false}
+              included={true}
+              lowerBound={0}
+              marks={Object {}}
+              max={100}
+              min={0}
+              prefixCls="rc-slider"
+              step={1}
+              upperBound={20}
+              vertical={false}>
+              <div
+                className="rc-slider-step" />
+            </Steps>
+            <CustomHandle
+              className="rc-slider-handle rc-slider-handle-2 rc-slider-handle-upper"
+              dragging={false}
+              formatter={[Function]}
+              noTip={false}
+              offset={20}
+              prefixCls="rc-slider"
+              tipFormatter={[Function]}
+              tipTransitionName=""
+              tooltipPrefixCls={undefined}
+              value={20}
+              vertical={false}>
+              <div
+                style={
+                  Object {
+                    "background": "#fff",
+                    "border": "2px solid #abe2fb",
+                    "borderRadius": "3px",
+                    "cursor": "pointer",
+                    "fontSize": "14px",
+                    "left": "20%",
+                    "padding": "2px",
+                    "position": "absolute",
+                    "textAlign": "center",
+                    "transform": "translate(-50%, -50%)",
+                  }
+                }>
+                $20
+              </div>
+            </CustomHandle>
+            <Marks
+              className="rc-slider-mark"
+              included={true}
+              lowerBound={0}
+              marks={Object {}}
+              max={100}
+              min={0}
+              upperBound={20}
+              vertical={false}>
+              <div
+                className="rc-slider-mark" />
+            </Marks>
+          </div>
+        </Slider>
+      </div>
+    </div>
+  </Panel>
+</div>
 `;

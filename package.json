@@ -54,7 +54,9 @@
     "moment": "^2.15.2",
     "mongoose": "^4.6.4",
     "normalize.css": "^5.0.0",
+    "rc-slider": "^5.2.1",
     "react": "^15.3.2",
+    "react-addons-shallow-compare": "^15.3.2",
     "react-bootstrap": "^0.30.5",
     "react-bootstrap-table": "^2.5.6",
     "react-dom": "^15.3.2",
@@ -66,6 +68,7 @@
     "react-router-redux": "^4.0.6",
     "react-select": "^1.0.0-rc.2",
     "react-select-geocoder": "^0.2.1",
+    "react-vis": "^0.6.4",
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
     "uuid": "^2.0.3"
