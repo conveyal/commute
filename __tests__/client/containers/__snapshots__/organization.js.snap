@@ -158,6 +158,13 @@ exports[`Container > Organization Organization View loads 1`] = `
                   "time": 1234,
                 },
                 "commuterId": "1",
+                "mostLikely": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "mode": "transit",
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
                 "transit": Object {
                   "cost": 3.45,
                   "distance": 30,
@@ -248,6 +255,13 @@ exports[`Container > Organization Organization View loads 1`] = `
                   "time": 1234,
                 },
                 "commuterId": "1",
+                "mostLikely": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "mode": "transit",
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
                 "transit": Object {
                   "cost": 3.45,
                   "distance": 30,
@@ -2018,6 +2032,13 @@ exports[`Container > Organization Organization View loads 1`] = `
                               "time": 1234,
                             },
                             "commuterId": "1",
+                            "mostLikely": Object {
+                              "cost": 3.45,
+                              "distance": 30,
+                              "mode": "transit",
+                              "polygon": "encoded",
+                              "time": 3456,
+                            },
                             "transit": Object {
                               "cost": 3.45,
                               "distance": 30,
@@ -2561,6 +2582,13 @@ exports[`Container > Organization Organization View loads 1`] = `
                                     "time": 1234,
                                   },
                                   "commuterId": "1",
+                                  "mostLikely": Object {
+                                    "cost": 3.45,
+                                    "distance": 30,
+                                    "mode": "transit",
+                                    "polygon": "encoded",
+                                    "time": 3456,
+                                  },
                                   "transit": Object {
                                     "cost": 3.45,
                                     "distance": 30,

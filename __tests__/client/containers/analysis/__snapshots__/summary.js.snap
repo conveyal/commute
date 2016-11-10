@@ -81,6 +81,13 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
               "time": 1234,
             },
             "commuterId": "1",
+            "mostLikely": Object {
+              "cost": 3.45,
+              "distance": 30,
+              "mode": "transit",
+              "polygon": "encoded",
+              "time": 3456,
+            },
             "transit": Object {
               "cost": 3.45,
               "distance": 30,
@@ -95,6 +102,18 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
             },
           },
         ],
+      }
+    }
+    commutersById={
+      Object {
+        "1": Object {
+          "address": "4321 XYZ Boulevard",
+          "email": "luke@warm.cold",
+          "id": "1",
+          "lat": 38.916089,
+          "lng": -76.970221,
+          "name": "Luke Warm",
+        },
       }
     }
     deleteAnalysis={[Function]}

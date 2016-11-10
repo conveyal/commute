@@ -6,6 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeMockStore, mockStores} from '../../../test-utils/mock-data.js'
+import '../../../test-utils/mock-leaflet'
 
 import {Individuals} from '../../../../client/containers/analysis'
 
@@ -20,8 +21,12 @@ describe('Container > Analysis > Individuals', () => {
           params={{organizationId: '2', analysisId: '1'}}
           />
       </Provider>
+      , {
+        attachTo: document.getElementById('test')
+      }
     )
-    expect(mountToJson(tree.find(Individuals))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.individuals-header'))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.individuals-content'))).toMatchSnapshot()
   })
 
   /* it('Select commuter', () => {
