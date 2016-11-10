@@ -18,7 +18,9 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
           "avgDistance": 12.34,
           "avgTravelTime": 1234,
           "savingsPerTrip": 1.23,
-          "savingsPerYear": 12345,
+          "savingsPerTripYear": 319.8,
+          "savingsTotalPerDay": 1.23,
+          "savingsTotalPerYear": 319.8,
         },
         "tripVals": Object {
           "bike": Object {
@@ -253,7 +255,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                   <tbody>
                     <tr>
                       <td>
-                        Cost Per Trip
+                        Total Costs Per Day
                       </td>
                       <td>
                         $1.23
@@ -261,10 +263,26 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                     </tr>
                     <tr>
                       <td>
-                        Cost Per Year
+                        Total Costs Per Year
                       </td>
                       <td>
-                        $12345
+                        $319.8
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Cost Per Trip Per Day
+                      </td>
+                      <td>
+                        $1.23
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Cost Per Trip Per Year
+                      </td>
+                      <td>
+                        $319.8
                       </td>
                     </tr>
                   </tbody>

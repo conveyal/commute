@@ -101,7 +101,9 @@ exports[`Container > Organization Organization View loads 1`] = `
               "avgDistance": 12.34,
               "avgTravelTime": 1234,
               "savingsPerTrip": 1.23,
-              "savingsPerYear": 12345,
+              "savingsPerTripYear": 319.8,
+              "savingsTotalPerDay": 1.23,
+              "savingsTotalPerYear": 319.8,
             },
             "tripVals": Object {
               "bike": Object {
@@ -198,7 +200,9 @@ exports[`Container > Organization Organization View loads 1`] = `
               "avgDistance": 12.34,
               "avgTravelTime": 1234,
               "savingsPerTrip": 1.23,
-              "savingsPerYear": 12345,
+              "savingsPerTripYear": 319.8,
+              "savingsTotalPerDay": 1.23,
+              "savingsTotalPerYear": 319.8,
             },
             "tripVals": Object {
               "bike": Object {
@@ -1975,7 +1979,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                           "avgDistance": 12.34,
                           "avgTravelTime": 1234,
                           "savingsPerTrip": 1.23,
-                          "savingsPerYear": 12345,
+                          "savingsPerTripYear": 319.8,
+                          "savingsTotalPerDay": 1.23,
+                          "savingsTotalPerYear": 319.8,
                         },
                         "tripVals": Object {
                           "bike": Object {
@@ -2525,7 +2531,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                                 "avgDistance": 12.34,
                                 "avgTravelTime": 1234,
                                 "savingsPerTrip": 1.23,
-                                "savingsPerYear": 12345,
+                                "savingsPerTripYear": 319.8,
+                                "savingsTotalPerDay": 1.23,
+                                "savingsTotalPerYear": 319.8,
                               },
                               "tripVals": Object {
                                 "bike": Object {

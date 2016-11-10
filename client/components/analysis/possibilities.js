@@ -5,10 +5,10 @@ import {Button, Col, Grid, Panel, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
 import {DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, YAxis} from 'react-vis'
 
-import {settings} from '../../utils/env'
 import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
 import {calcNumLessThan, getInitialSeries, humanizeDistance} from '../../utils/components'
+import {settings} from '../../utils/env'
 
 const METRICS = Object.keys(settings.metrics)
 

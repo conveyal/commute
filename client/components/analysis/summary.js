@@ -69,12 +69,20 @@ export default class Summary extends Component {
             <table className='table table-bordered'>
               <tbody>
                 <tr>
-                  <td>Cost Per Trip</td>
+                  <td>Total Costs Per Day</td>
+                  <td>{`$${summary.savingsTotalPerDay}`}</td>
+                </tr>
+                <tr>
+                  <td>Total Costs Per Year</td>
+                  <td>{`$${summary.savingsTotalPerYear}`}</td>
+                </tr>
+                <tr>
+                  <td>Cost Per Trip Per Day</td>
                   <td>{`$${summary.savingsPerTrip}`}</td>
                 </tr>
                 <tr>
-                  <td>Cost Per Year</td>
-                  <td>{`$${summary.savingsPerYear}`}</td>
+                  <td>Cost Per Trip Per Year</td>
+                  <td>{`$${summary.savingsPerTripYear}`}</td>
                 </tr>
               </tbody>
             </table>

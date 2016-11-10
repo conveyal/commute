@@ -76,7 +76,9 @@ export const mockAnalysis = {
     avgTravelTime: 1234,
     avgDistance: 12.34,
     savingsPerTrip: 1.23,
-    savingsPerYear: 12345
+    savingsPerTripYear: 319.8,
+    savingsTotalPerDay: 1.23,
+    savingsTotalPerYear: 319.8
   },
   trips: [mockTrip],
   tripVals: {
