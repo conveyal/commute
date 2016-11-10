@@ -1,10 +1,10 @@
 import {connect} from 'react-redux'
 
 import {deleteAnalysis} from '../actions/analysis'
-import _summary from '../components/analysis/summary'
+import _histogram from '../components/analysis/histogram'
 import _individuals from '../components/analysis/individuals'
 import _possibilities from '../components/analysis/possibilities'
-import _timebymode from '../components/analysis/timebymode'
+import _summary from '../components/analysis/summary'
 
 function mapStateToProps (state, props) {
   const {organization} = state
@@ -26,7 +26,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export const Summary = connect(mapStateToProps, mapDispatchToProps)(_summary)
+export const Histogram = connect(mapStateToProps)(_histogram)
 export const Individuals = connect(mapStateToProps)(_individuals)
 export const Possibilities = connect(mapStateToProps)(_possibilities)
-export const TimeByMode = connect(mapStateToProps)(_timebymode)
+export const Summary = connect(mapStateToProps, mapDispatchToProps)(_summary)

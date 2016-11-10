@@ -15,7 +15,7 @@ import EditSite from './containers/edit-site'
 import CommuterGroup from './containers/commuter-group'
 import Organization from './containers/organization'
 import Organizations from './containers/organizations'
-import {Summary, Individuals, Possibilities, TimeByMode} from './containers/analysis'
+import {Summary, Individuals, Possibilities, Histogram} from './containers/analysis'
 
 const ApplicationRouter = ({history}) => (
   <Router history={history}>
@@ -26,8 +26,8 @@ const ApplicationRouter = ({history}) => (
       <Route path='/organizations/:organizationId/analysis/create' component={CreateAnalysis} />
       <Route path='/organizations/:organizationId/analysis/:analysisId' component={Summary} />
       <Route
-        path='/organizations/:organizationId/analysis/:analysisId/timebymode'
-        component={TimeByMode}
+        path='/organizations/:organizationId/analysis/:analysisId/histogram'
+        component={Histogram}
         />
       <Route
         path='/organizations/:organizationId/analysis/:analysisId/possibilities'

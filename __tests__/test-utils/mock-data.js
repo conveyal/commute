@@ -71,7 +71,29 @@ export const mockAnalysis = {
     savingsPerTrip: 1.23,
     savingsPerYear: 12345
   },
-  trips: [mockTrip]
+  trips: [mockTrip],
+  tripVals: {
+    bike: {
+      cost: [0.12],
+      distance: [23],
+      time: [2345]
+    },
+    car: {
+      cost: [6.78],
+      distance: [18],
+      time: [1234]
+    },
+    transit: {
+      cost: [3.45],
+      distance: [30],
+      time: [3456]
+    },
+    walk: {
+      cost: [0],
+      distance: [19],
+      time: [6789]
+    }
+  }
 }
 
 // mock organizations

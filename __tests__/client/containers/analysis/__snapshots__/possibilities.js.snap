@@ -429,7 +429,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           }
           included={true}
           marks={Object {}}
-          max={100}
+          max={50}
           min={0}
           onAfterChange={[Function]}
           onBeforeChange={[Function]}
@@ -450,7 +450,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
             <Track
               className="rc-slider-track rc-slider-track-1"
               included={true}
-              length={20}
+              length={40}
               offset={0}
               vertical={false}>
               <div
@@ -459,7 +459,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
                   Object {
                     "left": "0%",
                     "visibility": "visible",
-                    "width": "20%",
+                    "width": "40%",
                   }
                 } />
             </Track>
@@ -468,7 +468,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
               included={true}
               lowerBound={0}
               marks={Object {}}
-              max={100}
+              max={50}
               min={0}
               prefixCls="rc-slider"
               step={1}
@@ -482,7 +482,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
               dragging={false}
               formatter={[Function]}
               noTip={false}
-              offset={20}
+              offset={40}
               prefixCls="rc-slider"
               tipFormatter={[Function]}
               tipTransitionName=""
@@ -497,7 +497,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
                     "borderRadius": "3px",
                     "cursor": "pointer",
                     "fontSize": "14px",
-                    "left": "20%",
+                    "left": "40%",
                     "padding": "2px",
                     "position": "absolute",
                     "textAlign": "center",
@@ -512,7 +512,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
               included={true}
               lowerBound={0}
               marks={Object {}}
-              max={100}
+              max={50}
               min={0}
               upperBound={20}
               vertical={false}>

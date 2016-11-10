@@ -20,6 +20,52 @@ exports[`Container > Analysis > Individuals Individuals View loads (base case) 1
           "savingsPerTrip": 1.23,
           "savingsPerYear": 12345,
         },
+        "tripVals": Object {
+          "bike": Object {
+            "cost": Array [
+              0.12,
+            ],
+            "distance": Array [
+              23,
+            ],
+            "time": Array [
+              2345,
+            ],
+          },
+          "car": Object {
+            "cost": Array [
+              6.78,
+            ],
+            "distance": Array [
+              18,
+            ],
+            "time": Array [
+              1234,
+            ],
+          },
+          "transit": Object {
+            "cost": Array [
+              3.45,
+            ],
+            "distance": Array [
+              30,
+            ],
+            "time": Array [
+              3456,
+            ],
+          },
+          "walk": Object {
+            "cost": Array [
+              0,
+            ],
+            "distance": Array [
+              19,
+            ],
+            "time": Array [
+              6789,
+            ],
+          },
+        },
         "trips": Array [
           Object {
             "bike": Object {

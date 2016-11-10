@@ -3,25 +3,14 @@ import Slider from 'rc-slider'
 import React, {Component, PropTypes} from 'react'
 import {Button, Col, Grid, Panel, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
-import {
-  DiscreteColorLegend,
-  HorizontalGridLines,
-  makeWidthFlexible,
-  VerticalBarSeries,
-  XYPlot,
-  YAxis
-} from 'react-vis'
+import {DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, YAxis} from 'react-vis'
 
-import {calcNumLessThan, humanizeDistance} from '../../utils/components'
 import {settings} from '../../utils/env'
+import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
+import {calcNumLessThan, getInitialSeries, humanizeDistance} from '../../utils/components'
 
-const FlexibleXYPlot = makeWidthFlexible(XYPlot)
-
-const DEFAULT_COST = 20
-const DEFAULT_DISTANCE = 25
-const DEFAULT_TIME = 30
-const METRICS = ['cost', 'distance', 'time']
+const METRICS = Object.keys(settings.metrics)
 
 export default class Possibilities extends Component {
   static propTypes = {
@@ -38,60 +27,30 @@ export default class Possibilities extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      cost: DEFAULT_COST,
-      distance: DEFAULT_DISTANCE,
-      time: DEFAULT_TIME * 60
+      cost: settings.metrics.cost.default,
+      distance: settings.metrics.distance.default,
+      series: getInitialSeries(),
+      time: settings.metrics.time.default * 60
     }
   }
 
   componentWillMount () {
-    const newState = {...this.state}
-
-    // calculate array of values for each metric
-    this.vals = {}
-    const trips = this.props.analysis.trips
-    const modes = Object.keys(trips[0]).filter((mode) => (['commuterId']).indexOf(mode) === -1)
-    modes.forEach((mode) => {
-      this.vals[mode] = {
-        cost: [],
-        distance: [],
-        time: []
-      }
-    })
-    trips.forEach((trip) =>
-      modes.forEach((mode) =>
-        METRICS.forEach((metric) => {
-          this.vals[mode][metric].push(trip[mode][metric])
-        })
-      )
-    )
-
-    // sort arrays
-    modes.forEach((mode) =>
-      METRICS.forEach((metric) => {
-        this.vals[mode][metric].sort()
-      })
-    )
-
-    const series = []
-
-    modes.forEach((mode) => {
-      series.push(Object.assign({mode}, settings.modeDisplay[mode]))
-    })
-
-    newState.series = series
-
     // calculate with constraints
-    this._calculateSeries(newState)
+    this._calculateSeries({...this.state})
   }
 
+  /**
+   * Calculate series values given constraints for each mode
+   *
+   * @param  {Object} newState The new state to work with
+   */
   _calculateSeries = (newState) => {
-    // calculate constraints for each mode
+    const arrayVals = this.props.analysis.tripVals
     newState.series = newState.series.map((seriesMode) => {
       // populate all constraints
       const tripsByConstraint = []
       METRICS.forEach((metric) => {
-        tripsByConstraint.push(calcNumLessThan(this.vals[seriesMode.mode][metric], newState[metric]))
+        tripsByConstraint.push(calcNumLessThan(arrayVals[seriesMode.mode][metric], newState[metric]))
       })
       const constrainedPct = Math.min.apply(this, tripsByConstraint)
       seriesMode.data = [{ x: 1, y: constrainedPct }]
@@ -135,6 +94,7 @@ export default class Possibilities extends Component {
     const {id, name} = this.props.analysis
     const {groupName, organizationId, siteName} = this.props
     const {series} = this.state
+    const activeSeries = series.filter((s) => !s.disabled)
     return (
       <Grid>
         <Row className='possibilities-header'>
@@ -165,24 +125,22 @@ export default class Possibilities extends Component {
         </Row>
         <Row>
           <Col xs={9}>
-            <FlexibleXYPlot
+            <FlexiblePlot
               animation
               height={300}
               >
               <HorizontalGridLines />
-              {series
-                .filter((s) => !s.disabled)
+              {activeSeries
                 .map((s, idx) =>
                   <VerticalBarSeries
                     color={s.color}
                     data={s.data}
                     key={`possibilities-series-${s.title}`}
-                    onNearestX={this._nearestXHandler}
                     />
                 )
               }
               <YAxis title='Percent' />
-            </FlexibleXYPlot>
+            </FlexiblePlot>
           </Col>
           <Col xs={3}>
             <DiscreteColorLegend
@@ -194,8 +152,7 @@ export default class Possibilities extends Component {
             <table className='table table-bordered'>
               <tbody>
                 <tr>
-                  {series
-                    .filter((s) => !s.disabled)
+                  {activeSeries
                     .map((s, idx) =>
                       <td key={idx}>
                         <span className='rv-discrete-color-legend-item__color' style={{background: s.color}} />
@@ -212,7 +169,7 @@ export default class Possibilities extends Component {
             <Panel>
               <p>Maximum Travel Time</p>
               <Slider
-                defaultValue={DEFAULT_TIME}
+                defaultValue={settings.metrics.time.default}
                 handle={
                   <CustomHandle
                     formatter={
@@ -221,34 +178,34 @@ export default class Possibilities extends Component {
                     }
                     />
                 }
-                max={200}
-                min={0}
+                max={settings.metrics.time.max}
+                min={settings.metrics.time.min}
                 onChange={this._handleTimeChange}
                 />
             </Panel>
             <Panel>
               <p>Maximum Distance</p>
               <Slider
-                defaultValue={DEFAULT_DISTANCE}
+                defaultValue={settings.metrics.distance.default}
                 handle={
                   <CustomHandle
                     formatter={humanizeDistance}
                     />}
-                max={100}
-                min={0}
+                max={settings.metrics.distance.max}
+                min={settings.metrics.distance.min}
                 onChange={this._handleDistanceChange}
                 />
             </Panel>
             <Panel>
               <p>Maximum Cost</p>
               <Slider
-                defaultValue={DEFAULT_COST}
+                defaultValue={settings.metrics.cost.default}
                 handle={
                   <CustomHandle
                     formatter={(v) => `$${v}`}
                     />}
-                max={100}
-                min={0}
+                max={settings.metrics.cost.max}
+                min={settings.metrics.cost.min}
                 onChange={this._handleCostChange}
                 />
             </Panel>

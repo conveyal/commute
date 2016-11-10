@@ -7,21 +7,22 @@ import {Provider} from 'react-redux'
 
 import {makeMockStore, mockStores} from '../../../test-utils/mock-data.js'
 
-import {TimeByMode} from '../../../../client/containers/analysis'
+import {Histogram} from '../../../../client/containers/analysis'
 
 const mockStore = makeMockStore(mockStores.complexOrganization)
 
-describe('Container > Analysis > TimeByMode', () => {
-  it('Commute Time By Mode View loads (base case)', () => {
+describe('Container > Analysis > Histogram', () => {
+  it('Histogram View loads (base case)', () => {
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <TimeByMode
+        <Histogram
           params={{organizationId: '2', analysisId: '1'}}
           />
       </Provider>
     )
-    expect(mountToJson(tree.find(TimeByMode))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.histogram-header'))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.histogram-settings'))).toMatchSnapshot()
   })
 
   /* it('Toggle mode checkbox', () => {

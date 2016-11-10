@@ -39,6 +39,35 @@ export const reducers = {
   }
 }
 
+// processing trips into values arrays
+// // calculate array of values for each metric
+// this.vals = {}
+// const trips = this.props.analysis.trips
+// const modes = Object.keys(trips[0]).filter((mode) => (['commuterId']).indexOf(mode) === -1)
+// modes.forEach((mode) => {
+//   this.vals[mode] = {
+//     cost: [],
+//     distance: [],
+//     time: []
+//   }
+// })
+// trips.forEach((trip) =>
+//   modes.forEach((mode) =>
+//     METRICS.forEach((metric) => {
+//       this.vals[mode][metric].push(trip[mode][metric])
+//     })
+//   )
+// )
+//
+// // sort arrays
+// modes.forEach((mode) =>
+//   METRICS.forEach((metric) => {
+//     this.vals[mode][metric].sort()
+//   })
+// )
+//
+// newState.series = series
+
 export const initialState = {
   organizations: [],
   organizationsById: {}

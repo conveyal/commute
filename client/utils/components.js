@@ -1,13 +1,4 @@
-/**
- * Humanize distances
- * // TODO: more humanization
- *
- * @param  {float} d Distance to humanize
- * @return {string} humanized distance
- */
-export function humanizeDistance (d) {
-  return `${d} miles`
-}
+import {settings} from './env'
 
 /**
  * Calculate number of elements in array less than or equal to target values
@@ -32,4 +23,31 @@ export function calcNumLessThan (arr, target) {
   }
 
   return left
+}
+
+/**
+ * Helper function to get initial series data for drawing graphs
+ *
+ * @return {Obj[]} Array of objects with series template
+ */
+export function getInitialSeries () {
+  const modes = Object.keys(settings.modeDisplay)
+  const series = []
+
+  modes.forEach((mode) => {
+    series.push(Object.assign({disabled: false, mode}, settings.modeDisplay[mode]))
+  })
+
+  return series
+}
+
+/**
+ * Humanize distances
+ * // TODO: more humanization
+ *
+ * @param  {float} d Distance to humanize
+ * @return {string} humanized distance
+ */
+export function humanizeDistance (d) {
+  return `${d} miles`
 }

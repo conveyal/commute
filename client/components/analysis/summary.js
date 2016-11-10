@@ -100,8 +100,8 @@ export default class Summary extends Component {
           </Col>
           <Col xs={12}>
             <p>
-              <Link to={`/organizations/${organizationId}/analysis/${id}/timebymode`}>
-                Commute Time By Mode Histogram
+              <Link to={`/organizations/${organizationId}/analysis/${id}/histogram`}>
+                Commute Metrics Histogram
               </Link>
             </p>
             <p>
