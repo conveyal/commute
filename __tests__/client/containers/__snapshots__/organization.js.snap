@@ -1,7 +1,10 @@
 exports[`Container > Organization Delete Analysis 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": Object {
+      "analysisId": "1",
+      "organzationId": "2",
+    },
     "type": "delete analysis",
   },
   Object {
@@ -55,7 +58,10 @@ Array [
 exports[`Container > Organization Delete Site 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": Object {
+      "organzationId": "2",
+      "siteId": "1",
+    },
     "type": "delete site",
   },
   Object {

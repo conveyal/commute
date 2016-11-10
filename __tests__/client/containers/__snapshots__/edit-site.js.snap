@@ -710,7 +710,10 @@ Object {
 exports[`Container > EditSite Delete Site 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": Object {
+      "organzationId": "2",
+      "siteId": "1",
+    },
     "type": "delete site",
   },
   Object {

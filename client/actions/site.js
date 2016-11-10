@@ -20,7 +20,7 @@ const deleteLocally = createAction('delete site')
     }
   }) */ // TODO delete on server
 export const deleteSite = (id, organzationId) => [
-  deleteLocally(id),
+  deleteLocally({ siteId: id, organzationId }),
   push(`/organizations/${organzationId}`)
 ]
 

@@ -28,7 +28,10 @@ Object {
 exports[`actions > analysis delete analysis should work 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": Object {
+      "analysisId": "1",
+      "organzationId": "1",
+    },
     "type": "delete analysis",
   },
   Object {
