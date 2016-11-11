@@ -1,7 +1,7 @@
 import humanizeDuration from 'humanize-duration'
 import Slider from 'rc-slider'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Panel, Row} from 'react-bootstrap'
+import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
 import {DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, YAxis} from 'react-vis'
 
@@ -30,7 +30,8 @@ export default class Possibilities extends Component {
       cost: settings.metrics.cost.default,
       distance: settings.metrics.distance.default,
       series: getInitialSeries(),
-      time: settings.metrics.time.default * 60
+      time: settings.metrics.time.default * 60,
+      yAxisUnit: 'percent'
     }
   }
 
@@ -52,8 +53,13 @@ export default class Possibilities extends Component {
       METRICS.forEach((metric) => {
         tripsByConstraint.push(calcNumLessThan(arrayVals[seriesMode.mode][metric], newState[metric]))
       })
-      const constrainedPct = Math.min.apply(this, tripsByConstraint)
-      seriesMode.data = [{ x: 1, y: constrainedPct }]
+      const constrainedNumber = Math.min.apply(this, tripsByConstraint)
+      seriesMode.data = [{
+        x: 1,
+        y: (constrainedNumber /
+          (newState.yAxisUnit === 'percent' ? this.props.analysis.trips.length * 0.01 : 1)
+        ).toFixed(newState.yAxisUnit === 'percent' ? 1 : 0)
+      }]
       return seriesMode
     })
 
@@ -78,6 +84,12 @@ export default class Possibilities extends Component {
     this._calculateSeries(newState)
   }
 
+  _handleYAxisChange = (event) => {
+    const newState = {...this.state}
+    newState.yAxisUnit = event.target.value
+    this._calculateSeries(newState)
+  }
+
   /**
    * Click handler for the legend.
    * @param {Object} item Clicked item of the legend.
@@ -93,7 +105,7 @@ export default class Possibilities extends Component {
   render () {
     const {id, name} = this.props.analysis
     const {groupName, organizationId, siteName} = this.props
-    const {series} = this.state
+    const {series, yAxisUnit} = this.state
     const activeSeries = series.filter((s) => !s.disabled)
     return (
       <Grid>
@@ -124,7 +136,7 @@ export default class Possibilities extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={9}>
+          <Col xs={12} sm={9}>
             <FlexiblePlot
               animation
               height={300}
@@ -139,14 +151,27 @@ export default class Possibilities extends Component {
                     />
                 )
               }
-              <YAxis title='Percent' />
+              <YAxis title={yAxisUnit === 'percent' ? 'Percent' : 'Number of Commuters'} />
             </FlexiblePlot>
           </Col>
-          <Col xs={3}>
+          <Col xs={12} sm={3} className='possibilities-legend-control'>
             <DiscreteColorLegend
               items={series}
               onItemClick={this._legendClickHandler}
               />
+            <Panel>
+              <FormGroup controlId='histogram-metric-select'>
+                <ControlLabel>Y Axis</ControlLabel>
+                <FormControl
+                  componentClass='select'
+                  onChange={this._handleYAxisChange}
+                  value={yAxisUnit}
+                  >
+                  <option value='percent'>Percent</option>
+                  <option value='number'>Number of Commuters</option>
+                </FormControl>
+              </FormGroup>
+            </Panel>
           </Col>
           <Col xs={9}>
             <table className='table table-bordered'>
@@ -155,8 +180,14 @@ export default class Possibilities extends Component {
                   {activeSeries
                     .map((s, idx) =>
                       <td key={idx}>
-                        <span className='rv-discrete-color-legend-item__color' style={{background: s.color}} />
-                        <span className='rv-discrete-color-legend-item__title'>{s.title}</span>
+                        <span
+                          className='rv-discrete-color-legend-item__color'
+                          style={{background: s.color}}
+                          />
+                        <span
+                          className='rv-discrete-color-legend-item__title'>
+                          {`${s.title} - ${s.data[0].y}${yAxisUnit === 'percent' ? '%' : ''}`}
+                        </span>
                       </td>
                     )
                   }

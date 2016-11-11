@@ -22,6 +22,7 @@ describe('Container > Analysis > Possibilities', () => {
       </Provider>
     )
     expect(mountToJson(tree.find('.possibilities-header'))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.possibilities-legend-control'))).toMatchSnapshot()
     expect(mountToJson(tree.find('.table-bordered'))).toMatchSnapshot()
     expect(mountToJson(tree.find('.possibilities-settings'))).toMatchSnapshot()
   })

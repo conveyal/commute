@@ -12,11 +12,11 @@ function mapStateToProps (state, props) {
   const currentOrganizationId = params.organizationId
   const currentOrganization = organization.organizationsById[currentOrganizationId]
   const curAnalysis = currentOrganization.analysesById[params.analysisId]
-  const commuterGroup = currentOrganization.groupsById[curAnalysis.groupId]
+  const group = currentOrganization.groupsById[curAnalysis.groupId]
   return {
     analysis: curAnalysis,
-    commutersById: commuterGroup.commutersById,
-    groupName: commuterGroup.name,
+    commutersById: group.commutersById,
+    groupName: group.name,
     organizationId: currentOrganizationId,
     siteName: currentOrganization.sitesById[curAnalysis.siteId].name
   }

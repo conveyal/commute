@@ -147,6 +147,7 @@ export const reducers = {
   'add group' (state, action) {
     const {organizationId, group} = action.payload
     const affectedOrganization = state.organizationsById[organizationId]
+    group.commutersById = arrayToObj(group.commuters)
     const updatedOrganization = addEntities(affectedOrganization, 'groups', [group])
     return setOrganization(state, updatedOrganization)
   },

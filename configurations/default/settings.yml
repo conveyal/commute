@@ -36,3 +36,4 @@ modeDisplay:
   walk:
     color: blue
     title: Walk
+s3bucket: commute-staging

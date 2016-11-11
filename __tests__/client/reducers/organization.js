@@ -3,7 +3,7 @@
 import {handleActions} from 'redux-actions'
 
 import {
-  mockGroup,
+  mockCommuter,
   mockSite,
   mockStores,
   mockTrip,
@@ -153,7 +153,13 @@ describe('client > reducers > organization', () => {
    */
 
   it('should handle add group', () => {
-    const action = { type: 'add group', payload: { organizationId: '1', group: mockGroup } }
+    const newGroup = {
+      allAddressesGeocoded: true,
+      id: '1',
+      name: 'Mock Group',
+      commuters: [mockCommuter]
+    }
+    const action = { type: 'add group', payload: { organizationId: '1', group: newGroup } }
     const result = reducer(mockStores.oneSimpleOrganization.organization, action)
     const affectedOrganization = result.organizationsById['1']
     expect(affectedOrganization.groups.length).toBe(1)
