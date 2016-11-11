@@ -3,7 +3,7 @@ Array [
   Object {
     "payload": Object {
       "analysisId": "1",
-      "organzationId": "2",
+      "organizationId": "2",
     },
     "type": "delete analysis",
   },
@@ -22,7 +22,10 @@ Array [
 exports[`Container > Organization Delete Commuter Group 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": Object {
+      "groupId": "1",
+      "organizationId": "2",
+    },
     "type": "delete group",
   },
   Object {
@@ -59,7 +62,7 @@ exports[`Container > Organization Delete Site 1`] = `
 Array [
   Object {
     "payload": Object {
-      "organzationId": "2",
+      "organizationId": "2",
       "siteId": "1",
     },
     "type": "delete site",

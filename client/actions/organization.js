@@ -27,7 +27,10 @@ const deleteLocally = createAction('delete organization')
   }) */ // TODO delete on server
 export const deleteOrganization = (id) => [deleteLocally(id), push('/')]
 
-export const updateOrganization = (organization) => [setLocally(organization)]
+export const updateOrganization = (organization) => [
+  setLocally(organization),
+  push(`/organizations/${organization.id}`)
+]
 /* const updateOnServer = (organization) =>
   serverAction({
     url: `/api/organization/${organization.id}`,

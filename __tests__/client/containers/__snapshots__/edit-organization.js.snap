@@ -662,5 +662,14 @@ Array [
     },
     "type": "set organization",
   },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/1",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
 ]
 `;

@@ -25,7 +25,10 @@ Object {
 exports[`actions > group delete group should work 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": Object {
+      "groupId": "1",
+      "organizationId": "1",
+    },
     "type": "delete group",
   },
   Object {

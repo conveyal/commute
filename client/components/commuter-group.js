@@ -24,12 +24,12 @@ export default class CommuterGroup extends Component {
 
   _commuterToolsRenderer = (cell, row) => {
     const groupId = this.props.group.id
-    const organzationId = this.props.organizationId
-    const doDelete = () => this.props.deleteCommuter({ commuterId: row.id, groupId, organzationId })
+    const organizationId = this.props.organizationId
+    const doDelete = () => this.props.deleteCommuter({ commuterId: row.id, groupId, organizationId })
     const onClick = () => actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/organizations/${organzationId}/groups/${groupId}/commuters/${row.id}/edit`}>Edit</Link>
+        <Link to={`/organizations/${organizationId}/groups/${groupId}/commuters/${row.id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>

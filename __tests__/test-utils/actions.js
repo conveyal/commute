@@ -33,14 +33,11 @@ export function expectCreateAction (actions, entity) {
   expect(create).toMatchSnapshot()
 
   // react-router
-  const navigate = actions[1]
-  expect(navigate.payload.args[0]).toContain(newId)
-  navigate.payload.args[0] = navigate.payload.args[0].replace(newId, 'new-entity-id')
-  expect(navigate).toMatchSnapshot()
+  expectNavigateToNewEntity(actions[1], newId)
 }
 
 export function expectCreateAnalysis (actions) {
-  expectCreateAction(actions, 'analysis')
+  expectCreateAction(actions.slice(0, 2), 'analysis')
 }
 
 export function expectCreateCommuter (actions) {
@@ -53,6 +50,7 @@ export function expectCreateCommuter (actions) {
   expect(create).toMatchSnapshot()
 
   // react-router
+  // - expect navigation back to parent group
   expect(actions[1]).toMatchSnapshot()
 }
 
@@ -70,6 +68,7 @@ export function expectCreateSite (actions) {
   expect(create).toMatchSnapshot()
 
   // react-router
+  // - expect navigation back to parent organization
   expect(actions[1]).toMatchSnapshot()
 }
 
@@ -109,6 +108,12 @@ export function expectDeleteSite (actions) {
   // respective organization on the website
   expect(actions.length).toBeGreaterThan(0)
   expect(actions).toMatchSnapshot()
+}
+
+function expectNavigateToNewEntity (action, newEntityId) {
+  expect(action.payload.args[0]).toContain(newEntityId)
+  action.payload.args[0] = action.payload.args[0].replace(newEntityId, 'new-entity-id')
+  expect(action).toMatchSnapshot()
 }
 
 export function expectUpdateAction (actions) {

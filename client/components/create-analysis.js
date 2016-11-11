@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, Col, ControlLabel, FormGroup, Grid, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
 import Select from 'react-select'
 
@@ -11,25 +11,32 @@ export default class CreateAnalysis extends Component {
     create: PropTypes.func,
 
     // props
-    groups: PropTypes.array.isRequired,
-    organizationId: PropTypes.string.isRequired,
-    sites: PropTypes.array.isRequired
+    organization: PropTypes.object.isRequired
   }
 
-  handleGroupChange = (event) => {
-    this.setState({ groupId: event.id })
+  constructor (props) {
+    super(props)
+    this.state = {}
   }
 
-  handleSiteChange = (event) => {
-    this.setState({ siteId: event.id })
+  _handleGroupChange = (event) => {
+    const groupId = event.value
+    this.setState({
+      commuters: this.props.organization.groupsById[groupId].commuters,
+      groupId
+    })
   }
 
-  handleSubmit = () => {
-    this.props.create(this.state, this.props.organizationId)
+  _handleSiteChange = (event) => {
+    this.setState({ siteId: event.value })
+  }
+
+  _handleSubmit = () => {
+    this.props.create(this.state, this.props.organization.id)
   }
 
   render () {
-    const {groups, organizationId, sites} = this.props
+    const {groups, id: organizationId, sites} = this.props.organization
     return (
       <Grid>
         <Row>
@@ -41,19 +48,27 @@ export default class CreateAnalysis extends Component {
               </Button>
             </h3>
             <form>
-              <Select
-                options={sites.map((site) => { return {value: site.id, label: site.name} })}
-                onChange={this.handleSiteChange}
-                placeholder='Select a Site...'
-                />
-              <Select
-                options={groups.map((group) => { return {value: group.id, label: group.name} })}
-                onChange={this.handleGroupChange}
-                placeholder='Select a Commuter Group...'
-                />
+              <FormGroup controlId='site-control'>
+                <ControlLabel>Select Site</ControlLabel>
+                <Select
+                  onChange={this._handleSiteChange}
+                  options={sites.map((site) => { return {value: site.id, label: site.name} })}
+                  placeholder='Select a Site...'
+                  value={this.state.siteId}
+                  />
+              </FormGroup>
+              <FormGroup controlId='group-control'>
+                <ControlLabel>Select Group</ControlLabel>
+                <Select
+                  onChange={this._handleGroupChange}
+                  options={groups.map((group) => { return {value: group.id, label: group.name} })}
+                  placeholder='Select a Commuter Group...'
+                  value={this.state.groupId}
+                  />
+              </FormGroup>
               <Button
                 bsStyle='success'
-                onClick={this.handleSubmit}
+                onClick={this._handleSubmit}
                 >
                 'Create'
               </Button>

@@ -12,27 +12,17 @@ export const reducers = {
    */
 
   'add organization' (state, action) {
-    const organizations = [...state.organizations, action.payload]
-    return {
-      ...state,
-      organizations,
-      organizationsById: arrayToObj(organizations)
-    }
+    return addEntities(state, 'organizations', [action.payload])
   },
   'delete organization' (state, action) {
-    const organizationsById = state.organizationsById
-    delete organizationsById[action.payload]
-    const organizations = Object.values(organizationsById)
-    return {
-      ...state,
-      organizations,
-      organizationsById
-    }
+    return deleteEntity(state, 'organizations', action.payload.id)
+  },
+  'set organization' (state, action) {
+    return setOrganization(state, action.payload)
   },
   'set organizations' (state, action) {
-    const organizations = [...state.organizations, ...action.payload]
+    const organizations = [...action.payload]
     return {
-      ...state,
       organizations,
       organizationsById: arrayToObj(action.payload)
     }
@@ -216,6 +206,8 @@ export const initialState = {
   organizations: [],
   organizationsById: {}
 }
+
+// export const initialState = require('../../__tests__/test-utils/mock-data').mockStores.complexOrganization.organization
 
 /**
  * Add entities to a collection

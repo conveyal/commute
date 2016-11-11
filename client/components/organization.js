@@ -21,20 +21,20 @@ export default class Organization extends Component {
   }
 
   _analysisGroupNameRenderer = (cell, row) => {
-    const organzationId = this.props.organization.id
+    const organizationId = this.props.organization.id
     const group = this.props.organization.groupsById[row.siteId]
-    return <Link to={`/organizations/${organzationId}/groups/${group.id}`}>{group.name}</Link>
+    return <Link to={`/organizations/${organizationId}/groups/${group.id}`}>{group.name}</Link>
   }
 
   _analysisNameRenderer = (cell, row) => {
-    const organzationId = this.props.organization.id
-    return <Link to={`/organizations/${organzationId}/analysis/${row.id}`}>{row.name}</Link>
+    const organizationId = this.props.organization.id
+    return <Link to={`/organizations/${organizationId}/analysis/${row.id}`}>{row.name}</Link>
   }
 
   _analysisSiteNameRenderer = (cell, row) => {
-    const organzationId = this.props.organization.id
+    const organizationId = this.props.organization.id
     const site = this.props.organization.sitesById[row.siteId]
-    return <Link to={`/organizations/${organzationId}/groups/${site.id}`}>{site.name}</Link>
+    return <Link to={`/organizations/${organizationId}/groups/${site.id}`}>{site.name}</Link>
   }
 
   _analysisToolsRenderer = (cell, row) => {
@@ -51,8 +51,8 @@ export default class Organization extends Component {
   }
 
   _groupNameRenderer = (cell, row) => {
-    const organzationId = this.props.organization.id
-    return <Link to={`/organizations/${organzationId}/groups/${row.id}/`}>{row.name}</Link>
+    const organizationId = this.props.organization.id
+    return <Link to={`/organizations/${organizationId}/groups/${row.id}/`}>{row.name}</Link>
   }
 
   _groupToolsRenderer = (cell, row) => {
@@ -62,17 +62,17 @@ export default class Organization extends Component {
   }
 
   _siteNameRenderer = (cell, row) => {
-    const organzationId = this.props.organization.id
-    return <Link to={`/organizations/${organzationId}/sites/${row.id}/`}>{row.name}</Link>
+    const organizationId = this.props.organization.id
+    return <Link to={`/organizations/${organizationId}/sites/${row.id}/`}>{row.name}</Link>
   }
 
   _siteToolsRenderer = (cell, row) => {
-    const organzationId = this.props.organization.id
-    const doDelete = () => this.props.deleteSite(row.id, organzationId)
+    const organizationId = this.props.organization.id
+    const doDelete = () => this.props.deleteSite(row.id, organizationId)
     const onClick = () => actUponConfirmation(messages.site.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/organizations/${organzationId}/sites/${row.id}/edit`}>Edit</Link>
+        <Link to={`/organizations/${organizationId}/sites/${row.id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>

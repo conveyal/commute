@@ -92,7 +92,7 @@ describe('Container > EditCommuter', () => {
     // email
     tree.find('input').at(1).simulate('change', {target: {value: 'mock@email.fake'}})
     // address
-    tree.find('Geocoder').props().onChange({
+    tree.find('.form-group').find('Geocoder').props().onChange({
       type: 'Feature',
       geometry: {
         type: 'Point',
@@ -133,7 +133,7 @@ describe('Container > EditCommuter', () => {
     // email
     tree.find('input').at(1).simulate('change', {target: {value: 'mock@email.fake'}})
     // address
-    tree.find('Geocoder').props().onChange({
+    tree.find('.form-group').find('Geocoder').props().onChange({
       type: 'Feature',
       geometry: {
         type: 'Point',

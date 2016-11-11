@@ -66,7 +66,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
 
 exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
 <div
-  className="site-form col-lg-5 col-xs-12">
+  className="site-form col-md-5 col-xs-12">
   <form>
     <FieldGroup
       label="Name"
@@ -108,188 +108,210 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
       </FormGroup>
     </FieldGroup>
     <Geocoder
-      apiKey="test-search-key"
-      featureToLabel={[Function]}
-      featureToValue={[Function]}
-      focusLatlng={
-        Object {
-          "lat": 38.8886,
-          "lng": -77.043,
-        }
-      }
+      label="Address"
       onChange={[Function]}
-      search={[Function]}>
-      <Async
-        apiKey="test-search-key"
-        autoload={false}
-        cache={Object {}}
-        cacheAsyncResults={false}
-        featureToLabel={[Function]}
-        featureToValue={[Function]}
-        filterOptions={false}
-        focusLatlng={
-          Object {
-            "lat": 38.8886,
-            "lng": -77.043,
-          }
-        }
-        ignoreAccents={true}
-        ignoreCase={true}
-        loadOptions={[Function]}
-        loadingPlaceholder="Loading..."
-        minimumInput={3}
-        onChange={[Function]}
-        options={Array []}
-        search={[Function]}
-        searchPromptText="Type to search"
-        value={null}>
-        <Select
-          addLabelText="Add \"{label}\"?"
-          apiKey="test-search-key"
-          arrowRenderer={[Function]}
-          autoload={false}
-          autosize={true}
-          backspaceRemoves={true}
-          backspaceToRemoveMessage="Press backspace to remove {label}"
-          cache={Object {}}
-          cacheAsyncResults={false}
-          clearAllText="Clear all"
-          clearValueText="Clear value"
-          clearable={true}
-          delimiter=","
-          disabled={false}
-          escapeClearsValue={true}
-          featureToLabel={[Function]}
-          featureToValue={[Function]}
-          filterOptions={false}
-          focusLatlng={
-            Object {
-              "lat": 38.8886,
-              "lng": -77.043,
+      value={undefined}>
+      <FormGroup
+        bsClass="form-group"
+        controlId="geocode-control">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="geocode-control">
+              Address
+            </label>
+          </ControlLabel>
+          <Geocoder
+            apiKey="test-search-key"
+            featureToLabel={[Function]}
+            featureToValue={[Function]}
+            focusLatlng={
+              Object {
+                "lat": 38.8886,
+                "lng": -77.043,
+              }
             }
-          }
-          ignoreAccents={true}
-          ignoreCase={true}
-          inputProps={Object {}}
-          isLoading={false}
-          joinValues={false}
-          labelKey="label"
-          loadOptions={[Function]}
-          loadingPlaceholder="Loading..."
-          matchPos="any"
-          matchProp="any"
-          menuBuffer={0}
-          menuRenderer={[Function]}
-          minimumInput={3}
-          multi={false}
-          noResultsText="Type to search"
-          onBlurResetsInput={true}
-          onChange={[Function]}
-          onCloseResetsInput={true}
-          onInputChange={[Function]}
-          openAfterFocus={false}
-          optionComponent={[Function]}
-          options={Array []}
-          pageSize={5}
-          placeholder="Select..."
-          required={false}
-          scrollMenuIntoView={true}
-          search={[Function]}
-          searchPromptText="Type to search"
-          searchable={true}
-          simpleValue={false}
-          tabSelectsValue={true}
-          value={null}
-          valueComponent={[Function]}
-          valueKey="value">
-          <div
-            className="Select Select--single is-searchable"
-            style={undefined}>
-            <div
-              className="Select-control"
-              onKeyDown={[Function]}
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              style={undefined}>
-              <span
-                className="Select-multi-value-wrapper"
-                id="react-select-3--value">
+            onChange={[Function]}
+            search={[Function]}
+            value={undefined}>
+            <Async
+              apiKey="test-search-key"
+              autoload={false}
+              cache={Object {}}
+              cacheAsyncResults={false}
+              featureToLabel={[Function]}
+              featureToValue={[Function]}
+              filterOptions={false}
+              focusLatlng={
+                Object {
+                  "lat": 38.8886,
+                  "lng": -77.043,
+                }
+              }
+              ignoreAccents={true}
+              ignoreCase={true}
+              loadOptions={[Function]}
+              loadingPlaceholder="Loading..."
+              minimumInput={3}
+              onChange={[Function]}
+              options={Array []}
+              search={[Function]}
+              searchPromptText="Type to search"
+              value={null}>
+              <Select
+                addLabelText="Add \"{label}\"?"
+                apiKey="test-search-key"
+                arrowRenderer={[Function]}
+                autoload={false}
+                autosize={true}
+                backspaceRemoves={true}
+                backspaceToRemoveMessage="Press backspace to remove {label}"
+                cache={Object {}}
+                cacheAsyncResults={false}
+                clearAllText="Clear all"
+                clearValueText="Clear value"
+                clearable={true}
+                delimiter=","
+                disabled={false}
+                escapeClearsValue={true}
+                featureToLabel={[Function]}
+                featureToValue={[Function]}
+                filterOptions={false}
+                focusLatlng={
+                  Object {
+                    "lat": 38.8886,
+                    "lng": -77.043,
+                  }
+                }
+                ignoreAccents={true}
+                ignoreCase={true}
+                inputProps={Object {}}
+                isLoading={false}
+                joinValues={false}
+                labelKey="label"
+                loadOptions={[Function]}
+                loadingPlaceholder="Loading..."
+                matchPos="any"
+                matchProp="any"
+                menuBuffer={0}
+                menuRenderer={[Function]}
+                minimumInput={3}
+                multi={false}
+                noResultsText="Type to search"
+                onBlurResetsInput={true}
+                onChange={[Function]}
+                onCloseResetsInput={true}
+                onInputChange={[Function]}
+                openAfterFocus={false}
+                optionComponent={[Function]}
+                options={Array []}
+                pageSize={5}
+                placeholder="Select..."
+                required={false}
+                scrollMenuIntoView={true}
+                search={[Function]}
+                searchPromptText="Type to search"
+                searchable={true}
+                simpleValue={false}
+                tabSelectsValue={true}
+                value={null}
+                valueComponent={[Function]}
+                valueKey="value">
                 <div
-                  className="Select-placeholder">
-                  Select...
-                </div>
-                <AutosizeInput
-                  aria-activedescendant="react-select-3--value"
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className="Select-input"
-                  minWidth="5px"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  tabIndex={undefined}
-                  value="">
+                  className="Select Select--single is-searchable"
+                  style={undefined}>
                   <div
-                    className="Select-input"
-                    style={
-                      Object {
-                        "display": "inline-block",
-                      }
-                    }>
-                    <input
-                      aria-activedescendant="react-select-3--value"
-                      aria-expanded="false"
-                      aria-haspopup="false"
-                      aria-label={undefined}
-                      aria-labelledby={undefined}
-                      aria-owns=""
-                      className={undefined}
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      onFocus={[Function]}
-                      required={false}
-                      role="combobox"
-                      style={
-                        Object {
-                          "boxSizing": "content-box",
-                          "width": "5pxpx",
-                        }
-                      }
-                      tabIndex={undefined}
-                      value="" />
-                    <div
-                      style={
-                        Object {
-                          "height": 0,
-                          "left": 0,
-                          "overflow": "scroll",
-                          "position": "absolute",
-                          "top": 0,
-                          "visibility": "hidden",
-                          "whiteSpace": "pre",
-                        }
-                      } />
+                    className="Select-control"
+                    onKeyDown={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    style={undefined}>
+                    <span
+                      className="Select-multi-value-wrapper"
+                      id="react-select-3--value">
+                      <div
+                        className="Select-placeholder">
+                        Select...
+                      </div>
+                      <AutosizeInput
+                        aria-activedescendant="react-select-3--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-label={undefined}
+                        aria-labelledby={undefined}
+                        aria-owns=""
+                        className="Select-input"
+                        minWidth="5px"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        tabIndex={undefined}
+                        value="">
+                        <div
+                          className="Select-input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }>
+                          <input
+                            aria-activedescendant="react-select-3--value"
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className={undefined}
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            style={
+                              Object {
+                                "boxSizing": "content-box",
+                                "width": "5pxpx",
+                              }
+                            }
+                            tabIndex={undefined}
+                            value="" />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            } />
+                        </div>
+                      </AutosizeInput>
+                    </span>
+                    <span
+                      className="Select-arrow-zone"
+                      onMouseDown={[Function]}>
+                      <span
+                        className="Select-arrow"
+                        onMouseDown={[Function]} />
+                    </span>
                   </div>
-                </AutosizeInput>
-              </span>
-              <span
-                className="Select-arrow-zone"
-                onMouseDown={[Function]}>
-                <span
-                  className="Select-arrow"
-                  onMouseDown={[Function]} />
-              </span>
-            </div>
-          </div>
-        </Select>
-      </Async>
+                </div>
+              </Select>
+            </Async>
+          </Geocoder>
+        </div>
+      </FormGroup>
     </Geocoder>
     <FieldGroup
       label="Ridematch Radius (mi)"
@@ -395,7 +417,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
 
 exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
 <div
-  className="site-form col-lg-5 col-xs-12">
+  className="site-form col-md-5 col-xs-12">
   <form>
     <FieldGroup
       label="Name"
@@ -437,188 +459,261 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
       </FormGroup>
     </FieldGroup>
     <Geocoder
-      apiKey="test-search-key"
-      featureToLabel={[Function]}
-      featureToValue={[Function]}
-      focusLatlng={
-        Object {
-          "lat": 38.8886,
-          "lng": -77.043,
-        }
-      }
+      label="Address"
       onChange={[Function]}
-      search={[Function]}>
-      <Async
-        apiKey="test-search-key"
-        autoload={false}
-        cache={Object {}}
-        cacheAsyncResults={false}
-        featureToLabel={[Function]}
-        featureToValue={[Function]}
-        filterOptions={false}
-        focusLatlng={
-          Object {
-            "lat": 38.8886,
-            "lng": -77.043,
-          }
+      value={
+        Object {
+          "label": "123 ABC St",
         }
-        ignoreAccents={true}
-        ignoreCase={true}
-        loadOptions={[Function]}
-        loadingPlaceholder="Loading..."
-        minimumInput={3}
-        onChange={[Function]}
-        options={Array []}
-        search={[Function]}
-        searchPromptText="Type to search"
-        value={null}>
-        <Select
-          addLabelText="Add \"{label}\"?"
-          apiKey="test-search-key"
-          arrowRenderer={[Function]}
-          autoload={false}
-          autosize={true}
-          backspaceRemoves={true}
-          backspaceToRemoveMessage="Press backspace to remove {label}"
-          cache={Object {}}
-          cacheAsyncResults={false}
-          clearAllText="Clear all"
-          clearValueText="Clear value"
-          clearable={true}
-          delimiter=","
-          disabled={false}
-          escapeClearsValue={true}
-          featureToLabel={[Function]}
-          featureToValue={[Function]}
-          filterOptions={false}
-          focusLatlng={
-            Object {
-              "lat": 38.8886,
-              "lng": -77.043,
+      }>
+      <FormGroup
+        bsClass="form-group"
+        controlId="geocode-control">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="geocode-control">
+              Address
+            </label>
+          </ControlLabel>
+          <Geocoder
+            apiKey="test-search-key"
+            featureToLabel={[Function]}
+            featureToValue={[Function]}
+            focusLatlng={
+              Object {
+                "lat": 38.8886,
+                "lng": -77.043,
+              }
             }
-          }
-          ignoreAccents={true}
-          ignoreCase={true}
-          inputProps={Object {}}
-          isLoading={false}
-          joinValues={false}
-          labelKey="label"
-          loadOptions={[Function]}
-          loadingPlaceholder="Loading..."
-          matchPos="any"
-          matchProp="any"
-          menuBuffer={0}
-          menuRenderer={[Function]}
-          minimumInput={3}
-          multi={false}
-          noResultsText="Type to search"
-          onBlurResetsInput={true}
-          onChange={[Function]}
-          onCloseResetsInput={true}
-          onInputChange={[Function]}
-          openAfterFocus={false}
-          optionComponent={[Function]}
-          options={Array []}
-          pageSize={5}
-          placeholder="Select..."
-          required={false}
-          scrollMenuIntoView={true}
-          search={[Function]}
-          searchPromptText="Type to search"
-          searchable={true}
-          simpleValue={false}
-          tabSelectsValue={true}
-          value={null}
-          valueComponent={[Function]}
-          valueKey="value">
-          <div
-            className="Select Select--single is-searchable"
-            style={undefined}>
-            <div
-              className="Select-control"
-              onKeyDown={[Function]}
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              style={undefined}>
-              <span
-                className="Select-multi-value-wrapper"
-                id="react-select-4--value">
+            onChange={[Function]}
+            search={[Function]}
+            value={
+              Object {
+                "label": "123 ABC St",
+              }
+            }>
+            <Async
+              apiKey="test-search-key"
+              autoload={false}
+              cache={Object {}}
+              cacheAsyncResults={false}
+              featureToLabel={[Function]}
+              featureToValue={[Function]}
+              filterOptions={false}
+              focusLatlng={
+                Object {
+                  "lat": 38.8886,
+                  "lng": -77.043,
+                }
+              }
+              ignoreAccents={true}
+              ignoreCase={true}
+              loadOptions={[Function]}
+              loadingPlaceholder="Loading..."
+              minimumInput={3}
+              onChange={[Function]}
+              options={Array []}
+              search={[Function]}
+              searchPromptText="Type to search"
+              value={
+                Object {
+                  "label": "123 ABC St",
+                }
+              }>
+              <Select
+                addLabelText="Add \"{label}\"?"
+                apiKey="test-search-key"
+                arrowRenderer={[Function]}
+                autoload={false}
+                autosize={true}
+                backspaceRemoves={true}
+                backspaceToRemoveMessage="Press backspace to remove {label}"
+                cache={Object {}}
+                cacheAsyncResults={false}
+                clearAllText="Clear all"
+                clearValueText="Clear value"
+                clearable={true}
+                delimiter=","
+                disabled={false}
+                escapeClearsValue={true}
+                featureToLabel={[Function]}
+                featureToValue={[Function]}
+                filterOptions={false}
+                focusLatlng={
+                  Object {
+                    "lat": 38.8886,
+                    "lng": -77.043,
+                  }
+                }
+                ignoreAccents={true}
+                ignoreCase={true}
+                inputProps={Object {}}
+                isLoading={false}
+                joinValues={false}
+                labelKey="label"
+                loadOptions={[Function]}
+                loadingPlaceholder="Loading..."
+                matchPos="any"
+                matchProp="any"
+                menuBuffer={0}
+                menuRenderer={[Function]}
+                minimumInput={3}
+                multi={false}
+                noResultsText="Type to search"
+                onBlurResetsInput={true}
+                onChange={[Function]}
+                onCloseResetsInput={true}
+                onInputChange={[Function]}
+                openAfterFocus={false}
+                optionComponent={[Function]}
+                options={Array []}
+                pageSize={5}
+                placeholder="Select..."
+                required={false}
+                scrollMenuIntoView={true}
+                search={[Function]}
+                searchPromptText="Type to search"
+                searchable={true}
+                simpleValue={false}
+                tabSelectsValue={true}
+                value={
+                  Object {
+                    "label": "123 ABC St",
+                  }
+                }
+                valueComponent={[Function]}
+                valueKey="value">
                 <div
-                  className="Select-placeholder">
-                  Select...
-                </div>
-                <AutosizeInput
-                  aria-activedescendant="react-select-4--value"
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className="Select-input"
-                  minWidth="5px"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  tabIndex={undefined}
-                  value="">
+                  className="Select Select--single is-searchable has-value"
+                  style={undefined}>
                   <div
-                    className="Select-input"
-                    style={
-                      Object {
-                        "display": "inline-block",
-                      }
-                    }>
-                    <input
-                      aria-activedescendant="react-select-4--value"
-                      aria-expanded="false"
-                      aria-haspopup="false"
-                      aria-label={undefined}
-                      aria-labelledby={undefined}
-                      aria-owns=""
-                      className={undefined}
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      onFocus={[Function]}
-                      required={false}
-                      role="combobox"
-                      style={
-                        Object {
-                          "boxSizing": "content-box",
-                          "width": "5pxpx",
-                        }
-                      }
-                      tabIndex={undefined}
-                      value="" />
-                    <div
-                      style={
-                        Object {
-                          "height": 0,
-                          "left": 0,
-                          "overflow": "scroll",
-                          "position": "absolute",
-                          "top": 0,
-                          "visibility": "hidden",
-                          "whiteSpace": "pre",
-                        }
-                      } />
+                    className="Select-control"
+                    onKeyDown={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    style={undefined}>
+                    <span
+                      className="Select-multi-value-wrapper"
+                      id="react-select-4--value">
+                      <Value
+                        disabled={false}
+                        id="react-select-4--value-item"
+                        instancePrefix="react-select-4-"
+                        onClick={null}
+                        value={
+                          Object {
+                            "label": "123 ABC St",
+                          }
+                        }>
+                        <div
+                          className="Select-value"
+                          style={undefined}
+                          title={undefined}>
+                          <span
+                            aria-selected="true"
+                            className="Select-value-label"
+                            id="react-select-4--value-item"
+                            role="option">
+                            123 ABC St
+                          </span>
+                        </div>
+                      </Value>
+                      <AutosizeInput
+                        aria-activedescendant="react-select-4--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-label={undefined}
+                        aria-labelledby={undefined}
+                        aria-owns=""
+                        className="Select-input"
+                        minWidth="5px"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        tabIndex={undefined}
+                        value="">
+                        <div
+                          className="Select-input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }>
+                          <input
+                            aria-activedescendant="react-select-4--value"
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className={undefined}
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            style={
+                              Object {
+                                "boxSizing": "content-box",
+                                "width": "5pxpx",
+                              }
+                            }
+                            tabIndex={undefined}
+                            value="" />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            } />
+                        </div>
+                      </AutosizeInput>
+                    </span>
+                    <span
+                      aria-label="Clear value"
+                      className="Select-clear-zone"
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      title="Clear value">
+                      <span
+                        className="Select-clear"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "&times;",
+                          }
+                        } />
+                    </span>
+                    <span
+                      className="Select-arrow-zone"
+                      onMouseDown={[Function]}>
+                      <span
+                        className="Select-arrow"
+                        onMouseDown={[Function]} />
+                    </span>
                   </div>
-                </AutosizeInput>
-              </span>
-              <span
-                className="Select-arrow-zone"
-                onMouseDown={[Function]}>
-                <span
-                  className="Select-arrow"
-                  onMouseDown={[Function]} />
-              </span>
-            </div>
-          </div>
-        </Select>
-      </Async>
+                </div>
+              </Select>
+            </Async>
+          </Geocoder>
+        </div>
+      </FormGroup>
     </Geocoder>
     <FieldGroup
       label="Ridematch Radius (mi)"
@@ -711,7 +806,7 @@ exports[`Container > EditSite Delete Site 1`] = `
 Array [
   Object {
     "payload": Object {
-      "organzationId": "2",
+      "organizationId": "2",
       "siteId": "1",
     },
     "type": "delete site",

@@ -9,9 +9,7 @@ function mapStateToProps (state, props) {
   const currentOrganizationId = params.organizationId
   const currentOrganization = organization.organizationsById[currentOrganizationId]
   return {
-    groups: currentOrganization.groups,
-    organizationId: currentOrganizationId,
-    sites: currentOrganization.sites
+    organization: currentOrganization
   }
 }
 

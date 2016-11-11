@@ -5,9 +5,9 @@ import React, {Component, PropTypes} from 'react'
 import {Button, Col, Grid, Row} from 'react-bootstrap'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import {Link} from 'react-router'
-import Geocoder from 'react-select-geocoder'
 
 import FieldGroup from './fieldgroup'
+import Geocoder from './geocoder'
 import Icon from './icon'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
@@ -34,11 +34,11 @@ export default class EditCommuter extends Component {
     }
   }
 
-  handleChange = (name, event) => {
+  _handleChange = (name, event) => {
     this.setState({ [name]: event.target.value })
   }
 
-  handleGeocoderChange = (value) => {
+  _handleGeocoderChange = (value) => {
     if (value && value.geometry) {
       // received valid geocode result
       const coords = lonlng(value.geometry.coordinates)
@@ -57,7 +57,7 @@ export default class EditCommuter extends Component {
     }
   }
 
-  handleDelete = () => {
+  _handleDelete = () => {
     const doDelete = () => this.props.delete({
       commuterId: this.state.id,
       groupId: this.props.groupId,
@@ -66,7 +66,7 @@ export default class EditCommuter extends Component {
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
-  handleSubmit = () => {
+  _handleSubmit = () => {
     const {create, editMode, groupId, organizationId, update} = this.props
     if (editMode) {
       update({
@@ -104,12 +104,12 @@ export default class EditCommuter extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} lg={5} className='commuter-form'>
+          <Col xs={12} md={5} className='commuter-form'>
             <form>
               <FieldGroup
                 label='Name'
                 name='name'
-                onChange={this.handleChange}
+                onChange={this._handleChange}
                 placeholder='Enter name'
                 type='text'
                 value={this.state.name}
@@ -117,19 +117,19 @@ export default class EditCommuter extends Component {
               <FieldGroup
                 label='Email'
                 name='email'
-                onChange={this.handleChange}
+                onChange={this._handleChange}
                 placeholder='Enter email'
                 type='text'
                 value={this.state.email}
                 />
               <Geocoder
-                apiKey={process.env.MAPZEN_SEARCH_KEY}
-                focusLatlng={settings.map.focus}
-                onChange={this.handleGeocoderChange}
+                label='address'
+                onChange={this._handleGeocoderChange}
+                value={this.state.address && { label: this.state.address }}
                 />
             </form>
           </Col>
-          <Col xs={12} lg={7} style={{height: '400px'}}>
+          <Col xs={12} md={7} style={{height: '400px'}}>
             <LeafletMap center={position} zoom={zoom}>
               <TileLayer
                 url={Browser.retina &&
@@ -146,14 +146,14 @@ export default class EditCommuter extends Component {
           <Col xs={12} className='commuter-submit-buttons'>
             <Button
               bsStyle={editMode ? 'warning' : 'success'}
-              onClick={this.handleSubmit}
+              onClick={this._handleSubmit}
               >
               {editMode ? 'Update' : 'Create'}
             </Button>
             {editMode &&
               <Button
                 bsStyle='danger'
-                onClick={this.handleDelete}
+                onClick={this._handleDelete}
                 >
                 Delete
               </Button>

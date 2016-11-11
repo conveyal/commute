@@ -26,7 +26,7 @@ exports[`actions > site delete site should work 1`] = `
 Array [
   Object {
     "payload": Object {
-      "organzationId": "1",
+      "organizationId": "1",
       "siteId": "1",
     },
     "type": "delete site",

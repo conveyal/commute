@@ -42,11 +42,11 @@ const ApplicationRouter = ({history}) => (
       <Route path='/organizations/:organizationId/groups/:groupId' component={CommuterGroup} />
       <Route path='/organizations/:organizationId/groups/:groupId/add' component={AddCommuters} />
       <Route
-        path='/organizations/:organizationId/groups/:groupId/commuter/create'
+        path='/organizations/:organizationId/groups/:groupId/commuters/create'
         component={EditCommuter}
         />
       <Route
-        path='/organizations/:organizationId/groups/:groupId/commuter/:commuterId/edit'
+        path='/organizations/:organizationId/groups/:groupId/commuters/:commuterId/edit'
         component={EditCommuter}
         />
       <Route path='/organizations/:organizationId/sites/create' component={EditSite} />

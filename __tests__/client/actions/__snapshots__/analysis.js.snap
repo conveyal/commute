@@ -5,7 +5,6 @@ Object {
       "groupId": "1",
       "name": "Mock Analysis",
       "siteId": "1",
-      "trips": Array [],
     },
     "organizationId": "1",
   },
@@ -30,7 +29,7 @@ Array [
   Object {
     "payload": Object {
       "analysisId": "1",
-      "organzationId": "1",
+      "organizationId": "1",
     },
     "type": "delete analysis",
   },

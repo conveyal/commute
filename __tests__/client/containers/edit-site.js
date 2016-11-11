@@ -90,7 +90,7 @@ describe('Container > EditSite', () => {
     // name
     tree.find('input').first().simulate('change', {target: {value: 'Mock Site'}})
     // address
-    tree.find('Geocoder').props().onChange({
+    tree.find('.form-group').find('Geocoder').props().onChange({
       type: 'Feature',
       geometry: {
         type: 'Point',
@@ -131,7 +131,7 @@ describe('Container > EditSite', () => {
     // name
     tree.find('input').first().simulate('change', {target: {value: 'Mock Site'}})
     // address
-    tree.find('Geocoder').props().onChange({
+    tree.find('.form-group').find('Geocoder').props().onChange({
       type: 'Feature',
       geometry: {
         type: 'Point',

@@ -42,9 +42,9 @@ describe('Container > CreateAnalysis', () => {
 
     // When the user fills out all of the required fields (Site, commuter group)
     // site
-    tree.find('Select').first().props().onChange({ id: '1' })
+    tree.find('Select').first().props().onChange({ value: '1' })
     // group
-    tree.find('Select').last().props().onChange({ id: '1' })
+    tree.find('Select').last().props().onChange({ value: '1' })
 
     // And the user submits the form
     tree.find('button').last().simulate('click')

@@ -18,7 +18,7 @@ describe('actions > organization', () => {
   it('update organization should work', () => {
     const result = organization.updateOrganization(simpleOrganization)
 
-    expect(result.length).toBe(1)
+    expect(result.length).toBe(2)
     expect(result).toMatchSnapshot()
   })
 

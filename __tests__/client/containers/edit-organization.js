@@ -77,7 +77,7 @@ describe('Container > EditOrganization', () => {
 
     // expect update action
     const actions = mockStore.getActions()
-    expect(actions.length).toBe(1)
+    expect(actions.length).toBe(2)
     expect(actions).toMatchSnapshot()
   })
 

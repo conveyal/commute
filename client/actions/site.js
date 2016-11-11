@@ -19,9 +19,9 @@ const deleteLocally = createAction('delete site')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteSite = (id, organzationId) => [
-  deleteLocally({ siteId: id, organzationId }),
-  push(`/organizations/${organzationId}`)
+export const deleteSite = (id, organizationId) => [
+  deleteLocally({ siteId: id, organizationId }),
+  push(`/organizations/${organizationId}`)
 ]
 
 const updateLocally = createAction('update site')
