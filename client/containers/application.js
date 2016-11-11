@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {refreshUser} from 'mastarm/react/auth0'
+import {refreshUser} from '@conveyal/woonerf/build/lib/auth0'
 
 import Application from '../components/application'
 

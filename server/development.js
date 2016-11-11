@@ -2,7 +2,7 @@ const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const jwt = require('express-jwt')
 const path = require('path')
-const html = require('mastarm/react/html')
+const html = require('@conveyal/woonerf/build/lib/html')
 
 const {schema, rootValue} = require('./graphql')
 const db = require('./db')

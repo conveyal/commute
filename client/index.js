@@ -1,6 +1,6 @@
 
-import mount from 'mastarm/react/mount'
-import createStore from 'mastarm/react/store'
+import mount from '@conveyal/woonerf/build/lib/mount'
+import createStore from '@conveyal/woonerf/build/lib/store'
 
 import reducers from './reducers'
 import router from './router'
