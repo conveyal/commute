@@ -211,6 +211,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
         "email": "abc@def.ghi",
         "groups": Array [
           Object {
+            "allAddressesGeocoded": true,
             "commuters": Array [
               Object {
                 "address": "4321 XYZ Boulevard",
@@ -237,6 +238,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
         ],
         "groupsById": Object {
           "1": Object {
+            "allAddressesGeocoded": true,
             "commuters": Array [
               Object {
                 "address": "4321 XYZ Boulevard",
@@ -353,7 +355,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                         <label
                           className="control-label"
                           htmlFor="site-control">
-                          Select Site
+                          Site
                         </label>
                       </ControlLabel>
                       <Select
@@ -504,7 +506,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                         <label
                           className="control-label"
                           htmlFor="group-control">
-                          Select Group
+                          Group
                         </label>
                       </ControlLabel>
                       <Select
@@ -656,7 +658,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                       disabled={false}
                       onClick={[Function]}
                       type="button">
-                      \'Create\'
+                      Create
                     </button>
                   </Button>
                 </form>
@@ -674,16 +676,6 @@ exports[`Container > CreateAnalysis Create analysis 1`] = `
 Object {
   "payload": Object {
     "analysis": Object {
-      "commuters": Array [
-        Object {
-          "address": "4321 XYZ Boulevard",
-          "email": "luke@warm.cold",
-          "id": "1",
-          "lat": 38.916089,
-          "lng": -76.970221,
-          "name": "Luke Warm",
-        },
-      ],
       "groupId": "1",
       "siteId": "1",
     },

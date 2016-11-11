@@ -49,7 +49,7 @@ export default class CreateAnalysis extends Component {
             </h3>
             <form>
               <FormGroup controlId='site-control'>
-                <ControlLabel>Select Site</ControlLabel>
+                <ControlLabel>Site</ControlLabel>
                 <Select
                   onChange={this._handleSiteChange}
                   options={sites.map((site) => { return {value: site.id, label: site.name} })}
@@ -58,7 +58,7 @@ export default class CreateAnalysis extends Component {
                   />
               </FormGroup>
               <FormGroup controlId='group-control'>
-                <ControlLabel>Select Group</ControlLabel>
+                <ControlLabel>Group</ControlLabel>
                 <Select
                   onChange={this._handleGroupChange}
                   options={groups.map((group) => { return {value: group.id, label: group.name} })}
@@ -70,7 +70,7 @@ export default class CreateAnalysis extends Component {
                 bsStyle='success'
                 onClick={this._handleSubmit}
                 >
-                'Create'
+                Create
               </Button>
             </form>
           </Col>

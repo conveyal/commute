@@ -43,7 +43,10 @@ export default class AddCommuters extends Component {
     if (appendMode) {
       append(this.state.newCommuters, group.id, organizationId)
     } else {
-      create(this.state, organizationId)
+      const newGroup = {...this.state}
+      newGroup.commuters = newGroup.newCommuters
+      delete newGroup.newCommuters
+      create(newGroup, organizationId)
     }
   }
 

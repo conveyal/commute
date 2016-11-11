@@ -42,36 +42,45 @@ export default class CommuterGroup extends Component {
 
   render () {
     const {group, organizationId} = this.props
-    const {commuters} = group
+    const {allAddressesGeocoded, commuters} = group
     const groupName = group.name
-    const {bounds, markers, position, zoom} = mapCommuters(commuters)
+    const {bounds, markers, position, zoom} = mapCommuters(allAddressesGeocoded, commuters)
     return (
       <Grid>
         <Row>
-          <Col xs={12} lg={7} style={{height: '400px'}}>
-            <LeafletMap center={position} bounds={bounds} zoom={zoom}>
-              <TileLayer
-                url={Browser.retina &&
-                  process.env.LEAFLET_RETINA_URL
-                  ? process.env.LEAFLET_RETINA_URL
-                  : process.env.LEAFLET_TILE_URL}
-                attribution={process.env.LEAFLET_ATTRIBUTION}
-                />
-              <ClusterLayer
-                markers={markers}
-                clusterComponent={ClusterComponent}
-                />
-            </LeafletMap>
-          </Col>
-        </Row>
-        <Row className='group-content'>
-          <Col xs={12}>
+          <Col xs={12} className='group-header'>
             <h3>
               <span>{groupName}</span>
               <Button className='pull-right'>
                 <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
               </Button>
             </h3>
+          </Col>
+          {allAddressesGeocoded &&
+            <Col xs={12} style={{height: '400px'}}>
+              <LeafletMap center={position} bounds={bounds} zoom={zoom}>
+                <TileLayer
+                  url={Browser.retina &&
+                    process.env.LEAFLET_RETINA_URL
+                    ? process.env.LEAFLET_RETINA_URL
+                    : process.env.LEAFLET_TILE_URL}
+                  attribution={process.env.LEAFLET_ATTRIBUTION}
+                  />
+                <ClusterLayer
+                  markers={markers}
+                  clusterComponent={ClusterComponent}
+                  />
+              </LeafletMap>
+            </Col>
+          }
+          {!allAddressesGeocoded &&
+            <Col xs={12} className='group-geocode-progress'>
+              <p>Geocoding commuter addresses...</p>
+            </Col>
+          }
+        </Row>
+        <Row className='group-content'>
+          <Col xs={12}>
             <BootstrapTable data={commuters}>
               <TableHeaderColumn dataField='id' isKey hidden />
               <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
@@ -109,8 +118,8 @@ class ClusterComponent extends React.Component {
   }
 }
 
-const mapCommuters = (commuters) => {
-  if (commuters.length === 0) {
+const mapCommuters = (allAddressesGeocoded, commuters) => {
+  if (commuters.length === 0 || !allAddressesGeocoded) {
     return {
       markers: [],
       position: settings.map.focus,

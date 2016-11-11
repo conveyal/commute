@@ -77,7 +77,7 @@ export const reducers = {
       })
     )
 
-    updatedAnalysis = update(affectedAnalysis, {
+    updatedAnalysis = update(updatedAnalysis, {
       tripVals: { $set: vals }
     })
 
@@ -94,7 +94,7 @@ export const reducers = {
       totalDistance += trip.mostLikely.distance
     })
 
-    updatedAnalysis = update(affectedAnalysis, {
+    updatedAnalysis = update(updatedAnalysis, {
       summary: {
         $set: {
           avgTravelTime: fixedRound(totalTravelTime / len),
@@ -206,8 +206,6 @@ export const initialState = {
   organizations: [],
   organizationsById: {}
 }
-
-// export const initialState = require('../../__tests__/test-utils/mock-data').mockStores.complexOrganization.organization
 
 /**
  * Add entities to a collection

@@ -21,6 +21,7 @@ Object {
 
 exports[`client > reducers > organization should handle add group 1`] = `
 Object {
+  "allAddressesGeocoded": true,
   "commuters": Array [
     Object {
       "address": "4321 XYZ Boulevard",
@@ -130,6 +131,17 @@ Object {
         1234,
       ],
     },
+    "mostLikely": Object {
+      "cost": Array [
+        4.56,
+      ],
+      "distance": Array [
+        22,
+      ],
+      "time": Array [
+        2321,
+      ],
+    },
     "transit": Object {
       "cost": Array [
         3.45,
@@ -169,11 +181,11 @@ Object {
       },
       "commuterId": "1",
       "mostLikely": Object {
-        "cost": 3.45,
-        "distance": 30,
+        "cost": 4.56,
+        "distance": 22,
         "mode": "transit",
         "polygon": "encoded",
-        "time": 3456,
+        "time": 2321,
       },
       "transit": Object {
         "cost": 3.45,

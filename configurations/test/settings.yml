@@ -2,6 +2,7 @@ map:
   focus:
     lat: 38.8886
     lng: -77.0430
+    radius: 275
 metrics:
   cost:
     default: 20

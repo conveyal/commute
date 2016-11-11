@@ -7,14 +7,15 @@ const appendCommuters = createAction('append commuters')
 export const appendToGroup = (newCommuters, groupId, organizationId) => {
   return [
     appendCommuters({ commuters: newCommuters, groupId, organizationId }),
-    push(`/organizations/${organizationId}/group/${groupId}`)
+    push(`/organizations/${organizationId}/groups/${groupId}`)
   ] // TODO save to server
 }
 export const createGroup = (newGroup, organizationId) => {
   newGroup.id = uuid.v4()
+  newGroup.allAddressesGeocoded = false
   return [
     addGroup({ group: newGroup, organizationId }),
-    push(`/organizations/${organizationId}/group/${newGroup.id}`)
+    push(`/organizations/${organizationId}/groups/${newGroup.id}`)
   ] // TODO save to server
 }
 

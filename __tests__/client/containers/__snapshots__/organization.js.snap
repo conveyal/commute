@@ -295,6 +295,7 @@ exports[`Container > Organization Organization View loads 1`] = `
         "email": "abc@def.ghi",
         "groups": Array [
           Object {
+            "allAddressesGeocoded": true,
             "commuters": Array [
               Object {
                 "address": "4321 XYZ Boulevard",
@@ -321,6 +322,7 @@ exports[`Container > Organization Organization View loads 1`] = `
         ],
         "groupsById": Object {
           "1": Object {
+            "allAddressesGeocoded": true,
             "commuters": Array [
               Object {
                 "address": "4321 XYZ Boulevard",
@@ -1231,6 +1233,7 @@ exports[`Container > Organization Organization View loads 1`] = `
                   data={
                     Array [
                       Object {
+                        "allAddressesGeocoded": true,
                         "commuters": Array [
                           Object {
                             "address": "4321 XYZ Boulevard",
@@ -1650,6 +1653,7 @@ exports[`Container > Organization Organization View loads 1`] = `
                         data={
                           Array [
                             Object {
+                              "allAddressesGeocoded": true,
                               "commuters": Array [
                                 Object {
                                   "address": "4321 XYZ Boulevard",

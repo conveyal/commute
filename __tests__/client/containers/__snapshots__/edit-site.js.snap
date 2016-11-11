@@ -127,31 +127,43 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
           </ControlLabel>
           <Geocoder
             apiKey="test-search-key"
-            featureToLabel={[Function]}
-            featureToValue={[Function]}
-            focusLatlng={
+            boundary={
               Object {
-                "lat": 38.8886,
-                "lng": -77.043,
+                "circle": Object {
+                  "latlng": Object {
+                    "lat": 38.8886,
+                    "lng": -77.043,
+                    "radius": 275,
+                  },
+                  "radius": 275,
+                },
               }
             }
+            featureToLabel={[Function]}
+            featureToValue={[Function]}
             onChange={[Function]}
             search={[Function]}
             value={undefined}>
             <Async
               apiKey="test-search-key"
               autoload={false}
+              boundary={
+                Object {
+                  "circle": Object {
+                    "latlng": Object {
+                      "lat": 38.8886,
+                      "lng": -77.043,
+                      "radius": 275,
+                    },
+                    "radius": 275,
+                  },
+                }
+              }
               cache={Object {}}
               cacheAsyncResults={false}
               featureToLabel={[Function]}
               featureToValue={[Function]}
               filterOptions={false}
-              focusLatlng={
-                Object {
-                  "lat": 38.8886,
-                  "lng": -77.043,
-                }
-              }
               ignoreAccents={true}
               ignoreCase={true}
               loadOptions={[Function]}
@@ -170,6 +182,18 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                 autosize={true}
                 backspaceRemoves={true}
                 backspaceToRemoveMessage="Press backspace to remove {label}"
+                boundary={
+                  Object {
+                    "circle": Object {
+                      "latlng": Object {
+                        "lat": 38.8886,
+                        "lng": -77.043,
+                        "radius": 275,
+                      },
+                      "radius": 275,
+                    },
+                  }
+                }
                 cache={Object {}}
                 cacheAsyncResults={false}
                 clearAllText="Clear all"
@@ -181,12 +205,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                 featureToLabel={[Function]}
                 featureToValue={[Function]}
                 filterOptions={false}
-                focusLatlng={
-                  Object {
-                    "lat": 38.8886,
-                    "lng": -77.043,
-                  }
-                }
                 ignoreAccents={true}
                 ignoreCase={true}
                 inputProps={Object {}}
@@ -482,14 +500,20 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
           </ControlLabel>
           <Geocoder
             apiKey="test-search-key"
-            featureToLabel={[Function]}
-            featureToValue={[Function]}
-            focusLatlng={
+            boundary={
               Object {
-                "lat": 38.8886,
-                "lng": -77.043,
+                "circle": Object {
+                  "latlng": Object {
+                    "lat": 38.8886,
+                    "lng": -77.043,
+                    "radius": 275,
+                  },
+                  "radius": 275,
+                },
               }
             }
+            featureToLabel={[Function]}
+            featureToValue={[Function]}
             onChange={[Function]}
             search={[Function]}
             value={
@@ -500,17 +524,23 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
             <Async
               apiKey="test-search-key"
               autoload={false}
+              boundary={
+                Object {
+                  "circle": Object {
+                    "latlng": Object {
+                      "lat": 38.8886,
+                      "lng": -77.043,
+                      "radius": 275,
+                    },
+                    "radius": 275,
+                  },
+                }
+              }
               cache={Object {}}
               cacheAsyncResults={false}
               featureToLabel={[Function]}
               featureToValue={[Function]}
               filterOptions={false}
-              focusLatlng={
-                Object {
-                  "lat": 38.8886,
-                  "lng": -77.043,
-                }
-              }
               ignoreAccents={true}
               ignoreCase={true}
               loadOptions={[Function]}
@@ -533,6 +563,18 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                 autosize={true}
                 backspaceRemoves={true}
                 backspaceToRemoveMessage="Press backspace to remove {label}"
+                boundary={
+                  Object {
+                    "circle": Object {
+                      "latlng": Object {
+                        "lat": 38.8886,
+                        "lng": -77.043,
+                        "radius": 275,
+                      },
+                      "radius": 275,
+                    },
+                  }
+                }
                 cache={Object {}}
                 cacheAsyncResults={false}
                 clearAllText="Clear all"
@@ -544,12 +586,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                 featureToLabel={[Function]}
                 featureToValue={[Function]}
                 filterOptions={false}
-                focusLatlng={
-                  Object {
-                    "lat": 38.8886,
-                    "lng": -77.043,
-                  }
-                }
                 ignoreAccents={true}
                 ignoreCase={true}
                 inputProps={Object {}}

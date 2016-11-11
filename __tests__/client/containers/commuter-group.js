@@ -27,6 +27,7 @@ describe('Container > CommuterGroup', () => {
       }
     )
 
+    expect(mountToJson(tree.find('.group-header'))).toMatchSnapshot()
     expect(mountToJson(tree.find('.group-content'))).toMatchSnapshot()
 
     // cluster should be added initially

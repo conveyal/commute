@@ -6,7 +6,7 @@ import promise from 'redux-promise'
 export const makeMockStore = configureStore([multi, promise])
 
 // mock entities
-const mockCommuter = {
+export const mockCommuter = {
   address: '4321 XYZ Boulevard',
   email: 'luke@warm.cold',
   id: '1',
@@ -16,6 +16,7 @@ const mockCommuter = {
 }
 
 export const mockGroup = {
+  allAddressesGeocoded: true,
   id: '1',
   name: 'Mock Group',
   commuters: [mockCommuter],
