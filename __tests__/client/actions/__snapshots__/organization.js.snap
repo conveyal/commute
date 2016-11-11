@@ -1,0 +1,75 @@
+exports[`actions > organization create organization should work 1`] = `
+Object {
+  "payload": Object {
+    "analyses": Array [],
+    "analysesById": Object {},
+    "groups": Array [],
+    "groupsById": Object {},
+    "name": "mockOrg",
+    "sites": Array [],
+    "sitesById": Object {},
+  },
+  "type": "add organization",
+}
+`;
+
+exports[`actions > organization create organization should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > organization delete organization should work 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete organization",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`actions > organization update organization should work 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "analyses": Array [],
+      "analysesById": Object {},
+      "contact": "someone",
+      "email": "abc@def.ghi",
+      "groups": Array [],
+      "groupsById": Object {},
+      "id": "1",
+      "logo_url": "https://placekitten.com/80/80",
+      "main_url": "https://placekitten.com/",
+      "name": "Mock Organization",
+      "sites": Array [],
+      "sitesById": Object {},
+    },
+    "type": "set organization",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/1",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;

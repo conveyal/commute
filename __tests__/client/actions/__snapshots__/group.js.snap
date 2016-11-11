@@ -1,0 +1,45 @@
+exports[`actions > group create group should work 1`] = `
+Object {
+  "payload": Object {
+    "group": Object {
+      "allAddressesGeocoded": false,
+      "name": "Mock Group",
+    },
+    "organizationId": "1",
+  },
+  "type": "add group",
+}
+`;
+
+exports[`actions > group create group should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/1/groups/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > group delete group should work 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "groupId": "1",
+      "organizationId": "1",
+    },
+    "type": "delete group",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/1",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;

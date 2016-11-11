@@ -1,0 +1,46 @@
+exports[`actions > analysis create analysis should work 1`] = `
+Object {
+  "payload": Object {
+    "analysis": Object {
+      "groupId": "1",
+      "name": "Mock Analysis",
+      "siteId": "1",
+    },
+    "organizationId": "1",
+  },
+  "type": "add analysis",
+}
+`;
+
+exports[`actions > analysis create analysis should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/1/analysis/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > analysis delete analysis should work 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "analysisId": "1",
+      "organizationId": "1",
+    },
+    "type": "delete analysis",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/1",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;

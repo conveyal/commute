@@ -1,0 +1,68 @@
+exports[`actions > site create site should work 1`] = `
+Object {
+  "payload": Object {
+    "organizationId": "1",
+    "site": Object {
+      "name": "mockSite",
+    },
+  },
+  "type": "add site",
+}
+`;
+
+exports[`actions > site create site should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/1",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > site delete site should work 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "organizationId": "1",
+      "siteId": "1",
+    },
+    "type": "delete site",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/1",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`actions > site update site should work 1`] = `
+Object {
+  "payload": Object {
+    "organizationId": "1",
+    "site": Object {
+      "name": "mockSite",
+    },
+  },
+  "type": "update site",
+}
+`;
+
+exports[`actions > site update site should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/1",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

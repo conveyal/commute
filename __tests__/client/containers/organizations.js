@@ -1,24 +1,54 @@
 /* global describe, expect, it */
 
-import { mount } from 'enzyme'
-import { mountToJson } from 'enzyme-to-json'
+import {mount} from 'enzyme'
+import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
-import { Provider } from 'react-redux'
+import {Button} from 'react-bootstrap'
+import {Provider} from 'react-redux'
 
-import { makeMockStore, mockStoreData } from '../../../test-utils/mock-store.js'
+import {expectDeleteOrganization} from '../../test-utils/actions'
+import {makeMockStore, mockStores} from '../../test-utils/mock-data'
 
 import Organizations from '../../../client/containers/organizations'
 
-const mockStore = makeMockStore(mockStoreData)
-
 describe('Container > Organizations', () => {
-  it('renders correctly', () => {
+  it('Organizations View loads', () => {
+    // mount component
+    const tree = mount(
+      <Provider store={makeMockStore(mockStores.init)}>
+        <Organizations />
+      </Provider>
+    )
+    expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
+  })
+
+  it('Organizations View loads with one organization', () => {
+    // mount component
+    const tree = mount(
+      <Provider store={makeMockStore(mockStores.oneSimpleOrganization)}>
+        <Organizations />
+      </Provider>
+    )
+    expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
+  })
+
+  it('Delete Organization', () => {
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    window.confirm = () => true
+
+    // Given a logged-in user is viewing the organizations view
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <Organizations />
       </Provider>
     )
-    expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
+
+    // When the user clicks the delete button for an existing organization
+    // And the user confirms the Confirm Deletion dialog
+    const deleteButton = tree.find('table').find(Button).last()
+    deleteButton.simulate('click')
+
+    expectDeleteOrganization(mockStore.getActions())
   })
 })

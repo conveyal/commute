@@ -1,11 +1,2931 @@
-exports[`Container > Organization renders correctly 1`] = `
-<Connect(Organization)>
+exports[`Container > Organization Delete Analysis 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "analysisId": "1",
+      "organizationId": "2",
+    },
+    "type": "delete analysis",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/2",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`Container > Organization Delete Commuter Group 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "groupId": "1",
+      "organizationId": "2",
+    },
+    "type": "delete group",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/2",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`Container > Organization Delete Organization 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete organization",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`Container > Organization Delete Site 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "organizationId": "2",
+      "siteId": "1",
+    },
+    "type": "delete site",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/organizations/2",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`Container > Organization Organization View loads 1`] = `
+<Connect(Organization)
+  params={
+    Object {
+      "organizationId": "2",
+    }
+  }>
   <Organization
-    dispatch={[Function]}
-    user={Object {}}>
-    <h1>
-      Organization
-    </h1>
+    deleteAnalysis={[Function]}
+    deleteGroup={[Function]}
+    deleteOrganization={[Function]}
+    deleteSite={[Function]}
+    organization={
+      Object {
+        "analyses": Array [
+          Object {
+            "groupId": "1",
+            "id": "1",
+            "lastRunDateTime": 1477697490,
+            "name": "An Analysis",
+            "siteId": "1",
+            "summary": Object {
+              "avgDistance": 12.34,
+              "avgTravelTime": 1234,
+              "savingsPerTrip": 1.23,
+              "savingsPerTripYear": 319.8,
+              "savingsTotalPerDay": 1.23,
+              "savingsTotalPerYear": 319.8,
+            },
+            "tripVals": Object {
+              "bike": Object {
+                "cost": Array [
+                  0.12,
+                ],
+                "distance": Array [
+                  23,
+                ],
+                "time": Array [
+                  2345,
+                ],
+              },
+              "car": Object {
+                "cost": Array [
+                  6.78,
+                ],
+                "distance": Array [
+                  18,
+                ],
+                "time": Array [
+                  1234,
+                ],
+              },
+              "transit": Object {
+                "cost": Array [
+                  3.45,
+                ],
+                "distance": Array [
+                  30,
+                ],
+                "time": Array [
+                  3456,
+                ],
+              },
+              "walk": Object {
+                "cost": Array [
+                  0,
+                ],
+                "distance": Array [
+                  19,
+                ],
+                "time": Array [
+                  6789,
+                ],
+              },
+            },
+            "trips": Array [
+              Object {
+                "bike": Object {
+                  "cost": 0.12,
+                  "distance": 23,
+                  "polygon": "encoded",
+                  "time": 2345,
+                },
+                "car": Object {
+                  "cost": 6.78,
+                  "distance": 18,
+                  "polygon": "encoded",
+                  "time": 1234,
+                },
+                "commuterId": "1",
+                "mostLikely": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "mode": "transit",
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "transit": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "walk": Object {
+                  "cost": 0,
+                  "distance": 19,
+                  "polygon": "encoded",
+                  "time": 6789,
+                },
+              },
+            ],
+          },
+        ],
+        "analysesById": Object {
+          "1": Object {
+            "groupId": "1",
+            "id": "1",
+            "lastRunDateTime": 1477697490,
+            "name": "An Analysis",
+            "siteId": "1",
+            "summary": Object {
+              "avgDistance": 12.34,
+              "avgTravelTime": 1234,
+              "savingsPerTrip": 1.23,
+              "savingsPerTripYear": 319.8,
+              "savingsTotalPerDay": 1.23,
+              "savingsTotalPerYear": 319.8,
+            },
+            "tripVals": Object {
+              "bike": Object {
+                "cost": Array [
+                  0.12,
+                ],
+                "distance": Array [
+                  23,
+                ],
+                "time": Array [
+                  2345,
+                ],
+              },
+              "car": Object {
+                "cost": Array [
+                  6.78,
+                ],
+                "distance": Array [
+                  18,
+                ],
+                "time": Array [
+                  1234,
+                ],
+              },
+              "transit": Object {
+                "cost": Array [
+                  3.45,
+                ],
+                "distance": Array [
+                  30,
+                ],
+                "time": Array [
+                  3456,
+                ],
+              },
+              "walk": Object {
+                "cost": Array [
+                  0,
+                ],
+                "distance": Array [
+                  19,
+                ],
+                "time": Array [
+                  6789,
+                ],
+              },
+            },
+            "trips": Array [
+              Object {
+                "bike": Object {
+                  "cost": 0.12,
+                  "distance": 23,
+                  "polygon": "encoded",
+                  "time": 2345,
+                },
+                "car": Object {
+                  "cost": 6.78,
+                  "distance": 18,
+                  "polygon": "encoded",
+                  "time": 1234,
+                },
+                "commuterId": "1",
+                "mostLikely": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "mode": "transit",
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "transit": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "walk": Object {
+                  "cost": 0,
+                  "distance": 19,
+                  "polygon": "encoded",
+                  "time": 6789,
+                },
+              },
+            ],
+          },
+        },
+        "contact": "someone",
+        "email": "abc@def.ghi",
+        "groups": Array [
+          Object {
+            "allAddressesGeocoded": true,
+            "commuters": Array [
+              Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            ],
+            "commutersById": Object {
+              "1": Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            },
+            "id": "1",
+            "name": "Mock Group",
+          },
+        ],
+        "groupsById": Object {
+          "1": Object {
+            "allAddressesGeocoded": true,
+            "commuters": Array [
+              Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            ],
+            "commutersById": Object {
+              "1": Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            },
+            "id": "1",
+            "name": "Mock Group",
+          },
+        },
+        "id": "2",
+        "logo_url": "https://placekitten.com/80/80",
+        "main_url": "https://placekitten.com/",
+        "name": "Mock Organization",
+        "sites": Array [
+          Object {
+            "address": "123 ABC St",
+            "id": "1",
+            "lat": 38.8886,
+            "lng": -77.043,
+            "name": "Acme Corp",
+            "radius": 1,
+          },
+        ],
+        "sitesById": Object {
+          "1": Object {
+            "address": "123 ABC St",
+            "id": "1",
+            "lat": 38.8886,
+            "lng": -77.043,
+            "name": "Acme Corp",
+            "radius": 1,
+          },
+        },
+      }
+    }
+    params={
+      Object {
+        "organizationId": "2",
+      }
+    }>
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}>
+      <div
+        className="container">
+        <Row
+          bsClass="row"
+          componentClass="div">
+          <div
+            className="row">
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <h2>
+                  <Icon
+                    type="shield">
+                    <i
+                      className="fa fa-shield fa-fw " />
+                  </Icon>
+                </h2>
+                <ButtonGroup
+                  block={false}
+                  bsClass="btn-group"
+                  justified={false}
+                  vertical={false}>
+                  <div
+                    className="btn-group">
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="warning"
+                      disabled={false}>
+                      <button
+                        className="btn btn-warning"
+                        disabled={false}
+                        type="button">
+                        <Link
+                          onlyActiveOnIndex={false}
+                          style={Object {}}
+                          to="/organizations/2/edit">
+                          <a
+                            onClick={[Function]}
+                            style={Object {}}>
+                            Edit
+                          </a>
+                        </Link>
+                      </button>
+                    </Button>
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="danger"
+                      disabled={false}
+                      onClick={[Function]}>
+                      <button
+                        className="btn btn-danger"
+                        disabled={false}
+                        onClick={[Function]}
+                        type="button">
+                        Delete
+                      </button>
+                    </Button>
+                  </div>
+                </ButtonGroup>
+                <p>
+                  Below are this organization\'s sites, commuter groups and analyses.
+                </p>
+                <h3>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/organizations/2/sites/create">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <Icon
+                            type="building">
+                            <i
+                              className="fa fa-building fa-fw " />
+                          </Icon>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h3>
+                <p>
+                  A site is a location of a building or new address that you want to use as the centerpoint of your commutes.
+                </p>
+                <BootstrapTable
+                  bodyContainerClass={null}
+                  bodyStyle={undefined}
+                  bordered={true}
+                  cellEdit={
+                    Object {
+                      "__onCompleteEdit__": [Function],
+                      "afterSaveCell": undefined,
+                      "beforeSaveCell": undefined,
+                      "blurToSave": false,
+                      "mode": "none",
+                    }
+                  }
+                  columnFilter={false}
+                  condensed={false}
+                  containerClass={null}
+                  containerStyle={undefined}
+                  csvFileName="spreadsheet.csv"
+                  data={
+                    Array [
+                      Object {
+                        "address": "123 ABC St",
+                        "id": "1",
+                        "lat": 38.8886,
+                        "lng": -77.043,
+                        "name": "Acme Corp",
+                        "radius": 1,
+                      },
+                    ]
+                  }
+                  deleteRow={false}
+                  exportCSV={false}
+                  fetchInfo={
+                    Object {
+                      "dataTotalSize": 0,
+                    }
+                  }
+                  headerContainerClass={null}
+                  headerStyle={undefined}
+                  height="100%"
+                  hover={false}
+                  ignoreSinglePage={false}
+                  insertRow={false}
+                  maxHeight={undefined}
+                  multiColumnSearch={false}
+                  options={
+                    Object {
+                      "afterColumnFilter": undefined,
+                      "afterDeleteRow": undefined,
+                      "afterInsertRow": undefined,
+                      "afterSearch": undefined,
+                      "afterTableComplete": undefined,
+                      "clearSearch": false,
+                      "closeText": "Close",
+                      "defaultSearch": "",
+                      "defaultSortName": undefined,
+                      "defaultSortOrder": undefined,
+                      "deleteText": "Delete",
+                      "exportCSVText": "Export to CSV",
+                      "firstPage": "<<",
+                      "handleConfirmDeleteRow": undefined,
+                      "hideSizePerPage": false,
+                      "ignoreEditable": false,
+                      "insertText": "New",
+                      "lastPage": ">>",
+                      "nextPage": ">",
+                      "noDataText": undefined,
+                      "onMouseEnter": undefined,
+                      "onMouseLeave": undefined,
+                      "onRowClick": undefined,
+                      "onRowDoubleClick": undefined,
+                      "onRowMouseOut": undefined,
+                      "onRowMouseOver": undefined,
+                      "onSizePerPageList": undefined,
+                      "page": undefined,
+                      "pageStartIndex": undefined,
+                      "paginationShowsTotal": false,
+                      "paginationSize": 5,
+                      "prePage": "<",
+                      "saveText": "Save",
+                      "searchDelayTime": undefined,
+                      "sizePerPage": undefined,
+                      "sizePerPageList": Array [
+                        10,
+                        25,
+                        30,
+                        50,
+                      ],
+                      "sortIndicator": true,
+                      "sortName": undefined,
+                      "sortOrder": undefined,
+                    }
+                  }
+                  pagination={false}
+                  printable={false}
+                  search={false}
+                  searchPlaceholder={undefined}
+                  selectRow={
+                    Object {
+                      "bgColor": "",
+                      "clickToSelect": false,
+                      "clickToSelectAndEditCell": false,
+                      "customComponent": undefined,
+                      "hideSelectColumn": false,
+                      "mode": "none",
+                      "onSelect": undefined,
+                      "onSelectAll": undefined,
+                      "selected": Array [],
+                      "showOnlySelected": false,
+                      "unselectable": Array [],
+                    }
+                  }
+                  striped={false}
+                  tableBodyClass={null}
+                  tableContainerClass={null}
+                  tableHeaderClass={null}
+                  tableStyle={undefined}
+                  trClassName="">
+                  <div
+                    className="react-bs-table-container"
+                    style={undefined}>
+                    <div
+                      className="react-bs-table"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      style={
+                        Object {
+                          "height": "100%",
+                          "maxHeight": undefined,
+                        }
+                      }>
+                      <TableHeader
+                        bordered={true}
+                        condensed={false}
+                        customComponent={undefined}
+                        headerContainerClass={null}
+                        hideSelectColumn={false}
+                        isFiltered={false}
+                        isSelectAll={false}
+                        onSelectAllRow={[Function]}
+                        onSort={[Function]}
+                        rowSelectType="none"
+                        sortIndicator={true}
+                        sortName={undefined}
+                        sortOrder={undefined}
+                        style={undefined}
+                        tableHeaderClass={null}>
+                        <div
+                          className="react-bs-container-header table-header-wrapper"
+                          style={undefined}>
+                          <table
+                            className="table table-hover table-bordered">
+                            <thead>
+                              <tr>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataField="id"
+                                  dataFormat={undefined}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={true}
+                                  hiddenOnInsert={false}
+                                  isKey={true}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": "none",
+                                        "textAlign": "left",
+                                      }
+                                    }>
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Name">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataField="address"
+                                  dataFormat={undefined}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Address">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Tools">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
+                      </TableHeader>
+                      <TableBody
+                        bodyContainerClass={null}
+                        bordered={true}
+                        cellEdit={
+                          Object {
+                            "__onCompleteEdit__": [Function],
+                            "afterSaveCell": undefined,
+                            "beforeSaveCell": undefined,
+                            "blurToSave": false,
+                            "mode": "none",
+                          }
+                        }
+                        columns={
+                          Array [
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": undefined,
+                              "formatExtraData": undefined,
+                              "hidden": true,
+                              "hiddenOnInsert": false,
+                              "index": 0,
+                              "name": "id",
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": undefined,
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 1,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Name",
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": undefined,
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 2,
+                              "name": "address",
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Address",
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 3,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Tools",
+                              "width": null,
+                            },
+                          ]
+                        }
+                        condensed={false}
+                        data={
+                          Array [
+                            Object {
+                              "address": "123 ABC St",
+                              "id": "1",
+                              "lat": 38.8886,
+                              "lng": -77.043,
+                              "name": "Acme Corp",
+                              "radius": 1,
+                            },
+                          ]
+                        }
+                        hover={false}
+                        keyField="id"
+                        noDataText={undefined}
+                        onRowClick={[Function]}
+                        onRowDoubleClick={[Function]}
+                        onRowMouseOut={[Function]}
+                        onRowMouseOver={[Function]}
+                        onSelectRow={[Function]}
+                        selectRow={
+                          Object {
+                            "bgColor": "",
+                            "clickToSelect": false,
+                            "clickToSelectAndEditCell": false,
+                            "customComponent": undefined,
+                            "hideSelectColumn": false,
+                            "mode": "none",
+                            "onSelect": undefined,
+                            "onSelectAll": undefined,
+                            "selected": Array [],
+                            "showOnlySelected": false,
+                            "unselectable": Array [],
+                          }
+                        }
+                        selectedRowKeys={Array []}
+                        striped={false}
+                        style={
+                          Object {
+                            "height": "100%",
+                            "maxHeight": undefined,
+                          }
+                        }
+                        tableBodyClass={null}
+                        trClassName="">
+                        <div
+                          className="react-bs-container-body"
+                          style={
+                            Object {
+                              "height": "100%",
+                              "maxHeight": undefined,
+                            }
+                          }>
+                          <table
+                            className="table table-bordered">
+                            <colgroup>
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": "none",
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                            </colgroup>
+                            <tbody>
+                              <TableRow
+                                className=""
+                                enableCellEdit={false}
+                                isSelected={false}
+                                onRowClick={[Function]}
+                                onRowDoubleClick={[Function]}
+                                onRowMouseOut={[Function]}
+                                onRowMouseOver={[Function]}
+                                onSelectRow={[Function]}
+                                selectRow={undefined}
+                                unselectableRow={false}>
+                                <tr
+                                  className=""
+                                  onClick={[Function]}
+                                  onDoubleClick={[Function]}
+                                  onMouseOut={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "backgroundColor": null,
+                                    }
+                                  }>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={true}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": "none",
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      1
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <Link
+                                        onlyActiveOnIndex={false}
+                                        style={Object {}}
+                                        to="/organizations/2/sites/1/">
+                                        <a
+                                          onClick={[Function]}
+                                          style={Object {}}>
+                                          Acme Corp
+                                        </a>
+                                      </Link>
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      123 ABC St
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <div>
+                                        <Button
+                                          active={false}
+                                          block={false}
+                                          bsClass="btn"
+                                          bsStyle="warning"
+                                          disabled={false}>
+                                          <button
+                                            className="btn btn-warning"
+                                            disabled={false}
+                                            type="button">
+                                            <Link
+                                              onlyActiveOnIndex={false}
+                                              style={Object {}}
+                                              to="/organizations/2/sites/1/edit">
+                                              <a
+                                                onClick={[Function]}
+                                                style={Object {}}>
+                                                Edit
+                                              </a>
+                                            </Link>
+                                          </button>
+                                        </Button>
+                                        <Button
+                                          active={false}
+                                          block={false}
+                                          bsClass="btn"
+                                          bsStyle="danger"
+                                          disabled={false}
+                                          onClick={[Function]}>
+                                          <button
+                                            className="btn btn-danger"
+                                            disabled={false}
+                                            onClick={[Function]}
+                                            type="button">
+                                            Delete
+                                          </button>
+                                        </Button>
+                                      </div>
+                                    </td>
+                                  </TableColumn>
+                                </tr>
+                              </TableRow>
+                            </tbody>
+                          </table>
+                        </div>
+                      </TableBody>
+                    </div>
+                  </div>
+                </BootstrapTable>
+                <h3>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/organizations/2/groups/create">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <Icon
+                            type="users">
+                            <i
+                              className="fa fa-users fa-fw " />
+                          </Icon>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h3>
+                <p>
+                  A commuter group is a list of commuters that can commute to a particular site.
+                </p>
+                <BootstrapTable
+                  bodyContainerClass={null}
+                  bodyStyle={undefined}
+                  bordered={true}
+                  cellEdit={
+                    Object {
+                      "__onCompleteEdit__": [Function],
+                      "afterSaveCell": undefined,
+                      "beforeSaveCell": undefined,
+                      "blurToSave": false,
+                      "mode": "none",
+                    }
+                  }
+                  columnFilter={false}
+                  condensed={false}
+                  containerClass={null}
+                  containerStyle={undefined}
+                  csvFileName="spreadsheet.csv"
+                  data={
+                    Array [
+                      Object {
+                        "allAddressesGeocoded": true,
+                        "commuters": Array [
+                          Object {
+                            "address": "4321 XYZ Boulevard",
+                            "email": "luke@warm.cold",
+                            "id": "1",
+                            "lat": 38.916089,
+                            "lng": -76.970221,
+                            "name": "Luke Warm",
+                          },
+                        ],
+                        "commutersById": Object {
+                          "1": Object {
+                            "address": "4321 XYZ Boulevard",
+                            "email": "luke@warm.cold",
+                            "id": "1",
+                            "lat": 38.916089,
+                            "lng": -76.970221,
+                            "name": "Luke Warm",
+                          },
+                        },
+                        "id": "1",
+                        "name": "Mock Group",
+                      },
+                    ]
+                  }
+                  deleteRow={false}
+                  exportCSV={false}
+                  fetchInfo={
+                    Object {
+                      "dataTotalSize": 0,
+                    }
+                  }
+                  headerContainerClass={null}
+                  headerStyle={undefined}
+                  height="100%"
+                  hover={false}
+                  ignoreSinglePage={false}
+                  insertRow={false}
+                  maxHeight={undefined}
+                  multiColumnSearch={false}
+                  options={
+                    Object {
+                      "afterColumnFilter": undefined,
+                      "afterDeleteRow": undefined,
+                      "afterInsertRow": undefined,
+                      "afterSearch": undefined,
+                      "afterTableComplete": undefined,
+                      "clearSearch": false,
+                      "closeText": "Close",
+                      "defaultSearch": "",
+                      "defaultSortName": undefined,
+                      "defaultSortOrder": undefined,
+                      "deleteText": "Delete",
+                      "exportCSVText": "Export to CSV",
+                      "firstPage": "<<",
+                      "handleConfirmDeleteRow": undefined,
+                      "hideSizePerPage": false,
+                      "ignoreEditable": false,
+                      "insertText": "New",
+                      "lastPage": ">>",
+                      "nextPage": ">",
+                      "noDataText": undefined,
+                      "onMouseEnter": undefined,
+                      "onMouseLeave": undefined,
+                      "onRowClick": undefined,
+                      "onRowDoubleClick": undefined,
+                      "onRowMouseOut": undefined,
+                      "onRowMouseOver": undefined,
+                      "onSizePerPageList": undefined,
+                      "page": undefined,
+                      "pageStartIndex": undefined,
+                      "paginationShowsTotal": false,
+                      "paginationSize": 5,
+                      "prePage": "<",
+                      "saveText": "Save",
+                      "searchDelayTime": undefined,
+                      "sizePerPage": undefined,
+                      "sizePerPageList": Array [
+                        10,
+                        25,
+                        30,
+                        50,
+                      ],
+                      "sortIndicator": true,
+                      "sortName": undefined,
+                      "sortOrder": undefined,
+                    }
+                  }
+                  pagination={false}
+                  printable={false}
+                  search={false}
+                  searchPlaceholder={undefined}
+                  selectRow={
+                    Object {
+                      "bgColor": "",
+                      "clickToSelect": false,
+                      "clickToSelectAndEditCell": false,
+                      "customComponent": undefined,
+                      "hideSelectColumn": false,
+                      "mode": "none",
+                      "onSelect": undefined,
+                      "onSelectAll": undefined,
+                      "selected": Array [],
+                      "showOnlySelected": false,
+                      "unselectable": Array [],
+                    }
+                  }
+                  striped={false}
+                  tableBodyClass={null}
+                  tableContainerClass={null}
+                  tableHeaderClass={null}
+                  tableStyle={undefined}
+                  trClassName="">
+                  <div
+                    className="react-bs-table-container"
+                    style={undefined}>
+                    <div
+                      className="react-bs-table"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      style={
+                        Object {
+                          "height": "100%",
+                          "maxHeight": undefined,
+                        }
+                      }>
+                      <TableHeader
+                        bordered={true}
+                        condensed={false}
+                        customComponent={undefined}
+                        headerContainerClass={null}
+                        hideSelectColumn={false}
+                        isFiltered={false}
+                        isSelectAll={false}
+                        onSelectAllRow={[Function]}
+                        onSort={[Function]}
+                        rowSelectType="none"
+                        sortIndicator={true}
+                        sortName={undefined}
+                        sortOrder={undefined}
+                        style={undefined}
+                        tableHeaderClass={null}>
+                        <div
+                          className="react-bs-container-header table-header-wrapper"
+                          style={undefined}>
+                          <table
+                            className="table table-hover table-bordered">
+                            <thead>
+                              <tr>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataField="id"
+                                  dataFormat={undefined}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={true}
+                                  hiddenOnInsert={false}
+                                  isKey={true}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": "none",
+                                        "textAlign": "left",
+                                      }
+                                    }>
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Name">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataField="commuters"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Commuters">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Tools">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
+                      </TableHeader>
+                      <TableBody
+                        bodyContainerClass={null}
+                        bordered={true}
+                        cellEdit={
+                          Object {
+                            "__onCompleteEdit__": [Function],
+                            "afterSaveCell": undefined,
+                            "beforeSaveCell": undefined,
+                            "blurToSave": false,
+                            "mode": "none",
+                          }
+                        }
+                        columns={
+                          Array [
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": undefined,
+                              "formatExtraData": undefined,
+                              "hidden": true,
+                              "hiddenOnInsert": false,
+                              "index": 0,
+                              "name": "id",
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": undefined,
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 1,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Name",
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 2,
+                              "name": "commuters",
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Commuters",
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 3,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Tools",
+                              "width": null,
+                            },
+                          ]
+                        }
+                        condensed={false}
+                        data={
+                          Array [
+                            Object {
+                              "allAddressesGeocoded": true,
+                              "commuters": Array [
+                                Object {
+                                  "address": "4321 XYZ Boulevard",
+                                  "email": "luke@warm.cold",
+                                  "id": "1",
+                                  "lat": 38.916089,
+                                  "lng": -76.970221,
+                                  "name": "Luke Warm",
+                                },
+                              ],
+                              "commutersById": Object {
+                                "1": Object {
+                                  "address": "4321 XYZ Boulevard",
+                                  "email": "luke@warm.cold",
+                                  "id": "1",
+                                  "lat": 38.916089,
+                                  "lng": -76.970221,
+                                  "name": "Luke Warm",
+                                },
+                              },
+                              "id": "1",
+                              "name": "Mock Group",
+                            },
+                          ]
+                        }
+                        hover={false}
+                        keyField="id"
+                        noDataText={undefined}
+                        onRowClick={[Function]}
+                        onRowDoubleClick={[Function]}
+                        onRowMouseOut={[Function]}
+                        onRowMouseOver={[Function]}
+                        onSelectRow={[Function]}
+                        selectRow={
+                          Object {
+                            "bgColor": "",
+                            "clickToSelect": false,
+                            "clickToSelectAndEditCell": false,
+                            "customComponent": undefined,
+                            "hideSelectColumn": false,
+                            "mode": "none",
+                            "onSelect": undefined,
+                            "onSelectAll": undefined,
+                            "selected": Array [],
+                            "showOnlySelected": false,
+                            "unselectable": Array [],
+                          }
+                        }
+                        selectedRowKeys={Array []}
+                        striped={false}
+                        style={
+                          Object {
+                            "height": "100%",
+                            "maxHeight": undefined,
+                          }
+                        }
+                        tableBodyClass={null}
+                        trClassName="">
+                        <div
+                          className="react-bs-container-body"
+                          style={
+                            Object {
+                              "height": "100%",
+                              "maxHeight": undefined,
+                            }
+                          }>
+                          <table
+                            className="table table-bordered">
+                            <colgroup>
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": "none",
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                            </colgroup>
+                            <tbody>
+                              <TableRow
+                                className=""
+                                enableCellEdit={false}
+                                isSelected={false}
+                                onRowClick={[Function]}
+                                onRowDoubleClick={[Function]}
+                                onRowMouseOut={[Function]}
+                                onRowMouseOver={[Function]}
+                                onSelectRow={[Function]}
+                                selectRow={undefined}
+                                unselectableRow={false}>
+                                <tr
+                                  className=""
+                                  onClick={[Function]}
+                                  onDoubleClick={[Function]}
+                                  onMouseOut={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "backgroundColor": null,
+                                    }
+                                  }>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={true}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": "none",
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      1
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <Link
+                                        onlyActiveOnIndex={false}
+                                        style={Object {}}
+                                        to="/organizations/2/groups/1/">
+                                        <a
+                                          onClick={[Function]}
+                                          style={Object {}}>
+                                          Mock Group
+                                        </a>
+                                      </Link>
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <div
+                                        dangerouslySetInnerHTML={
+                                          Object {
+                                            "__html": 1,
+                                          }
+                                        } />
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <Button
+                                        active={false}
+                                        block={false}
+                                        bsClass="btn"
+                                        bsStyle="danger"
+                                        disabled={false}
+                                        onClick={[Function]}>
+                                        <button
+                                          className="btn btn-danger"
+                                          disabled={false}
+                                          onClick={[Function]}
+                                          type="button">
+                                          Delete
+                                        </button>
+                                      </Button>
+                                    </td>
+                                  </TableColumn>
+                                </tr>
+                              </TableRow>
+                            </tbody>
+                          </table>
+                        </div>
+                      </TableBody>
+                    </div>
+                  </div>
+                </BootstrapTable>
+                <h3>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/organizations/2/analysis/create">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <Icon
+                            type="bar-chart">
+                            <i
+                              className="fa fa-bar-chart fa-fw " />
+                          </Icon>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h3>
+                <p>
+                  An analysis calculates commuting statistics for a pairing of a commuter group and site.
+                </p>
+                <BootstrapTable
+                  bodyContainerClass={null}
+                  bodyStyle={undefined}
+                  bordered={true}
+                  cellEdit={
+                    Object {
+                      "__onCompleteEdit__": [Function],
+                      "afterSaveCell": undefined,
+                      "beforeSaveCell": undefined,
+                      "blurToSave": false,
+                      "mode": "none",
+                    }
+                  }
+                  columnFilter={false}
+                  condensed={false}
+                  containerClass={null}
+                  containerStyle={undefined}
+                  csvFileName="spreadsheet.csv"
+                  data={
+                    Array [
+                      Object {
+                        "groupId": "1",
+                        "id": "1",
+                        "lastRunDateTime": 1477697490,
+                        "name": "An Analysis",
+                        "siteId": "1",
+                        "summary": Object {
+                          "avgDistance": 12.34,
+                          "avgTravelTime": 1234,
+                          "savingsPerTrip": 1.23,
+                          "savingsPerTripYear": 319.8,
+                          "savingsTotalPerDay": 1.23,
+                          "savingsTotalPerYear": 319.8,
+                        },
+                        "tripVals": Object {
+                          "bike": Object {
+                            "cost": Array [
+                              0.12,
+                            ],
+                            "distance": Array [
+                              23,
+                            ],
+                            "time": Array [
+                              2345,
+                            ],
+                          },
+                          "car": Object {
+                            "cost": Array [
+                              6.78,
+                            ],
+                            "distance": Array [
+                              18,
+                            ],
+                            "time": Array [
+                              1234,
+                            ],
+                          },
+                          "transit": Object {
+                            "cost": Array [
+                              3.45,
+                            ],
+                            "distance": Array [
+                              30,
+                            ],
+                            "time": Array [
+                              3456,
+                            ],
+                          },
+                          "walk": Object {
+                            "cost": Array [
+                              0,
+                            ],
+                            "distance": Array [
+                              19,
+                            ],
+                            "time": Array [
+                              6789,
+                            ],
+                          },
+                        },
+                        "trips": Array [
+                          Object {
+                            "bike": Object {
+                              "cost": 0.12,
+                              "distance": 23,
+                              "polygon": "encoded",
+                              "time": 2345,
+                            },
+                            "car": Object {
+                              "cost": 6.78,
+                              "distance": 18,
+                              "polygon": "encoded",
+                              "time": 1234,
+                            },
+                            "commuterId": "1",
+                            "mostLikely": Object {
+                              "cost": 3.45,
+                              "distance": 30,
+                              "mode": "transit",
+                              "polygon": "encoded",
+                              "time": 3456,
+                            },
+                            "transit": Object {
+                              "cost": 3.45,
+                              "distance": 30,
+                              "polygon": "encoded",
+                              "time": 3456,
+                            },
+                            "walk": Object {
+                              "cost": 0,
+                              "distance": 19,
+                              "polygon": "encoded",
+                              "time": 6789,
+                            },
+                          },
+                        ],
+                      },
+                    ]
+                  }
+                  deleteRow={false}
+                  exportCSV={false}
+                  fetchInfo={
+                    Object {
+                      "dataTotalSize": 0,
+                    }
+                  }
+                  headerContainerClass={null}
+                  headerStyle={undefined}
+                  height="100%"
+                  hover={false}
+                  ignoreSinglePage={false}
+                  insertRow={false}
+                  maxHeight={undefined}
+                  multiColumnSearch={false}
+                  options={
+                    Object {
+                      "afterColumnFilter": undefined,
+                      "afterDeleteRow": undefined,
+                      "afterInsertRow": undefined,
+                      "afterSearch": undefined,
+                      "afterTableComplete": undefined,
+                      "clearSearch": false,
+                      "closeText": "Close",
+                      "defaultSearch": "",
+                      "defaultSortName": undefined,
+                      "defaultSortOrder": undefined,
+                      "deleteText": "Delete",
+                      "exportCSVText": "Export to CSV",
+                      "firstPage": "<<",
+                      "handleConfirmDeleteRow": undefined,
+                      "hideSizePerPage": false,
+                      "ignoreEditable": false,
+                      "insertText": "New",
+                      "lastPage": ">>",
+                      "nextPage": ">",
+                      "noDataText": undefined,
+                      "onMouseEnter": undefined,
+                      "onMouseLeave": undefined,
+                      "onRowClick": undefined,
+                      "onRowDoubleClick": undefined,
+                      "onRowMouseOut": undefined,
+                      "onRowMouseOver": undefined,
+                      "onSizePerPageList": undefined,
+                      "page": undefined,
+                      "pageStartIndex": undefined,
+                      "paginationShowsTotal": false,
+                      "paginationSize": 5,
+                      "prePage": "<",
+                      "saveText": "Save",
+                      "searchDelayTime": undefined,
+                      "sizePerPage": undefined,
+                      "sizePerPageList": Array [
+                        10,
+                        25,
+                        30,
+                        50,
+                      ],
+                      "sortIndicator": true,
+                      "sortName": undefined,
+                      "sortOrder": undefined,
+                    }
+                  }
+                  pagination={false}
+                  printable={false}
+                  search={false}
+                  searchPlaceholder={undefined}
+                  selectRow={
+                    Object {
+                      "bgColor": "",
+                      "clickToSelect": false,
+                      "clickToSelectAndEditCell": false,
+                      "customComponent": undefined,
+                      "hideSelectColumn": false,
+                      "mode": "none",
+                      "onSelect": undefined,
+                      "onSelectAll": undefined,
+                      "selected": Array [],
+                      "showOnlySelected": false,
+                      "unselectable": Array [],
+                    }
+                  }
+                  striped={false}
+                  tableBodyClass={null}
+                  tableContainerClass={null}
+                  tableHeaderClass={null}
+                  tableStyle={undefined}
+                  trClassName="">
+                  <div
+                    className="react-bs-table-container"
+                    style={undefined}>
+                    <div
+                      className="react-bs-table"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      style={
+                        Object {
+                          "height": "100%",
+                          "maxHeight": undefined,
+                        }
+                      }>
+                      <TableHeader
+                        bordered={true}
+                        condensed={false}
+                        customComponent={undefined}
+                        headerContainerClass={null}
+                        hideSelectColumn={false}
+                        isFiltered={false}
+                        isSelectAll={false}
+                        onSelectAllRow={[Function]}
+                        onSort={[Function]}
+                        rowSelectType="none"
+                        sortIndicator={true}
+                        sortName={undefined}
+                        sortOrder={undefined}
+                        style={undefined}
+                        tableHeaderClass={null}>
+                        <div
+                          className="react-bs-container-header table-header-wrapper"
+                          style={undefined}>
+                          <table
+                            className="table table-hover table-bordered">
+                            <thead>
+                              <tr>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataField="id"
+                                  dataFormat={undefined}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={true}
+                                  hiddenOnInsert={false}
+                                  isKey={true}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": "none",
+                                        "textAlign": "left",
+                                      }
+                                    }>
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Name">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Site">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Group">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                                <TableHeaderColumn
+                                  className=""
+                                  columnClassName=""
+                                  columnTitle={false}
+                                  csvFormat={undefined}
+                                  csvHeader={undefined}
+                                  dataAlign="left"
+                                  dataFormat={[Function]}
+                                  dataSort={false}
+                                  editable={true}
+                                  filter={undefined}
+                                  filterFormatted={false}
+                                  filterValue={undefined}
+                                  formatExtraData={undefined}
+                                  headerAlign={undefined}
+                                  hidden={false}
+                                  hiddenOnInsert={false}
+                                  isKey={false}
+                                  onSort={[Function]}
+                                  searchable={true}
+                                  sort={undefined}
+                                  sortFunc={undefined}
+                                  sortFuncExtraData={undefined}
+                                  sortIndicator={true}
+                                  width={null}>
+                                  <th
+                                    className=""
+                                    onClick={[Function]}
+                                    style={
+                                      Object {
+                                        "display": null,
+                                        "textAlign": "left",
+                                      }
+                                    }
+                                    title="Tools">
+                                    <div
+                                      onClick={[Function]} />
+                                  </th>
+                                </TableHeaderColumn>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
+                      </TableHeader>
+                      <TableBody
+                        bodyContainerClass={null}
+                        bordered={true}
+                        cellEdit={
+                          Object {
+                            "__onCompleteEdit__": [Function],
+                            "afterSaveCell": undefined,
+                            "beforeSaveCell": undefined,
+                            "blurToSave": false,
+                            "mode": "none",
+                          }
+                        }
+                        columns={
+                          Array [
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": undefined,
+                              "formatExtraData": undefined,
+                              "hidden": true,
+                              "hiddenOnInsert": false,
+                              "index": 0,
+                              "name": "id",
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": undefined,
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 1,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Name",
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 2,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Site",
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 3,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Group",
+                              "width": null,
+                            },
+                            Object {
+                              "align": "left",
+                              "className": "",
+                              "columnTitle": false,
+                              "customEditor": undefined,
+                              "editable": true,
+                              "export": undefined,
+                              "filterFormatted": false,
+                              "filterValue": undefined,
+                              "format": [Function],
+                              "formatExtraData": undefined,
+                              "hidden": false,
+                              "hiddenOnInsert": false,
+                              "index": 4,
+                              "name": undefined,
+                              "searchable": true,
+                              "sort": false,
+                              "sortFunc": undefined,
+                              "sortFuncExtraData": undefined,
+                              "text": "Tools",
+                              "width": null,
+                            },
+                          ]
+                        }
+                        condensed={false}
+                        data={
+                          Array [
+                            Object {
+                              "groupId": "1",
+                              "id": "1",
+                              "lastRunDateTime": 1477697490,
+                              "name": "An Analysis",
+                              "siteId": "1",
+                              "summary": Object {
+                                "avgDistance": 12.34,
+                                "avgTravelTime": 1234,
+                                "savingsPerTrip": 1.23,
+                                "savingsPerTripYear": 319.8,
+                                "savingsTotalPerDay": 1.23,
+                                "savingsTotalPerYear": 319.8,
+                              },
+                              "tripVals": Object {
+                                "bike": Object {
+                                  "cost": Array [
+                                    0.12,
+                                  ],
+                                  "distance": Array [
+                                    23,
+                                  ],
+                                  "time": Array [
+                                    2345,
+                                  ],
+                                },
+                                "car": Object {
+                                  "cost": Array [
+                                    6.78,
+                                  ],
+                                  "distance": Array [
+                                    18,
+                                  ],
+                                  "time": Array [
+                                    1234,
+                                  ],
+                                },
+                                "transit": Object {
+                                  "cost": Array [
+                                    3.45,
+                                  ],
+                                  "distance": Array [
+                                    30,
+                                  ],
+                                  "time": Array [
+                                    3456,
+                                  ],
+                                },
+                                "walk": Object {
+                                  "cost": Array [
+                                    0,
+                                  ],
+                                  "distance": Array [
+                                    19,
+                                  ],
+                                  "time": Array [
+                                    6789,
+                                  ],
+                                },
+                              },
+                              "trips": Array [
+                                Object {
+                                  "bike": Object {
+                                    "cost": 0.12,
+                                    "distance": 23,
+                                    "polygon": "encoded",
+                                    "time": 2345,
+                                  },
+                                  "car": Object {
+                                    "cost": 6.78,
+                                    "distance": 18,
+                                    "polygon": "encoded",
+                                    "time": 1234,
+                                  },
+                                  "commuterId": "1",
+                                  "mostLikely": Object {
+                                    "cost": 3.45,
+                                    "distance": 30,
+                                    "mode": "transit",
+                                    "polygon": "encoded",
+                                    "time": 3456,
+                                  },
+                                  "transit": Object {
+                                    "cost": 3.45,
+                                    "distance": 30,
+                                    "polygon": "encoded",
+                                    "time": 3456,
+                                  },
+                                  "walk": Object {
+                                    "cost": 0,
+                                    "distance": 19,
+                                    "polygon": "encoded",
+                                    "time": 6789,
+                                  },
+                                },
+                              ],
+                            },
+                          ]
+                        }
+                        hover={false}
+                        keyField="id"
+                        noDataText={undefined}
+                        onRowClick={[Function]}
+                        onRowDoubleClick={[Function]}
+                        onRowMouseOut={[Function]}
+                        onRowMouseOver={[Function]}
+                        onSelectRow={[Function]}
+                        selectRow={
+                          Object {
+                            "bgColor": "",
+                            "clickToSelect": false,
+                            "clickToSelectAndEditCell": false,
+                            "customComponent": undefined,
+                            "hideSelectColumn": false,
+                            "mode": "none",
+                            "onSelect": undefined,
+                            "onSelectAll": undefined,
+                            "selected": Array [],
+                            "showOnlySelected": false,
+                            "unselectable": Array [],
+                          }
+                        }
+                        selectedRowKeys={Array []}
+                        striped={false}
+                        style={
+                          Object {
+                            "height": "100%",
+                            "maxHeight": undefined,
+                          }
+                        }
+                        tableBodyClass={null}
+                        trClassName="">
+                        <div
+                          className="react-bs-container-body"
+                          style={
+                            Object {
+                              "height": "100%",
+                              "maxHeight": undefined,
+                            }
+                          }>
+                          <table
+                            className="table table-bordered">
+                            <colgroup>
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": "none",
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                              <col
+                                className=""
+                                style={
+                                  Object {
+                                    "display": null,
+                                  }
+                                } />
+                            </colgroup>
+                            <tbody>
+                              <TableRow
+                                className=""
+                                enableCellEdit={false}
+                                isSelected={false}
+                                onRowClick={[Function]}
+                                onRowDoubleClick={[Function]}
+                                onRowMouseOut={[Function]}
+                                onRowMouseOver={[Function]}
+                                onSelectRow={[Function]}
+                                selectRow={undefined}
+                                unselectableRow={false}>
+                                <tr
+                                  className=""
+                                  onClick={[Function]}
+                                  onDoubleClick={[Function]}
+                                  onMouseOut={[Function]}
+                                  onMouseOver={[Function]}
+                                  style={
+                                    Object {
+                                      "backgroundColor": null,
+                                    }
+                                  }>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={true}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": "none",
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      1
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <Link
+                                        onlyActiveOnIndex={false}
+                                        style={Object {}}
+                                        to="/organizations/2/analysis/1">
+                                        <a
+                                          onClick={[Function]}
+                                          style={Object {}}>
+                                          An Analysis
+                                        </a>
+                                      </Link>
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <Link
+                                        onlyActiveOnIndex={false}
+                                        style={Object {}}
+                                        to="/organizations/2/groups/1">
+                                        <a
+                                          onClick={[Function]}
+                                          style={Object {}}>
+                                          Acme Corp
+                                        </a>
+                                      </Link>
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <Link
+                                        onlyActiveOnIndex={false}
+                                        style={Object {}}
+                                        to="/organizations/2/groups/1">
+                                        <a
+                                          onClick={[Function]}
+                                          style={Object {}}>
+                                          Mock Group
+                                        </a>
+                                      </Link>
+                                    </td>
+                                  </TableColumn>
+                                  <TableColumn
+                                    cellEdit={
+                                      Object {
+                                        "__onCompleteEdit__": [Function],
+                                        "afterSaveCell": undefined,
+                                        "beforeSaveCell": undefined,
+                                        "blurToSave": false,
+                                        "mode": "none",
+                                      }
+                                    }
+                                    className=""
+                                    columnTitle={null}
+                                    dataAlign="left"
+                                    hidden={false}
+                                    onEdit={[Function]}
+                                    width={null}>
+                                    <td
+                                      className=""
+                                      style={
+                                        Object {
+                                          "display": null,
+                                          "textAlign": "left",
+                                        }
+                                      }
+                                      title={null}>
+                                      <Button
+                                        active={false}
+                                        block={false}
+                                        bsClass="btn"
+                                        bsStyle="danger"
+                                        disabled={false}
+                                        onClick={[Function]}>
+                                        <button
+                                          className="btn btn-danger"
+                                          disabled={false}
+                                          onClick={[Function]}
+                                          type="button">
+                                          Delete
+                                        </button>
+                                      </Button>
+                                    </td>
+                                  </TableColumn>
+                                </tr>
+                              </TableRow>
+                            </tbody>
+                          </table>
+                        </div>
+                      </TableBody>
+                    </div>
+                  </div>
+                </BootstrapTable>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </div>
+    </Grid>
   </Organization>
 </Connect(Organization)>
 `;

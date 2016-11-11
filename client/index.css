@@ -1,2 +1,39 @@
 
 @import url(node_modules/normalize.css/normalize.css);
+@import url(node_modules/font-awesome/css/font-awesome.css);
+@import url(node_modules/rc-slider/assets/index.css);
+@import url(node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css);
+@import url(node_modules/leaflet/dist/leaflet.css);
+@import url(node_modules/react-select/dist/react-select.css);
+@import url(node_modules/react-vis/main.css);
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
+
+footer {
+  border-top: 1px solid gray;
+  margin-top: 3em;
+  padding: 1em;
+}
+
+h4 strong {
+  margin-right: 1em;
+}
+
+/* react-dropzone stuff */
+.dropzone {
+  margin-bottom: 15px;
+  min-width: 200px;
+  min-height: 20px;
+  padding: 1em;
+  border: 2px dashed #666;
+  border-radius: 5px;
+}
+
+/*
+ * react-leaflet is silly, you have to manually style the divs it creates
+ * https://github.com/PaulLeCam/react-leaflet/blob/master/example/index.html
+ * https://github.com/PaulLeCam/react-leaflet/issues/108
+ */
+.leaflet-container {
+	height: 100%;
+	width: 100%;
+}

@@ -36,8 +36,12 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# build results
 assets
-env.yml
+
+# secret config
+configurations/default/env.yml
 
 # Mac OS
 .DS_Store

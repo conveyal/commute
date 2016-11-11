@@ -1,0 +1,1 @@
+exports[`utils > components humanizeDistance should work 1`] = `"123 miles"`;

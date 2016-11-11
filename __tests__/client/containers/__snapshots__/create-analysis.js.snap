@@ -1,0 +1,698 @@
+exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
+<Connect(CreateAnalysis)
+  params={
+    Object {
+      "organizationId": "2",
+    }
+  }>
+  <CreateAnalysis
+    create={[Function]}
+    organization={
+      Object {
+        "analyses": Array [
+          Object {
+            "groupId": "1",
+            "id": "1",
+            "lastRunDateTime": 1477697490,
+            "name": "An Analysis",
+            "siteId": "1",
+            "summary": Object {
+              "avgDistance": 12.34,
+              "avgTravelTime": 1234,
+              "savingsPerTrip": 1.23,
+              "savingsPerTripYear": 319.8,
+              "savingsTotalPerDay": 1.23,
+              "savingsTotalPerYear": 319.8,
+            },
+            "tripVals": Object {
+              "bike": Object {
+                "cost": Array [
+                  0.12,
+                ],
+                "distance": Array [
+                  23,
+                ],
+                "time": Array [
+                  2345,
+                ],
+              },
+              "car": Object {
+                "cost": Array [
+                  6.78,
+                ],
+                "distance": Array [
+                  18,
+                ],
+                "time": Array [
+                  1234,
+                ],
+              },
+              "transit": Object {
+                "cost": Array [
+                  3.45,
+                ],
+                "distance": Array [
+                  30,
+                ],
+                "time": Array [
+                  3456,
+                ],
+              },
+              "walk": Object {
+                "cost": Array [
+                  0,
+                ],
+                "distance": Array [
+                  19,
+                ],
+                "time": Array [
+                  6789,
+                ],
+              },
+            },
+            "trips": Array [
+              Object {
+                "bike": Object {
+                  "cost": 0.12,
+                  "distance": 23,
+                  "polygon": "encoded",
+                  "time": 2345,
+                },
+                "car": Object {
+                  "cost": 6.78,
+                  "distance": 18,
+                  "polygon": "encoded",
+                  "time": 1234,
+                },
+                "commuterId": "1",
+                "mostLikely": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "mode": "transit",
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "transit": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "walk": Object {
+                  "cost": 0,
+                  "distance": 19,
+                  "polygon": "encoded",
+                  "time": 6789,
+                },
+              },
+            ],
+          },
+        ],
+        "analysesById": Object {
+          "1": Object {
+            "groupId": "1",
+            "id": "1",
+            "lastRunDateTime": 1477697490,
+            "name": "An Analysis",
+            "siteId": "1",
+            "summary": Object {
+              "avgDistance": 12.34,
+              "avgTravelTime": 1234,
+              "savingsPerTrip": 1.23,
+              "savingsPerTripYear": 319.8,
+              "savingsTotalPerDay": 1.23,
+              "savingsTotalPerYear": 319.8,
+            },
+            "tripVals": Object {
+              "bike": Object {
+                "cost": Array [
+                  0.12,
+                ],
+                "distance": Array [
+                  23,
+                ],
+                "time": Array [
+                  2345,
+                ],
+              },
+              "car": Object {
+                "cost": Array [
+                  6.78,
+                ],
+                "distance": Array [
+                  18,
+                ],
+                "time": Array [
+                  1234,
+                ],
+              },
+              "transit": Object {
+                "cost": Array [
+                  3.45,
+                ],
+                "distance": Array [
+                  30,
+                ],
+                "time": Array [
+                  3456,
+                ],
+              },
+              "walk": Object {
+                "cost": Array [
+                  0,
+                ],
+                "distance": Array [
+                  19,
+                ],
+                "time": Array [
+                  6789,
+                ],
+              },
+            },
+            "trips": Array [
+              Object {
+                "bike": Object {
+                  "cost": 0.12,
+                  "distance": 23,
+                  "polygon": "encoded",
+                  "time": 2345,
+                },
+                "car": Object {
+                  "cost": 6.78,
+                  "distance": 18,
+                  "polygon": "encoded",
+                  "time": 1234,
+                },
+                "commuterId": "1",
+                "mostLikely": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "mode": "transit",
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "transit": Object {
+                  "cost": 3.45,
+                  "distance": 30,
+                  "polygon": "encoded",
+                  "time": 3456,
+                },
+                "walk": Object {
+                  "cost": 0,
+                  "distance": 19,
+                  "polygon": "encoded",
+                  "time": 6789,
+                },
+              },
+            ],
+          },
+        },
+        "contact": "someone",
+        "email": "abc@def.ghi",
+        "groups": Array [
+          Object {
+            "allAddressesGeocoded": true,
+            "commuters": Array [
+              Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            ],
+            "commutersById": Object {
+              "1": Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            },
+            "id": "1",
+            "name": "Mock Group",
+          },
+        ],
+        "groupsById": Object {
+          "1": Object {
+            "allAddressesGeocoded": true,
+            "commuters": Array [
+              Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            ],
+            "commutersById": Object {
+              "1": Object {
+                "address": "4321 XYZ Boulevard",
+                "email": "luke@warm.cold",
+                "id": "1",
+                "lat": 38.916089,
+                "lng": -76.970221,
+                "name": "Luke Warm",
+              },
+            },
+            "id": "1",
+            "name": "Mock Group",
+          },
+        },
+        "id": "2",
+        "logo_url": "https://placekitten.com/80/80",
+        "main_url": "https://placekitten.com/",
+        "name": "Mock Organization",
+        "sites": Array [
+          Object {
+            "address": "123 ABC St",
+            "id": "1",
+            "lat": 38.8886,
+            "lng": -77.043,
+            "name": "Acme Corp",
+            "radius": 1,
+          },
+        ],
+        "sitesById": Object {
+          "1": Object {
+            "address": "123 ABC St",
+            "id": "1",
+            "lat": 38.8886,
+            "lng": -77.043,
+            "name": "Acme Corp",
+            "radius": 1,
+          },
+        },
+      }
+    }
+    params={
+      Object {
+        "organizationId": "2",
+      }
+    }>
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}>
+      <div
+        className="container">
+        <Row
+          bsClass="row"
+          componentClass="div">
+          <div
+            className="row">
+            <Col
+              bsClass="col"
+              componentClass="div"
+              xs={12}>
+              <div
+                className="col-xs-12">
+                <h3>
+                  <span>
+                    Create Analysis
+                  </span>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="default"
+                    className="pull-right"
+                    disabled={false}>
+                    <button
+                      className="pull-right btn btn-default"
+                      disabled={false}
+                      type="button">
+                      <Link
+                        onlyActiveOnIndex={false}
+                        style={Object {}}
+                        to="/organizations/2">
+                        <a
+                          onClick={[Function]}
+                          style={Object {}}>
+                          <Icon
+                            type="arrow-left">
+                            <i
+                              className="fa fa-arrow-left fa-fw " />
+                          </Icon>
+                        </a>
+                      </Link>
+                    </button>
+                  </Button>
+                </h3>
+                <form>
+                  <FormGroup
+                    bsClass="form-group"
+                    controlId="site-control">
+                    <div
+                      className="form-group">
+                      <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}>
+                        <label
+                          className="control-label"
+                          htmlFor="site-control">
+                          Site
+                        </label>
+                      </ControlLabel>
+                      <Select
+                        addLabelText="Add \"{label}\"?"
+                        arrowRenderer={[Function]}
+                        autosize={true}
+                        backspaceRemoves={true}
+                        backspaceToRemoveMessage="Press backspace to remove {label}"
+                        clearAllText="Clear all"
+                        clearValueText="Clear value"
+                        clearable={true}
+                        delimiter=","
+                        disabled={false}
+                        escapeClearsValue={true}
+                        filterOptions={[Function]}
+                        ignoreAccents={true}
+                        ignoreCase={true}
+                        inputProps={Object {}}
+                        isLoading={false}
+                        joinValues={false}
+                        labelKey="label"
+                        matchPos="any"
+                        matchProp="any"
+                        menuBuffer={0}
+                        menuRenderer={[Function]}
+                        multi={false}
+                        noResultsText="No results found"
+                        onBlurResetsInput={true}
+                        onChange={[Function]}
+                        onCloseResetsInput={true}
+                        openAfterFocus={false}
+                        optionComponent={[Function]}
+                        options={
+                          Array [
+                            Object {
+                              "label": "Acme Corp",
+                              "value": "1",
+                            },
+                          ]
+                        }
+                        pageSize={5}
+                        placeholder="Select a Site..."
+                        required={false}
+                        scrollMenuIntoView={true}
+                        searchable={true}
+                        simpleValue={false}
+                        tabSelectsValue={true}
+                        value={undefined}
+                        valueComponent={[Function]}
+                        valueKey="value">
+                        <div
+                          className="Select Select--single is-searchable"
+                          style={undefined}>
+                          <div
+                            className="Select-control"
+                            onKeyDown={[Function]}
+                            onMouseDown={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchMove={[Function]}
+                            onTouchStart={[Function]}
+                            style={undefined}>
+                            <span
+                              className="Select-multi-value-wrapper"
+                              id="react-select-2--value">
+                              <div
+                                className="Select-placeholder">
+                                Select a Site...
+                              </div>
+                              <AutosizeInput
+                                aria-activedescendant="react-select-2--value"
+                                aria-expanded="false"
+                                aria-haspopup="false"
+                                aria-label={undefined}
+                                aria-labelledby={undefined}
+                                aria-owns=""
+                                className="Select-input"
+                                minWidth="5px"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                required={false}
+                                role="combobox"
+                                tabIndex={undefined}
+                                value="">
+                                <div
+                                  className="Select-input"
+                                  style={
+                                    Object {
+                                      "display": "inline-block",
+                                    }
+                                  }>
+                                  <input
+                                    aria-activedescendant="react-select-2--value"
+                                    aria-expanded="false"
+                                    aria-haspopup="false"
+                                    aria-label={undefined}
+                                    aria-labelledby={undefined}
+                                    aria-owns=""
+                                    className={undefined}
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onFocus={[Function]}
+                                    required={false}
+                                    role="combobox"
+                                    style={
+                                      Object {
+                                        "boxSizing": "content-box",
+                                        "width": "5pxpx",
+                                      }
+                                    }
+                                    tabIndex={undefined}
+                                    value="" />
+                                  <div
+                                    style={
+                                      Object {
+                                        "height": 0,
+                                        "left": 0,
+                                        "overflow": "scroll",
+                                        "position": "absolute",
+                                        "top": 0,
+                                        "visibility": "hidden",
+                                        "whiteSpace": "pre",
+                                      }
+                                    } />
+                                </div>
+                              </AutosizeInput>
+                            </span>
+                            <span
+                              className="Select-arrow-zone"
+                              onMouseDown={[Function]}>
+                              <span
+                                className="Select-arrow"
+                                onMouseDown={[Function]} />
+                            </span>
+                          </div>
+                        </div>
+                      </Select>
+                    </div>
+                  </FormGroup>
+                  <FormGroup
+                    bsClass="form-group"
+                    controlId="group-control">
+                    <div
+                      className="form-group">
+                      <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}>
+                        <label
+                          className="control-label"
+                          htmlFor="group-control">
+                          Group
+                        </label>
+                      </ControlLabel>
+                      <Select
+                        addLabelText="Add \"{label}\"?"
+                        arrowRenderer={[Function]}
+                        autosize={true}
+                        backspaceRemoves={true}
+                        backspaceToRemoveMessage="Press backspace to remove {label}"
+                        clearAllText="Clear all"
+                        clearValueText="Clear value"
+                        clearable={true}
+                        delimiter=","
+                        disabled={false}
+                        escapeClearsValue={true}
+                        filterOptions={[Function]}
+                        ignoreAccents={true}
+                        ignoreCase={true}
+                        inputProps={Object {}}
+                        isLoading={false}
+                        joinValues={false}
+                        labelKey="label"
+                        matchPos="any"
+                        matchProp="any"
+                        menuBuffer={0}
+                        menuRenderer={[Function]}
+                        multi={false}
+                        noResultsText="No results found"
+                        onBlurResetsInput={true}
+                        onChange={[Function]}
+                        onCloseResetsInput={true}
+                        openAfterFocus={false}
+                        optionComponent={[Function]}
+                        options={
+                          Array [
+                            Object {
+                              "label": "Mock Group",
+                              "value": "1",
+                            },
+                          ]
+                        }
+                        pageSize={5}
+                        placeholder="Select a Commuter Group..."
+                        required={false}
+                        scrollMenuIntoView={true}
+                        searchable={true}
+                        simpleValue={false}
+                        tabSelectsValue={true}
+                        value={undefined}
+                        valueComponent={[Function]}
+                        valueKey="value">
+                        <div
+                          className="Select Select--single is-searchable"
+                          style={undefined}>
+                          <div
+                            className="Select-control"
+                            onKeyDown={[Function]}
+                            onMouseDown={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchMove={[Function]}
+                            onTouchStart={[Function]}
+                            style={undefined}>
+                            <span
+                              className="Select-multi-value-wrapper"
+                              id="react-select-3--value">
+                              <div
+                                className="Select-placeholder">
+                                Select a Commuter Group...
+                              </div>
+                              <AutosizeInput
+                                aria-activedescendant="react-select-3--value"
+                                aria-expanded="false"
+                                aria-haspopup="false"
+                                aria-label={undefined}
+                                aria-labelledby={undefined}
+                                aria-owns=""
+                                className="Select-input"
+                                minWidth="5px"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                required={false}
+                                role="combobox"
+                                tabIndex={undefined}
+                                value="">
+                                <div
+                                  className="Select-input"
+                                  style={
+                                    Object {
+                                      "display": "inline-block",
+                                    }
+                                  }>
+                                  <input
+                                    aria-activedescendant="react-select-3--value"
+                                    aria-expanded="false"
+                                    aria-haspopup="false"
+                                    aria-label={undefined}
+                                    aria-labelledby={undefined}
+                                    aria-owns=""
+                                    className={undefined}
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onFocus={[Function]}
+                                    required={false}
+                                    role="combobox"
+                                    style={
+                                      Object {
+                                        "boxSizing": "content-box",
+                                        "width": "5pxpx",
+                                      }
+                                    }
+                                    tabIndex={undefined}
+                                    value="" />
+                                  <div
+                                    style={
+                                      Object {
+                                        "height": 0,
+                                        "left": 0,
+                                        "overflow": "scroll",
+                                        "position": "absolute",
+                                        "top": 0,
+                                        "visibility": "hidden",
+                                        "whiteSpace": "pre",
+                                      }
+                                    } />
+                                </div>
+                              </AutosizeInput>
+                            </span>
+                            <span
+                              className="Select-arrow-zone"
+                              onMouseDown={[Function]}>
+                              <span
+                                className="Select-arrow"
+                                onMouseDown={[Function]} />
+                            </span>
+                          </div>
+                        </div>
+                      </Select>
+                    </div>
+                  </FormGroup>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="success"
+                    disabled={false}
+                    onClick={[Function]}>
+                    <button
+                      className="btn btn-success"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="button">
+                      Create
+                    </button>
+                  </Button>
+                </form>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </div>
+    </Grid>
+  </CreateAnalysis>
+</Connect(CreateAnalysis)>
+`;
+
+exports[`Container > CreateAnalysis Create analysis 1`] = `
+Object {
+  "payload": Object {
+    "analysis": Object {
+      "groupId": "1",
+      "siteId": "1",
+    },
+    "organizationId": "2",
+  },
+  "type": "add analysis",
+}
+`;
+
+exports[`Container > CreateAnalysis Create analysis 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organizations/2/analysis/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

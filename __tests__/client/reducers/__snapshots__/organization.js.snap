@@ -1,0 +1,244 @@
+exports[`client > reducers > organization should handle add analysis 1`] = `
+Object {
+  "groupId": "1",
+  "id": "2",
+  "lastRunDateTime": 1477777777,
+  "name": "Another Analysis",
+  "siteId": "1",
+}
+`;
+
+exports[`client > reducers > organization should handle add commuter 1`] = `
+Object {
+  "address": "9876 ABC Ct",
+  "email": "sal@a.mander",
+  "id": "2",
+  "lat": 38.915,
+  "lng": -76.971,
+  "name": "Sal A. Mander",
+}
+`;
+
+exports[`client > reducers > organization should handle add group 1`] = `
+Object {
+  "allAddressesGeocoded": true,
+  "commuters": Array [
+    Object {
+      "address": "4321 XYZ Boulevard",
+      "email": "luke@warm.cold",
+      "id": "1",
+      "lat": 38.916089,
+      "lng": -76.970221,
+      "name": "Luke Warm",
+    },
+  ],
+  "commutersById": Object {
+    "1": Object {
+      "address": "4321 XYZ Boulevard",
+      "email": "luke@warm.cold",
+      "id": "1",
+      "lat": 38.916089,
+      "lng": -76.970221,
+      "name": "Luke Warm",
+    },
+  },
+  "id": "1",
+  "name": "Mock Group",
+}
+`;
+
+exports[`client > reducers > organization should handle add organization 1`] = `
+Object {
+  "analyses": Array [],
+  "analysesById": Object {},
+  "contact": "someone",
+  "email": "abc@def.ghi",
+  "groups": Array [],
+  "groupsById": Object {},
+  "id": "1",
+  "logo_url": "https://placekitten.com/80/80",
+  "main_url": "https://placekitten.com/",
+  "name": "Mock Organization",
+  "sites": Array [],
+  "sitesById": Object {},
+}
+`;
+
+exports[`client > reducers > organization should handle add site 1`] = `
+Object {
+  "address": "123 ABC St",
+  "id": "1",
+  "lat": 38.8886,
+  "lng": -77.043,
+  "name": "Acme Corp",
+  "radius": 1,
+}
+`;
+
+exports[`client > reducers > organization should handle append commuters 1`] = `
+Object {
+  "address": "9876 ABC Ct",
+  "email": "sal@a.mander",
+  "id": "2",
+  "lat": 38.915,
+  "lng": -76.971,
+  "name": "Sal A. Mander",
+}
+`;
+
+exports[`client > reducers > organization should handle default state 1`] = `
+Object {
+  "organizations": Array [],
+  "organizationsById": Object {},
+}
+`;
+
+exports[`client > reducers > organization should handle receive mock calculated trips 1`] = `
+Object {
+  "groupId": "1",
+  "id": "1",
+  "lastRunDateTime": 1477697490,
+  "name": "An Analysis",
+  "siteId": "1",
+  "summary": Object {
+    "avgDistance": 22,
+    "avgTravelTime": 2321,
+    "savingsPerTrip": 2.22,
+    "savingsPerTripYear": 577.2,
+    "savingsTotalPerDay": 2.22,
+    "savingsTotalPerYear": 577.2,
+  },
+  "tripVals": Object {
+    "bike": Object {
+      "cost": Array [
+        0.12,
+      ],
+      "distance": Array [
+        23,
+      ],
+      "time": Array [
+        2345,
+      ],
+    },
+    "car": Object {
+      "cost": Array [
+        6.78,
+      ],
+      "distance": Array [
+        18,
+      ],
+      "time": Array [
+        1234,
+      ],
+    },
+    "mostLikely": Object {
+      "cost": Array [
+        4.56,
+      ],
+      "distance": Array [
+        22,
+      ],
+      "time": Array [
+        2321,
+      ],
+    },
+    "transit": Object {
+      "cost": Array [
+        3.45,
+      ],
+      "distance": Array [
+        30,
+      ],
+      "time": Array [
+        3456,
+      ],
+    },
+    "walk": Object {
+      "cost": Array [
+        0,
+      ],
+      "distance": Array [
+        19,
+      ],
+      "time": Array [
+        6789,
+      ],
+    },
+  },
+  "trips": Array [
+    Object {
+      "bike": Object {
+        "cost": 0.12,
+        "distance": 23,
+        "polygon": "encoded",
+        "time": 2345,
+      },
+      "car": Object {
+        "cost": 6.78,
+        "distance": 18,
+        "polygon": "encoded",
+        "time": 1234,
+      },
+      "commuterId": "1",
+      "mostLikely": Object {
+        "cost": 4.56,
+        "distance": 22,
+        "mode": "transit",
+        "polygon": "encoded",
+        "time": 2321,
+      },
+      "transit": Object {
+        "cost": 3.45,
+        "distance": 30,
+        "polygon": "encoded",
+        "time": 3456,
+      },
+      "walk": Object {
+        "cost": 0,
+        "distance": 19,
+        "polygon": "encoded",
+        "time": 6789,
+      },
+    },
+  ],
+}
+`;
+
+exports[`client > reducers > organization should handle set organizations 1`] = `
+Object {
+  "analyses": Array [],
+  "analysesById": Object {},
+  "contact": "someone",
+  "email": "abc@def.ghi",
+  "groups": Array [],
+  "groupsById": Object {},
+  "id": "1",
+  "logo_url": "https://placekitten.com/80/80",
+  "main_url": "https://placekitten.com/",
+  "name": "Mock Organization",
+  "sites": Array [],
+  "sitesById": Object {},
+}
+`;
+
+exports[`client > reducers > organization should handle update commuter 1`] = `
+Object {
+  "address": "9876 ABC Ct",
+  "email": "sal@a.mander",
+  "id": "1",
+  "lat": 38.915,
+  "lng": -76.971,
+  "name": "Sal A. Mander",
+}
+`;
+
+exports[`client > reducers > organization should handle update site 1`] = `
+Object {
+  "address": "456 DEF Rd",
+  "id": "1",
+  "lat": 38.8886,
+  "lng": -77.043,
+  "name": "Delta Corp",
+  "radius": 1,
+}
+`;

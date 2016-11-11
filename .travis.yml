@@ -8,8 +8,7 @@ notifications:
 node_js:
   - '6'
 before_install:
-  - npm i -g yarn
-  - npm i -g codecov
+  - npm i -g yarn codecov
 before_script:
   - npm prune
 install:

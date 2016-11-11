@@ -1,24 +1,178 @@
 /* global describe, expect, it */
 
-import { mount } from 'enzyme'
-import { mountToJson } from 'enzyme-to-json'
+import {mount} from 'enzyme'
+import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 
-import { makeMockStore, mockStoreData } from '../../../test-utils/mock-store.js'
+import {expectCreateSite, expectDeleteSite, expectUpdateAction} from '../../test-utils/actions'
+import {makeMockStore, mockStores} from '../../test-utils/mock-data'
+import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditSite from '../../../client/containers/edit-site'
 
-const mockStore = makeMockStore(mockStoreData)
-
 describe('Container > EditSite', () => {
-  it('renders correctly', () => {
+  it('Create/Edit Site View loads (create or edit mode)', () => {
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+
+    // mount component
+    mount(
+      <Provider store={mockStore}>
+        <EditSite
+          params={{organizationId: '1'}}
+          />
+      </Provider>
+    , {
+      attachTo: document.getElementById('test')
+    })
+  })
+
+  it('Create/Edit Site View loads in create mode', () => {
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <EditSite />
+        <EditSite
+          params={{organizationId: '1'}}
+          />
       </Provider>
-    )
-    expect(mountToJson(tree.find(EditSite))).toMatchSnapshot()
+    , {
+      attachTo: document.getElementById('test')
+    })
+
+    expect(mountToJson(tree.find('.site-header'))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.site-form'))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.site-submit-buttons'))).toMatchSnapshot()
+
+    // no marker should be added initially in create mode
+    expect(Leaflet.marker).not.toBeCalled()
+  })
+
+  it('Create/Edit Site View loads in edit mode', () => {
+    const mockStore = makeMockStore(mockStores.complexOrganization)
+
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <EditSite
+          params={{organizationId: '2', siteId: '1'}}
+          />
+      </Provider>
+    , {
+      attachTo: document.getElementById('test')
+    })
+
+    expect(mountToJson(tree.find('.site-header'))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.site-form'))).toMatchSnapshot()
+    expect(mountToJson(tree.find('.site-submit-buttons'))).toMatchSnapshot()
+
+    // marker should be added initially in edit mode
+    expect(Leaflet.marker).toBeCalled()
+    expect(Leaflet.marker.mock.calls[0][0]).toMatchSnapshot()
+  })
+
+  it('Create site', () => {
+    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <EditSite
+          params={{organizationId: '1'}}
+          />
+      </Provider>
+    , {
+      attachTo: document.getElementById('test')
+    })
+
+    // give each text field some input
+    // name
+    tree.find('input').first().simulate('change', {target: {value: 'Mock Site'}})
+    // address
+    tree.find('.form-group').find('Geocoder').props().onChange({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [
+          -76.9897,
+          38.89011
+        ]
+      },
+      properties: {
+        label: 'Abraham Lincoln/Emancipation Monument, Washington, USA'
+      }
+    })
+    // radius
+    tree.find('input').last().simulate('change', {target: {value: 0.5}})
+
+    // submit form
+    tree.find('.site-submit-buttons').find('button').first().simulate('click')
+
+    // expect create action
+    expectCreateSite(mockStore.getActions())
+  })
+
+  it('Update site', () => {
+    const mockStore = makeMockStore(mockStores.complexOrganization)
+
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <EditSite
+          params={{organizationId: '2', siteId: '1'}}
+          />
+      </Provider>
+    , {
+      attachTo: document.getElementById('test')
+    })
+
+    // give each text field some input
+    // name
+    tree.find('input').first().simulate('change', {target: {value: 'Mock Site'}})
+    // address
+    tree.find('.form-group').find('Geocoder').props().onChange({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [
+          -76.9897,
+          38.89011
+        ]
+      },
+      properties: {
+        label: 'Abraham Lincoln/Emancipation Monument, Washington, USA'
+      }
+    })
+    // radius
+    tree.find('input').last().simulate('change', {target: {value: 0.5}})
+
+    // submit form
+    tree.find('.site-submit-buttons').find('button').first().simulate('click')
+
+    expectUpdateAction(mockStore.getActions())
+  })
+
+  it('Delete Site', () => {
+    const mockStore = makeMockStore(mockStores.complexOrganization)
+    window.confirm = () => true
+
+    // Given a logged-in user is viewing the Create/Edit Site View
+    // mount component
+    const tree = mount(
+      <Provider store={mockStore}>
+        <EditSite
+          params={{organizationId: '2', siteId: '1'}}
+          />
+      </Provider>
+    , {
+      attachTo: document.getElementById('test')
+    })
+
+    // When the user clicks the delete button
+    // And the user confirms the Confirm Deletion dialog
+    tree.find('.site-submit-buttons').find('button').last().simulate('click')
+
+    expectDeleteSite(mockStore.getActions())
   })
 })
