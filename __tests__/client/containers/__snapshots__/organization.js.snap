@@ -485,7 +485,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                 </p>
                 <BootstrapTable
                   bodyContainerClass={null}
-                  bodyStyle={undefined}
                   bordered={true}
                   cellEdit={
                     Object {
@@ -499,7 +498,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                   columnFilter={false}
                   condensed={false}
                   containerClass={null}
-                  containerStyle={undefined}
                   csvFileName="spreadsheet.csv"
                   data={
                     Array [
@@ -521,12 +519,10 @@ exports[`Container > Organization Organization View loads 1`] = `
                     }
                   }
                   headerContainerClass={null}
-                  headerStyle={undefined}
                   height="100%"
                   hover={false}
                   ignoreSinglePage={false}
                   insertRow={false}
-                  maxHeight={undefined}
                   multiColumnSearch={false}
                   options={
                     Object {
@@ -579,7 +575,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                   pagination={false}
                   printable={false}
                   search={false}
-                  searchPlaceholder={undefined}
                   selectRow={
                     Object {
                       "bgColor": "",
@@ -599,11 +594,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                   tableBodyClass={null}
                   tableContainerClass={null}
                   tableHeaderClass={null}
-                  tableStyle={undefined}
                   trClassName="">
                   <div
-                    className="react-bs-table-container"
-                    style={undefined}>
+                    className="react-bs-table-container">
                     <div
                       className="react-bs-table"
                       onMouseEnter={[Function]}
@@ -617,7 +610,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                       <TableHeader
                         bordered={true}
                         condensed={false}
-                        customComponent={undefined}
                         headerContainerClass={null}
                         hideSelectColumn={false}
                         isFiltered={false}
@@ -626,13 +618,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                         onSort={[Function]}
                         rowSelectType="none"
                         sortIndicator={true}
-                        sortName={undefined}
-                        sortOrder={undefined}
-                        style={undefined}
                         tableHeaderClass={null}>
                         <div
-                          className="react-bs-container-header table-header-wrapper"
-                          style={undefined}>
+                          className="react-bs-container-header table-header-wrapper">
                           <table
                             className="table table-hover table-bordered">
                             <thead>
@@ -641,26 +629,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataField="id"
-                                  dataFormat={undefined}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={true}
                                   hiddenOnInsert={false}
                                   isKey={true}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -680,25 +659,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -719,26 +690,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataField="address"
-                                  dataFormat={undefined}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -759,25 +721,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -918,7 +872,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                         }
                         hover={false}
                         keyField="id"
-                        noDataText={undefined}
                         onRowClick={[Function]}
                         onRowDoubleClick={[Function]}
                         onRowMouseOut={[Function]}
@@ -999,7 +952,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                                 onRowMouseOut={[Function]}
                                 onRowMouseOver={[Function]}
                                 onSelectRow={[Function]}
-                                selectRow={undefined}
                                 unselectableRow={false}>
                                 <tr
                                   className=""
@@ -1214,7 +1166,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                 </p>
                 <BootstrapTable
                   bodyContainerClass={null}
-                  bodyStyle={undefined}
                   bordered={true}
                   cellEdit={
                     Object {
@@ -1228,7 +1179,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                   columnFilter={false}
                   condensed={false}
                   containerClass={null}
-                  containerStyle={undefined}
                   csvFileName="spreadsheet.csv"
                   data={
                     Array [
@@ -1267,12 +1217,10 @@ exports[`Container > Organization Organization View loads 1`] = `
                     }
                   }
                   headerContainerClass={null}
-                  headerStyle={undefined}
                   height="100%"
                   hover={false}
                   ignoreSinglePage={false}
                   insertRow={false}
-                  maxHeight={undefined}
                   multiColumnSearch={false}
                   options={
                     Object {
@@ -1325,7 +1273,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                   pagination={false}
                   printable={false}
                   search={false}
-                  searchPlaceholder={undefined}
                   selectRow={
                     Object {
                       "bgColor": "",
@@ -1345,11 +1292,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                   tableBodyClass={null}
                   tableContainerClass={null}
                   tableHeaderClass={null}
-                  tableStyle={undefined}
                   trClassName="">
                   <div
-                    className="react-bs-table-container"
-                    style={undefined}>
+                    className="react-bs-table-container">
                     <div
                       className="react-bs-table"
                       onMouseEnter={[Function]}
@@ -1363,7 +1308,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                       <TableHeader
                         bordered={true}
                         condensed={false}
-                        customComponent={undefined}
                         headerContainerClass={null}
                         hideSelectColumn={false}
                         isFiltered={false}
@@ -1372,13 +1316,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                         onSort={[Function]}
                         rowSelectType="none"
                         sortIndicator={true}
-                        sortName={undefined}
-                        sortOrder={undefined}
-                        style={undefined}
                         tableHeaderClass={null}>
                         <div
-                          className="react-bs-container-header table-header-wrapper"
-                          style={undefined}>
+                          className="react-bs-container-header table-header-wrapper">
                           <table
                             className="table table-hover table-bordered">
                             <thead>
@@ -1387,26 +1327,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataField="id"
-                                  dataFormat={undefined}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={true}
                                   hiddenOnInsert={false}
                                   isKey={true}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -1426,25 +1357,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -1465,26 +1388,18 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataField="commuters"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -1505,25 +1420,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -1681,7 +1588,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                         }
                         hover={false}
                         keyField="id"
-                        noDataText={undefined}
                         onRowClick={[Function]}
                         onRowDoubleClick={[Function]}
                         onRowMouseOut={[Function]}
@@ -1762,7 +1668,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                                 onRowMouseOut={[Function]}
                                 onRowMouseOver={[Function]}
                                 onSelectRow={[Function]}
-                                selectRow={undefined}
                                 unselectableRow={false}>
                                 <tr
                                   className=""
@@ -1958,7 +1863,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                 </p>
                 <BootstrapTable
                   bodyContainerClass={null}
-                  bodyStyle={undefined}
                   bordered={true}
                   cellEdit={
                     Object {
@@ -1972,7 +1876,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                   columnFilter={false}
                   condensed={false}
                   containerClass={null}
-                  containerStyle={undefined}
                   csvFileName="spreadsheet.csv"
                   data={
                     Array [
@@ -2083,12 +1986,10 @@ exports[`Container > Organization Organization View loads 1`] = `
                     }
                   }
                   headerContainerClass={null}
-                  headerStyle={undefined}
                   height="100%"
                   hover={false}
                   ignoreSinglePage={false}
                   insertRow={false}
-                  maxHeight={undefined}
                   multiColumnSearch={false}
                   options={
                     Object {
@@ -2141,7 +2042,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                   pagination={false}
                   printable={false}
                   search={false}
-                  searchPlaceholder={undefined}
                   selectRow={
                     Object {
                       "bgColor": "",
@@ -2161,11 +2061,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                   tableBodyClass={null}
                   tableContainerClass={null}
                   tableHeaderClass={null}
-                  tableStyle={undefined}
                   trClassName="">
                   <div
-                    className="react-bs-table-container"
-                    style={undefined}>
+                    className="react-bs-table-container">
                     <div
                       className="react-bs-table"
                       onMouseEnter={[Function]}
@@ -2179,7 +2077,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                       <TableHeader
                         bordered={true}
                         condensed={false}
-                        customComponent={undefined}
                         headerContainerClass={null}
                         hideSelectColumn={false}
                         isFiltered={false}
@@ -2188,13 +2085,9 @@ exports[`Container > Organization Organization View loads 1`] = `
                         onSort={[Function]}
                         rowSelectType="none"
                         sortIndicator={true}
-                        sortName={undefined}
-                        sortOrder={undefined}
-                        style={undefined}
                         tableHeaderClass={null}>
                         <div
-                          className="react-bs-container-header table-header-wrapper"
-                          style={undefined}>
+                          className="react-bs-container-header table-header-wrapper">
                           <table
                             className="table table-hover table-bordered">
                             <thead>
@@ -2203,26 +2096,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataField="id"
-                                  dataFormat={undefined}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={true}
                                   hiddenOnInsert={false}
                                   isKey={true}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -2242,25 +2126,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -2281,25 +2157,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -2320,25 +2188,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -2359,25 +2219,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                                   className=""
                                   columnClassName=""
                                   columnTitle={false}
-                                  csvFormat={undefined}
-                                  csvHeader={undefined}
                                   dataAlign="left"
                                   dataFormat={[Function]}
                                   dataSort={false}
                                   editable={true}
-                                  filter={undefined}
                                   filterFormatted={false}
-                                  filterValue={undefined}
-                                  formatExtraData={undefined}
-                                  headerAlign={undefined}
+                                  headerTitle={true}
                                   hidden={false}
                                   hiddenOnInsert={false}
                                   isKey={false}
                                   onSort={[Function]}
                                   searchable={true}
-                                  sort={undefined}
-                                  sortFunc={undefined}
-                                  sortFuncExtraData={undefined}
                                   sortIndicator={true}
                                   width={null}>
                                   <th
@@ -2629,7 +2481,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                         }
                         hover={false}
                         keyField="id"
-                        noDataText={undefined}
                         onRowClick={[Function]}
                         onRowDoubleClick={[Function]}
                         onRowMouseOut={[Function]}
@@ -2717,7 +2568,6 @@ exports[`Container > Organization Organization View loads 1`] = `
                                 onRowMouseOut={[Function]}
                                 onRowMouseOver={[Function]}
                                 onSelectRow={[Function]}
-                                selectRow={undefined}
                                 unselectableRow={false}>
                                 <tr
                                   className=""

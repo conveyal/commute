@@ -73,8 +73,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
       name="name"
       onChange={[Function]}
       placeholder="Enter name"
-      type="text"
-      value={undefined}>
+      type="text">
       <FormGroup
         bsClass="form-group"
         controlId="group-item-name">
@@ -109,8 +108,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
     </FieldGroup>
     <Geocoder
       label="Address"
-      onChange={[Function]}
-      value={undefined}>
+      onChange={[Function]}>
       <FormGroup
         bsClass="form-group"
         controlId="geocode-control">
@@ -142,8 +140,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
             featureToLabel={[Function]}
             featureToValue={[Function]}
             onChange={[Function]}
-            search={[Function]}
-            value={undefined}>
+            search={[Function]}>
             <Async
               apiKey="test-search-key"
               autoload={false}
@@ -240,16 +237,14 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                 valueComponent={[Function]}
                 valueKey="value">
                 <div
-                  className="Select Select--single is-searchable"
-                  style={undefined}>
+                  className="Select Select--single is-searchable">
                   <div
                     className="Select-control"
                     onKeyDown={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    style={undefined}>
+                    onTouchStart={[Function]}>
                     <span
                       className="Select-multi-value-wrapper"
                       id="react-select-3--value">
@@ -261,8 +256,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                         aria-activedescendant="react-select-3--value"
                         aria-expanded="false"
                         aria-haspopup="false"
-                        aria-label={undefined}
-                        aria-labelledby={undefined}
                         aria-owns=""
                         className="Select-input"
                         minWidth="5px"
@@ -271,7 +264,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                         onFocus={[Function]}
                         required={false}
                         role="combobox"
-                        tabIndex={undefined}
                         value="">
                         <div
                           className="Select-input"
@@ -284,10 +276,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                             aria-activedescendant="react-select-3--value"
                             aria-expanded="false"
                             aria-haspopup="false"
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
-                            className={undefined}
                             onBlur={[Function]}
                             onChange={[Function]}
                             onFocus={[Function]}
@@ -299,7 +288,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                 "width": "5pxpx",
                               }
                             }
-                            tabIndex={undefined}
                             value="" />
                           <div
                             style={
@@ -336,8 +324,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
       name="radius"
       onChange={[Function]}
       placeholder="Enter radius"
-      type="text"
-      value={undefined}>
+      type="text">
       <FormGroup
         bsClass="form-group"
         controlId="group-item-radius">
@@ -625,16 +612,14 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                 valueComponent={[Function]}
                 valueKey="value">
                 <div
-                  className="Select Select--single is-searchable has-value"
-                  style={undefined}>
+                  className="Select Select--single is-searchable has-value">
                   <div
                     className="Select-control"
                     onKeyDown={[Function]}
                     onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
-                    onTouchStart={[Function]}
-                    style={undefined}>
+                    onTouchStart={[Function]}>
                     <span
                       className="Select-multi-value-wrapper"
                       id="react-select-4--value">
@@ -649,9 +634,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                           }
                         }>
                         <div
-                          className="Select-value"
-                          style={undefined}
-                          title={undefined}>
+                          className="Select-value">
                           <span
                             aria-selected="true"
                             className="Select-value-label"
@@ -665,8 +648,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                         aria-activedescendant="react-select-4--value"
                         aria-expanded="false"
                         aria-haspopup="false"
-                        aria-label={undefined}
-                        aria-labelledby={undefined}
                         aria-owns=""
                         className="Select-input"
                         minWidth="5px"
@@ -675,7 +656,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                         onFocus={[Function]}
                         required={false}
                         role="combobox"
-                        tabIndex={undefined}
                         value="">
                         <div
                           className="Select-input"
@@ -688,10 +668,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                             aria-activedescendant="react-select-4--value"
                             aria-expanded="false"
                             aria-haspopup="false"
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
-                            className={undefined}
                             onBlur={[Function]}
                             onChange={[Function]}
                             onFocus={[Function]}
@@ -703,7 +680,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                 "width": "5pxpx",
                               }
                             }
-                            tabIndex={undefined}
                             value="" />
                           <div
                             style={

@@ -403,20 +403,17 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                         searchable={true}
                         simpleValue={false}
                         tabSelectsValue={true}
-                        value={undefined}
                         valueComponent={[Function]}
                         valueKey="value">
                         <div
-                          className="Select Select--single is-searchable"
-                          style={undefined}>
+                          className="Select Select--single is-searchable">
                           <div
                             className="Select-control"
                             onKeyDown={[Function]}
                             onMouseDown={[Function]}
                             onTouchEnd={[Function]}
                             onTouchMove={[Function]}
-                            onTouchStart={[Function]}
-                            style={undefined}>
+                            onTouchStart={[Function]}>
                             <span
                               className="Select-multi-value-wrapper"
                               id="react-select-2--value">
@@ -428,8 +425,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                 aria-activedescendant="react-select-2--value"
                                 aria-expanded="false"
                                 aria-haspopup="false"
-                                aria-label={undefined}
-                                aria-labelledby={undefined}
                                 aria-owns=""
                                 className="Select-input"
                                 minWidth="5px"
@@ -438,7 +433,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                 onFocus={[Function]}
                                 required={false}
                                 role="combobox"
-                                tabIndex={undefined}
                                 value="">
                                 <div
                                   className="Select-input"
@@ -451,10 +445,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                     aria-activedescendant="react-select-2--value"
                                     aria-expanded="false"
                                     aria-haspopup="false"
-                                    aria-label={undefined}
-                                    aria-labelledby={undefined}
                                     aria-owns=""
-                                    className={undefined}
                                     onBlur={[Function]}
                                     onChange={[Function]}
                                     onFocus={[Function]}
@@ -466,7 +457,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                         "width": "5pxpx",
                                       }
                                     }
-                                    tabIndex={undefined}
                                     value="" />
                                   <div
                                     style={
@@ -554,20 +544,17 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                         searchable={true}
                         simpleValue={false}
                         tabSelectsValue={true}
-                        value={undefined}
                         valueComponent={[Function]}
                         valueKey="value">
                         <div
-                          className="Select Select--single is-searchable"
-                          style={undefined}>
+                          className="Select Select--single is-searchable">
                           <div
                             className="Select-control"
                             onKeyDown={[Function]}
                             onMouseDown={[Function]}
                             onTouchEnd={[Function]}
                             onTouchMove={[Function]}
-                            onTouchStart={[Function]}
-                            style={undefined}>
+                            onTouchStart={[Function]}>
                             <span
                               className="Select-multi-value-wrapper"
                               id="react-select-3--value">
@@ -579,8 +566,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                 aria-activedescendant="react-select-3--value"
                                 aria-expanded="false"
                                 aria-haspopup="false"
-                                aria-label={undefined}
-                                aria-labelledby={undefined}
                                 aria-owns=""
                                 className="Select-input"
                                 minWidth="5px"
@@ -589,7 +574,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                 onFocus={[Function]}
                                 required={false}
                                 role="combobox"
-                                tabIndex={undefined}
                                 value="">
                                 <div
                                   className="Select-input"
@@ -602,10 +586,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                     aria-activedescendant="react-select-3--value"
                                     aria-expanded="false"
                                     aria-haspopup="false"
-                                    aria-label={undefined}
-                                    aria-labelledby={undefined}
                                     aria-owns=""
-                                    className={undefined}
                                     onBlur={[Function]}
                                     onChange={[Function]}
                                     onFocus={[Function]}
@@ -617,7 +598,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                         "width": "5pxpx",
                                       }
                                     }
-                                    tabIndex={undefined}
                                     value="" />
                                   <div
                                     style={

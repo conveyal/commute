@@ -1,4 +1,4 @@
-import multi from '@conveyal/woonerf/build/lib/store/multi'
+import multi from '@conveyal/woonerf/store/multi'
 import configureStore from 'redux-mock-store'
 import promise from 'redux-promise'
 

@@ -157,8 +157,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
     bsStyle="default"
     defaultExpanded={false}>
     <div
-      className="panel panel-default"
-      id={undefined}>
+      className="panel panel-default">
       <div
         className="panel-body">
         <p>
@@ -171,12 +170,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           disabled={false}
           dots={false}
           handle={
-            <function CustomHandle(props) {
-              var style = (0, _assign2.default)({ left: props.offset + '%' }, handleStyle);
-              return (
-                _react2.default.createElement('div', { style: style }, props.formatter(props.value)));
-            
-            }
+            <CustomHandle
               formatter={[Function]} />
           }
           included={true}
@@ -238,7 +232,6 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
               prefixCls="rc-slider"
               tipFormatter={[Function]}
               tipTransitionName=""
-              tooltipPrefixCls={undefined}
               value={30}
               vertical={false}>
               <div
@@ -281,8 +274,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
     bsStyle="default"
     defaultExpanded={false}>
     <div
-      className="panel panel-default"
-      id={undefined}>
+      className="panel panel-default">
       <div
         className="panel-body">
         <p>
@@ -295,12 +287,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           disabled={false}
           dots={false}
           handle={
-            <function CustomHandle(props) {
-              var style = (0, _assign2.default)({ left: props.offset + '%' }, handleStyle);
-              return (
-                _react2.default.createElement('div', { style: style }, props.formatter(props.value)));
-            
-            }
+            <CustomHandle
               formatter={[Function]} />
           }
           included={true}
@@ -362,7 +349,6 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
               prefixCls="rc-slider"
               tipFormatter={[Function]}
               tipTransitionName=""
-              tooltipPrefixCls={undefined}
               value={25}
               vertical={false}>
               <div
@@ -405,8 +391,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
     bsStyle="default"
     defaultExpanded={false}>
     <div
-      className="panel panel-default"
-      id={undefined}>
+      className="panel panel-default">
       <div
         className="panel-body">
         <p>
@@ -419,12 +404,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           disabled={false}
           dots={false}
           handle={
-            <function CustomHandle(props) {
-              var style = (0, _assign2.default)({ left: props.offset + '%' }, handleStyle);
-              return (
-                _react2.default.createElement('div', { style: style }, props.formatter(props.value)));
-            
-            }
+            <CustomHandle
               formatter={[Function]} />
           }
           included={true}
@@ -486,7 +466,6 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
               prefixCls="rc-slider"
               tipFormatter={[Function]}
               tipTransitionName=""
-              tooltipPrefixCls={undefined}
               value={20}
               vertical={false}>
               <div

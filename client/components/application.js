@@ -12,7 +12,11 @@ export default class Application extends Component {
   }
 
   componentWillMount () {
-    this.props.refreshUserToken()
+    try {
+      this.props.refreshUserToken()
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   render () {
