@@ -55,11 +55,27 @@ const schema = buildSchema(`
 
   type Mutation {
     createOrganization(name: String!): Organization
+    deleteOrganization(name: String!): Organization
     organization(_id: ID!): Organization
+    updateOrganization(name: String! newName: String!): Organization
   }
 `)
 
 const rootValue = {
+  createOrganization (properties, request) {
+    const o = new Organization({
+      owner: request.user || 'Trevor',
+      name: properties.name
+    })
+    return o.save()
+  },
+  deleteOrganization (properties, request) {
+    return Organization
+      .findOne({ name: properties.name })
+      .exec((res) => {
+        return Organization.remove(res).exec()
+      })
+  },
   organization ({find}, request) {
     return Organization.findOne(find).exec()
   },
@@ -68,12 +84,12 @@ const rootValue = {
       .find()
       .exec()
   },
-  createOrganization (properties, request) {
-    const o = new Organization({
-      owner: request.user || 'Trevor',
+  updateOrganization (properties, request) {
+    return Organization.findOneAndUpdate({
       name: properties.name
-    })
-    return o.save()
+    }, {
+      name: properties.newName
+    }).exec()
   }
 }
 

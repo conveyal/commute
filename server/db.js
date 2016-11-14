@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 mongoose.Promise = global.Promise // default is mpromise...ugh
 
-const URI = process.env.MONGODB_URI || 'mongodb://localhost/commute'
+const URI = process.env.MONGODB_URI || `mongodb://localhost/commute${process.env.test ? '-test' : ''}`
 const db = module.exports = mongoose.createConnection(URI)
 
 db.on('connected', () => console.log('Mongoose default connection open to ' + URI))

@@ -1,7 +1,9 @@
-exports[`organization should get organizations 1`] = `
+exports[`organization should add organization 1`] = `
 Object {
   "data": Object {
-    "organizations": Array [],
+    "createOrganization": Object {
+      "name": "test-org",
+    },
   },
 }
 `;

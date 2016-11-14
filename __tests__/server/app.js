@@ -4,10 +4,11 @@ const mongoose = require('mongoose')
 import request from 'supertest-as-promised'
 
 import app from '../../server/app'
+import db from '../../server/db'
 
 describe('app', () => {
   beforeAll((done) => {
-    setTimeout(done, 1000) // wait for mongo connection
+    db.on('connected', done) // wait for mongo connection
   })
   afterAll(() => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
