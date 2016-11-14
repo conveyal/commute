@@ -1,4 +1,4 @@
-import Auth0 from '@conveyal/woonerf/build/lib/auth0'
+import Auth0 from '@conveyal/woonerf/components/auth0-lock'
 import React from 'react'
 import {
   IndexRoute,

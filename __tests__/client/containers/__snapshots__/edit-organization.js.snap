@@ -90,8 +90,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="name"
                     onChange={[Function]}
                     placeholder="Enter name"
-                    type="text"
-                    value={undefined}>
+                    type="text">
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-name">
@@ -129,8 +128,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="main_url"
                     onChange={[Function]}
                     placeholder="Enter url"
-                    type="text"
-                    value={undefined}>
+                    type="text">
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-main_url">
@@ -168,8 +166,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="logo_url"
                     onChange={[Function]}
                     placeholder="Enter logo url"
-                    type="text"
-                    value={undefined}>
+                    type="text">
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-logo_url">
@@ -207,8 +204,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="contact"
                     onChange={[Function]}
                     placeholder="Enter contact"
-                    type="text"
-                    value={undefined}>
+                    type="text">
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-contact">
@@ -246,8 +242,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                     name="email"
                     onChange={[Function]}
                     placeholder="Enter email"
-                    type="text"
-                    value={undefined}>
+                    type="text">
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-email">

@@ -6,7 +6,6 @@ import {messages} from '../utils/env'
 export default class Navigation extends Component {
   static propTypes = {
     // actions
-    login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
 
     // state
@@ -16,9 +15,7 @@ export default class Navigation extends Component {
 
   render () {
     const {
-      login,
       logout,
-      userIsLoggedIn,
       username
     } = this.props
     return (
@@ -31,21 +28,14 @@ export default class Navigation extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            {userIsLoggedIn &&
-              <div>
-                <NavItem eventKey={1}>
-                  {messages.authentication.username + username}
-                </NavItem>
-                <NavItem eventKey={2}>
-                  <Button onClick={logout}>{messages.authentication.logOut}</Button>
-                </NavItem>
-              </div>
-            }
-            {!userIsLoggedIn &&
+            <div>
               <NavItem eventKey={1}>
-                <Button onClick={login}>{messages.authentication.logIn}</Button>
+                {`${messages.authentication.username} ${username}`}
               </NavItem>
-            }
+              <NavItem eventKey={2}>
+                <Button onClick={logout}>{messages.authentication.logOut}</Button>
+              </NavItem>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
