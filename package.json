@@ -4,12 +4,23 @@
   "scripts": {
     "build": "mastarm build client/index.js:assets/index.js client/index.css:assets/index.css",
     "deploy": "mastarm deploy client/index.js:assets/index.js client/index.css:assets/index.css",
-    "cover": "npm test -- --coverage --coverage-paths \"client/**/*.js server/**/*.js\"",
+    "cover": "npm run cover-client && npm run cover-server && npm run merge-coverage",
+    "precover-client": "rm -rf coverage",
+    "cover-client": "npm run test-client -- --coverage --coverage-paths \"client/**/*.js\"",
+    "postcover-client": "mv coverage coverage-client",
+    "precover-client": "rm -rf coverage",
+    "cover-server": "npm run test-server -- --coverage --coverage-paths \"server/**/*.js\"",
+    "postcover-client": "mv coverage coverage-server",
+    "premerge-coverage": "rm -rf coverage && mkdir coverage",
+    "merge-coverage": "./node_modules/.bin/lcov-result-merger \"coverage-*/lcov.info\" \"coverage/lcov.info\"",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "start": "npm-run-all --parallel start:client start:server",
     "start:client": "mastarm build client/index.js:assets/index.js client/index.css:assets/index.css --watch",
     "start:server": "nodemon --watch server server/development.js",
-    "test": "mastarm lint && NODE_ENV=test mastarm test -c ./configurations/test"
+    "test": "npm run test-lint && npm run test-client && npm run test-server",
+    "test-client": "mastarm test -c ./configurations/test -e test __tests__/client",
+    "test-lint": "mastarm lint",
+    "test-server": "mastarm test -e test __tests__/server"
   },
   "repository": {
     "type": "git",
@@ -33,6 +44,7 @@
     "express-graphql": "^0.5.4",
     "express-jwt": "^5.1.0",
     "fs-extra": "^0.30.0",
+    "lcov-result-merger": "^1.2.0",
     "mastarm": "^1.3.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.1",
@@ -40,7 +52,9 @@
     "react-addons-test-utils": "^15.3.2",
     "redux-mock-store": "^1.2.1",
     "rimraf": "^2.5.4",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^4.3.5",
+    "supertest": "^2.0.1",
+    "supertest-as-promised": "^4.0.2"
   },
   "dependencies": {
     "d3-dsv": "^1.0.3",
