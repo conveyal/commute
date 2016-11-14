@@ -1,12 +1,14 @@
 import React, {Component, PropTypes} from 'react'
 
-import Footer from '../components/footer'
+import Footer from './footer'
 import Navigation from '../containers/navigation'
 
 export default class Application extends Component {
   static propTypes = {
     // actions
-    refreshUserToken: PropTypes.func.isRequired
+    refreshUserToken: PropTypes.func.isRequired,
+    // props
+    userIsLoggedIn: PropTypes.bool.isRequired
   }
 
   componentWillMount () {
@@ -14,13 +16,15 @@ export default class Application extends Component {
   }
 
   render () {
-    const {children} = this.props
-    return (
-      <div>
-        <Navigation />
-        {children}
-        <Footer />
-      </div>
-    )
+    const {children, userIsLoggedIn} = this.props
+    return userIsLoggedIn
+      ? (
+        <div>
+          <Navigation />
+          {children}
+          <Footer />
+        </div>
+      )
+      : <div />
   }
 }
