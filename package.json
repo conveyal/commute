@@ -9,7 +9,7 @@
     "start": "npm-run-all --parallel start:client start:server",
     "start:client": "mastarm build --watch",
     "start:server": "nodemon --watch server server/development.js",
-    "test": "mastarm lint && NODE_ENV=test mastarm test -c ./configurations/test"
+    "test": "mastarm lint && mastarm test -c ./configurations/test -e test"
   },
   "repository": {
     "type": "git",
