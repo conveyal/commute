@@ -4,7 +4,7 @@ const jwt = require('express-jwt')
 const path = require('path')
 const html = require('mastarm/react/html')
 
-import makeEndpoints from './routes'
+import {makeRoutes} from './routes'
 
 const SECRET = process.env.AUTH0_SECRET
 
@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')))
 
 // api
-makeEndpoints(app)
+makeRoutes(app)
 
 // webapp
 app.get('*', (req, res) =>
