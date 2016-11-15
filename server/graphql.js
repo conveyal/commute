@@ -11,8 +11,8 @@ const schema = buildSchema(`
   }
 
   type Point {
-    type: String!
-    coordinates: [Float]
+    lat: Float
+    lon: Float
   }
 
   type Commuter {
@@ -32,20 +32,25 @@ const schema = buildSchema(`
     _id: ID!
     owner: String!
     name: String!
-    update(name: String!): Organization
   }
 
   type Site {
     _id: ID!
+    address: String!
     location: Point!
     organization: Organization!
   }
 
-  type SiteAnalysis {
+  type Trip {
+    mostLikely: String
+  }
+
+  type Analysis {
     _id: ID!
     group: Group!
     organization: Organization!
     site: Site!
+    trips: [Trip]
   }
 
   type Query {
@@ -53,11 +58,18 @@ const schema = buildSchema(`
     organizations: [Organization]
   }
 
+  input SiteInput {
+    address: String!
+    location: Point!
+    name: String!
+  }
+
   type Mutation {
     createOrganization(name: String!): Organization
     deleteOrganization(name: String!): Organization
     organization(_id: ID!): Organization
     updateOrganization(name: String! newName: String!): Organization
+    createSite(organizationId: String! site: SiteInput!): Site
   }
 `)
 
@@ -68,6 +80,9 @@ const rootValue = {
       name: properties.name
     })
     return o.save()
+  },
+  createSite (properties, request) {
+    return {}
   },
   deleteOrganization (properties, request) {
     return Organization

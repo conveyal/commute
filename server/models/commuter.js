@@ -1,6 +1,14 @@
 const {Schema} = require('mongoose')
 
 module.exports = new Schema({
-  location: Object, // GeoJSON Point
+  address: String,
+  group: {
+    ref: 'Group',
+    type: Schema.Types.ObjectId
+  },
+  location: {
+    lat: Number,
+    lon: Number
+  },
   name: String
 })

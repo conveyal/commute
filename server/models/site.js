@@ -1,7 +1,11 @@
 const {Schema} = require('mongoose')
 
 module.exports = new Schema({
-  location: Object, // GeoJSON Point
+  address: String,
+  location: {
+    lat: Number,
+    lon: Number
+  },
   name: String,
   organization: {
     ref: 'Organization',

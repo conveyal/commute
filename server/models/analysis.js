@@ -12,5 +12,6 @@ module.exports = new Schema({
   site: {
     ref: 'Site',
     type: Schema.Types.ObjectId
-  }
+  },
+  trips: Array
 })

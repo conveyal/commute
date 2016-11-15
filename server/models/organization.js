@@ -1,15 +1,10 @@
 const {Schema} = require('mongoose')
 
-const Organization = module.exports = new Schema({
+module.exports = new Schema({
   name: String,
-  owner: String
+  owner: String,
+  groups: [{
+    ref: 'Group',
+    type: Schema.Types.ObjectId
+  }]
 })
-
-Organization.methods.update = function (properties) {
-  Object
-    .keys(properties)
-    .forEach((key) => {
-      this[key] = properties[key]
-    })
-  return this.save()
-}
