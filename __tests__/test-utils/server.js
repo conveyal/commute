@@ -64,7 +64,6 @@ export const makeRestEndpointTests = (name, commands, model) => {
 
         // handle response
         const json = parseServerResponse(res)
-        expect(json.name).toBe('test-org')
         const count = await model.count().exec()
         expect(count).toBe(1)
         customAssertions(json, res)
