@@ -1,9 +1,0 @@
-exports[`organization should add organization 1`] = `
-Object {
-  "data": Object {
-    "createOrganization": Object {
-      "name": "test-org",
-    },
-  },
-}
-`;

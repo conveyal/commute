@@ -1,21 +1,28 @@
+const bodyParser = require('body-parser')
 const express = require('express')
-const graphqlHTTP = require('express-graphql')
 const jwt = require('express-jwt')
 const path = require('path')
 const html = require('mastarm/react/html')
 
-const {schema, rootValue} = require('./graphql')
+import makeEndpoints from './routes'
 
 const SECRET = process.env.AUTH0_SECRET
 
 const app = express()
 
+// middleware
 if (SECRET) {
   app.use(jwt({secret: SECRET}))
 }
+app.use(bodyParser.json())
 
+// static assets
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')))
-app.use('/graphql', graphqlHTTP({schema, rootValue, graphiql: true}))
+
+// api
+makeEndpoints(app)
+
+// webapp
 app.get('*', (req, res) =>
   res.status(200).type('html').send(html({title: 'Commute'})))
 

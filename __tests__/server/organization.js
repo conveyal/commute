@@ -7,6 +7,8 @@ import app from '../../server/app'
 import db from '../../server/db'
 import {Organization} from '../../server/models'
 
+import {parseServerResponse} from '../test-utils/server'
+
 describe('organization', () => {
   beforeAll((done) => {
     // start with fresh db
@@ -19,100 +21,55 @@ describe('organization', () => {
 
   it('should find zero organizations in fresh state', () => {
     return request(app)
-      .post('/graphql')
-      .set('Content-Type', 'application/json')
-      .send(JSON.stringify({
-        query: `{
-          organizations{
-            name
-          }
-        }`
-      }))
+      .get('/api/organization')
       .then((res) => {
-        const json = JSON.parse(res.text)
-        expect(json.errors).toBeFalsy()
-        expect(json.data.organizations.length).toBe(0)
+        const json = parseServerResponse(res)
+        expect(json.length).toBe(0)
       })
   })
 
   it('should add organization', () => {
     return request(app)
-      .post('/graphql')
-      .set('Content-Type', 'application/json')
-      .send(JSON.stringify({
-        query: `mutation Mutation {
-          createOrganization(name: "test-org") {
-            name
-          }
-        }`
-      }))
+      .post('/api/organization')
+      .send({ name: 'test-org' })
       .then(async (res) => {
-        const json = JSON.parse(res.text)
-        expect(json.errors).toBeFalsy()
-        expect(json).toMatchSnapshot()
+        const json = parseServerResponse(res)
+        expect(json.name).toBe('test-org')
         const count = await Organization.count().exec()
         expect(count).toBe(1)
       })
   })
 
+  let organizationId
+
   it('should find organization after it was added', () => {
     return request(app)
-      .post('/graphql')
-      .set('Content-Type', 'application/json')
-      .send(JSON.stringify({
-        query: `{
-          organizations{
-            owner,
-            name
-          }
-        }`
-      }))
+      .get('/api/organization')
       .then((res) => {
-        const json = JSON.parse(res.text)
-        expect(json.errors).toBeFalsy()
-        expect(json.data.organizations.length).toBe(1)
-        expect(json.data.organizations[0].name).toBe('test-org')
+        const json = parseServerResponse(res)
+        expect(json.length).toBe(1)
+        expect(json[0].name).toBe('test-org')
+        organizationId = json[0]._id
       })
   })
 
   it('should update organization', () => {
+    const newName = 'New Organization Name'
     return request(app)
-      .post('/graphql')
-      .set('Content-Type', 'application/json')
-      .send(JSON.stringify({
-        query: `mutation Mutation {
-          updateOrganization(
-            name: "test-org"
-            newName: "New Organization Name"
-          ) {
-            name
-          }
-        }`
-      }))
+      .put(`/api/organization/${organizationId}`)
+      .send({ name: newName })
       .then(async (res) => {
-        const json = JSON.parse(res.text)
-        expect(json.errors).toBeFalsy()
-        const org = await Organization.findOne({ name: 'New Organization Name' }).exec()
-        expect(org.name).toBe('New Organization Name')
+        parseServerResponse(res)
+        const org = await Organization.findById(organizationId).exec()
+        expect(org.name).toBe(newName)
       })
   })
 
   it('should delete organization', () => {
     return request(app)
-      .post('/graphql')
-      .set('Content-Type', 'application/json')
-      .send(JSON.stringify({
-        query: `mutation Mutation {
-          deleteOrganization(
-            name: "New Organization Name"
-          ) {
-            name
-          }
-        }`
-      }))
+      .delete(`/api/organization/${organizationId}`)
       .then(async (res) => {
-        const json = JSON.parse(res.text)
-        expect(json.errors).toBeFalsy()
+        parseServerResponse(res)
         const count = await Organization.count().exec()
         expect(count).toBe(0)
       })
