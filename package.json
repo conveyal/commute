@@ -17,6 +17,7 @@
     "start:client": "mastarm build client/index.js:assets/index.js client/index.css:assets/index.css --watch",
     "start:server": "nodemon --watch server server/development.js",
     "test": "npm run test-lint && npm run test-client && npm run test-server",
+    "test-all": "mastarm test -c ./configurations/test -e test",
     "test-client": "mastarm test -c ./configurations/test -e test __tests__/client",
     "test-lint": "mastarm lint",
     "test-server": "mastarm test -e test __tests__/server"
@@ -62,6 +63,7 @@
     "leaflet": "^0.7.7",
     "lodash.isequal": "^4.4.0",
     "lodash.isnumber": "^3.0.3",
+    "lodash.pick": "^4.4.0",
     "lodash.uniqueid": "^4.0.1",
     "lonlng": "^0.2.0",
     "moment": "^2.15.2",

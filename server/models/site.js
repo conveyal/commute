@@ -6,9 +6,13 @@ module.exports = new Schema({
     lat: Number,
     lon: Number
   },
-  name: String,
+  name: {
+    required: true,
+    type: String
+  },
   organization: {
     ref: 'Organization',
+    required: true,
     type: Schema.Types.ObjectId
   }
 })

@@ -1,18 +1,24 @@
 /* globals afterEach, beforeEach, describe, expect, it */
 
 import request from 'supertest-as-promised'
+
 import app from '../../server/app'
 
-const parseServerResponse = (res) => {
+export const parseServerResponse = (res) => {
   let json
   try {
     json = JSON.parse(res.text)
   } catch (e) {
     console.error('Unable to parse server response into JSON')
-    console.log(res.text)
+    console.error(res.text)
     throw e
   }
-  expect(json.errors).toBeFalsy()
+  try {
+    expect(json.error).toBeFalsy()
+  } catch (err) {
+    console.error(json.error)
+    throw err
+  }
   expect(res.status).toBe(200)
   return json
 }
@@ -25,6 +31,8 @@ const requireKeys = (obj, required) => {
   })
 }
 
+export const makeRemoveModelsFn = (model) => async () => await model.remove({}).exec()
+
 /**
  * Make a rest endpoint tests with the specified routes
  *
@@ -33,13 +41,9 @@ const requireKeys = (obj, required) => {
  * @param  {Object} model    The mongo model to use
  */
 export const makeRestEndpointTests = (name, commands, model) => {
-  async function removeAll () {
-    await model.remove({}).exec()
-  }
-
   describe('rest endpoint', () => {
-    beforeEach(removeAll)
-    afterEach(removeAll)
+    beforeEach(makeRemoveModelsFn(model))
+    afterEach(makeRemoveModelsFn(model))
 
     if (commands['Collection GET']) {
       it('should find zero models in fresh state', async () => {
@@ -88,6 +92,27 @@ export const makeRestEndpointTests = (name, commands, model) => {
         const count = await model.count().exec()
         expect(count).toBe(0)
 
+        customAssertions(json, res)
+      })
+    }
+
+    if (commands['GET']) {
+      it('should get model', async () => {
+        const cfg = commands['GET']
+        requireKeys(cfg, ['initData'])
+        const initData = cfg.initData
+
+        // create model
+        const createdModel = await model.create(initData)
+        const modelId = createdModel._id
+        const customAssertions = cfg.customAssertions || (() => 'no-op')
+
+        // make request
+        const res = await request(app).delete(`/api/${name}/${modelId}`)
+
+        // handle response
+        const json = parseServerResponse(res)
+        expect(json._id).toEqual(`${modelId}`)
         customAssertions(json, res)
       })
     }

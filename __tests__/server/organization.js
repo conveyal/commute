@@ -11,22 +11,27 @@ describe('organization', () => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
+  const initOrganizationData = {
+    name: 'test-org'
+  }
+
   makeRestEndpointTests('organization',
     {
       'Collection GET': {},
       'Collection POST': {
-        creationData: {
-          name: 'test-org'
-        },
+        creationData: initOrganizationData,
         customAssertions: (json) => {
           expect(json.name).toBe('test-org')
         }
       },
-      'DELETE': {},
+      'DELETE': {
+        initData: initOrganizationData
+      },
+      'GET': {
+        initData: initOrganizationData
+      },
       'PUT': {
-        initData: {
-          name: 'test-org'
-        },
+        initData: initOrganizationData,
         updateData: {
           name: 'updated name'
         },

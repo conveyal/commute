@@ -4,11 +4,15 @@ module.exports = new Schema({
   address: String,
   group: {
     ref: 'Group',
+    required: true,
     type: Schema.Types.ObjectId
   },
   location: {
     lat: Number,
     lon: Number
   },
-  name: String
+  name: {
+    required: true,
+    type: String
+  }
 })

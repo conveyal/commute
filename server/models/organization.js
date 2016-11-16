@@ -9,7 +9,10 @@ module.exports = new Schema({
     ref: 'Group',
     type: Schema.Types.ObjectId
   }],
-  name: String,
+  name: {
+    required: true,
+    type: String
+  },
   owner: String,
   sites: [{
     ref: 'Site',

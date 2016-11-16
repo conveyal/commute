@@ -17,7 +17,8 @@ describe('site', () => {
       lat: 12,
       lon: 34
     },
-    name: 'test-site'
+    name: 'test-site',
+    organization: mongoose.Types.ObjectId()
   }
 
   makeRestEndpointTests('site',
@@ -29,7 +30,12 @@ describe('site', () => {
           expect(json.name).toBe('test-site')
         }
       },
-      'DELETE': {},
+      'DELETE': {
+        initData: initSiteData
+      },
+      'GET': {
+        initData: initSiteData
+      },
       'PUT': {
         initData: initSiteData,
         updateData: {

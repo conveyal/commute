@@ -40,6 +40,12 @@ export const makeRestEndpoints = (app, name, commands, model) => {
     })
   }
 
+  if (commands['GET']) {
+    app.delete(`/api/${name}/:id`, (req, res) => {
+      model.findById(req.params.id, makeGenericModelResponse(res))
+    })
+  }
+
   if (commands['PUT']) {
     app.put(`/api/${name}/:id`, (req, res) => {
       model.findByIdAndUpdate(req.params.id, req.body, {new: true}, makeGenericModelResponse(res))
