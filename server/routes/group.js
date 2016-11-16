@@ -8,6 +8,7 @@ export default function makeRoutes (app) {
     'group',
     {
       'Collection GET': {},
+      'GET': {},
       'DELETE': {},
       'PUT': {}
     },

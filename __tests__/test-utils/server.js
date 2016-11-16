@@ -108,7 +108,7 @@ export const makeRestEndpointTests = (name, commands, model) => {
         const customAssertions = cfg.customAssertions || (() => 'no-op')
 
         // make request
-        const res = await request(app).delete(`/api/${name}/${modelId}`)
+        const res = await request(app).get(`/api/${name}/${modelId}`)
 
         // handle response
         const json = parseServerResponse(res)

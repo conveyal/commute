@@ -1,9 +1,9 @@
-import {Organization} from '../models'
+import {Commuter} from '../models'
 import {makeRestEndpoints} from './'
 
 export default function makeRoutes (app) {
   makeRestEndpoints(app,
-    'organization',
+    'commuter',
     {
       'Collection GET': {},
       'Collection POST': {},
@@ -11,6 +11,6 @@ export default function makeRoutes (app) {
       'DELETE': {},
       'PUT': {}
     },
-    Organization
+    Commuter
   )
 }

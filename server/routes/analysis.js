@@ -1,16 +1,15 @@
-import {Organization} from '../models'
+import {Analysis} from '../models'
 import {makeRestEndpoints} from './'
 
 export default function makeRoutes (app) {
   makeRestEndpoints(app,
-    'organization',
+    'analysis',
     {
       'Collection GET': {},
       'Collection POST': {},
       'GET': {},
-      'DELETE': {},
-      'PUT': {}
+      'DELETE': {}
     },
-    Organization
+    Analysis
   )
 }

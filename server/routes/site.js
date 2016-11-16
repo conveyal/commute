@@ -7,6 +7,7 @@ export default function makeRoutes (app) {
     {
       'Collection GET': {},
       'Collection POST': {},
+      'GET': {},
       'DELETE': {},
       'PUT': {}
     },
