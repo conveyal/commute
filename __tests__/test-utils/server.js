@@ -1,5 +1,6 @@
 /* globals afterEach, beforeEach, describe, expect, it */
 
+import nock from 'nock'
 import request from 'supertest-as-promised'
 
 import app from '../../server/app'
@@ -31,21 +32,102 @@ const requireKeys = (obj, required) => {
   })
 }
 
+export const prepareGeocodeNock = () => nock(
+  'https://search.mapzen.com/'
+)
+  .get(/v1\/search/)
+  .reply(200, JSON.stringify({
+    'geocoding': {
+      'version': '0.2',
+      'attribution': 'https://search.mapzen.com/v1/attribution',
+      'query': {
+        'text': 'takoma',
+        'size': 10,
+        'sources': [
+          'geonames',
+          'openaddresses',
+          'openstreetmap',
+          'whosonfirst'
+        ],
+        'private': false,
+        'boundary.circle.radius': 25,
+        'boundary.circle.lat': 38.8886,
+        'boundary.circle.lon': -77.043,
+        'querySize': 20
+      },
+      'engine': {
+        'name': 'Pelias',
+        'author': 'Mapzen',
+        'version': '1.0'
+      },
+      'timestamp': 1479272483487
+    },
+    'type': 'FeatureCollection',
+    'features': [
+      {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [
+            -77.023104,
+            38.976745
+          ]
+        },
+        'properties': {
+          'id': '85851759',
+          'gid': 'whosonfirst:neighbourhood:85851759',
+          'layer': 'neighbourhood',
+          'source': 'whosonfirst',
+          'source_id': '85851759',
+          'name': 'Takoma',
+          'confidence': 0.965,
+          'accuracy': 'centroid',
+          'country': 'United States',
+          'country_gid': 'whosonfirst:country:85633793',
+          'country_a': 'USA',
+          'region': 'Maryland',
+          'region_gid': 'whosonfirst:region:85688501',
+          'region_a': 'MD',
+          'county': 'Montgomery County',
+          'county_gid': 'whosonfirst:county:102082719',
+          'locality': 'Takoma Park',
+          'locality_gid': 'whosonfirst:locality:85949501',
+          'neighbourhood': 'Takoma',
+          'neighbourhood_gid': 'whosonfirst:neighbourhood:85851759',
+          'label': 'Takoma, Takoma Park, MD, USA'
+        },
+        'bbox': [
+          -77.017242,
+          38.973896,
+          -77.012062,
+          38.980594
+        ]
+      }
+    ],
+    'bbox': [
+      -77.017897,
+      38.904,
+      -76.978642,
+      39.001084
+    ]
+  }))
+
 export const makeRemoveModelsFn = (model) => async () => await model.remove({}).exec()
 
 /**
  * Make a rest endpoint tests with the specified routes
  *
- * @param  {String} name     The endpoint name
- * @param  {Object} commands Keys representing commands to make and their corresponding options
- * @param  {Object} model    The mongo model to use
+ * @param  {String} name      The endpoint name
+ * @param  {Object} endpoints Keys representing endpoints to make and their corresponding options
+ * @param  {Object} model     The mongo model to use
  */
-export const makeRestEndpointTests = (name, commands, model) => {
+export const makeRestEndpointTests = (name, endpoints, model, opts) => {
+  opts = opts || {}
   describe('rest endpoint', () => {
     beforeEach(makeRemoveModelsFn(model))
     afterEach(makeRemoveModelsFn(model))
 
-    if (commands['Collection GET']) {
+    if (endpoints['Collection GET']) {
       it('should find zero models in fresh state', async () => {
         // make request
         const res = await request(app).get(`/api/${name}`)
@@ -56,11 +138,13 @@ export const makeRestEndpointTests = (name, commands, model) => {
       })
     }
 
-    if (commands['Collection POST']) {
-      const cfg = commands['Collection POST']
+    if (endpoints['Collection POST']) {
+      const cfg = endpoints['Collection POST']
       const creationData = cfg.creationData || {}
       const customAssertions = cfg.customAssertions || (() => 'no-op')
       it('should add model', async () => {
+        if (opts.geocodePlugin) prepareGeocodeNock()
+
         // make request
         const res = await request(app)
           .post(`/api/${name}`)
@@ -74,10 +158,11 @@ export const makeRestEndpointTests = (name, commands, model) => {
       })
     }
 
-    if (commands['DELETE']) {
+    if (endpoints['DELETE']) {
       it('should delete model', async () => {
-        const cfg = commands['DELETE']
+        const cfg = endpoints['DELETE']
         const initData = cfg.initData || {}
+        if (opts.geocodePlugin) prepareGeocodeNock()
 
         // create model
         const createdModel = await model.create(initData)
@@ -96,11 +181,12 @@ export const makeRestEndpointTests = (name, commands, model) => {
       })
     }
 
-    if (commands['GET']) {
+    if (endpoints['GET']) {
       it('should get model', async () => {
-        const cfg = commands['GET']
+        const cfg = endpoints['GET']
         requireKeys(cfg, ['initData'])
         const initData = cfg.initData
+        if (opts.geocodePlugin) prepareGeocodeNock()
 
         // create model
         const createdModel = await model.create(initData)
@@ -117,11 +203,12 @@ export const makeRestEndpointTests = (name, commands, model) => {
       })
     }
 
-    if (commands['PUT']) {
+    if (endpoints['PUT']) {
       it('should update model', async () => {
-        const cfg = commands['PUT']
+        const cfg = endpoints['PUT']
         requireKeys(cfg, ['customAssertions', 'initData', 'updateData'])
         const {customAssertions, initData, updateData} = cfg
+        if (opts.geocodePlugin) prepareGeocodeNock()
 
         // create model
         const createdModel = await model.create(initData)

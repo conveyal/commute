@@ -47,6 +47,9 @@ describe('site', () => {
         }
       }
     },
-    Site
+    Site,
+    {
+      geocodePlugin: true
+    }
   )
 })

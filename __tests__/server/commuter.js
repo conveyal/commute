@@ -37,16 +37,19 @@ describe('commuter', () => {
         initData: initCommuterData
       },
       'PUT': {
-        initData: initCommuterData,
-        updateData: {
-          name: 'updated name'
-        },
         customAssertions: (modelData, json) => {
           expect(modelData.name).toBe('updated name')
           expect(json.name).toBe('updated name')
+        },
+        initData: initCommuterData,
+        updateData: {
+          name: 'updated name'
         }
       }
     },
-    Commuter
+    Commuter,
+    {
+      geocodePlugin: true
+    }
   )
 })

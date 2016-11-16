@@ -6,7 +6,7 @@ import request from 'supertest-as-promised'
 import app from '../../server/app'
 import {Commuter, Group} from '../../server/models'
 
-import {makeRestEndpointTests, parseServerResponse} from '../test-utils/server'
+import {makeRestEndpointTests, parseServerResponse, prepareGeocodeNock} from '../test-utils/server'
 
 describe('group', () => {
   afterAll(() => {
@@ -54,6 +54,8 @@ describe('group', () => {
     afterEach(removeFn)
 
     it('should process Collection POST request', async () => {
+      prepareGeocodeNock()
+
       // make request
       const res = await request(app)
         .post(`/api/group`)

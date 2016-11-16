@@ -21,10 +21,10 @@ export default function makeRoutes (app) {
     Group.create(pick(req.body, ['name', 'organization']))
       .then((group) => {
         if (req.body.commuters && req.body.commuters.length > 0) {
-          const commuters = req.body.commuters.map((commuter) => {
-            return Object.assign(commuter, { group: group._id })
-          })
-          Commuter.insertMany(commuters)
+          // insert commuters one-by-one to trigger pre-save hook
+          Promise.all(req.body.commuters.map((commuter) => {
+            return Commuter.create(Object.assign(commuter, { group: group._id }))
+          }))
             .then((data) => {
               res.json(group)
             })

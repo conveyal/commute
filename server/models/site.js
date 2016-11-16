@@ -1,6 +1,8 @@
-const {Schema} = require('mongoose')
+import {Schema} from 'mongoose'
 
-module.exports = new Schema({
+import geocodingPlugin from './plugins/geocode'
+
+const schema = new Schema({
   address: String,
   location: {
     lat: Number,
@@ -16,3 +18,7 @@ module.exports = new Schema({
     type: Schema.Types.ObjectId
   }
 })
+
+schema.plugin(geocodingPlugin)
+
+export default schema

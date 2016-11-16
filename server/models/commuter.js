@@ -1,6 +1,8 @@
-const {Schema} = require('mongoose')
+import {Schema} from 'mongoose'
 
-module.exports = new Schema({
+import geocodingPlugin from './plugins/geocode'
+
+const schema = new Schema({
   address: String,
   group: {
     ref: 'Group',
@@ -16,3 +18,7 @@ module.exports = new Schema({
     type: String
   }
 })
+
+schema.plugin(geocodingPlugin)
+
+export default schema
