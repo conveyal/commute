@@ -1,0 +1,60 @@
+exports[`actions > agency create agency should work 1`] = `
+Object {
+  "payload": Object {
+    "name": "mockAgency",
+  },
+  "type": "add agency",
+}
+`;
+
+exports[`actions > agency create agency should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/agency/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > agency delete agency should work 1`] = `
+Array [
+  Object {
+    "payload": "1",
+    "type": "delete agency",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`actions > agency update agency should work 1`] = `
+Object {
+  "payload": Object {
+    "id": "agency-id",
+    "name": "New name",
+  },
+  "type": "set agency",
+}
+`;
+
+exports[`actions > agency update agency should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/agency/agency-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

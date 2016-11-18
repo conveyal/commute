@@ -54,10 +54,6 @@ export function expectCreateCommuter (actions) {
   expect(actions[1]).toMatchSnapshot()
 }
 
-export function expectCreateGroup (actions) {
-  expectCreateAction(actions, 'group')
-}
-
 export function expectCreateSite (actions) {
   // expect 2 actions
   // - add site
@@ -72,42 +68,48 @@ export function expectCreateSite (actions) {
   expect(actions[1]).toMatchSnapshot()
 }
 
+function expectDeleteAction (actions) {
+  expect(actions.length).toBeGreaterThan(0)
+  expect(actions).toMatchSnapshot()
+}
+
+export function expectDeleteAgency (actions) {
+  // Then the agency should be deleted from the database
+  // And the agency should be removed from the list of agencies
+  expectDeleteAction(actions)
+}
+
 export function expectDeleteAnalysis (actions) {
   // Then the analysis should be deleted from the database
   // And the analysis should be removed from the respective organization on the website
-  expect(actions.length).toBeGreaterThan(0)
-  expect(actions).toMatchSnapshot()
+  expectDeleteAction(actions)
 }
 
 export function expectDeleteCommuter (actions) {
   // Then the analysis should be deleted from the database
   // And the analysis should be removed from the respective organization on the website
-  expect(actions.length).toBeGreaterThan(0)
-  expect(actions).toMatchSnapshot()
+  expectDeleteAction(actions)
 }
 
 export function expectDeleteGroup (actions) {
   // Then the commuter group and all associated analyses should be deleted from the database
   // And the commuter group and all associated analyses should be removed
   // from the respective organization on the website
-  expect(actions.length).toBeGreaterThan(0)
-  expect(actions).toMatchSnapshot()
+  expectDeleteAction(actions)
 }
 
 export function expectDeleteOrganization (actions) {
   // Then the organization and all associated sites, groups and analyses
   // should be deleted from the database
   // And the organization should be removed from the list of organizations
-  expect(actions.length).toBeGreaterThan(0)
-  expect(actions).toMatchSnapshot()
+  expectDeleteAction(actions)
 }
 
 export function expectDeleteSite (actions) {
   // Then the site and all associated analyses should be deleted from the database
   // And the site and all associated analyses should be removed from the
   // respective organization on the website
-  expect(actions.length).toBeGreaterThan(0)
-  expect(actions).toMatchSnapshot()
+  expectDeleteAction(actions)
 }
 
 function expectNavigateToNewEntity (action, newEntityId) {
@@ -133,4 +135,12 @@ export function expectUpdateAction (actions) {
   // react-router
   const navigate = actions[1]
   expect(navigate).toMatchSnapshot()
+}
+
+export function expectUpdateGroup (actions) {
+  expect(actions.length).toBe(1)
+
+  // handle update
+  const update = actions[0]
+  expect(update).toMatchSnapshot()
 }

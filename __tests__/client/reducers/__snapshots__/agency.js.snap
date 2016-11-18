@@ -1,0 +1,45 @@
+exports[`client > reducers > agency generic reducer tests should handle add agency 1`] = `
+Object {
+  "agency-1": Object {
+    "id": "agency-1",
+    "name": "Mock Agency",
+    "organizations": Array [],
+  },
+}
+`;
+
+exports[`client > reducers > agency generic reducer tests should handle delete agency 1`] = `Object {}`;
+
+exports[`client > reducers > agency generic reducer tests should handle set agencies 1`] = `
+Object {
+  "agency-1": Object {
+    "id": "agency-1",
+    "name": "Mock Agency",
+    "organizations": Array [],
+  },
+  "agency-2": Object {
+    "id": "agency-2",
+    "name": "Mock Agency",
+    "organizations": Array [
+      "organization-2",
+    ],
+  },
+}
+`;
+
+exports[`client > reducers > agency generic reducer tests should handle set agency 1`] = `
+Object {
+  "agency-1": Object {
+    "id": "agency-1",
+    "name": "Mock Agency",
+    "organizations": Array [],
+  },
+  "agency-2": Object {
+    "id": "agency-2",
+    "name": "Mock Agency",
+    "organizations": Array [
+      "organization-2",
+    ],
+  },
+}
+`;

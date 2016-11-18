@@ -1,7 +1,7 @@
 exports[`actions > site create site should work 1`] = `
 Object {
   "payload": Object {
-    "organizationId": "1",
+    "organizationId": "organization-id",
     "site": Object {
       "name": "mockSite",
     },
@@ -14,7 +14,7 @@ exports[`actions > site create site should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/1",
+      "/organizations/organization-id",
     ],
     "method": "push",
   },
@@ -25,16 +25,13 @@ Object {
 exports[`actions > site delete site should work 1`] = `
 Array [
   Object {
-    "payload": Object {
-      "organizationId": "1",
-      "siteId": "1",
-    },
+    "payload": "site-id",
     "type": "delete site",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/1",
+        "/organizations/organization-id",
       ],
       "method": "push",
     },
@@ -46,10 +43,8 @@ Array [
 exports[`actions > site update site should work 1`] = `
 Object {
   "payload": Object {
-    "organizationId": "1",
-    "site": Object {
-      "name": "mockSite",
-    },
+    "id": "site-id",
+    "name": "New Name",
   },
   "type": "update site",
 }
@@ -59,7 +54,7 @@ exports[`actions > site update site should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/1",
+      "/organizations/organization-id",
     ],
     "method": "push",
   },

@@ -1,11 +1,8 @@
 exports[`actions > group create group should work 1`] = `
 Object {
   "payload": Object {
-    "group": Object {
-      "allAddressesGeocoded": false,
-      "name": "Mock Group",
-    },
-    "organizationId": "1",
+    "allAddressesGeocoded": false,
+    "name": "Mock Group",
   },
   "type": "add group",
 }
@@ -15,7 +12,7 @@ exports[`actions > group create group should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/1/groups/new-entity-id",
+      "/group/new-entity-id",
     ],
     "method": "push",
   },
@@ -26,20 +23,27 @@ Object {
 exports[`actions > group delete group should work 1`] = `
 Array [
   Object {
-    "payload": Object {
-      "groupId": "1",
-      "organizationId": "1",
-    },
+    "payload": "group-id",
     "type": "delete group",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/1",
+        "/organizations/organization-id",
       ],
       "method": "push",
     },
     "type": "@@router/CALL_HISTORY_METHOD",
   },
 ]
+`;
+
+exports[`actions > group update group should work 1`] = `
+Object {
+  "payload": Object {
+    "id": "group-id",
+    "name": "New Name",
+  },
+  "type": "update group",
+}
 `;

@@ -108,17 +108,17 @@ export default class Summary extends Component {
           </Col>
           <Col xs={12}>
             <p>
-              <Link to={`/organizations/${organizationId}/analysis/${id}/histogram`}>
+              <Link to={`/analysis/${id}/histogram`}>
                 Commute Metrics Histogram
               </Link>
             </p>
             <p>
-              <Link to={`/organizations/${organizationId}/analysis/${id}/possibilities`}>
+              <Link to={`/analysis/${id}/possibilities`}>
                 Possibilities Analysis
               </Link>
             </p>
             <p>
-              <Link to={`/organizations/${organizationId}/analysis/${id}/individuals`}>
+              <Link to={`/analysis/${id}/individuals`}>
                 Individual Commuter Analysis
               </Link>
             </p>

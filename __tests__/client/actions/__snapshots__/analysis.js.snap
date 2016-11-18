@@ -2,11 +2,11 @@ exports[`actions > analysis create analysis should work 1`] = `
 Object {
   "payload": Object {
     "analysis": Object {
-      "groupId": "1",
+      "groupId": "group-id",
       "name": "Mock Analysis",
-      "siteId": "1",
+      "siteId": "site-id",
     },
-    "organizationId": "1",
+    "organizationId": "organization-id",
   },
   "type": "add analysis",
 }
@@ -16,7 +16,7 @@ exports[`actions > analysis create analysis should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/1/analysis/new-entity-id",
+      "/analysis/new-entity-id",
     ],
     "method": "push",
   },
@@ -27,16 +27,13 @@ Object {
 exports[`actions > analysis delete analysis should work 1`] = `
 Array [
   Object {
-    "payload": Object {
-      "analysisId": "1",
-      "organizationId": "1",
-    },
+    "payload": "site-id",
     "type": "delete analysis",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/1",
+        "/organizations/organization-id",
       ],
       "method": "push",
     },

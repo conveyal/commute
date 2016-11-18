@@ -1,7 +1,7 @@
 /* global describe, expect, it */
 
 import {expectCreateAction, expectDeleteOrganization} from '../../test-utils/actions'
-import {simpleOrganization} from '../../test-utils/mock-data'
+import {blankOrganization} from '../../test-utils/mock-data'
 
 import * as organization from '../../../client/actions/organization'
 
@@ -16,14 +16,14 @@ describe('actions > organization', () => {
   })
 
   it('update organization should work', () => {
-    const result = organization.updateOrganization(simpleOrganization)
+    const result = organization.updateOrganization(blankOrganization)
 
     expect(result.length).toBe(2)
     expect(result).toMatchSnapshot()
   })
 
   it('delete organization should work', () => {
-    const result = organization.deleteOrganization('1')
+    const result = organization.deleteOrganization('agencyId', 'organization-id')
 
     expectDeleteOrganization(result)
   })

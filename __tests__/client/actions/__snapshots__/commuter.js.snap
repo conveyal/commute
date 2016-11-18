@@ -1,0 +1,63 @@
+exports[`actions > commuter create commuter should work 1`] = `
+Object {
+  "payload": Object {
+    "commuter": Object {
+      "name": "mockCommuter",
+    },
+    "groupId": "group-id",
+  },
+  "type": "add commuter",
+}
+`;
+
+exports[`actions > commuter create commuter should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/group-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > commuter delete commuter should work 1`] = `
+Array [
+  Object {
+    "payload": "commuter-id",
+    "type": "delete commuter",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/group/group-id",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
+`;
+
+exports[`actions > commuter update commuter should work 1`] = `
+Object {
+  "payload": Object {
+    "id": "commuter-id",
+    "name": "mockCommuter",
+  },
+  "type": "update commuter",
+}
+`;
+
+exports[`actions > commuter update commuter should work 2`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/undefined",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

@@ -114,7 +114,7 @@ export default class Possibilities extends Component {
             <h3>
               <span>{name}</span>
               <Button className='pull-right'>
-                <Link to={`/organizations/${organizationId}/analysis/${id}`}>
+                <Link to={`/analysis/${id}`}>
                   <Icon type='arrow-left' />
                   <span>Back</span>
                 </Link>

@@ -1,0 +1,69 @@
+exports[`client > reducers > commuter generic reducer tests should handle add commuter 1`] = `
+Object {
+  "commuter-2": Object {
+    "address": "4321 XYZ Boulevard",
+    "email": "luke@warm.cold",
+    "id": "commuter-2",
+    "lat": 38.916089,
+    "lng": -76.970221,
+    "name": "Luke Warm",
+  },
+}
+`;
+
+exports[`client > reducers > commuter generic reducer tests should handle delete commuter 1`] = `Object {}`;
+
+exports[`client > reducers > commuter generic reducer tests should handle set commuter 1`] = `
+Object {
+  "commuter-2": Object {
+    "address": "4321 XYZ Boulevard",
+    "email": "luke@warm.cold",
+    "id": "commuter-2",
+    "lat": 38.916089,
+    "lng": -76.970221,
+    "name": "Luke Warm",
+  },
+  "commuter-3": Object {
+    "address": "9876 ABC Ct",
+    "email": "sal@a.mander",
+    "id": "commuter-3",
+    "lat": 38.915,
+    "lng": -76.971,
+    "name": "Sal A. Mander",
+  },
+}
+`;
+
+exports[`client > reducers > commuter generic reducer tests should handle set commuters 1`] = `
+Object {
+  "commuter-2": Object {
+    "address": "4321 XYZ Boulevard",
+    "email": "luke@warm.cold",
+    "id": "commuter-2",
+    "lat": 38.916089,
+    "lng": -76.970221,
+    "name": "Luke Warm",
+  },
+}
+`;
+
+exports[`client > reducers > commuter should handle append commuters 1`] = `
+Object {
+  "commuter-2": Object {
+    "address": "4321 XYZ Boulevard",
+    "email": "luke@warm.cold",
+    "id": "commuter-2",
+    "lat": 38.916089,
+    "lng": -76.970221,
+    "name": "Luke Warm",
+  },
+  "commuter-3": Object {
+    "address": "9876 ABC Ct",
+    "email": "sal@a.mander",
+    "id": "commuter-3",
+    "lat": 38.915,
+    "lng": -76.971,
+    "name": "Sal A. Mander",
+  },
+}
+`;

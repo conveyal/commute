@@ -4,18 +4,18 @@ import uuid from 'uuid'
 
 const addGroup = createAction('add group')
 const appendCommuters = createAction('append commuters')
-export const appendToGroup = (newCommuters, groupId, organizationId) => {
+export const appendToGroup = (newCommuters, groupId) => {
   return [
-    appendCommuters({ commuters: newCommuters, groupId, organizationId }),
-    push(`/organizations/${organizationId}/groups/${groupId}`)
+    appendCommuters({ commuters: newCommuters, groupId }),
+    push(`/group/${groupId}`)
   ] // TODO save to server
 }
-export const createGroup = (newGroup, organizationId) => {
+export const createGroup = (newGroup) => {
   newGroup.id = uuid.v4()
   newGroup.allAddressesGeocoded = false
   return [
-    addGroup({ group: newGroup, organizationId }),
-    push(`/organizations/${organizationId}/groups/${newGroup.id}`)
+    addGroup(newGroup),
+    push(`/group/${newGroup.id}`)
   ] // TODO save to server
 }
 
@@ -28,6 +28,18 @@ const deleteLocally = createAction('delete group')
     }
   }) */ // TODO delete on server
 export const deleteGroup = (id, organizationId) => [
-  deleteLocally({ groupId: id, organizationId }),
+  deleteLocally(id),
   push(`/organizations/${organizationId}`)
+]
+
+const updateLocally = createAction('update group')
+/* const updateOnServer = (id) =>
+  serverAction({
+    url: `/api/group/${id}`,
+    options: {
+      method: 'update'
+    }
+  }) */ // TODO update on server
+export const updateGroup = (group) => [
+  updateLocally(group)
 ]

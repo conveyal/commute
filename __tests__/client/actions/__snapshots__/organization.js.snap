@@ -1,13 +1,7 @@
 exports[`actions > organization create organization should work 1`] = `
 Object {
   "payload": Object {
-    "analyses": Array [],
-    "analysesById": Object {},
-    "groups": Array [],
-    "groupsById": Object {},
     "name": "mockOrg",
-    "sites": Array [],
-    "sitesById": Object {},
   },
   "type": "add organization",
 }
@@ -28,13 +22,13 @@ Object {
 exports[`actions > organization delete organization should work 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": "organization-id",
     "type": "delete organization",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/",
+        "/agency/agencyId",
       ],
       "method": "push",
     },
@@ -48,24 +42,21 @@ Array [
   Object {
     "payload": Object {
       "analyses": Array [],
-      "analysesById": Object {},
       "contact": "someone",
       "email": "abc@def.ghi",
       "groups": Array [],
-      "groupsById": Object {},
-      "id": "1",
+      "id": "organization-1",
       "logo_url": "https://placekitten.com/80/80",
       "main_url": "https://placekitten.com/",
       "name": "Mock Organization",
       "sites": Array [],
-      "sitesById": Object {},
     },
     "type": "set organization",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/1",
+        "/organizations/organization-1",
       ],
       "method": "push",
     },

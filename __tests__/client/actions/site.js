@@ -8,22 +8,23 @@ describe('actions > site', () => {
     const data = {
       name: 'mockSite'
     }
-    const actions = site.createSite(data, '1')
+    const actions = site.createSite(data, 'organization-id')
 
     expectCreateSite(actions)
   })
 
   it('update site should work', () => {
     const data = {
-      name: 'mockSite'
+      id: 'site-id',
+      name: 'New Name'
     }
-    const actions = site.updateSite(data, '1')
+    const actions = site.updateSite('organization-id', data)
 
     expectUpdateAction(actions)
   })
 
   it('delete site should work', () => {
-    const result = site.deleteSite('1', '1')
+    const result = site.deleteSite('site-id', 'organization-id')
 
     expectDeleteSite(result)
   })

@@ -3,6 +3,8 @@
 import nock from 'nock'
 import request from 'supertest-as-promised'
 
+import {requireKeys} from './common'
+
 import app from '../../server/app'
 
 export const parseServerResponse = (res) => {
@@ -22,14 +24,6 @@ export const parseServerResponse = (res) => {
   }
   expect(res.status).toBe(200)
   return json
-}
-
-const requireKeys = (obj, required) => {
-  required.forEach((k) => {
-    if (!obj[k]) {
-      throw new Error(`${k} is required for this test`)
-    }
-  })
 }
 
 export const prepareGeocodeNock = () => nock(

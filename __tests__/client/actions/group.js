@@ -1,6 +1,6 @@
 /* global describe, it */
 
-import {expectCreateGroup, expectDeleteGroup} from '../../test-utils/actions'
+import {expectCreateAction, expectDeleteGroup, expectUpdateGroup} from '../../test-utils/actions'
 
 import * as group from '../../../client/actions/group'
 
@@ -9,14 +9,24 @@ describe('actions > group', () => {
     const data = {
       name: 'Mock Group'
     }
-    const result = group.createGroup(data, '1')
+    const result = group.createGroup(data, 'organization-id')
 
-    expectCreateGroup(result)
+    expectCreateAction(result)
   })
 
   it('delete group should work', () => {
-    const result = group.deleteGroup('1', '1')
+    const result = group.deleteGroup('group-id', 'organization-id')
 
     expectDeleteGroup(result)
+  })
+
+  it('update group should work', () => {
+    const data = {
+      id: 'group-id',
+      name: 'New Name'
+    }
+    const actions = group.updateGroup(data)
+
+    expectUpdateGroup(actions)
   })
 })

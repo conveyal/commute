@@ -29,7 +29,7 @@ export default class CommuterGroup extends Component {
     const onClick = () => actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/organizations/${organizationId}/groups/${groupId}/commuters/${row.id}/edit`}>Edit</Link>
+        <Link to={`/commuters/${row.id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>

@@ -1,0 +1,40 @@
+exports[`client > reducers > site generic reducer tests should handle add site 1`] = `
+Object {
+  "site-2": Object {
+    "address": "123 ABC St",
+    "id": "site-2",
+    "lat": 38.8886,
+    "lng": -77.043,
+    "name": "Acme Corp",
+    "radius": 1,
+  },
+}
+`;
+
+exports[`client > reducers > site generic reducer tests should handle delete site 1`] = `Object {}`;
+
+exports[`client > reducers > site generic reducer tests should handle set site 1`] = `
+Object {
+  "site-2": Object {
+    "address": "123 ABC St",
+    "id": "site-2",
+    "lat": 38.8886,
+    "lng": -77.043,
+    "name": "Acme Corp",
+    "radius": 1,
+  },
+}
+`;
+
+exports[`client > reducers > site generic reducer tests should handle set sites 1`] = `
+Object {
+  "site-2": Object {
+    "address": "123 ABC St",
+    "id": "site-2",
+    "lat": 38.8886,
+    "lng": -77.043,
+    "name": "Acme Corp",
+    "radius": 1,
+  },
+}
+`;

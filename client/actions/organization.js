@@ -5,12 +5,6 @@ import uuid from 'uuid'
 const addLocally = createAction('add organization')
 export const createOrganization = (newOrganization) => {
   newOrganization.id = uuid.v4()
-  newOrganization.analyses = []
-  newOrganization.analysesById = {}
-  newOrganization.sites = []
-  newOrganization.sitesById = {}
-  newOrganization.groups = []
-  newOrganization.groupsById = {}
   return [
     addLocally(newOrganization),
     push(`/organizations/${newOrganization.id}`)
@@ -25,7 +19,10 @@ const deleteLocally = createAction('delete organization')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteOrganization = (id) => [deleteLocally(id), push('/')]
+export const deleteOrganization = (agencyId, id) => [
+  deleteLocally(id),
+  push(`/agency/${agencyId}`)
+]
 
 export const updateOrganization = (organization) => [
   setLocally(organization),

@@ -20,7 +20,7 @@ const deleteLocally = createAction('delete site')
     }
   }) */ // TODO delete on server
 export const deleteSite = (id, organizationId) => [
-  deleteLocally({ siteId: id, organizationId }),
+  deleteLocally(id),
   push(`/organizations/${organizationId}`)
 ]
 
@@ -32,7 +32,7 @@ const updateLocally = createAction('update site')
       method: 'update'
     }
   }) */ // TODO update on server
-export const updateSite = (site, organizationId) => [
-  updateLocally({ organizationId, site }),
+export const updateSite = (organizationId, site) => [
+  updateLocally(site),
   push(`/organizations/${organizationId}`)
 ]

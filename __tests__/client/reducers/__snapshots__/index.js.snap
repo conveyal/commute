@@ -1,9 +1,11 @@
 exports[`reducers > root should have default state 1`] = `
 Object {
-  "organization": Object {
-    "organizations": Array [],
-    "organizationsById": Object {},
-  },
+  "agency": Object {},
+  "analysis": Object {},
+  "commuter": Object {},
+  "group": Object {},
+  "organization": Object {},
+  "site": Object {},
   "user": Object {},
 }
 `;

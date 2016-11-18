@@ -11,7 +11,7 @@ export const createAnalysis = (newAnalysis, organizationId) => {
   delete newAnalysis.commuters
   return [
     addAnalysis({ analysis: newAnalysis, organizationId }),
-    push(`/organizations/${organizationId}/analysis/${newAnalysis.id}`),
+    push(`/analysis/${newAnalysis.id}`),
     makeMockTrips(newAnalysis.id, organizationId, commuters)
   ] // TODO save to server
 }
@@ -25,7 +25,7 @@ const deleteLocally = createAction('delete analysis')
     }
   }) */ // TODO delete on server
 export const deleteAnalysis = (id, organizationId) => [
-  deleteLocally({ analysisId: id, organizationId }),
+  deleteLocally(id),
   push(`/organizations/${organizationId}`)
 ]
 

@@ -5,11 +5,33 @@ import promise from 'redux-promise'
 // mock store
 export const makeMockStore = configureStore([multi, promise])
 
+// mock agencies
+export const blankAgency = {
+  id: 'agency-1',
+  name: 'Mock Agency',
+  organizations: []
+}
+
+export const agencyWithAnOrganization = {
+  id: 'agency-2',
+  name: 'Mock Agency',
+  organizations: ['organization-2']
+}
+
 // mock entities
+export const commuterSal = {
+  address: '9876 ABC Ct',
+  email: 'sal@a.mander',
+  id: 'commuter-3',
+  lat: 38.915,
+  lng: -76.971,
+  name: 'Sal A. Mander'
+}
+
 export const mockCommuter = {
   address: '4321 XYZ Boulevard',
   email: 'luke@warm.cold',
-  id: '1',
+  id: 'commuter-2',
   lat: 38.916089,
   lng: -76.970221,
   name: 'Luke Warm'
@@ -17,14 +39,13 @@ export const mockCommuter = {
 
 export const mockGroup = {
   allAddressesGeocoded: true,
-  id: '1',
+  id: 'group-2',
   name: 'Mock Group',
-  commuters: [mockCommuter],
-  commutersById: { '1': mockCommuter }
+  commuters: ['commuter-2']
 }
 
 export const mockSite = {
-  id: '1',
+  id: 'site-2',
   name: 'Acme Corp',
   address: '123 ABC St',
   lat: 38.8886,
@@ -45,7 +66,7 @@ export const mockTrip = {
     time: 1234,
     polygon: 'encoded'
   },
-  commuterId: '1',
+  commuterId: 'commuter-2',
   mostLikely: {
     cost: 3.45,
     distance: 30,
@@ -68,11 +89,11 @@ export const mockTrip = {
 }
 
 export const mockAnalysis = {
-  id: '1',
-  groupId: '1',
+  id: 'analysis-2',
+  groupId: 'group-2',
   lastRunDateTime: 1477697490,
   name: 'An Analysis',
-  siteId: '1',
+  siteId: 'site-2',
   summary: {
     avgTravelTime: 1234,
     avgDistance: 12.34,
@@ -107,64 +128,82 @@ export const mockAnalysis = {
 }
 
 // mock organizations
-export const complexOrganization = {
-  analyses: [mockAnalysis],
-  analysesById: { '1': mockAnalysis },
-  id: '2',
-  contact: 'someone',
-  email: 'abc@def.ghi',
-  groups: [mockGroup],
-  groupsById: { '1': mockGroup },
-  logo_url: 'https://placekitten.com/80/80',
-  main_url: 'https://placekitten.com/',
-  name: 'Mock Organization',
-  sites: [mockSite],
-  sitesById: { '1': mockSite }
-}
-
-export const simpleOrganization = {
+export const blankOrganization = {
   analyses: [],
-  analysesById: {},
-  id: '1',
+  id: 'organization-1',
   contact: 'someone',
   email: 'abc@def.ghi',
   groups: [],
-  groupsById: {},
   logo_url: 'https://placekitten.com/80/80',
   main_url: 'https://placekitten.com/',
   name: 'Mock Organization',
-  sites: [],
-  sitesById: {}
+  sites: []
+}
+
+export const organizationWithAnAnalysis = {
+  analyses: ['analysis-2'],
+  id: 'organization-2',
+  contact: 'someone',
+  email: 'abc@def.ghi',
+  groups: ['group-2'],
+  logo_url: 'https://placekitten.com/80/80',
+  main_url: 'https://placekitten.com/',
+  name: 'Mock Organization',
+  sites: ['site-2']
 }
 
 // mock stores
 export const mockStores = {
   init: {
-    user: {},
-    organization: {
-      organizations: [],
-      organizationsById: {}
-    }
+    agency: {},
+    analysis: {},
+    commuter: {},
+    group: {},
+    organization: {},
+    site: {},
+    user: {}
   },
-  oneSimpleOrganization: {
-    user: {},
+  withAnalysisRun: {
+    agency: {
+      'agency-2': agencyWithAnOrganization
+    },
+    analysis: {
+      'analysis-2': mockAnalysis
+    },
+    commuter: {
+      'commuter-2': mockCommuter
+    },
+    group: {
+      'group-2': mockGroup
+    },
     organization: {
-      organizations: [simpleOrganization],
-      organizationsById: { '1': simpleOrganization }
-    }
+      'organization-2': organizationWithAnAnalysis
+    },
+    site: {
+      'site-2': mockSite
+    },
+    user: {}
   },
-  complexOrganization: {
-    user: {},
-    organization: {
-      organizations: [complexOrganization],
-      organizationsById: { '2': complexOrganization }
-    }
+  withBlankAgency: {
+    agency: {
+      'agency-1': blankAgency
+    },
+    analysis: {},
+    commuter: {},
+    group: {},
+    organization: {},
+    site: {},
+    user: {}
   },
-  twoOrganizations: {
-    user: {},
+  withBlankOrganization: {
+    agency: {},
+    analysis: {},
+    commuter: {},
+    group: {},
     organization: {
-      organizations: [simpleOrganization, complexOrganization],
-      organizationsById: { '1': simpleOrganization, '2': complexOrganization }
-    }
+      'organization-1': blankOrganization
+    },
+    site: {},
+    user: {}
   }
 }

@@ -23,18 +23,18 @@ export default class Organization extends Component {
   _analysisGroupNameRenderer = (cell, row) => {
     const organizationId = this.props.organization.id
     const group = this.props.organization.groupsById[row.siteId]
-    return <Link to={`/organizations/${organizationId}/groups/${group.id}`}>{group.name}</Link>
+    return <Link to={`/group/${group.id}`}>{group.name}</Link>
   }
 
   _analysisNameRenderer = (cell, row) => {
     const organizationId = this.props.organization.id
-    return <Link to={`/organizations/${organizationId}/analysis/${row.id}`}>{row.name}</Link>
+    return <Link to={`/analysis/${row.id}`}>{row.name}</Link>
   }
 
   _analysisSiteNameRenderer = (cell, row) => {
     const organizationId = this.props.organization.id
     const site = this.props.organization.sitesById[row.siteId]
-    return <Link to={`/organizations/${organizationId}/groups/${site.id}`}>{site.name}</Link>
+    return <Link to={`/group/${site.id}`}>{site.name}</Link>
   }
 
   _analysisToolsRenderer = (cell, row) => {
@@ -52,7 +52,7 @@ export default class Organization extends Component {
 
   _groupNameRenderer = (cell, row) => {
     const organizationId = this.props.organization.id
-    return <Link to={`/organizations/${organizationId}/groups/${row.id}/`}>{row.name}</Link>
+    return <Link to={`/group/${row.id}/`}>{row.name}</Link>
   }
 
   _groupToolsRenderer = (cell, row) => {
@@ -63,7 +63,7 @@ export default class Organization extends Component {
 
   _siteNameRenderer = (cell, row) => {
     const organizationId = this.props.organization.id
-    return <Link to={`/organizations/${organizationId}/sites/${row.id}/`}>{row.name}</Link>
+    return <Link to={`/site/${row.id}/`}>{row.name}</Link>
   }
 
   _siteToolsRenderer = (cell, row) => {
@@ -72,7 +72,7 @@ export default class Organization extends Component {
     const onClick = () => actUponConfirmation(messages.site.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/organizations/${organizationId}/sites/${row.id}/edit`}>Edit</Link>
+        <Link to={`/site/${row.id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>

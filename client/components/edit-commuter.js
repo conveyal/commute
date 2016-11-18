@@ -95,7 +95,7 @@ export default class EditCommuter extends Component {
             <h3>
               <span>{`${editMode ? 'Edit' : 'Create'} Commuter`}</span>
               <Button className='pull-right'>
-                <Link to={`/organizations/${organizationId}/groups/${groupId}`}>
+                <Link to={`/group/${groupId}`}>
                   <Icon type='arrow-left' />
                   <span>Back</span>
                 </Link>

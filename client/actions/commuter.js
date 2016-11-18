@@ -3,11 +3,11 @@ import {createAction} from 'redux-actions'
 import uuid from 'uuid'
 
 const addCommuter = createAction('add commuter')
-export const createCommuter = ({commuter, groupId, organizationId}) => {
+export const createCommuter = ({commuter, groupId}) => {
   commuter.id = uuid.v4()
   return [
-    addCommuter({commuter, groupId, organizationId}),
-    push(`/organizations/${organizationId}/groups/${groupId}`)
+    addCommuter({commuter, groupId}),
+    push(`/group/${groupId}`)
   ] // TODO save to server
 }
 
@@ -19,9 +19,9 @@ const deleteLocally = createAction('delete commuter')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteCommuter = ({commuterId, groupId, organizationId}) => [
-  deleteLocally({commuterId, groupId, organizationId}),
-  push(`/organizations/${organizationId}/groups/${groupId}`)
+export const deleteCommuter = (commuterId, groupId) => [
+  deleteLocally(commuterId),
+  push(`/group/${groupId}`)
 ]
 
 const updateLocally = createAction('update commuter')
@@ -32,7 +32,7 @@ const updateLocally = createAction('update commuter')
       method: 'update'
     }
   }) */ // TODO update on server
-export const updateCommuter = ({commuter, groupId, organizationId}) => [
-  updateLocally({commuter, groupId, organizationId}),
-  push(`/organizations/${organizationId}/groups/${groupId}`)
+export const updateCommuter = (commuter, groupId) => [
+  updateLocally(commuter),
+  push(`/group/${groupId}`)
 ]
