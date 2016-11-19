@@ -17,9 +17,8 @@ export default class Individuals extends Component {
 
     // props
     analysis: PropTypes.object.isRequired,
-    commutersById: PropTypes.object.isRequired,
+    commuterStore: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
-    organizationId: PropTypes.string.isRequired,
     siteName: PropTypes.string.isRequired
   }
 
@@ -48,7 +47,7 @@ export default class Individuals extends Component {
   }
 
   _nameRenderer = (cell, row) => {
-    return this.props.commutersById[row.commuterId].name
+    return this.props.commuterStore[row.commuterId].name
   }
 
   _onRowSelect = (row, isSelected) => {
@@ -63,7 +62,7 @@ export default class Individuals extends Component {
 
   render () {
     const {id, name} = this.props.analysis
-    const {analysis, groupName, organizationId, siteName} = this.props
+    const {analysis, groupName, siteName} = this.props
     const {position, zoom} = this.state
     return (
       <Grid>

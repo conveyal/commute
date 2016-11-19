@@ -9,7 +9,7 @@ import {makeMockStore, mockStores} from '../../../test-utils/mock-data.js'
 
 import {Summary} from '../../../../client/containers/analysis'
 
-const mockStore = makeMockStore(mockStores.complexOrganization)
+const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
 describe('Container > Analysis > Summary', () => {
   it('Analysis Summary View loads (base case)', () => {
@@ -17,7 +17,7 @@ describe('Container > Analysis > Summary', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <Summary
-          params={{organizationId: '2', analysisId: '1'}}
+          params={{analysisId: 'analysis-2'}}
           />
       </Provider>
     )

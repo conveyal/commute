@@ -2,6 +2,7 @@
 
 import {mount} from 'enzyme'
 import {mountToJson} from 'enzyme-to-json'
+import pretty from 'pretty'
 import React from 'react'
 import {Provider} from 'react-redux'
 
@@ -10,7 +11,7 @@ import '../../../test-utils/mock-leaflet'
 
 import {Individuals} from '../../../../client/containers/analysis'
 
-const mockStore = makeMockStore(mockStores.complexOrganization)
+const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
 describe('Container > Analysis > Individuals', () => {
   it('Individuals View loads (base case)', () => {
@@ -18,7 +19,7 @@ describe('Container > Analysis > Individuals', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <Individuals
-          params={{organizationId: '2', analysisId: '1'}}
+          params={{analysisId: 'analysis-2'}}
           />
       </Provider>
       , {
@@ -26,7 +27,7 @@ describe('Container > Analysis > Individuals', () => {
       }
     )
     expect(mountToJson(tree.find('.individuals-header'))).toMatchSnapshot()
-    expect(mountToJson(tree.find('.individuals-content'))).toMatchSnapshot()
+    expect(pretty(tree.find('.individuals-content').html())).toMatchSnapshot()
   })
 
   /* it('Select commuter', () => {

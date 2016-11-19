@@ -14,7 +14,7 @@ exports[`actions > site create site should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/organization-id",
+      "/organization/organization-id",
     ],
     "method": "push",
   },
@@ -31,7 +31,7 @@ Array [
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/organization-id",
+        "/organization/organization-id",
       ],
       "method": "push",
     },
@@ -54,7 +54,7 @@ exports[`actions > site update site should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/organization-id",
+      "/organization/organization-id",
     ],
     "method": "push",
   },

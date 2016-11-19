@@ -1,6 +1,7 @@
 exports[`client > reducers > organization generic reducer tests should handle add organization 1`] = `
 Object {
   "organization-1": Object {
+    "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
     "email": "abc@def.ghi",
@@ -19,6 +20,7 @@ exports[`client > reducers > organization generic reducer tests should handle de
 exports[`client > reducers > organization generic reducer tests should handle set organization 1`] = `
 Object {
   "organization-1": Object {
+    "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
     "email": "abc@def.ghi",
@@ -30,6 +32,7 @@ Object {
     "sites": Array [],
   },
   "organization-2": Object {
+    "agencyId": "agency-2",
     "analyses": Array [
       "analysis-2",
     ],
@@ -52,6 +55,7 @@ Object {
 exports[`client > reducers > organization generic reducer tests should handle set organizations 1`] = `
 Object {
   "organization-1": Object {
+    "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
     "email": "abc@def.ghi",
@@ -63,6 +67,7 @@ Object {
     "sites": Array [],
   },
   "organization-2": Object {
+    "agencyId": "agency-2",
     "analyses": Array [
       "analysis-2",
     ],

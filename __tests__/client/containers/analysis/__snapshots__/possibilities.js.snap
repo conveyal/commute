@@ -25,7 +25,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
             <Link
               onlyActiveOnIndex={false}
               style={Object {}}
-              to="/organizations/2/analysis/1">
+              to="/analysis/analysis-2">
               <a
                 onClick={[Function]}
                 style={Object {}}>

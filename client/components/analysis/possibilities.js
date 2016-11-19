@@ -20,7 +20,6 @@ export default class Possibilities extends Component {
     // props
     analysis: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
-    organizationId: PropTypes.string.isRequired,
     siteName: PropTypes.string.isRequired
   }
 
@@ -104,7 +103,7 @@ export default class Possibilities extends Component {
 
   render () {
     const {id, name} = this.props.analysis
-    const {groupName, organizationId, siteName} = this.props
+    const {groupName, siteName} = this.props
     const {series, yAxisUnit} = this.state
     const activeSeries = series.filter((s) => !s.disabled)
     return (

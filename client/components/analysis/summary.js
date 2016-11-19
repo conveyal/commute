@@ -16,7 +16,6 @@ export default class Summary extends Component {
     // props
     analysis: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
-    organizationId: PropTypes.string.isRequired,
     siteName: PropTypes.string.isRequired
   }
 
@@ -30,7 +29,7 @@ export default class Summary extends Component {
 
   render () {
     const {id, name, summary} = this.props.analysis
-    const {groupName, organizationId, siteName} = this.props
+    const {analysis, groupName, siteName} = this.props
     return (
       <Grid>
         <Row>
@@ -38,7 +37,7 @@ export default class Summary extends Component {
             <h3>
               <span>{name}</span>
               <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={`/organization/${analysis.organizationId}`}><Icon type='arrow-left' />Back</Link>
               </Button>
             </h3>
           </Col>

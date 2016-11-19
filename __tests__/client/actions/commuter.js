@@ -8,7 +8,7 @@ describe('actions > commuter', () => {
     const data = {
       name: 'mockCommuter'
     }
-    const actions = commuter.createCommuter({ commuter: data, groupId: 'group-id' })
+    const actions = commuter.createCommuter(data, 'group-id')
 
     expectCreateCommuter(actions)
   })

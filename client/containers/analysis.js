@@ -7,18 +7,13 @@ import _possibilities from '../components/analysis/possibilities'
 import _summary from '../components/analysis/summary'
 
 function mapStateToProps (state, props) {
-  const {organization} = state
-  const {params} = props
-  const currentOrganizationId = params.organizationId
-  const currentOrganization = organization.organizationsById[currentOrganizationId]
-  const curAnalysis = currentOrganization.analysesById[params.analysisId]
-  const group = currentOrganization.groupsById[curAnalysis.groupId]
+  const {analysis, commuter, group, site} = state
+  const currentAnalysis = analysis[props.params.analysisId]
   return {
-    analysis: curAnalysis,
-    commutersById: group.commutersById,
-    groupName: group.name,
-    organizationId: currentOrganizationId,
-    siteName: currentOrganization.sitesById[curAnalysis.siteId].name
+    analysis: currentAnalysis,
+    commuterStore: commuter,
+    groupName: group[currentAnalysis.groupId].name,
+    siteName: site[currentAnalysis.siteId].name
   }
 }
 

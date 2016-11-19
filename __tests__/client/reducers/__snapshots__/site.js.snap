@@ -6,6 +6,7 @@ Object {
     "lat": 38.8886,
     "lng": -77.043,
     "name": "Acme Corp",
+    "organizationId": "organization-2",
     "radius": 1,
   },
 }
@@ -21,6 +22,7 @@ Object {
     "lat": 38.8886,
     "lng": -77.043,
     "name": "Acme Corp",
+    "organizationId": "organization-2",
     "radius": 1,
   },
 }
@@ -34,6 +36,7 @@ Object {
     "lat": 38.8886,
     "lng": -77.043,
     "name": "Acme Corp",
+    "organizationId": "organization-2",
     "radius": 1,
   },
 }

@@ -40,6 +40,7 @@ Object {
     ],
     "id": "group-2",
     "name": "Mock Group",
+    "organizationId": "organization-2",
   },
 }
 `;

@@ -5,6 +5,7 @@ Object {
     "id": "analysis-2",
     "lastRunDateTime": 1477697490,
     "name": "An Analysis",
+    "organizationId": "organization-2",
     "siteId": "site-2",
     "summary": Object {
       "avgDistance": 12.34,
@@ -109,6 +110,7 @@ Object {
     "id": "analysis-2",
     "lastRunDateTime": 1477697490,
     "name": "An Analysis",
+    "organizationId": "organization-2",
     "siteId": "site-2",
     "summary": Object {
       "avgDistance": 12.34,
@@ -210,6 +212,7 @@ Object {
   "id": "analysis-2",
   "lastRunDateTime": 1477697490,
   "name": "An Analysis",
+  "organizationId": "organization-2",
   "siteId": "site-2",
   "summary": Object {
     "avgDistance": 22,

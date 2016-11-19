@@ -2,18 +2,18 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
 <Connect(Summary)
   params={
     Object {
-      "analysisId": "1",
-      "organizationId": "2",
+      "analysisId": "analysis-2",
     }
   }>
   <Summary
     analysis={
       Object {
-        "groupId": "1",
-        "id": "1",
+        "groupId": "group-2",
+        "id": "analysis-2",
         "lastRunDateTime": 1477697490,
         "name": "An Analysis",
-        "siteId": "1",
+        "organizationId": "organization-2",
+        "siteId": "site-2",
         "summary": Object {
           "avgDistance": 12.34,
           "avgTravelTime": 1234,
@@ -82,7 +82,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
               "polygon": "encoded",
               "time": 1234,
             },
-            "commuterId": "1",
+            "commuterId": "commuter-2",
             "mostLikely": Object {
               "cost": 3.45,
               "distance": 30,
@@ -106,12 +106,13 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
         ],
       }
     }
-    commutersById={
+    commuterStore={
       Object {
-        "1": Object {
+        "commuter-2": Object {
           "address": "4321 XYZ Boulevard",
           "email": "luke@warm.cold",
-          "id": "1",
+          "groupId": "group-2",
+          "id": "commuter-2",
           "lat": 38.916089,
           "lng": -76.970221,
           "name": "Luke Warm",
@@ -120,11 +121,9 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
     }
     deleteAnalysis={[Function]}
     groupName="Mock Group"
-    organizationId="2"
     params={
       Object {
-        "analysisId": "1",
-        "organizationId": "2",
+        "analysisId": "analysis-2",
       }
     }
     siteName="Acme Corp">
@@ -163,7 +162,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                       <Link
                         onlyActiveOnIndex={false}
                         style={Object {}}
-                        to="/organizations/2">
+                        to="/organization/organization-2">
                         <a
                           onClick={[Function]}
                           style={Object {}}>
@@ -343,7 +342,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                   <Link
                     onlyActiveOnIndex={false}
                     style={Object {}}
-                    to="/organizations/2/analysis/1/histogram">
+                    to="/analysis/analysis-2/histogram">
                     <a
                       onClick={[Function]}
                       style={Object {}}>
@@ -355,7 +354,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                   <Link
                     onlyActiveOnIndex={false}
                     style={Object {}}
-                    to="/organizations/2/analysis/1/possibilities">
+                    to="/analysis/analysis-2/possibilities">
                     <a
                       onClick={[Function]}
                       style={Object {}}>
@@ -367,7 +366,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                   <Link
                     onlyActiveOnIndex={false}
                     style={Object {}}
-                    to="/organizations/2/analysis/1/individuals">
+                    to="/analysis/analysis-2/individuals">
                     <a
                       onClick={[Function]}
                       style={Object {}}>

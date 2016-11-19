@@ -33,7 +33,7 @@ Array [
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/organization-id",
+        "/organization/organization-id",
       ],
       "method": "push",
     },

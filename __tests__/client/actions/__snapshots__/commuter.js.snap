@@ -1,10 +1,8 @@
 exports[`actions > commuter create commuter should work 1`] = `
 Object {
   "payload": Object {
-    "commuter": Object {
-      "name": "mockCommuter",
-    },
     "groupId": "group-id",
+    "name": "mockCommuter",
   },
   "type": "add commuter",
 }

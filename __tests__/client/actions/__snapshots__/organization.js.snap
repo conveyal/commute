@@ -11,7 +11,7 @@ exports[`actions > organization create organization should work 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/new-entity-id",
+      "/organization/new-entity-id",
     ],
     "method": "push",
   },
@@ -41,6 +41,7 @@ exports[`actions > organization update organization should work 1`] = `
 Array [
   Object {
     "payload": Object {
+      "agencyId": "agency-3",
       "analyses": Array [],
       "contact": "someone",
       "email": "abc@def.ghi",
@@ -56,7 +57,7 @@ Array [
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/organization-1",
+        "/organization/organization-1",
       ],
       "method": "push",
     },
