@@ -4,6 +4,7 @@ import {Link} from 'react-router'
 import Select from 'react-select'
 
 import Icon from './icon'
+import {entityIdArrayToEntityArray} from '../utils/entities'
 
 export default class CreateAnalysis extends Component {
   static propTypes = {
@@ -11,7 +12,10 @@ export default class CreateAnalysis extends Component {
     create: PropTypes.func,
 
     // props
-    organization: PropTypes.object.isRequired
+    commutersById: PropTypes.object.isRequired,
+    groups: PropTypes.array.isRequired,
+    organizationId: PropTypes.string.isRequired,
+    sites: PropTypes.array.isRequired
   }
 
   constructor (props) {
@@ -22,7 +26,7 @@ export default class CreateAnalysis extends Component {
   _handleGroupChange = (event) => {
     const groupId = event.value
     this.setState({
-      commuters: this.props.organization.groupsById[groupId].commuters,
+      commuters: entityIdArrayToEntityArray(event.commuters, this.props.commutersById),
       groupId
     })
   }
@@ -32,11 +36,11 @@ export default class CreateAnalysis extends Component {
   }
 
   _handleSubmit = () => {
-    this.props.create(this.state, this.props.organization.id)
+    this.props.create(this.state, this.props.organizationId)
   }
 
   render () {
-    const {groups, id: organizationId, sites} = this.props.organization
+    const {groups, organizationId, sites} = this.props
     return (
       <Grid>
         <Row>
@@ -44,7 +48,10 @@ export default class CreateAnalysis extends Component {
             <h3>
               <span>Create Analysis</span>
               <Button className='pull-right'>
-                <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={`/organization/${organizationId}`}>
+                  <Icon type='arrow-left' />
+                  <span>Back</span>
+                </Link>
               </Button>
             </h3>
             <form>
@@ -52,7 +59,7 @@ export default class CreateAnalysis extends Component {
                 <ControlLabel>Site</ControlLabel>
                 <Select
                   onChange={this._handleSiteChange}
-                  options={sites.map((site) => { return {value: site.id, label: site.name} })}
+                  options={sites.map((site) => { return {label: site.name, value: site.id} })}
                   placeholder='Select a Site...'
                   value={this.state.siteId}
                   />
@@ -61,7 +68,13 @@ export default class CreateAnalysis extends Component {
                 <ControlLabel>Group</ControlLabel>
                 <Select
                   onChange={this._handleGroupChange}
-                  options={groups.map((group) => { return {value: group.id, label: group.name} })}
+                  options={groups.map((group) => {
+                    return {
+                      commuters: group.commuters,
+                      label: group.name,
+                      value: group.id
+                    }
+                  })}
                   placeholder='Select a Commuter Group...'
                   value={this.state.groupId}
                   />

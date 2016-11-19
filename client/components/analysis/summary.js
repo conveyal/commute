@@ -38,7 +38,7 @@ export default class Summary extends Component {
             <h3>
               <span>{name}</span>
               <Button className='pull-right'>
-                <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={`/organization/${organizationId}`}><Icon type='arrow-left' />Back</Link>
               </Button>
             </h3>
           </Col>

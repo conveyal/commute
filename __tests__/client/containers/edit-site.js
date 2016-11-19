@@ -13,13 +13,13 @@ import EditSite from '../../../client/containers/edit-site'
 
 describe('Container > EditSite', () => {
   it('Create/Edit Site View loads (create or edit mode)', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
 
     // mount component
     mount(
       <Provider store={mockStore}>
         <EditSite
-          params={{organizationId: '1'}}
+          params={{organizationId: 'organization-1'}}
           />
       </Provider>
     , {
@@ -28,13 +28,13 @@ describe('Container > EditSite', () => {
   })
 
   it('Create/Edit Site View loads in create mode', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditSite
-          params={{organizationId: '1'}}
+          params={{organizationId: 'organization-1'}}
           />
       </Provider>
     , {
@@ -50,13 +50,13 @@ describe('Container > EditSite', () => {
   })
 
   it('Create/Edit Site View loads in edit mode', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditSite
-          params={{organizationId: '2', siteId: '1'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     , {
@@ -73,13 +73,13 @@ describe('Container > EditSite', () => {
   })
 
   it('Create site', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditSite
-          params={{organizationId: '1'}}
+          params={{organizationId: 'organization-1'}}
           />
       </Provider>
     , {
@@ -114,13 +114,13 @@ describe('Container > EditSite', () => {
   })
 
   it('Update site', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditSite
-          params={{organizationId: '2', siteId: '1'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     , {
@@ -154,7 +154,7 @@ describe('Container > EditSite', () => {
   })
 
   it('Delete Site', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the Create/Edit Site View
@@ -162,7 +162,7 @@ describe('Container > EditSite', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <EditSite
-          params={{organizationId: '2', siteId: '1'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     , {

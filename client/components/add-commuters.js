@@ -19,15 +19,16 @@ export default class AddCommuters extends Component {
 
     // props
     appendMode: PropTypes.bool,
+    existingCommuters: PropTypes.array,
     group: PropTypes.object,
-    organizationId: PropTypes.string.isRequired
+    organizationId: PropTypes.string
   }
 
   componentWillMount () {
     if (this.props.appendMode) {
       this.setState({
         name: this.props.group.name,
-        existingCommuters: this.props.group.commuters
+        existingCommuters: this.props.existingCommuters
       })
     } else {
       this.state = {}
@@ -41,7 +42,7 @@ export default class AddCommuters extends Component {
   handleSubmit = () => {
     const {append, appendMode, create, group, organizationId} = this.props
     if (appendMode) {
-      append(this.state.newCommuters, group.id, organizationId)
+      append(this.state.newCommuters, group.id)
     } else {
       const newGroup = {...this.state}
       newGroup.commuters = newGroup.newCommuters
@@ -80,7 +81,7 @@ export default class AddCommuters extends Component {
   }
 
   render () {
-    const {appendMode, organizationId} = this.props
+    const {appendMode, group, organizationId} = this.props
     const groupName = this.state.name
     const showAccordion = !!(this.state.existingCommuters || this.state.newCommuters)
     return (
@@ -90,7 +91,10 @@ export default class AddCommuters extends Component {
             <h3>
               <span>{appendMode ? 'Add Commuters to Group' : 'Create Commuter Group'}</span>
               <Button className='pull-right'>
-                <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={appendMode ? `/group/${group.id}` : `/organization/${organizationId}`}>
+                  <Icon type='arrow-left' />
+                  <span>Back</span>
+                </Link>
               </Button>
             </h3>
             <form>

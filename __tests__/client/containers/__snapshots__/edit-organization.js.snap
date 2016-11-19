@@ -1,17 +1,11 @@
 exports[`Container > EditOrganization Create organization 1`] = `
 Object {
   "payload": Object {
-    "analyses": Array [],
-    "analysesById": Object {},
     "contact": "My new value",
     "email": "My new value",
-    "groups": Array [],
-    "groupsById": Object {},
     "logo_url": "My new value",
     "main_url": "My new value",
     "name": "My new value",
-    "sites": Array [],
-    "sitesById": Object {},
   },
   "type": "add organization",
 }
@@ -21,7 +15,7 @@ exports[`Container > EditOrganization Create organization 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/new-entity-id",
+      "/organization/new-entity-id",
     ],
     "method": "push",
   },
@@ -30,10 +24,22 @@ Object {
 `;
 
 exports[`Container > EditOrganization Create/Edit Organization View loads (create or edit mode) 1`] = `
-<Connect(EditOrganization)>
+<Connect(EditOrganization)
+  params={
+    Object {
+      "agencyId": "agency-1",
+    }
+  }>
   <EditOrganization
+    agencyId="agency-1"
     create={[Function]}
     delete={[Function]}
+    editMode={false}
+    params={
+      Object {
+        "agencyId": "agency-1",
+      }
+    }
     update={[Function]}>
     <Grid
       bsClass="container"
@@ -70,7 +76,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                       <Link
                         onlyActiveOnIndex={false}
                         style={Object {}}
-                        to="/">
+                        to="/agency/agency-1">
                         <a
                           onClick={[Function]}
                           style={Object {}}>
@@ -79,6 +85,9 @@ exports[`Container > EditOrganization Create/Edit Organization View loads (creat
                             <i
                               className="fa fa-arrow-left fa-fw " />
                           </Icon>
+                          <span>
+                            Back
+                          </span>
                         </a>
                       </Link>
                     </button>
@@ -310,32 +319,31 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
 <Connect(EditOrganization)
   params={
     Object {
-      "organizationId": "1",
+      "organizationId": "organization-1",
     }
   }>
   <EditOrganization
+    agencyId="agency-3"
     create={[Function]}
     delete={[Function]}
     editMode={true}
     organization={
       Object {
+        "agencyId": "agency-3",
         "analyses": Array [],
-        "analysesById": Object {},
         "contact": "someone",
         "email": "abc@def.ghi",
         "groups": Array [],
-        "groupsById": Object {},
-        "id": "1",
+        "id": "organization-1",
         "logo_url": "https://placekitten.com/80/80",
         "main_url": "https://placekitten.com/",
         "name": "Mock Organization",
         "sites": Array [],
-        "sitesById": Object {},
       }
     }
     params={
       Object {
-        "organizationId": "1",
+        "organizationId": "organization-1",
       }
     }
     update={[Function]}>
@@ -374,7 +382,7 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
                       <Link
                         onlyActiveOnIndex={false}
                         style={Object {}}
-                        to="/">
+                        to="/agency/agency-3">
                         <a
                           onClick={[Function]}
                           style={Object {}}>
@@ -383,6 +391,9 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
                             <i
                               className="fa fa-arrow-left fa-fw " />
                           </Icon>
+                          <span>
+                            Back
+                          </span>
                         </a>
                       </Link>
                     </button>
@@ -628,13 +639,13 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
 exports[`Container > EditOrganization Delete organization 1`] = `
 Array [
   Object {
-    "payload": "1",
+    "payload": "organization-1",
     "type": "delete organization",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/",
+        "/agency/agency-3",
       ],
       "method": "push",
     },
@@ -647,25 +658,23 @@ exports[`Container > EditOrganization Update organization 1`] = `
 Array [
   Object {
     "payload": Object {
+      "agencyId": "agency-3",
       "analyses": Array [],
-      "analysesById": Object {},
       "contact": "My new value",
       "email": "My new value",
       "groups": Array [],
-      "groupsById": Object {},
-      "id": "1",
+      "id": "organization-1",
       "logo_url": "My new value",
       "main_url": "My new value",
       "name": "My new value",
       "sites": Array [],
-      "sitesById": Object {},
     },
     "type": "set organization",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/1",
+        "/organization/organization-1",
       ],
       "method": "push",
     },

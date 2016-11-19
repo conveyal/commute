@@ -7,7 +7,7 @@ export const createSite = (newSite, organizationId) => {
   newSite.id = uuid.v4()
   return [
     addSite({ organizationId, site: newSite }),
-    push(`/organizations/${organizationId}`)
+    push(`/organization/${organizationId}`)
   ] // TODO save to server
 }
 
@@ -21,7 +21,7 @@ const deleteLocally = createAction('delete site')
   }) */ // TODO delete on server
 export const deleteSite = (id, organizationId) => [
   deleteLocally(id),
-  push(`/organizations/${organizationId}`)
+  push(`/organization/${organizationId}`)
 ]
 
 const updateLocally = createAction('update site')
@@ -34,5 +34,5 @@ const updateLocally = createAction('update site')
   }) */ // TODO update on server
 export const updateSite = (organizationId, site) => [
   updateLocally(site),
-  push(`/organizations/${organizationId}`)
+  push(`/organization/${organizationId}`)
 ]

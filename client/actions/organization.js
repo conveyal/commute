@@ -7,7 +7,7 @@ export const createOrganization = (newOrganization) => {
   newOrganization.id = uuid.v4()
   return [
     addLocally(newOrganization),
-    push(`/organizations/${newOrganization.id}`)
+    push(`/organization/${newOrganization.id}`)
   ] // TODO save to server
 }
 
@@ -26,7 +26,7 @@ export const deleteOrganization = (agencyId, id) => [
 
 export const updateOrganization = (organization) => [
   setLocally(organization),
-  push(`/organizations/${organization.id}`)
+  push(`/organization/${organization.id}`)
 ]
 /* const updateOnServer = (organization) =>
   serverAction({

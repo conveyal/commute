@@ -20,7 +20,7 @@ export default class EditSite extends Component {
     update: PropTypes.func,
 
     // props
-    editMode: PropTypes.bool,
+    editMode: PropTypes.bool.isRequired,
     organizationId: PropTypes.string.isRequired,
     site: PropTypes.object
   }
@@ -64,7 +64,7 @@ export default class EditSite extends Component {
   _handleSubmit = () => {
     const {create, editMode, organizationId, update} = this.props
     if (editMode) {
-      update(this.state, organizationId)
+      update(organizationId, this.state)
     } else {
       create(this.state, organizationId)
     }
@@ -82,7 +82,7 @@ export default class EditSite extends Component {
             <h3>
               <span>{`${editMode ? 'Edit' : 'Create'} Site`}</span>
               <Button className='pull-right'>
-                <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={`/organization/${organizationId}`}><Icon type='arrow-left' />Back</Link>
               </Button>
             </h3>
           </Col>

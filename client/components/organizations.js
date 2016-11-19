@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
@@ -11,34 +11,55 @@ import {actUponConfirmation} from '../utils/ui'
 export default class Organizations extends Component {
   static propTypes = {
     // dispatch
-    deleteOrganization: PropTypes.func,
+    deleteAgency: PropTypes.func.isRequired,
+    deleteOrganization: PropTypes.func.isRequired,
 
     // props
-    organizations: PropTypes.array
+    agency: PropTypes.object.isRequired,
+    organizations: PropTypes.array.isRequired
+  }
+
+  _handleDelete = () => {
+    const doDelete = () => this.props.deleteAgency(this.props.agency.id)
+    actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => { this.props.deleteOrganization(row.id) }
+    const doDelete = () => { this.props.deleteOrganization(this.props.agency.id, row.id) }
     const onClick = () => actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/organizations/${row.id}/edit`}>Edit</Link>
+        <Link to={`/organization/${row.id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>
   }
 
   render () {
+    const {id: agencyId, name} = this.props.agency
     const {organizations} = this.props
     return (
       <Grid>
         <Row>
           <Col xs={12}>
-            <h2>Organizations
-              <Button className='pull-right'>
-                <Link to='/organizations/create'>Create a new organization <Icon type='shield' /></Link>
-              </Button>
+            <h2>
+              <Icon type='flag' />
+              <span>{name}</span>
             </h2>
+            <ButtonGroup>
+              <Button bsStyle='warning'>
+                <Link to={`/agency/${agencyId}/edit`}>Edit</Link>
+              </Button>
+              <Button bsStyle='danger' onClick={this._handleDelete}>Delete</Button>
+            </ButtonGroup>
+            <h3>Organizations
+              <Button className='pull-right'>
+                <Link to='/organizations/create'>
+                  <span>Create a new organization</span>
+                  <Icon type='shield' />
+                </Link>
+              </Button>
+            </h3>
             <p>An organization is a collection of sites <Icon type='building' /> and commuters <Icon type='users' />.</p>
             <BootstrapTable data={organizations}>
               <TableHeaderColumn dataField='id' isKey hidden />
@@ -55,5 +76,5 @@ export default class Organizations extends Component {
 }
 
 const nameRenderer = (cell, row) => {
-  return <Link to={`/organizations/${row.id}`}>{cell}</Link>
+  return <Link to={`/organization/${row.id}`}>{cell}</Link>
 }

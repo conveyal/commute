@@ -4,20 +4,20 @@ import {createSite, deleteSite, updateSite} from '../actions/site'
 import EditSite from '../components/edit-site'
 
 function mapStateToProps (state, props) {
-  const {organization} = state
-  const {params} = props
-  const currentOrganizationId = params.organizationId
-  if (params && params.siteId) {
-    const currentOrganization = organization.organizationsById[currentOrganizationId]
-    const currentSite = currentOrganization.sitesById[params.siteId]
+  const {site} = state
+  const {organizationId, siteId} = props.params
+  if (organizationId) {
+    return {
+      organizationId,
+      editMode: false
+    }
+  } else if (siteId) {
+    const currentSite = site[siteId]
     return {
       editMode: true,
-      organizationId: currentOrganizationId,
+      organizationId: currentSite.organizationId,
       site: currentSite
     }
-  }
-  return {
-    organizationId: currentOrganizationId
   }
 }
 

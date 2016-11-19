@@ -15,7 +15,8 @@ export default class EditOrganization extends Component {
     update: PropTypes.func,
 
     // props
-    editMode: PropTypes.bool,
+    agencyId: PropTypes.string,
+    editMode: PropTypes.bool.isRequired,
     organization: PropTypes.object
   }
 
@@ -32,7 +33,7 @@ export default class EditOrganization extends Component {
   }
 
   handleDelete = () => {
-    const doDelete = () => this.props.delete(this.props.organization.id)
+    const doDelete = () => this.props.delete(this.props.agencyId, this.props.organization.id)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
@@ -45,6 +46,7 @@ export default class EditOrganization extends Component {
   }
 
   render () {
+    const {agencyId} = this.props
     return (
       <Grid>
         <Row>
@@ -52,7 +54,10 @@ export default class EditOrganization extends Component {
             <h3>
               <span>{`${this.props.editMode ? 'Edit' : 'Create'} Organization`}</span>
               <Button className='pull-right'>
-                <Link to='/'><Icon type='arrow-left' />Back</Link>
+                <Link to={`/agency/${agencyId}`}>
+                  <Icon type='arrow-left' />
+                  <span>Back</span>
+                </Link>
               </Button>
             </h3>
             <form>

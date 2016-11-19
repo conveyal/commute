@@ -2,24 +2,24 @@ import {connect} from 'react-redux'
 
 import {appendToGroup, createGroup} from '../actions/group'
 import AddCommuters from '../components/add-commuters'
+import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
-  const {organization} = state
+  const {commuter, group} = state
   const {params} = props
-  const currentOrganizationId = params.organizationId
-  const output = {
-    organizationId: currentOrganizationId
-  }
-  if (params && params.groupId) {
-    const currentOrganization = organization.organizationsById[currentOrganizationId]
-    const currentGroup = currentOrganization.groupsById[params.groupId]
-    Object.assign(output, {
+  if (params.organizationId) {
+    return {
+      appendMode: false,
+      organizationId: params.organizationId
+    }
+  } else if (params.groupId) {
+    const affectedGroup = group[params.groupId]
+    return {
       appendMode: true,
-      organizationId: currentOrganizationId,
-      group: currentGroup
-    })
+      existingCommuters: entityIdArrayToEntityArray(affectedGroup.commuters, commuter),
+      group: affectedGroup
+    }
   }
-  return output
 }
 
 function mapDispatchToProps (dispatch, props) {

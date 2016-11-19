@@ -12,25 +12,27 @@ import EditOrganization from '../../../client/containers/edit-organization'
 
 describe('Container > EditOrganization', () => {
   it('Create/Edit Organization View loads (create or edit mode)', () => {
-    const mockStore = makeMockStore(mockStores.init)
+    const mockStore = makeMockStore(mockStores.withBlankAgency)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <EditOrganization />
+        <EditOrganization
+          params={{agencyId: 'agency-1'}}
+          />
       </Provider>
     )
     expect(mountToJson(tree.find(EditOrganization))).toMatchSnapshot()
   })
 
   it('Create/Edit Organization View loads in edit mode', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditOrganization
-          params={{organizationId: '1'}}
+          params={{organizationId: 'organization-1'}}
           />
       </Provider>
     )
@@ -38,12 +40,14 @@ describe('Container > EditOrganization', () => {
   })
 
   it('Create organization', () => {
-    const mockStore = makeMockStore(mockStores.init)
+    const mockStore = makeMockStore(mockStores.withBlankAgency)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <EditOrganization />
+        <EditOrganization
+          params={{agencyId: 'agency-1'}}
+          />
       </Provider>
     )
 
@@ -58,13 +62,13 @@ describe('Container > EditOrganization', () => {
   })
 
   it('Update organization', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditOrganization
-          params={{organizationId: '1'}}
+          params={{organizationId: 'organization-1'}}
           />
       </Provider>
     )
@@ -82,7 +86,7 @@ describe('Container > EditOrganization', () => {
   })
 
   it('Delete organization', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the Create/Edit Organization View
@@ -90,7 +94,7 @@ describe('Container > EditOrganization', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <EditOrganization
-          params={{organizationId: '1'}}
+          params={{organizationId: 'organization-1'}}
           />
       </Provider>
     )

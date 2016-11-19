@@ -5,21 +5,26 @@ import EditOrganization from '../components/edit-organization'
 
 function mapStateToProps (state, props) {
   const {organization} = state
-  const {params} = props
-  if (params && params.organizationId) {
-    const currentOrganization = organization.organizationsById[params.organizationId]
+  const {agencyId, organizationId} = props.params
+  if (agencyId) {
     return {
+      agencyId,
+      editMode: false
+    }
+  } else if (organizationId) {
+    const currentOrganization = organization[organizationId]
+    return {
+      agencyId: currentOrganization.agencyId,
       editMode: true,
       organization: currentOrganization
     }
   }
-  return {}
 }
 
 function mapDispatchToProps (dispatch, props) {
   return {
     create: (opts) => dispatch(createOrganization(opts)),
-    delete: (opts) => dispatch(deleteOrganization(opts)),
+    delete: (agencyId, id) => dispatch(deleteOrganization(agencyId, id)),
     update: (opts) => dispatch(updateOrganization(opts))
   }
 }

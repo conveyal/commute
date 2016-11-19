@@ -1,7 +1,9 @@
 import update from 'react-addons-update'
 
+import {fixedRound} from '../utils/common'
+import {addToEntityMap} from '../utils/entities'
 import {settings} from '../utils/env'
-import {addToEntityMap, fixedRound, makeGenericReducerHandlers} from '../utils/reducers'
+import {makeGenericReducerHandlers} from '../utils/reducers'
 
 const METRICS = Object.keys(settings.metrics)
 

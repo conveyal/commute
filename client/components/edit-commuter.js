@@ -22,7 +22,6 @@ export default class EditCommuter extends Component {
     // props
     editMode: PropTypes.bool,
     groupId: PropTypes.string.isRequired,
-    organizationId: PropTypes.string.isRequired,
     commuter: PropTypes.object
   }
 
@@ -58,33 +57,21 @@ export default class EditCommuter extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.delete({
-      commuterId: this.state.id,
-      groupId: this.props.groupId,
-      organizationId: this.props.organizationId
-    })
+    const doDelete = () => this.props.delete(this.state.id, this.props.groupId)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
-    const {create, editMode, groupId, organizationId, update} = this.props
+    const {create, editMode, groupId, update} = this.props
     if (editMode) {
-      update({
-        commuter: this.state,
-        groupId: groupId,
-        organizationId: organizationId
-      })
+      update(this.state, groupId)
     } else {
-      create({
-        commuter: this.state,
-        groupId: groupId,
-        organizationId: organizationId
-      })
+      create(this.state, groupId)
     }
   }
 
   render () {
-    const {editMode, groupId, organizationId} = this.props
+    const {editMode, groupId} = this.props
     const hasAddress = isNumber(this.state.lat) && isNumber(this.state.lng)
     const position = hasAddress ? lonlng(this.state) : lonlng(settings.map.focus)
     const zoom = hasAddress ? 13 : 8

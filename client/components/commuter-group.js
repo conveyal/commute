@@ -18,32 +18,31 @@ export default class CommuterGroup extends Component {
     update: PropTypes.func,
 
     // props
-    organizationId: PropTypes.string.isRequired,
+    commuters: PropTypes.array.isRequired,
     group: PropTypes.object.isRequired
   }
 
   _commuterToolsRenderer = (cell, row) => {
     const groupId = this.props.group.id
-    const organizationId = this.props.organizationId
-    const doDelete = () => this.props.deleteCommuter({ commuterId: row.id, groupId, organizationId })
+    const doDelete = () => this.props.deleteCommuter(row.id, groupId)
     const onClick = () => actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/commuters/${row.id}/edit`}>Edit</Link>
+        <Link to={`/commuter/${row.id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>
   }
 
   handleDelete = () => {
-    const doDelete = () => this.props.deleteGroup(this.state.group.id, this.props.organizationId)
+    const {id: groupId, organizationId} = this.props.group
+    const doDelete = () => this.props.deleteGroup(groupId, organizationId)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
   render () {
-    const {group, organizationId} = this.props
-    const {allAddressesGeocoded, commuters} = group
-    const groupName = group.name
+    const {commuters, group} = this.props
+    const {allAddressesGeocoded, groupName, organizationId} = group
     const {bounds, markers, position, zoom} = mapCommuters(allAddressesGeocoded, commuters)
     return (
       <Grid>
@@ -52,7 +51,10 @@ export default class CommuterGroup extends Component {
             <h3>
               <span>{groupName}</span>
               <Button className='pull-right'>
-                <Link to={`/organizations/${organizationId}`}><Icon type='arrow-left' />Back</Link>
+                <Link to={`/organization/${organizationId}`}>
+                  <Icon type='arrow-left' />
+                  <span>Back</span>
+                </Link>
               </Button>
             </h3>
           </Col>

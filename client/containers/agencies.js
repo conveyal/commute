@@ -5,7 +5,7 @@ import agencies from '../components/agencies'
 
 function mapStateToProps (state) {
   return {
-    agencies: state.agency.agencies
+    agencies: Object.values(state.agency)
   }
 }
 

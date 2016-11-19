@@ -31,6 +31,7 @@ export const commuterSal = {
 export const mockCommuter = {
   address: '4321 XYZ Boulevard',
   email: 'luke@warm.cold',
+  groupId: 'group-2',
   id: 'commuter-2',
   lat: 38.916089,
   lng: -76.970221,
@@ -39,9 +40,10 @@ export const mockCommuter = {
 
 export const mockGroup = {
   allAddressesGeocoded: true,
+  commuters: ['commuter-2'],
   id: 'group-2',
   name: 'Mock Group',
-  commuters: ['commuter-2']
+  organizationId: 'organization-2'
 }
 
 export const mockSite = {
@@ -50,6 +52,7 @@ export const mockSite = {
   address: '123 ABC St',
   lat: 38.8886,
   lng: -77.0430,
+  organizationId: 'organization-2',
   radius: 1
 }
 
@@ -93,6 +96,7 @@ export const mockAnalysis = {
   groupId: 'group-2',
   lastRunDateTime: 1477697490,
   name: 'An Analysis',
+  organizationId: 'organization-2',
   siteId: 'site-2',
   summary: {
     avgTravelTime: 1234,
@@ -129,6 +133,7 @@ export const mockAnalysis = {
 
 // mock organizations
 export const blankOrganization = {
+  agencyId: 'agency-3',
   analyses: [],
   id: 'organization-1',
   contact: 'someone',
@@ -141,6 +146,7 @@ export const blankOrganization = {
 }
 
 export const organizationWithAnAnalysis = {
+  agencyId: 'agency-2',
   analyses: ['analysis-2'],
   id: 'organization-2',
   contact: 'someone',
@@ -196,7 +202,13 @@ export const mockStores = {
     user: {}
   },
   withBlankOrganization: {
-    agency: {},
+    agency: {
+      'agency-3': {
+        id: 'agency-3',
+        name: 'An agency',
+        organizations: ['organization-1']
+      }
+    },
     analysis: {},
     commuter: {},
     group: {},

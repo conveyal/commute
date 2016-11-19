@@ -1,7 +1,7 @@
 /* global describe, expect, it */
 
 import {mount} from 'enzyme'
-import {mountToJson} from 'enzyme-to-json'
+import pretty from 'pretty'
 import React from 'react'
 import {Button} from 'react-bootstrap'
 import {Provider} from 'react-redux'
@@ -15,32 +15,38 @@ describe('Container > Organizations', () => {
   it('Organizations View loads', () => {
     // mount component
     const tree = mount(
-      <Provider store={makeMockStore(mockStores.init)}>
-        <Organizations />
+      <Provider store={makeMockStore(mockStores.withBlankAgency)}>
+        <Organizations
+          params={{agencyId: 'agency-1'}}
+          />
       </Provider>
     )
-    expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
+    expect(pretty(tree.find(Organizations).html())).toMatchSnapshot()
   })
 
   it('Organizations View loads with one organization', () => {
     // mount component
     const tree = mount(
-      <Provider store={makeMockStore(mockStores.oneSimpleOrganization)}>
-        <Organizations />
+      <Provider store={makeMockStore(mockStores.withBlankOrganization)}>
+        <Organizations
+          params={{agencyId: 'agency-3'}}
+          />
       </Provider>
     )
-    expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
+    expect(pretty(tree.find(Organizations).html())).toMatchSnapshot()
   })
 
   it('Delete Organization', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the organizations view
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <Organizations />
+        <Organizations
+          params={{agencyId: 'agency-3'}}
+          />
       </Provider>
     )
 

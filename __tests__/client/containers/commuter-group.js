@@ -13,13 +13,13 @@ import CommuterGroup from '../../../client/containers/commuter-group'
 
 describe('Container > CommuterGroup', () => {
   it('Commuter Group View loads', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <CommuterGroup
-          params={{organizationId: '2', groupId: '1'}}
+          params={{groupId: 'group-2'}}
           />
       </Provider>
       , {
@@ -28,7 +28,7 @@ describe('Container > CommuterGroup', () => {
     )
 
     expect(mountToJson(tree.find('.group-header'))).toMatchSnapshot()
-    expect(mountToJson(tree.find('.group-content'))).toMatchSnapshot()
+    expect(pretty(tree.find('.group-content').html())).toMatchSnapshot()
 
     // cluster should be added initially
     expect(pretty(tree.find('.react-leaflet-cluster-layer').html())).toMatchSnapshot()

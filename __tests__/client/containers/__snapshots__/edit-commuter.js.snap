@@ -1,15 +1,12 @@
 exports[`Container > EditCommuter Create commuter 1`] = `
 Object {
   "payload": Object {
-    "commuter": Object {
-      "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-      "email": "mock@email.fake",
-      "lat": 38.89011,
-      "lng": -76.9897,
-      "name": "Mock Commuter",
-    },
-    "groupId": "1",
-    "organizationId": "2",
+    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
+    "email": "mock@email.fake",
+    "groupId": "group-2",
+    "lat": 38.89011,
+    "lng": -76.9897,
+    "name": "Mock Commuter",
   },
   "type": "add commuter",
 }
@@ -19,7 +16,7 @@ exports[`Container > EditCommuter Create commuter 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/2/groups/1",
+      "/group/group-2",
     ],
     "method": "push",
   },
@@ -48,7 +45,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
         <Link
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/organizations/2/groups/1">
+          to="/group/group-2">
           <a
             onClick={[Function]}
             style={Object {}}>
@@ -420,7 +417,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 1
         <Link
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/organizations/2/groups/1">
+          to="/group/group-2">
           <a
             onClick={[Function]}
             style={Object {}}>
@@ -848,17 +845,13 @@ Object {
 exports[`Container > EditCommuter Delete Commuter 1`] = `
 Array [
   Object {
-    "payload": Object {
-      "commuterId": "1",
-      "groupId": "1",
-      "organizationId": "2",
-    },
+    "payload": "commuter-2",
     "type": "delete commuter",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/2/groups/1",
+        "/group/group-2",
       ],
       "method": "push",
     },
@@ -870,16 +863,13 @@ Array [
 exports[`Container > EditCommuter Update commuter 1`] = `
 Object {
   "payload": Object {
-    "commuter": Object {
-      "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-      "email": "mock@email.fake",
-      "id": "1",
-      "lat": 38.89011,
-      "lng": -76.9897,
-      "name": "Mock Commuter",
-    },
-    "groupId": "1",
-    "organizationId": "2",
+    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
+    "email": "mock@email.fake",
+    "groupId": "group-2",
+    "id": "commuter-2",
+    "lat": 38.89011,
+    "lng": -76.9897,
+    "name": "Mock Commuter",
   },
   "type": "update commuter",
 }
@@ -889,7 +879,7 @@ exports[`Container > EditCommuter Update commuter 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/2/groups/1",
+      "/group/group-2",
     ],
     "method": "push",
   },

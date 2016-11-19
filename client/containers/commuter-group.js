@@ -3,14 +3,15 @@ import {connect} from 'react-redux'
 import {deleteCommuter} from '../actions/commuter'
 import {deleteGroup, updateGroup} from '../actions/group'
 import CommuterGroup from '../components/commuter-group'
+import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
-  const {organization} = state
+  const {commuter, group} = state
   const {params} = props
-  const currentOrganizationId = params.organizationId
+  const currentGroup = group[params.groupId]
   return {
-    organizationId: currentOrganizationId,
-    group: organization.organizationsById[currentOrganizationId].groupsById[params.groupId]
+    commuters: entityIdArrayToEntityArray(currentGroup.commuters, commuter),
+    group: currentGroup
   }
 }
 

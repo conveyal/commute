@@ -1,3 +1,5 @@
+agency:
+  deleteConfirmation: Are you sure you want to delete this agency?
 analysis:
   deleteConfirmation: Are you sure you want to delete this analysis?
 authentication:

@@ -13,13 +13,13 @@ import EditCommuter from '../../../client/containers/edit-commuter'
 
 describe('Container > EditCommuter', () => {
   it('Create/Edit Commuter View loads (create or edit mode)', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{organizationId: '2', groupId: '1'}}
+          params={{groupId: 'group-2'}}
           />
       </Provider>
     , {
@@ -28,13 +28,13 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Create/Edit Commuter View loads in create mode', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{organizationId: '2', groupId: '1'}}
+          params={{groupId: 'group-2'}}
           />
       </Provider>
     , {
@@ -50,13 +50,13 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Create/Edit Commuter View loads in edit mode', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{organizationId: '2', groupId: '1', commuterId: '1'}}
+          params={{commuterId: 'commuter-2'}}
           />
       </Provider>
     , {
@@ -73,13 +73,13 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Create commuter', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{organizationId: '2', groupId: '1'}}
+          params={{groupId: 'group-2'}}
           />
       </Provider>
     , {
@@ -114,13 +114,13 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Update commuter', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{organizationId: '2', groupId: '1', commuterId: '1'}}
+          params={{commuterId: 'commuter-2'}}
           />
       </Provider>
     , {
@@ -154,7 +154,7 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Delete Commuter', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the Create/Edit Commuter View
@@ -162,7 +162,7 @@ describe('Container > EditCommuter', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{organizationId: '2', groupId: '1', commuterId: '1'}}
+          params={{commuterId: 'commuter-2'}}
           />
       </Provider>
     , {

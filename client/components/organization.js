@@ -17,23 +17,26 @@ export default class Organization extends Component {
     deleteSite: PropTypes.func,
 
     // props
-    organization: PropTypes.object
+    analysis: PropTypes.object.isRequired,
+    analyses: PropTypes.array.isRequired,
+    group: PropTypes.object.isRequired,
+    groups: PropTypes.array.isRequired,
+    organization: PropTypes.object.isRequired,
+    site: PropTypes.object.isRequired,
+    sites: PropTypes.array.isRequired
   }
 
   _analysisGroupNameRenderer = (cell, row) => {
-    const organizationId = this.props.organization.id
-    const group = this.props.organization.groupsById[row.siteId]
+    const group = this.props.group[row.groupId]
     return <Link to={`/group/${group.id}`}>{group.name}</Link>
   }
 
   _analysisNameRenderer = (cell, row) => {
-    const organizationId = this.props.organization.id
     return <Link to={`/analysis/${row.id}`}>{row.name}</Link>
   }
 
   _analysisSiteNameRenderer = (cell, row) => {
-    const organizationId = this.props.organization.id
-    const site = this.props.organization.sitesById[row.siteId]
+    const site = this.props.site[row.siteId]
     return <Link to={`/group/${site.id}`}>{site.name}</Link>
   }
 
@@ -46,12 +49,12 @@ export default class Organization extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.deleteOrganization(this.props.organization.id)
+    const {agencyId, id} = this.props.organization
+    const doDelete = () => this.props.deleteOrganization(agencyId, id)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
   _groupNameRenderer = (cell, row) => {
-    const organizationId = this.props.organization.id
     return <Link to={`/group/${row.id}/`}>{row.name}</Link>
   }
 
@@ -62,7 +65,6 @@ export default class Organization extends Component {
   }
 
   _siteNameRenderer = (cell, row) => {
-    const organizationId = this.props.organization.id
     return <Link to={`/site/${row.id}/`}>{row.name}</Link>
   }
 
@@ -79,7 +81,8 @@ export default class Organization extends Component {
   }
 
   render () {
-    const {analyses, id: _id, groups, name, sites} = this.props.organization
+    const {analyses, groups, sites} = this.props
+    const {id: organizationId, name} = this.props.organization
 
     return (
       <Grid>
@@ -88,14 +91,14 @@ export default class Organization extends Component {
             <h2><Icon type='shield' />{name}</h2>
             <ButtonGroup>
               <Button bsStyle='warning'>
-                <Link to={`/organizations/${_id}/edit`}>Edit</Link>
+                <Link to={`/organization/${organizationId}/edit`}>Edit</Link>
               </Button>
               <Button bsStyle='danger' onClick={this._handleDelete}>Delete</Button>
             </ButtonGroup>
             <p>Below are this organization's sites, commuter groups and analyses.</p>
             <h3>Sites
               <Button className='pull-right'>
-                <Link to={`/organizations/${_id}/sites/create`}>Create a new site <Icon type='building' /></Link>
+                <Link to={`/organization/${organizationId}/sites/create`}>Create a new site <Icon type='building' /></Link>
               </Button>
             </h3>
             <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
@@ -107,7 +110,7 @@ export default class Organization extends Component {
             </BootstrapTable>
             <h3>Commuter Groups
               <Button className='pull-right'>
-                <Link to={`/organizations/${_id}/groups/create`}>Create a new group <Icon type='users' /></Link>
+                <Link to={`/organization/${organizationId}/groups/create`}>Create a new group <Icon type='users' /></Link>
               </Button>
             </h3>
             <p>A commuter group is a list of commuters that can commute to a particular site.</p>
@@ -119,7 +122,7 @@ export default class Organization extends Component {
             </BootstrapTable>
             <h3>Analyses
               <Button className='pull-right'>
-                <Link to={`/organizations/${_id}/analysis/create`}>Create a new analysis <Icon type='bar-chart' /></Link>
+                <Link to={`/organization/${organizationId}/analysis/create`}>Create a new analysis <Icon type='bar-chart' /></Link>
               </Button>
             </h3>
             <p>An analysis calculates commuting statistics for a pairing of a commuter group and site.</p>

@@ -1,10 +1,11 @@
 /* global describe, expect, it */
 
+import {mount} from 'enzyme'
+import pretty from 'pretty'
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
-import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 
+import {expectDeleteAction} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data'
 
 import Agencies from '../../../client/containers/agencies'
@@ -12,28 +13,26 @@ import Agencies from '../../../client/containers/agencies'
 describe('Container > Agencies', () => {
   it('Agencies View loads', () => {
     // mount component
-    const tree = TestUtils.renderIntoDocument(
+    const tree = mount(
       <Provider store={makeMockStore(mockStores.init)}>
         <Agencies />
       </Provider>
     )
-    const agenciesNode = ReactDOM.findDOMNode(tree)
-
-    console.log(agenciesNode)
+    expect(pretty(tree.find('Agencies').html())).toMatchSnapshot()
   })
 
-  /* it('Agencies View loads with one organization', () => {
+  it('Agencies View loads with one agency', () => {
     // mount component
     const tree = mount(
-      <Provider store={makeMockStore(mockStores.oneSimpleOrganization)}>
+      <Provider store={makeMockStore(mockStores.withBlankAgency)}>
         <Agencies />
       </Provider>
     )
-    expect(mountToJson(tree.find(Agencies))).toMatchSnapshot()
+    expect(pretty(tree.find('Agencies').html())).toMatchSnapshot()
   })
 
-  it('Delete Organization', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+  it('Delete Agency', () => {
+    const mockStore = makeMockStore(mockStores.withBlankAgency)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the agencies view
@@ -46,9 +45,9 @@ describe('Container > Agencies', () => {
 
     // When the user clicks the delete button for an existing organization
     // And the user confirms the Confirm Deletion dialog
-    const deleteButton = tree.find('table').find(Button).last()
+    const deleteButton = tree.find('table').find('Button').last()
     deleteButton.simulate('click')
 
-    expectDeleteOrganization(mockStore.getActions())
-  }) */
+    expectDeleteAction(mockStore.getActions())
+  })
 })

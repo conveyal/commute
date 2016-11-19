@@ -4,29 +4,28 @@ import {createCommuter, deleteCommuter, updateCommuter} from '../actions/commute
 import EditCommuter from '../components/edit-commuter'
 
 function mapStateToProps (state, props) {
-  const {organization} = state
-  const {params} = props
-  const currentOrganizationId = params.organizationId
-  const output = {
-    groupId: params.groupId,
-    organizationId: currentOrganizationId
-  }
-  if (params && params.commuterId) {
-    const currentOrganization = organization.organizationsById[currentOrganizationId]
-    const currentGroup = currentOrganization.groupsById[params.groupId]
-    Object.assign(output, {
+  const {commuter} = state
+  const {commuterId, groupId} = props.params
+  if (commuterId) {
+    const currentCommuter = commuter[commuterId]
+    return {
       editMode: true,
-      commuter: currentGroup.commutersById[params.commuterId]
-    })
+      groupId: currentCommuter.groupId,
+      commuter: currentCommuter
+    }
+  } else if (groupId) {
+    return {
+      editMode: false,
+      groupId
+    }
   }
-  return output
 }
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts) => dispatch(createCommuter(opts)),
-    delete: (opts) => dispatch(deleteCommuter(opts)),
-    update: (opts) => dispatch(updateCommuter(opts))
+    create: (commuter, groupId) => dispatch(createCommuter(commuter, groupId)),
+    delete: (commuterId, groupId) => dispatch(deleteCommuter(commuterId, groupId)),
+    update: (commuter, groupId) => dispatch(updateCommuter(commuter, groupId))
   }
 }
 

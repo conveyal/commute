@@ -46,7 +46,7 @@ export function expectCreateCommuter (actions) {
   // - react-router navigate back to commuter group
   expect(actions.length).toBe(2)
   const create = actions[0]
-  delete create.payload.commuter.id
+  delete create.payload.id
   expect(create).toMatchSnapshot()
 
   // react-router
@@ -68,7 +68,7 @@ export function expectCreateSite (actions) {
   expect(actions[1]).toMatchSnapshot()
 }
 
-function expectDeleteAction (actions) {
+export function expectDeleteAction (actions) {
   expect(actions.length).toBeGreaterThan(0)
   expect(actions).toMatchSnapshot()
 }

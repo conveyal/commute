@@ -26,7 +26,7 @@ const deleteLocally = createAction('delete analysis')
   }) */ // TODO delete on server
 export const deleteAnalysis = (id, organizationId) => [
   deleteLocally(id),
-  push(`/organizations/${organizationId}`)
+  push(`/organization/${organizationId}`)
 ]
 
 const makeMockTrips = (analysisId, organizationId, commuters) => {

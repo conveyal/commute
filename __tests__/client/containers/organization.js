@@ -1,7 +1,7 @@
 /* global describe, expect, it */
 
 import {mount} from 'enzyme'
-import {mountToJson} from 'enzyme-to-json'
+import pretty from 'pretty'
 import React from 'react'
 import {Provider} from 'react-redux'
 
@@ -19,17 +19,17 @@ describe('Container > Organization', () => {
   it('Organization View loads', () => {
     // mount component
     const tree = mount(
-      <Provider store={makeMockStore(mockStores.complexOrganization)}>
+      <Provider store={makeMockStore(mockStores.withAnalysisRun)}>
         <Organization
-          params={{organizationId: '2'}}
+          params={{organizationId: 'organization-2'}}
           />
       </Provider>
     )
-    expect(mountToJson(tree.find(Organization))).toMatchSnapshot()
+    expect(pretty(tree.find(Organization).html())).toMatchSnapshot()
   })
 
   it('Delete Organization', () => {
-    const mockStore = makeMockStore(mockStores.oneSimpleOrganization)
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the organization view
@@ -37,7 +37,7 @@ describe('Container > Organization', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <Organization
-          params={{organizationId: '1'}}
+          params={{organizationId: 'organization-1'}}
           />
       </Provider>
     )
@@ -51,7 +51,7 @@ describe('Container > Organization', () => {
   })
 
   it('Delete Site', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the organization view
@@ -59,7 +59,7 @@ describe('Container > Organization', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <Organization
-          params={{organizationId: '2'}}
+          params={{organizationId: 'organization-2'}}
           />
       </Provider>
     )
@@ -73,7 +73,7 @@ describe('Container > Organization', () => {
   })
 
   it('Delete Commuter Group', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the organization view
@@ -81,7 +81,7 @@ describe('Container > Organization', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <Organization
-          params={{organizationId: '2'}}
+          params={{organizationId: 'organization-2'}}
           />
       </Provider>
     )
@@ -95,7 +95,7 @@ describe('Container > Organization', () => {
   })
 
   it('Delete Analysis', () => {
-    const mockStore = makeMockStore(mockStores.complexOrganization)
+    const mockStore = makeMockStore(mockStores.withAnalysisRun)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the organizations view
@@ -103,7 +103,7 @@ describe('Container > Organization', () => {
     const tree = mount(
       <Provider store={mockStore}>
         <Organization
-          params={{organizationId: '2'}}
+          params={{organizationId: 'organization-2'}}
           />
       </Provider>
     )

@@ -29,7 +29,7 @@ const deleteLocally = createAction('delete group')
   }) */ // TODO delete on server
 export const deleteGroup = (id, organizationId) => [
   deleteLocally(id),
-  push(`/organizations/${organizationId}`)
+  push(`/organization/${organizationId}`)
 ]
 
 const updateLocally = createAction('update group')

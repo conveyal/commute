@@ -3,10 +3,11 @@ import {createAction} from 'redux-actions'
 import uuid from 'uuid'
 
 const addCommuter = createAction('add commuter')
-export const createCommuter = ({commuter, groupId}) => {
+export const createCommuter = (commuter, groupId) => {
+  commuter.groupId = groupId
   commuter.id = uuid.v4()
   return [
-    addCommuter({commuter, groupId}),
+    addCommuter(commuter),
     push(`/group/${groupId}`)
   ] // TODO save to server
 }

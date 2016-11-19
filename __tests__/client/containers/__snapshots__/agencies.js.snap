@@ -1,51 +1,24 @@
-exports[`Container > Organizations Delete Organization 1`] = `
-Array [
-  Object {
-    "payload": "organization-1",
-    "type": "delete organization",
-  },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/agency/agency-3",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
-`;
-
-exports[`Container > Organizations Organizations View loads 1`] = `
+exports[`Container > Agencies Agencies View loads 1`] = `
 "<div class=\"container\">
   <div class=\"row\">
     <div class=\"col-xs-12\">
       <h2>
-        <i class=\"fa fa-flag fa-fw \"></i><span>Mock Agency</span> </h2>
-      <div class=\"btn-group\">
-        <button type=\"button\" class=\"btn btn-warning\">
-          <a>Edit</a> 
-        </button>
-        <button type=\"button\" class=\"btn btn-danger\">Delete</button>
-      </div>
-      <h3>
 
-        <!-- react-text: 12 -->Organizations<!-- /react-text -->
+        <!-- react-text: 5 -->Agencies<!-- /react-text -->
         <button type=\"button\" class=\"pull-right btn btn-default\">
-          <a><span>Create a new organization</span> 
-            <i class=\"fa fa-shield fa-fw \"></i>
+          <a>
+
+            <!-- react-text: 8 -->Create a new agency<!-- /react-text -->
+            <i class=\"fa fa-flag fa-fw \"></i>
           </a> 
         </button>
-      </h3>
+      </h2>
       <p>
 
-        <!-- react-text: 18 -->An organization is a collection of sites<!-- /react-text -->
-        <i class=\"fa fa-building fa-fw \"></i>
+        <!-- react-text: 11 -->An agency is a collection of organizations<!-- /react-text -->
+        <i class=\"fa fa-shield fa-fw \"></i>
 
-        <!-- react-text: 20 -->and commuters<!-- /react-text -->
-        <i class=\"fa fa-users fa-fw \"></i>
-
-        <!-- react-text: 22 -->.<!-- /react-text -->
+        <!-- react-text: 13 -->.<!-- /react-text -->
       </p>
       <div class=\"react-bs-table-container\">
         <div class=\"react-bs-table\" style=\"height: 100%;\">
@@ -58,22 +31,17 @@ exports[`Container > Organizations Organizations View loads 1`] = `
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
 
-                    <!-- react-text: 32 -->Name<!-- /react-text -->
+                    <!-- react-text: 23 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Sites\" style=\"text-align: left;\" data-field=\"sites\">
+                  <th class=\"\" title=\"Sites\" style=\"text-align: left;\" data-field=\"organizations\">
 
-                    <!-- react-text: 35 -->Sites<!-- /react-text -->
-                    <div></div>
-                  </th>
-                  <th class=\"\" title=\"Groups\" style=\"text-align: left;\" data-field=\"groups\">
-
-                    <!-- react-text: 38 -->Groups<!-- /react-text -->
+                    <!-- react-text: 26 -->Sites<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                    <!-- react-text: 41 -->Tools<!-- /react-text -->
+                    <!-- react-text: 29 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>
@@ -87,11 +55,10 @@ exports[`Container > Organizations Organizations View loads 1`] = `
                   <col class=\"\">
                     <col class=\"\">
                       <col class=\"\">
-                        <col class=\"\">
               </colgroup>
               <tbody>
                 <tr class=\"\">
-                  <td colspan=\"5\" class=\"react-bs-table-no-data\">There is no data to display</td>
+                  <td colspan=\"4\" class=\"react-bs-table-no-data\">There is no data to display</td>
                 </tr>
               </tbody>
             </table>
@@ -103,36 +70,27 @@ exports[`Container > Organizations Organizations View loads 1`] = `
 </div>"
 `;
 
-exports[`Container > Organizations Organizations View loads with one organization 1`] = `
+exports[`Container > Agencies Agencies View loads with one agency 1`] = `
 "<div class=\"container\">
   <div class=\"row\">
     <div class=\"col-xs-12\">
       <h2>
-        <i class=\"fa fa-flag fa-fw \"></i><span>An agency</span> </h2>
-      <div class=\"btn-group\">
-        <button type=\"button\" class=\"btn btn-warning\">
-          <a>Edit</a> 
-        </button>
-        <button type=\"button\" class=\"btn btn-danger\">Delete</button>
-      </div>
-      <h3>
 
-        <!-- react-text: 12 -->Organizations<!-- /react-text -->
+        <!-- react-text: 5 -->Agencies<!-- /react-text -->
         <button type=\"button\" class=\"pull-right btn btn-default\">
-          <a><span>Create a new organization</span> 
-            <i class=\"fa fa-shield fa-fw \"></i>
+          <a>
+
+            <!-- react-text: 8 -->Create a new agency<!-- /react-text -->
+            <i class=\"fa fa-flag fa-fw \"></i>
           </a> 
         </button>
-      </h3>
+      </h2>
       <p>
 
-        <!-- react-text: 18 -->An organization is a collection of sites<!-- /react-text -->
-        <i class=\"fa fa-building fa-fw \"></i>
+        <!-- react-text: 11 -->An agency is a collection of organizations<!-- /react-text -->
+        <i class=\"fa fa-shield fa-fw \"></i>
 
-        <!-- react-text: 20 -->and commuters<!-- /react-text -->
-        <i class=\"fa fa-users fa-fw \"></i>
-
-        <!-- react-text: 22 -->.<!-- /react-text -->
+        <!-- react-text: 13 -->.<!-- /react-text -->
       </p>
       <div class=\"react-bs-table-container\">
         <div class=\"react-bs-table\" style=\"height: 100%;\">
@@ -145,22 +103,17 @@ exports[`Container > Organizations Organizations View loads with one organizatio
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
 
-                    <!-- react-text: 32 -->Name<!-- /react-text -->
+                    <!-- react-text: 23 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Sites\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"sites\">
+                  <th class=\"\" title=\"Sites\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"organizations\">
 
-                    <!-- react-text: 35 -->Sites<!-- /react-text -->
-                    <div></div>
-                  </th>
-                  <th class=\"\" title=\"Groups\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"groups\">
-
-                    <!-- react-text: 38 -->Groups<!-- /react-text -->
+                    <!-- react-text: 26 -->Sites<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 41 -->Tools<!-- /react-text -->
+                    <!-- react-text: 29 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>
@@ -174,16 +127,12 @@ exports[`Container > Organizations Organizations View loads with one organizatio
                   <col class=\"\">
                     <col class=\"\">
                       <col class=\"\">
-                        <col class=\"\">
               </colgroup>
               <tbody>
                 <tr class=\"\">
-                  <td class=\"\" style=\"text-align: left; display: none;\">organization-1</td>
+                  <td class=\"\" style=\"text-align: left; display: none;\">agency-1</td>
                   <td class=\"\" style=\"text-align: left;\">
-                    <a>Mock Organization</a> 
-                  </td>
-                  <td class=\"\" style=\"text-align: left;\">
-                    <div>0</div>
+                    <a>Mock Agency</a> 
                   </td>
                   <td class=\"\" style=\"text-align: left;\">
                     <div>0</div>
@@ -205,4 +154,22 @@ exports[`Container > Organizations Organizations View loads with one organizatio
     </div>
   </div>
 </div>"
+`;
+
+exports[`Container > Agencies Delete Agency 1`] = `
+Array [
+  Object {
+    "payload": "agency-1",
+    "type": "delete agency",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
 `;

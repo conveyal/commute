@@ -1,7 +1,7 @@
 exports[`Container > EditSite Create site 1`] = `
 Object {
   "payload": Object {
-    "organizationId": "1",
+    "organizationId": "organization-1",
     "site": Object {
       "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
       "lat": 38.89011,
@@ -18,7 +18,7 @@ exports[`Container > EditSite Create site 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/1",
+      "/organization/organization-1",
     ],
     "method": "push",
   },
@@ -47,7 +47,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
         <Link
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/organizations/1">
+          to="/organization/organization-1">
           <a
             onClick={[Function]}
             style={Object {}}>
@@ -416,7 +416,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
         <Link
           onlyActiveOnIndex={false}
           style={Object {}}
-          to="/organizations/2">
+          to="/organization/organization-2">
           <a
             onClick={[Function]}
             style={Object {}}>
@@ -841,16 +841,13 @@ Object {
 exports[`Container > EditSite Delete Site 1`] = `
 Array [
   Object {
-    "payload": Object {
-      "organizationId": "2",
-      "siteId": "1",
-    },
+    "payload": "site-2",
     "type": "delete site",
   },
   Object {
     "payload": Object {
       "args": Array [
-        "/organizations/2",
+        "/organization/organization-2",
       ],
       "method": "push",
     },
@@ -862,15 +859,13 @@ Array [
 exports[`Container > EditSite Update site 1`] = `
 Object {
   "payload": Object {
-    "organizationId": "2",
-    "site": Object {
-      "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-      "id": "1",
-      "lat": 38.89011,
-      "lng": -76.9897,
-      "name": "Mock Site",
-      "radius": 0.5,
-    },
+    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
+    "id": "site-2",
+    "lat": 38.89011,
+    "lng": -76.9897,
+    "name": "Mock Site",
+    "organizationId": "organization-2",
+    "radius": 0.5,
   },
   "type": "update site",
 }
@@ -880,7 +875,7 @@ exports[`Container > EditSite Update site 2`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organizations/2",
+      "/organization/organization-2",
     ],
     "method": "push",
   },
