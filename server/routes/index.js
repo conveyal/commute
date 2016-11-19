@@ -1,6 +1,9 @@
-import fs from 'fs'
+const fs = require('fs')
 
-export const makeRoutes = (app) => {
+const routes = {}
+module.exports = routes
+
+routes.makeRoutes = (app) => {
   fs.readdirSync(__dirname).forEach((file) => {
     if (file === 'index.js') return
     const name = file.substr(0, file.indexOf('.'))
@@ -21,7 +24,7 @@ const makeGenericModelResponse = (res) => (err, data) => {
  * @param  {Object} commands Keys representing commands to make and their corresponding options
  * @param  {Object} model    The mongo model to use
  */
-export const makeRestEndpoints = (app, name, commands, model) => {
+routes.makeRestEndpoints = (app, name, commands, model) => {
   if (commands['Collection GET']) {
     app.get(`/api/${name}`, (req, res) => {
       model.find(makeGenericModelResponse(res))

@@ -1,7 +1,7 @@
-import {Site} from '../models'
-import {makeRestEndpoints} from './'
+const models = require('../models')
+const makeRestEndpoints = require('./').makeRestEndpoints
 
-export default function makeRoutes (app) {
+module.exports = function makeRoutes (app) {
   makeRestEndpoints(app,
     'site',
     {
@@ -11,6 +11,6 @@ export default function makeRoutes (app) {
       'DELETE': {},
       'PUT': {}
     },
-    Site
+    models.Site
   )
 }

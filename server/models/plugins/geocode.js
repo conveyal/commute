@@ -1,8 +1,8 @@
-import {Schema} from 'mongoose'
+const Schema = require('mongoose').Schema
 
-import {reverse, search} from 'isomorphic-mapzen-search'
+const geocoder = require('isomorphic-mapzen-search')
 
-export default function (schema, options) {
+module.exports = function (schema, options) {
   /**
    * Add address and coordinate fields
    */
@@ -75,7 +75,7 @@ export default function (schema, options) {
       return callback()
     }
 
-    search(process.env.MAPZEN_SEARCH_KEY, this.fullAddress())
+    geocoder.search(process.env.MAPZEN_SEARCH_KEY, this.fullAddress())
       .then((geojson) => {
         const firstResult = geojson.features[0]
         this.address = firstResult.properties.label
@@ -99,7 +99,7 @@ export default function (schema, options) {
 
   schema.methods.reverseGeocode = function (callback) {
     var self = this
-    reverse(this.coordinate, function (err, address) {
+    geocoder.reverse(this.coordinate, function (err, address) {
       if (err) {
         callback(err)
       } else {
