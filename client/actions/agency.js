@@ -5,6 +5,7 @@ import uuid from 'uuid'
 const addLocally = createAction('add agency')
 export const createAgency = (newAgency) => {
   newAgency.id = uuid.v4()
+  newAgency.organizations = []
   return [
     addLocally(newAgency),
     push(`/agency/${newAgency.id}`)

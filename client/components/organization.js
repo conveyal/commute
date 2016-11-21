@@ -98,7 +98,7 @@ export default class Organization extends Component {
             <p>Below are this organization's sites, commuter groups and analyses.</p>
             <h3>Sites
               <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}/sites/create`}>Create a new site <Icon type='building' /></Link>
+                <Link to={`/organization/${organizationId}/site/create`}>Create a new site <Icon type='building' /></Link>
               </Button>
             </h3>
             <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
@@ -110,7 +110,7 @@ export default class Organization extends Component {
             </BootstrapTable>
             <h3>Commuter Groups
               <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}/groups/create`}>Create a new group <Icon type='users' /></Link>
+                <Link to={`/organization/${organizationId}/group/create`}>Create a new group <Icon type='users' /></Link>
               </Button>
             </h3>
             <p>A commuter group is a list of commuters that can commute to a particular site.</p>

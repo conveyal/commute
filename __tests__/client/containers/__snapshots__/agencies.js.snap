@@ -34,9 +34,9 @@ exports[`Container > Agencies Agencies View loads 1`] = `
                     <!-- react-text: 23 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Sites\" style=\"text-align: left;\" data-field=\"organizations\">
+                  <th class=\"\" title=\"Organizations\" style=\"text-align: left;\" data-field=\"organizations\">
 
-                    <!-- react-text: 26 -->Sites<!-- /react-text -->
+                    <!-- react-text: 26 -->Organizations<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left;\" data-field=\"undefined\">
@@ -106,9 +106,9 @@ exports[`Container > Agencies Agencies View loads with one agency 1`] = `
                     <!-- react-text: 23 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Sites\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"organizations\">
+                  <th class=\"\" title=\"Organizations\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"organizations\">
 
-                    <!-- react-text: 26 -->Sites<!-- /react-text -->
+                    <!-- react-text: 26 -->Organizations<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">

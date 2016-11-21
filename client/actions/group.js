@@ -13,6 +13,9 @@ export const appendToGroup = (newCommuters, groupId) => {
 export const createGroup = (newGroup) => {
   newGroup.id = uuid.v4()
   newGroup.allAddressesGeocoded = false
+  if (!newGroup.commuters) {
+    newGroup.commuters = []
+  }
   return [
     addGroup(newGroup),
     push(`/group/${newGroup.id}`)

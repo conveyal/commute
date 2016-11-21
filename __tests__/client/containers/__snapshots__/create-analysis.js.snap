@@ -441,6 +441,7 @@ Object {
   "payload": Object {
     "analysis": Object {
       "groupId": "group-2",
+      "organizationId": "organization-2",
       "siteId": "site-2",
     },
     "organizationId": "organization-2",

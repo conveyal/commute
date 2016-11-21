@@ -43,7 +43,7 @@ export default class Agencies extends Component {
             <BootstrapTable data={agencies}>
               <TableHeaderColumn dataField='id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={nameRenderer}>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField='organizations' dataFormat={arrayCountRenderer}>Sites</TableHeaderColumn>
+              <TableHeaderColumn dataField='organizations' dataFormat={arrayCountRenderer}>Organizations</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._toolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
           </Col>

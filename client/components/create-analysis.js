@@ -18,9 +18,10 @@ export default class CreateAnalysis extends Component {
     sites: PropTypes.array.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {}
+  componentWillMount () {
+    this.state = {
+      organizationId: this.props.organizationId
+    }
   }
 
   _handleGroupChange = (event) => {

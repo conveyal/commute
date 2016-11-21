@@ -25,7 +25,7 @@ export default class Organizations extends Component {
   }
 
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => { this.props.deleteOrganization(this.props.agency.id, row.id) }
+    const doDelete = () => this.props.deleteOrganization(this.props.agency.id, row.id)
     const onClick = () => actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
@@ -54,7 +54,7 @@ export default class Organizations extends Component {
             </ButtonGroup>
             <h3>Organizations
               <Button className='pull-right'>
-                <Link to='/organizations/create'>
+                <Link to={`/agency/${agencyId}/organization/create`}>
                   <span>Create a new organization</span>
                   <Icon type='shield' />
                 </Link>

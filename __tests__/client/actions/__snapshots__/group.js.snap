@@ -2,6 +2,7 @@ exports[`actions > group create group should work 1`] = `
 Object {
   "payload": Object {
     "allAddressesGeocoded": false,
+    "commuters": Array [],
     "name": "Mock Group",
   },
   "type": "add group",

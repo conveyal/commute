@@ -1,7 +1,10 @@
 exports[`actions > organization create organization should work 1`] = `
 Object {
   "payload": Object {
+    "analyses": Array [],
+    "groups": Array [],
     "name": "mockOrg",
+    "sites": Array [],
   },
   "type": "add organization",
 }

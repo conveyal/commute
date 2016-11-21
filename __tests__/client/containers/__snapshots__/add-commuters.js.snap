@@ -143,8 +143,9 @@ exports[`Container > AddCommuters Create Commuter Group 1`] = `
 Object {
   "payload": Object {
     "allAddressesGeocoded": false,
-    "commuters": undefined,
+    "commuters": Array [],
     "name": "Mock Name",
+    "organizationId": "organization-1",
   },
   "type": "add group",
 }

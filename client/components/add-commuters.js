@@ -31,7 +31,9 @@ export default class AddCommuters extends Component {
         existingCommuters: this.props.existingCommuters
       })
     } else {
-      this.state = {}
+      this.state = {
+        organizationId: this.props.organizationId
+      }
     }
   }
 

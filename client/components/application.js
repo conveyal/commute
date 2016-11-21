@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 
+import BreadcrumbBar from '../components/breadcrumb-bar'
 import Footer from '../components/footer'
 import Navigation from '../containers/navigation'
 
@@ -18,6 +19,9 @@ export default class Application extends Component {
     return (
       <div>
         <Navigation />
+        <BreadcrumbBar
+          {...this.props}
+          />
         {children}
         <Footer />
       </div>

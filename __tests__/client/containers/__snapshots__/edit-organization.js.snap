@@ -1,11 +1,15 @@
 exports[`Container > EditOrganization Create organization 1`] = `
 Object {
   "payload": Object {
+    "agencyId": "agency-1",
+    "analyses": Array [],
     "contact": "My new value",
     "email": "My new value",
+    "groups": Array [],
     "logo_url": "My new value",
     "main_url": "My new value",
     "name": "My new value",
+    "sites": Array [],
   },
   "type": "add organization",
 }

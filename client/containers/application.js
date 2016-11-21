@@ -4,7 +4,7 @@ import {refreshUser} from 'mastarm/react/auth0'
 import Application from '../components/application'
 
 function mapStateToProps (state) {
-  return {}
+  return state
 }
 
 function mapDispatchToProps (dispatch) {

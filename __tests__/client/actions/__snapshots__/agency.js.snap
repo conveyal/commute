@@ -2,6 +2,7 @@ exports[`actions > agency create agency should work 1`] = `
 Object {
   "payload": Object {
     "name": "mockAgency",
+    "organizations": Array [],
   },
   "type": "add agency",
 }

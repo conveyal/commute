@@ -29,7 +29,9 @@ export default class EditCommuter extends Component {
     if (this.props.editMode) {
       this.setState({...this.props.commuter})
     } else {
-      this.state = {}
+      this.state = {
+        groupId: this.props.groupId
+      }
     }
   }
 

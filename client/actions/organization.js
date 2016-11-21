@@ -5,6 +5,9 @@ import uuid from 'uuid'
 const addLocally = createAction('add organization')
 export const createOrganization = (newOrganization) => {
   newOrganization.id = uuid.v4()
+  newOrganization.analyses = []
+  newOrganization.groups = []
+  newOrganization.sites = []
   return [
     addLocally(newOrganization),
     push(`/organization/${newOrganization.id}`)

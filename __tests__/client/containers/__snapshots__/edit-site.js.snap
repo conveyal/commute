@@ -7,6 +7,7 @@ Object {
       "lat": 38.89011,
       "lng": -76.9897,
       "name": "Mock Site",
+      "organizationId": "organization-1",
       "radius": 0.5,
     },
   },

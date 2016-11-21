@@ -29,7 +29,9 @@ export default class EditSite extends Component {
     if (this.props.editMode) {
       this.setState(this.props.site)
     } else {
-      this.state = {}
+      this.state = {
+        organizationId: this.props.organizationId
+      }
     }
   }
 

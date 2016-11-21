@@ -10,6 +10,7 @@ import Agencies from './containers/agencies'
 import AddCommuters from './containers/add-commuters'
 import Application from './containers/application'
 import CreateAnalysis from './containers/create-analysis'
+import EditAgency from './containers/edit-agency'
 import EditCommuter from './containers/edit-commuter'
 import EditOrganization from './containers/edit-organization'
 import EditSite from './containers/edit-site'
@@ -23,7 +24,9 @@ const ApplicationRouter = ({history}) => (
     <Route path='/' component={Application}>
       // Agency views
       <IndexRoute component={Agencies} />
+      <Route path='/agency/create' component={EditAgency} />
       <Route path='/agency/:agencyId' component={Organizations} />
+      <Route path='/agency/:agencyId/edit' component={EditAgency} />
       // Organization Views
       <Route path='/agency/:agencyId/organization/create' component={EditOrganization} />
       <Route path='/organization/:organizationId' component={Organization} />
