@@ -53,8 +53,6 @@ describe('client > reducers > group', () => {
   it('should handle add group', () => {
     const reducer = handleActions(group.reducers, group.initialState)
     const newGroup = {...mockGroupCreation}
-    newGroup.id = 'new-group'
-    newGroup.commuters[0].groupId = 'new-group'
     const action = { payload: newGroup, type: 'add group' }
     const result = reducer(mockStores.withBlankOrganization.group, action)
     expect(result['new-group'].name).toEqual('Fake Group')

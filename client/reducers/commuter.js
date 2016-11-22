@@ -9,6 +9,15 @@ export const reducers = makeGenericReducerHandlers({
   }
 })
 
+reducers['add group'] = function (state, action) {
+  const newGroup = {...action.payload}
+  let updatedState = {...state}
+  newGroup.commuters.map((commuter) => {
+    updatedState = addToEntityMap(updatedState, commuter)
+  })
+  return updatedState
+}
+
 reducers['append commuters'] = function (state, action) {
   let updatedState = state
   action.payload.commuters.forEach((commuter) => {

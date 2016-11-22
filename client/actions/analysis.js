@@ -11,7 +11,7 @@ export const createAnalysis = (newAnalysis) => {
   delete newAnalysis.commuters
   const organizationId = newAnalysis.organizationId
   return [
-    addAnalysis({ analysis: newAnalysis, organizationId }),
+    addAnalysis(newAnalysis),
     push(`/analysis/${newAnalysis.id}`),
     makeMockTrips({ analysisId: newAnalysis.id, organizationId, commuters })
   ] // TODO save to server

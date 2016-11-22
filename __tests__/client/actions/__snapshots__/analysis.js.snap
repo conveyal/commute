@@ -1,13 +1,10 @@
 exports[`actions > analysis create analysis should work 1`] = `
 Object {
   "payload": Object {
-    "analysis": Object {
-      "groupId": "group-id",
-      "name": "Mock Analysis",
-      "organizationId": "organization-id",
-      "siteId": "site-id",
-    },
+    "groupId": "group-id",
+    "name": "Mock Analysis",
     "organizationId": "organization-id",
+    "siteId": "site-id",
   },
   "type": "add analysis",
 }

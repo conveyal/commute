@@ -50,6 +50,18 @@ Object {
 }
 `;
 
+exports[`client > reducers > commuter should handle add group 1`] = `
+Object {
+  "new-commuter": Object {
+    "address": "4321 XYZ Boulevard",
+    "email": "luke@warm.cold",
+    "groupId": "new-group",
+    "id": "new-commuter",
+    "name": "Fake Commuter",
+  },
+}
+`;
+
 exports[`client > reducers > commuter should handle append commuters 1`] = `
 Object {
   "commuter-2": Object {

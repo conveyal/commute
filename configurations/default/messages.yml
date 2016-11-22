@@ -6,6 +6,8 @@ authentication:
   logIn: Log in
   logOut: Log out
   username: Logged in as
+commuter:
+  deleteConfirmation: Are you sure you want to delete this commuter?
 group:
   deleteConfirmation: Are you sure you want to delete this commuter group?
 network:

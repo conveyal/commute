@@ -105,6 +105,45 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                   </Button>
                 </h3>
                 <form>
+                  <FieldGroup
+                    label="Name"
+                    name="name"
+                    onChange={[Function]}
+                    placeholder="Enter name"
+                    type="text"
+                    value={undefined}>
+                    <FormGroup
+                      bsClass="form-group"
+                      controlId="group-item-name">
+                      <div
+                        className="form-group">
+                        <ControlLabel
+                          bsClass="control-label"
+                          srOnly={false}>
+                          <label
+                            className="control-label"
+                            htmlFor="group-item-name">
+                            Name
+                          </label>
+                        </ControlLabel>
+                        <FormControl
+                          bsClass="form-control"
+                          componentClass="input"
+                          onChange={[Function]}
+                          placeholder="Enter name"
+                          type="text"
+                          value="">
+                          <input
+                            className="form-control"
+                            id="group-item-name"
+                            onChange={[Function]}
+                            placeholder="Enter name"
+                            type="text"
+                            value="" />
+                        </FormControl>
+                      </div>
+                    </FormGroup>
+                  </FieldGroup>
                   <FormGroup
                     bsClass="form-group"
                     controlId="site-control">
@@ -439,12 +478,9 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
 exports[`Container > CreateAnalysis Create analysis 1`] = `
 Object {
   "payload": Object {
-    "analysis": Object {
-      "groupId": "group-2",
-      "organizationId": "organization-2",
-      "siteId": "site-2",
-    },
+    "groupId": "group-2",
     "organizationId": "organization-2",
+    "siteId": "site-2",
   },
   "type": "add analysis",
 }

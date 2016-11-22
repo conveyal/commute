@@ -24,7 +24,7 @@ export default class CommuterGroup extends Component {
 
   _commuterToolsRenderer = (cell, row) => {
     const groupId = this.props.group.id
-    const doDelete = () => this.props.deleteCommuter(row.id, groupId)
+    const doDelete = () => this.props.deleteCommuter({ id: row.id, groupId })
     const onClick = () => actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>

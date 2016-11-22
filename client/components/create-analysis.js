@@ -3,6 +3,7 @@ import {Button, Col, ControlLabel, FormGroup, Grid, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
 import Select from 'react-select'
 
+import FieldGroup from './fieldgroup'
 import Icon from './icon'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
@@ -22,6 +23,10 @@ export default class CreateAnalysis extends Component {
     this.state = {
       organizationId: this.props.organizationId
     }
+  }
+
+  _handleChange = (name, event) => {
+    this.setState({ [name]: event.target.value })
   }
 
   _handleGroupChange = (event) => {
@@ -56,6 +61,14 @@ export default class CreateAnalysis extends Component {
               </Button>
             </h3>
             <form>
+              <FieldGroup
+                label='Name'
+                name='name'
+                onChange={this._handleChange}
+                placeholder='Enter name'
+                type='text'
+                value={this.state.name}
+                />
               <FormGroup controlId='site-control'>
                 <ControlLabel>Site</ControlLabel>
                 <Select

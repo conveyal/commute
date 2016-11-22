@@ -37,7 +37,7 @@ export function expectCreateAction (actions, entity) {
 }
 
 export function expectCreateAnalysis (actions) {
-  expectCreateAction(actions.slice(0, 2), 'analysis')
+  expectCreateAction(actions.slice(0, 2))
 }
 
 export function expectCreateCommuter (actions) {
