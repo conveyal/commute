@@ -43,3 +43,25 @@ Object {
   },
 }
 `;
+
+exports[`client > reducers > agency organizations children handler reducer tests it should handle add organization 1`] = `
+Object {
+  "agency-1": Object {
+    "id": "agency-1",
+    "name": "Mock Agency",
+    "organizations": Array [
+      "organization-new",
+    ],
+  },
+}
+`;
+
+exports[`client > reducers > agency organizations children handler reducer tests it should handle delete organization 1`] = `
+Object {
+  "agency-3": Object {
+    "id": "agency-3",
+    "name": "An agency",
+    "organizations": Array [],
+  },
+}
+`;

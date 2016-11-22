@@ -23,9 +23,9 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (commuter, groupId) => dispatch(createCommuter(commuter, groupId)),
-    delete: (commuterId, groupId) => dispatch(deleteCommuter(commuterId, groupId)),
-    update: (commuter, groupId) => dispatch(updateCommuter(commuter, groupId))
+    create: (opts) => dispatch(createCommuter(opts)),
+    delete: (opts) => dispatch(deleteCommuter(opts)),
+    update: (opts) => dispatch(updateCommuter(opts))
   }
 }
 

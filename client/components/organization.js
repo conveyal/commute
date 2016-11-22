@@ -42,15 +42,14 @@ export default class Organization extends Component {
 
   _analysisToolsRenderer = (cell, row) => {
     const doDelete = () => {
-      this.props.deleteAnalysis(row.id, this.props.organization.id)
+      this.props.deleteAnalysis({ id: row.id, organizationId: this.props.organization.id })
     }
     const onClick = () => actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
   }
 
   _handleDelete = () => {
-    const {agencyId, id} = this.props.organization
-    const doDelete = () => this.props.deleteOrganization(agencyId, id)
+    const doDelete = () => this.props.deleteOrganization(this.props.organization)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
@@ -59,7 +58,7 @@ export default class Organization extends Component {
   }
 
   _groupToolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteGroup(row.id, this.props.organization.id)
+    const doDelete = () => this.props.deleteGroup({ id: row.id, organizationId: this.props.organization.id })
     const onClick = () => actUponConfirmation(messages.group.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
   }
@@ -70,7 +69,7 @@ export default class Organization extends Component {
 
   _siteToolsRenderer = (cell, row) => {
     const organizationId = this.props.organization.id
-    const doDelete = () => this.props.deleteSite(row.id, organizationId)
+    const doDelete = () => this.props.deleteSite({ id: row.id, organizationId })
     const onClick = () => actUponConfirmation(messages.site.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>

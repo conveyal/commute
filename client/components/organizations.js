@@ -20,12 +20,12 @@ export default class Organizations extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.deleteAgency(this.props.agency.id)
+    const doDelete = () => this.props.deleteAgency(this.props.agency)
     actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteOrganization(this.props.agency.id, row.id)
+    const doDelete = () => this.props.deleteOrganization({ agencyId: this.props.agency.id, id: row.id })
     const onClick = () => actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>

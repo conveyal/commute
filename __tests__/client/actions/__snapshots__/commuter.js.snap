@@ -23,7 +23,10 @@ Object {
 exports[`actions > commuter delete commuter should work 1`] = `
 Array [
   Object {
-    "payload": "commuter-id",
+    "payload": Object {
+      "groupId": "group-id",
+      "id": "commuter-id",
+    },
     "type": "delete commuter",
   },
   Object {

@@ -4,7 +4,7 @@ import uuid from 'uuid'
 
 const addGroup = createAction('add group')
 const appendCommuters = createAction('append commuters')
-export const appendToGroup = (newCommuters, groupId) => {
+export const appendToGroup = ({ newCommuters, groupId }) => {
   return [
     appendCommuters({ commuters: newCommuters, groupId }),
     push(`/group/${groupId}`)
@@ -30,8 +30,8 @@ const deleteLocally = createAction('delete group')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteGroup = (id, organizationId) => [
-  deleteLocally(id),
+export const deleteGroup = ({ id, organizationId }) => [
+  deleteLocally({ id, organizationId }),
   push(`/organization/${organizationId}`)
 ]
 

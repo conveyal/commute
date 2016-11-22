@@ -3,12 +3,29 @@
 import {handleActions} from 'redux-actions'
 
 import {commuterSal, mockStores} from '../../test-utils/mock-data'
-import {makeGenericReducerTestCases} from '../../test-utils/reducers'
+import {makeChildrenHandlerTestCases, makeGenericReducerTestCases} from '../../test-utils/reducers'
 
 import * as group from '../../../client/reducers/group'
 
 describe('client > reducers > group', () => {
   const anotherGroup = { id: 'group-3', name: 'Another Group', commuters: [] }
+
+  makeChildrenHandlerTestCases({
+    add: {
+      affectedParentId: 'group-2',
+      initialState: mockStores.withAnalysisRun.group,
+      payload: { id: 'commuter-new', groupId: 'group-2' }
+    },
+    childPluralName: 'commuters',
+    childSingularName: 'commuter',
+    delete: {
+      affectedParentId: 'group-2',
+      initialState: mockStores.withAnalysisRun.group,
+      payload: { id: 'commuter-2', groupId: 'group-2' }
+    },
+    initialState: group.initialState,
+    reducers: group.reducers
+  })
 
   makeGenericReducerTestCases({
     handlers: {

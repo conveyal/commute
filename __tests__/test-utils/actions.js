@@ -60,7 +60,7 @@ export function expectCreateSite (actions) {
   // - react-router navigate back to organization
   expect(actions.length).toBe(2)
   const create = actions[0]
-  delete create.payload.site.id
+  delete create.payload.id
   expect(create).toMatchSnapshot()
 
   // react-router

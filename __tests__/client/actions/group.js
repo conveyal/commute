@@ -7,15 +7,16 @@ import * as group from '../../../client/actions/group'
 describe('actions > group', () => {
   it('create group should work', () => {
     const data = {
-      name: 'Mock Group'
+      name: 'Mock Group',
+      organizationId: 'organization-id'
     }
-    const result = group.createGroup(data, 'organization-id')
+    const result = group.createGroup(data)
 
     expectCreateAction(result)
   })
 
   it('delete group should work', () => {
-    const result = group.deleteGroup('group-id', 'organization-id')
+    const result = group.deleteGroup({ id: 'group-id', organizationId: 'organization-id' })
 
     expectDeleteGroup(result)
   })

@@ -18,7 +18,7 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts, organizationId) => dispatch(createAnalysis(opts, organizationId))
+    create: (opts) => dispatch(createAnalysis(opts))
   }
 }
 

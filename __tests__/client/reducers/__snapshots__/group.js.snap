@@ -1,3 +1,30 @@
+exports[`client > reducers > group commuters children handler reducer tests it should handle add commuter 1`] = `
+Object {
+  "group-2": Object {
+    "allAddressesGeocoded": true,
+    "commuters": Array [
+      "commuter-2",
+      "commuter-new",
+    ],
+    "id": "group-2",
+    "name": "Mock Group",
+    "organizationId": "organization-2",
+  },
+}
+`;
+
+exports[`client > reducers > group commuters children handler reducer tests it should handle delete commuter 1`] = `
+Object {
+  "group-2": Object {
+    "allAddressesGeocoded": true,
+    "commuters": Array [],
+    "id": "group-2",
+    "name": "Mock Group",
+    "organizationId": "organization-2",
+  },
+}
+`;
+
 exports[`client > reducers > group generic reducer tests should handle add group 1`] = `
 Object {
   "group-3": Object {

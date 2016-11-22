@@ -1,6 +1,7 @@
 exports[`actions > organization create organization should work 1`] = `
 Object {
   "payload": Object {
+    "agencyId": "agency-id",
     "analyses": Array [],
     "groups": Array [],
     "name": "mockOrg",
@@ -25,7 +26,10 @@ Object {
 exports[`actions > organization delete organization should work 1`] = `
 Array [
   Object {
-    "payload": "organization-id",
+    "payload": Object {
+      "agencyId": "agencyId",
+      "id": "organization-id",
+    },
     "type": "delete organization",
   },
   Object {

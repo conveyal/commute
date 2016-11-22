@@ -1,7 +1,7 @@
 import update from 'react-addons-update'
 
 import {addToEntityMap, entityArrayToEntityIdArray} from '../utils/entities'
-import {makeGenericReducerHandlers} from '../utils/reducers'
+import {makeChildrenHandlers, makeGenericReducerHandlers} from '../utils/reducers'
 
 export const reducers = makeGenericReducerHandlers({
   handlers: ['add', 'delete', 'set', 'set all'],
@@ -20,5 +20,11 @@ reducers['append commuters'] = function (state, action) {
   })
   return addToEntityMap(state, modifiedGroup)
 }
+
+Object.assign(reducers, makeChildrenHandlers({
+  childPluralName: 'commuters',
+  childSingularName: 'commuter',
+  parentIdField: 'groupId'
+}))
 
 export const initialState = {}

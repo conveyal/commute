@@ -6,9 +6,10 @@ import * as commuter from '../../../client/actions/commuter'
 describe('actions > commuter', () => {
   it('create commuter should work', () => {
     const data = {
+      groupId: 'group-id',
       name: 'mockCommuter'
     }
-    const actions = commuter.createCommuter(data, 'group-id')
+    const actions = commuter.createCommuter(data)
 
     expectCreateCommuter(actions)
   })
@@ -24,7 +25,7 @@ describe('actions > commuter', () => {
   })
 
   it('delete commuter should work', () => {
-    const result = commuter.deleteCommuter('commuter-id', 'group-id')
+    const result = commuter.deleteCommuter({ id: 'commuter-id', groupId: 'group-id' })
 
     expectDeleteCommuter(result)
   })

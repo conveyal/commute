@@ -845,7 +845,10 @@ Object {
 exports[`Container > EditCommuter Delete Commuter 1`] = `
 Array [
   Object {
-    "payload": "commuter-2",
+    "payload": Object {
+      "groupId": "group-2",
+      "id": "commuter-2",
+    },
     "type": "delete commuter",
   },
   Object {

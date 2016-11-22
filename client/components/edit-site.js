@@ -27,7 +27,7 @@ export default class EditSite extends Component {
 
   componentWillMount () {
     if (this.props.editMode) {
-      this.setState(this.props.site)
+      this.setState({...this.props.site})
     } else {
       this.state = {
         organizationId: this.props.organizationId
@@ -59,16 +59,16 @@ export default class EditSite extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.delete(this.state.id, this.props.organizationId)
+    const doDelete = () => this.props.delete(this.state)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
-    const {create, editMode, organizationId, update} = this.props
+    const {create, editMode, update} = this.props
     if (editMode) {
-      update(organizationId, this.state)
+      update(this.state)
     } else {
-      create(this.state, organizationId)
+      create(this.state)
     }
   }
 

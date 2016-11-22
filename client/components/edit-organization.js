@@ -35,7 +35,7 @@ export default class EditOrganization extends Component {
   }
 
   handleDelete = () => {
-    const doDelete = () => this.props.delete(this.props.agencyId, this.props.organization.id)
+    const doDelete = () => this.props.delete(this.state)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 

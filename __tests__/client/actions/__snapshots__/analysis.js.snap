@@ -4,6 +4,7 @@ Object {
     "analysis": Object {
       "groupId": "group-id",
       "name": "Mock Analysis",
+      "organizationId": "organization-id",
       "siteId": "site-id",
     },
     "organizationId": "organization-id",
@@ -27,7 +28,10 @@ Object {
 exports[`actions > analysis delete analysis should work 1`] = `
 Array [
   Object {
-    "payload": "site-id",
+    "payload": Object {
+      "id": "site-id",
+      "organizationId": "organization-id",
+    },
     "type": "delete analysis",
   },
   Object {

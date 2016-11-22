@@ -42,14 +42,14 @@ export default class AddCommuters extends Component {
   }
 
   handleSubmit = () => {
-    const {append, appendMode, create, group, organizationId} = this.props
+    const {append, appendMode, create, group} = this.props
     if (appendMode) {
-      append(this.state.newCommuters, group.id)
+      append({ newCommuters: this.state.newCommuters, groupId: group.id })
     } else {
       const newGroup = {...this.state}
       newGroup.commuters = newGroup.newCommuters
       delete newGroup.newCommuters
-      create(newGroup, organizationId)
+      create(newGroup)
     }
   }
 

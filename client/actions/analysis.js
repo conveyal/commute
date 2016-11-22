@@ -4,15 +4,16 @@ import {createAction} from 'redux-actions'
 import uuid from 'uuid'
 
 const addAnalysis = createAction('add analysis')
-export const createAnalysis = (newAnalysis, organizationId) => {
+export const createAnalysis = (newAnalysis) => {
   newAnalysis.id = uuid.v4()
   newAnalysis.lastRunDateTime = moment().unix()
   const commuters = newAnalysis.commuters
   delete newAnalysis.commuters
+  const organizationId = newAnalysis.organizationId
   return [
     addAnalysis({ analysis: newAnalysis, organizationId }),
     push(`/analysis/${newAnalysis.id}`),
-    makeMockTrips(newAnalysis.id, organizationId, commuters)
+    makeMockTrips({ analysisId: newAnalysis.id, organizationId, commuters })
   ] // TODO save to server
 }
 
@@ -24,12 +25,12 @@ const deleteLocally = createAction('delete analysis')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteAnalysis = (id, organizationId) => [
-  deleteLocally(id),
+export const deleteAnalysis = ({ id, organizationId }) => [
+  deleteLocally({ id, organizationId }),
   push(`/organization/${organizationId}`)
 ]
 
-const makeMockTrips = (analysisId, organizationId, commuters) => {
+const makeMockTrips = ({analysisId, organizationId, commuters}) => {
   const trips = []
   const modes = ['bike', 'car', 'transit', 'walk']
   const randRange = () => Math.random() * 0.4 + 0.8

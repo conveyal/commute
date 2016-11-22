@@ -11,7 +11,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteAgency: (id) => dispatch(deleteAgency(id))
+    deleteAgency: (opts) => dispatch(deleteAgency(opts))
   }
 }
 

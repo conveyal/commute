@@ -19,7 +19,7 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteAnalysis: (id, organizationId) => dispatch(deleteAnalysis(id, organizationId))
+    deleteAnalysis: (opts) => dispatch(deleteAnalysis(opts))
   }
 }
 

@@ -643,7 +643,10 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
 exports[`Container > EditOrganization Delete organization 1`] = `
 Array [
   Object {
-    "payload": "organization-1",
+    "payload": Object {
+      "agencyId": "agency-3",
+      "id": "organization-1",
+    },
     "type": "delete organization",
   },
   Object {

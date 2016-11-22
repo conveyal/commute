@@ -1,4 +1,43 @@
+import update from 'react-addons-update'
+
 import {addToEntityMap, deleteFromEntityMap, entityArrayToEntityMap} from './entities'
+
+/**
+ * Make handlers for children creation and deletion events
+ *
+ * @param  {Object} cfg  An configuration object structured as follows:
+ *   - childPluralName (String): Plural name of child (parent's child id array)
+ *   - childSingularName (String): Singular name of child (for making reducer title)
+ *   - parentIdField (String): Id field of parent in child entity
+ * @return {Object}     Reducers
+ */
+export function makeChildrenHandlers (cfg) {
+  const reducers = {}
+  reducers[`add ${cfg.childSingularName}`] = function (state, action) {
+    const newEntity = action.payload
+    return update(state, {
+      [newEntity[cfg.parentIdField]]: {
+        [cfg.childPluralName]: {
+          $push: [newEntity.id]
+        }
+      }
+    })
+  }
+
+  reducers[`delete ${cfg.childSingularName}`] = function (state, action) {
+    const entity = action.payload
+    const childIds = state[entity[cfg.parentIdField]][cfg.childPluralName]
+    return update(state, {
+      [entity[cfg.parentIdField]]: {
+        [cfg.childPluralName]: {
+          $set: childIds.filter((id) => id !== entity.id)
+        }
+      }
+    })
+  }
+
+  return reducers
+}
 
 /**
  * Make generic reducers for an entity type

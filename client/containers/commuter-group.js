@@ -18,8 +18,8 @@ function mapStateToProps (state, props) {
 function mapDispatchToProps (dispatch, props) {
   return {
     deleteCommuter: (opts) => dispatch(deleteCommuter(opts)),
-    deleteGroup: (groupId, organizationId) => dispatch(deleteGroup(groupId, organizationId)),
-    update: (group, organizationId) => dispatch(updateGroup(group, organizationId))
+    deleteGroup: (opts) => dispatch(deleteGroup(opts)),
+    update: (opts) => dispatch(updateGroup(opts))
   }
 }
 

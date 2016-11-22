@@ -11,15 +11,16 @@ describe('actions > analysis', () => {
       commuters: [mockCommuter],
       groupId: 'group-id',
       name: 'Mock Analysis',
+      organizationId: 'organization-id',
       siteId: 'site-id'
     }
-    const result = analysis.createAnalysis(data, 'organization-id')
+    const result = analysis.createAnalysis(data)
 
     expectCreateAnalysis(result)
   })
 
   it('delete analysis should work', () => {
-    const result = analysis.deleteAnalysis('site-id', 'organization-id')
+    const result = analysis.deleteAnalysis({ id: 'site-id', organizationId: 'organization-id' })
 
     expectDeleteAnalysis(result)
   })

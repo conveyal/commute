@@ -1,15 +1,12 @@
 exports[`Container > EditSite Create site 1`] = `
 Object {
   "payload": Object {
+    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
+    "lat": 38.89011,
+    "lng": -76.9897,
+    "name": "Mock Site",
     "organizationId": "organization-1",
-    "site": Object {
-      "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-      "lat": 38.89011,
-      "lng": -76.9897,
-      "name": "Mock Site",
-      "organizationId": "organization-1",
-      "radius": 0.5,
-    },
+    "radius": 0.5,
   },
   "type": "add site",
 }
@@ -842,7 +839,10 @@ Object {
 exports[`Container > EditSite Delete Site 1`] = `
 Array [
   Object {
-    "payload": "site-2",
+    "payload": Object {
+      "id": "site-2",
+      "organizationId": "organization-2",
+    },
     "type": "delete site",
   },
   Object {

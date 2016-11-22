@@ -4,6 +4,7 @@ Object {
     "allAddressesGeocoded": false,
     "commuters": Array [],
     "name": "Mock Group",
+    "organizationId": "organization-id",
   },
   "type": "add group",
 }
@@ -24,7 +25,10 @@ Object {
 exports[`actions > group delete group should work 1`] = `
 Array [
   Object {
-    "payload": "group-id",
+    "payload": Object {
+      "id": "group-id",
+      "organizationId": "organization-id",
+    },
     "type": "delete group",
   },
   Object {

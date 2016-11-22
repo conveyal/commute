@@ -1,10 +1,8 @@
 exports[`actions > site create site should work 1`] = `
 Object {
   "payload": Object {
+    "name": "mockSite",
     "organizationId": "organization-id",
-    "site": Object {
-      "name": "mockSite",
-    },
   },
   "type": "add site",
 }
@@ -25,7 +23,10 @@ Object {
 exports[`actions > site delete site should work 1`] = `
 Array [
   Object {
-    "payload": "site-id",
+    "payload": Object {
+      "id": "site-id",
+      "organizationId": "organization-id",
+    },
     "type": "delete site",
   },
   Object {
@@ -45,6 +46,7 @@ Object {
   "payload": Object {
     "id": "site-id",
     "name": "New Name",
+    "organizationId": "organization-id",
   },
   "type": "update site",
 }

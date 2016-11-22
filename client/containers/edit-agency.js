@@ -22,7 +22,7 @@ function mapStateToProps (state, props) {
 function mapDispatchToProps (dispatch, props) {
   return {
     create: (opts) => dispatch(createAgency(opts)),
-    delete: (agencyId, id) => dispatch(deleteAgency(agencyId, id)),
+    delete: (opts) => dispatch(deleteAgency(opts)),
     update: (opts) => dispatch(updateAgency(opts))
   }
 }

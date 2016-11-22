@@ -24,10 +24,8 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (group, organizationId) =>
-      dispatch(createGroup(group, organizationId)),
-    append: (commuters, groupId, organizationId) =>
-      dispatch(appendToGroup(commuters, groupId, organizationId))
+    create: (opts) => dispatch(createGroup(opts)),
+    append: (opts) => dispatch(appendToGroup(opts))
   }
 }
 

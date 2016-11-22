@@ -8,6 +8,7 @@ import * as organization from '../../../client/actions/organization'
 describe('actions > organization', () => {
   it('create organization should work', () => {
     const data = {
+      agencyId: 'agency-id',
       name: 'mockOrg'
     }
     const result = organization.createOrganization(data)
@@ -23,7 +24,7 @@ describe('actions > organization', () => {
   })
 
   it('delete organization should work', () => {
-    const result = organization.deleteOrganization('agencyId', 'organization-id')
+    const result = organization.deleteOrganization({ agencyId: 'agencyId', id: 'organization-id' })
 
     expectDeleteOrganization(result)
   })

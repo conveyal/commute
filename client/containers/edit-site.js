@@ -23,9 +23,9 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts, organizationId) => dispatch(createSite(opts, organizationId)),
-    delete: (opts, organizationId) => dispatch(deleteSite(opts, organizationId)),
-    update: (opts, organizationId) => dispatch(updateSite(opts, organizationId))
+    create: (opts) => dispatch(createSite(opts)),
+    delete: (opts) => dispatch(deleteSite(opts)),
+    update: (opts) => dispatch(updateSite(opts))
   }
 }
 

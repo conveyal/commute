@@ -1,11 +1,62 @@
 /* globals describe */
 
 import {blankOrganization, mockStores, organizationWithAnAnalysis} from '../../test-utils/mock-data'
-import {makeGenericReducerTestCases} from '../../test-utils/reducers'
+import {makeChildrenHandlerTestCases, makeGenericReducerTestCases} from '../../test-utils/reducers'
 
 import * as organization from '../../../client/reducers/organization'
 
 describe('client > reducers > organization', () => {
+  makeChildrenHandlerTestCases({
+    add: {
+      affectedParentId: 'organization-1',
+      initialState: mockStores.withBlankOrganization.organization,
+      payload: { id: 'analysis-new', organizationId: 'organization-1' }
+    },
+    childPluralName: 'analyses',
+    childSingularName: 'analysis',
+    delete: {
+      affectedParentId: 'organization-2',
+      initialState: mockStores.withAnalysisRun.organization,
+      payload: { id: 'analysis-2', organizationId: 'organization-2' }
+    },
+    initialState: organization.initialState,
+    reducers: organization.reducers
+  })
+
+  makeChildrenHandlerTestCases({
+    add: {
+      affectedParentId: 'organization-1',
+      initialState: mockStores.withBlankOrganization.organization,
+      payload: { id: 'group-new', organizationId: 'organization-1' }
+    },
+    childPluralName: 'groups',
+    childSingularName: 'group',
+    delete: {
+      affectedParentId: 'organization-2',
+      initialState: mockStores.withAnalysisRun.organization,
+      payload: { id: 'group-2', organizationId: 'organization-2' }
+    },
+    initialState: organization.initialState,
+    reducers: organization.reducers
+  })
+
+  makeChildrenHandlerTestCases({
+    add: {
+      affectedParentId: 'organization-1',
+      initialState: mockStores.withBlankOrganization.organization,
+      payload: { id: 'site-new', organizationId: 'organization-1' }
+    },
+    childPluralName: 'sites',
+    childSingularName: 'site',
+    delete: {
+      affectedParentId: 'organization-2',
+      initialState: mockStores.withAnalysisRun.organization,
+      payload: { id: 'site-2', organizationId: 'organization-2' }
+    },
+    initialState: organization.initialState,
+    reducers: organization.reducers
+  })
+
   makeGenericReducerTestCases({
     handlers: {
       add: {

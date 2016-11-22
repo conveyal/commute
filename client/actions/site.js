@@ -3,11 +3,11 @@ import {createAction} from 'redux-actions'
 import uuid from 'uuid'
 
 const addSite = createAction('add site')
-export const createSite = (newSite, organizationId) => {
+export const createSite = (newSite) => {
   newSite.id = uuid.v4()
   return [
-    addSite({ organizationId, site: newSite }),
-    push(`/organization/${organizationId}`)
+    addSite(newSite),
+    push(`/organization/${newSite.organizationId}`)
   ] // TODO save to server
 }
 
@@ -19,8 +19,8 @@ const deleteLocally = createAction('delete site')
       method: 'delete'
     }
   }) */ // TODO delete on server
-export const deleteSite = (id, organizationId) => [
-  deleteLocally(id),
+export const deleteSite = ({id, organizationId}) => [
+  deleteLocally({id, organizationId}),
   push(`/organization/${organizationId}`)
 ]
 
@@ -32,7 +32,7 @@ const updateLocally = createAction('update site')
       method: 'update'
     }
   }) */ // TODO update on server
-export const updateSite = (organizationId, site) => [
+export const updateSite = (site) => [
   updateLocally(site),
-  push(`/organization/${organizationId}`)
+  push(`/organization/${site.organizationId}`)
 ]
