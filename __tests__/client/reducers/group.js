@@ -2,7 +2,7 @@
 
 import {handleActions} from 'redux-actions'
 
-import {commuterSal, mockStores} from '../../test-utils/mock-data'
+import {commuterSal, mockGroupCreation, mockStores} from '../../test-utils/mock-data'
 import {makeChildrenHandlerTestCases, makeGenericReducerTestCases} from '../../test-utils/reducers'
 
 import * as group from '../../../client/reducers/group'
@@ -29,10 +29,6 @@ describe('client > reducers > group', () => {
 
   makeGenericReducerTestCases({
     handlers: {
-      add: {
-        initialState: group.initialState,
-        payload: anotherGroup
-      },
       delete: {
         initialState: mockStores.withAnalysisRun.group,
         payload: 'group-2'
@@ -52,6 +48,17 @@ describe('client > reducers > group', () => {
       singular: 'group'
     },
     reducers: group.reducers
+  })
+
+  it('should handle add group', () => {
+    const reducer = handleActions(group.reducers, group.initialState)
+    const newGroup = {...mockGroupCreation}
+    newGroup.id = 'new-group'
+    newGroup.commuters[0].groupId = 'new-group'
+    const action = { payload: newGroup, type: 'add group' }
+    const result = reducer(mockStores.withBlankOrganization.group, action)
+    expect(result['new-group'].name).toEqual('Fake Group')
+    expect(result).toMatchSnapshot()
   })
 
   it('should handle append commuters', () => {

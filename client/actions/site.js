@@ -24,7 +24,7 @@ export const deleteSite = ({id, organizationId}) => [
   push(`/organization/${organizationId}`)
 ]
 
-const updateLocally = createAction('update site')
+const updateLocally = createAction('set site')
 /* const updateOnServer = (id) =>
   serverAction({
     url: `/api/site/${id}`,

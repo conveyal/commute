@@ -4,12 +4,18 @@ import {addToEntityMap, entityArrayToEntityIdArray} from '../utils/entities'
 import {makeChildrenHandlers, makeGenericReducerHandlers} from '../utils/reducers'
 
 export const reducers = makeGenericReducerHandlers({
-  handlers: ['add', 'delete', 'set', 'set all'],
+  handlers: ['delete', 'set', 'set all'],
   name: {
     singular: 'group',
     plural: 'groups'
   }
 })
+
+reducers['add group'] = function (state, action) {
+  const newGroup = {...action.payload}
+  newGroup.commuters = newGroup.commuters.map((commuter) => commuter.id)
+  return addToEntityMap(state, newGroup)
+}
 
 reducers['append commuters'] = function (state, action) {
   const affectedGroup = state[action.payload.groupId]

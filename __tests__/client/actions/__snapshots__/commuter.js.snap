@@ -47,7 +47,7 @@ Object {
     "id": "commuter-id",
     "name": "mockCommuter",
   },
-  "type": "update commuter",
+  "type": "set commuter",
 }
 `;
 

@@ -48,7 +48,7 @@ Object {
     "name": "New Name",
     "organizationId": "organization-id",
   },
-  "type": "update site",
+  "type": "set site",
 }
 `;
 

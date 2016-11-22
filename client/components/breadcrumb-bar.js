@@ -18,7 +18,8 @@ export default class BreadcrumbBar extends Component {
       href: '/',
       name: 'Agencies'
     }]
-    const path = window.location.pathname
+
+    const path = process.env.NODE_ENV === 'test' ? window.fakePath : window.location.pathname
 
     const appendEntity = (id, name, urlBase, isActive) => {
       if (isActive) {
@@ -56,6 +57,12 @@ export default class BreadcrumbBar extends Component {
       appendEntity(groupId, group.name, '/group/', isActive)
     }
 
+    const appendSite = (siteId, isActive) => {
+      const site = this.props.site[siteId]
+      appendOrganization(site.organizationId)
+      appendEntity(siteId, site.name, '/site/', isActive)
+    }
+
     if (path === '/') {
       // do nothing for home
     } else if (path.match('/agency/create')) {
@@ -87,6 +94,10 @@ export default class BreadcrumbBar extends Component {
     } else if (path.match(/\/organization\/[\w-]+\/edit$/)) {
       // Edit Organization View
       appendOrganization(path.match(/\/organization\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Edit Organization'
+      })
     } else if (path.match(/\/organization\/[\w-]+\/analysis\/create$/)) {
       // Create Analysis View
       appendOrganization(path.match(/\/organization\/([\w-]+)/)[1])
@@ -96,24 +107,24 @@ export default class BreadcrumbBar extends Component {
       })
     } else if (path.match(/\/analysis\/[\w-]+$/)) {
       // Analysis Summary View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[0], true)
+      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1], true)
     } else if (path.match(/\/analysis\/[\w-]+\/histogram$/)) {
       // Analysis histogram View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[0])
+      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1])
       navItems.push({
         active: true,
         name: 'Histogram'
       })
     } else if (path.match(/\/analysis\/[\w-]+\/possibilities$/)) {
       // Analysis Possibilities View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[0])
+      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1])
       navItems.push({
         active: true,
         name: 'Possibilities'
       })
     } else if (path.match(/\/analysis\/[\w-]+\/individuals$/)) {
       // Individual Analysis View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[0])
+      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1])
       navItems.push({
         active: true,
         name: 'Individuals'
@@ -127,24 +138,24 @@ export default class BreadcrumbBar extends Component {
       })
     } else if (path.match(/\/group\/[\w-]+$/)) {
       // Group View
-      appendGroup(path.match(/\/group\/([\w-]+)/)[0], true)
+      appendGroup(path.match(/\/group\/([\w-]+)/)[1], true)
     } else if (path.match(/\/group\/[\w-]+\/add$/)) {
       // Append Commuters View
-      appendGroup(path.match(/\/group\/([\w-]+)/)[0])
+      appendGroup(path.match(/\/group\/([\w-]+)/)[1])
       navItems.push({
         active: true,
         name: 'Add Commuters'
       })
     } else if (path.match(/\/group\/[\w-]+\/commuter\/create$/)) {
       // Create Commuter View
-      appendGroup(path.match(/\/group\/([\w-]+)/)[0])
+      appendGroup(path.match(/\/group\/([\w-]+)/)[1])
       navItems.push({
         active: true,
         name: 'Create Commuter'
       })
     } else if (path.match(/\/commuter\/[\w-]+\/edit$/)) {
       // Edit Commuter View
-      const commuter = this.props.commuter[path.match(/\/commuter\/([\w-]+)/)]
+      const commuter = this.props.commuter[path.match(/\/commuter\/([\w-]+)/)[1]]
       appendGroup(commuter.groupId)
       navItems.push({
         active: true,
@@ -157,10 +168,9 @@ export default class BreadcrumbBar extends Component {
         active: true,
         name: 'Create Site'
       })
-    } else if (path.match(/\/site\/[\w-]+\/edit/)) {
+    } else if (path.match(/\/site\/[\w-]+\/edit$/)) {
       // Edit Site View
-      const site = this.props.site[path.match(/\/site\/([\w-]+)/)]
-      appendOrganization(site.organizationId)
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
       navItems.push({
         active: true,
         name: 'Edit Site'

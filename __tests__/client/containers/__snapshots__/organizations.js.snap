@@ -74,9 +74,14 @@ exports[`Container > Organizations Organizations View loads 1`] = `
                     <!-- react-text: 38 -->Groups<!-- /react-text -->
                     <div></div>
                   </th>
+                  <th class=\"\" title=\"Analyses\" style=\"text-align: left;\" data-field=\"analyses\">
+
+                    <!-- react-text: 41 -->Analyses<!-- /react-text -->
+                    <div></div>
+                  </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                    <!-- react-text: 41 -->Tools<!-- /react-text -->
+                    <!-- react-text: 44 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>
@@ -91,10 +96,11 @@ exports[`Container > Organizations Organizations View loads 1`] = `
                     <col class=\"\">
                       <col class=\"\">
                         <col class=\"\">
+                          <col class=\"\">
               </colgroup>
               <tbody>
                 <tr class=\"\">
-                  <td colspan=\"5\" class=\"react-bs-table-no-data\">There is no data to display</td>
+                  <td colspan=\"6\" class=\"react-bs-table-no-data\">There is no data to display</td>
                 </tr>
               </tbody>
             </table>
@@ -161,9 +167,14 @@ exports[`Container > Organizations Organizations View loads with one organizatio
                     <!-- react-text: 38 -->Groups<!-- /react-text -->
                     <div></div>
                   </th>
+                  <th class=\"\" title=\"Analyses\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"analyses\">
+
+                    <!-- react-text: 41 -->Analyses<!-- /react-text -->
+                    <div></div>
+                  </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 41 -->Tools<!-- /react-text -->
+                    <!-- react-text: 44 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>
@@ -178,12 +189,16 @@ exports[`Container > Organizations Organizations View loads with one organizatio
                     <col class=\"\">
                       <col class=\"\">
                         <col class=\"\">
+                          <col class=\"\">
               </colgroup>
               <tbody>
                 <tr class=\"\">
                   <td class=\"\" style=\"text-align: left; display: none;\">organization-1</td>
                   <td class=\"\" style=\"text-align: left;\">
                     <a>Mock Organization</a> 
+                  </td>
+                  <td class=\"\" style=\"text-align: left;\">
+                    <div>0</div>
                   </td>
                   <td class=\"\" style=\"text-align: left;\">
                     <div>0</div>

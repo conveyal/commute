@@ -25,16 +25,6 @@ Object {
 }
 `;
 
-exports[`client > reducers > group generic reducer tests should handle add group 1`] = `
-Object {
-  "group-3": Object {
-    "commuters": Array [],
-    "id": "group-3",
-    "name": "Another Group",
-  },
-}
-`;
-
 exports[`client > reducers > group generic reducer tests should handle delete group 1`] = `Object {}`;
 
 exports[`client > reducers > group generic reducer tests should handle set group 1`] = `
@@ -53,6 +43,19 @@ Object {
     "commuters": Array [],
     "id": "group-3",
     "name": "Another Group",
+  },
+}
+`;
+
+exports[`client > reducers > group should handle add group 1`] = `
+Object {
+  "new-group": Object {
+    "commuters": Array [
+      "new-commuter",
+    ],
+    "id": "new-group",
+    "name": "Fake Group",
+    "organizationId": "organization-1",
   },
 }
 `;

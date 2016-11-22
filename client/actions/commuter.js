@@ -24,7 +24,7 @@ export const deleteCommuter = ({ id, groupId }) => [
   push(`/group/${groupId}`)
 ]
 
-const updateLocally = createAction('update commuter')
+const updateLocally = createAction('set commuter')
 /* const updateOnServer = (id) =>
   serverAction({
     url: `/api/commuter/${id}`,

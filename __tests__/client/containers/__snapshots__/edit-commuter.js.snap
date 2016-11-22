@@ -874,7 +874,7 @@ Object {
     "lng": -76.9897,
     "name": "Mock Commuter",
   },
-  "type": "update commuter",
+  "type": "set commuter",
 }
 `;
 

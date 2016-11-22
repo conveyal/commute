@@ -64,7 +64,7 @@ export default class Organization extends Component {
   }
 
   _siteNameRenderer = (cell, row) => {
-    return <Link to={`/site/${row.id}/`}>{row.name}</Link>
+    return <Link to={`/site/${row.id}/edit`}>{row.name}</Link>
   }
 
   _siteToolsRenderer = (cell, row) => {

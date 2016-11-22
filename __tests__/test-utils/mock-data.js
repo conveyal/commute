@@ -46,6 +46,16 @@ export const mockGroup = {
   organizationId: 'organization-2'
 }
 
+export const mockGroupCreation = {
+  name: 'Fake Group',
+  organizationId: 'organization-1',
+  commuters: [{
+    id: 'new-commuter',
+    address: '4321 XYZ Boulevard',
+    email: 'luke@warm.cold'
+  }]
+}
+
 export const mockSite = {
   id: 'site-2',
   name: 'Acme Corp',

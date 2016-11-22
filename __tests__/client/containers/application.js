@@ -12,6 +12,8 @@ const mockStore = makeMockStore(mockStores.init)
 
 describe('Container > Application', () => {
   it('Website Loads With Existing User', () => {
+    window.fakePath = '/'
+
     // mount component
     mount(
       <Provider store={mockStore}>

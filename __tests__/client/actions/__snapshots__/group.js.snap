@@ -49,6 +49,6 @@ Object {
     "id": "group-id",
     "name": "New Name",
   },
-  "type": "update group",
+  "type": "set group",
 }
 `;

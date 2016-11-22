@@ -20,7 +20,7 @@ export default class Organizations extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.deleteAgency(this.props.agency)
+    const doDelete = () => this.props.deleteAgency(this.props.agency.id)
     actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 
@@ -66,6 +66,7 @@ export default class Organizations extends Component {
               <TableHeaderColumn dataField='name' dataFormat={nameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='sites' dataFormat={arrayCountRenderer}>Sites</TableHeaderColumn>
               <TableHeaderColumn dataField='groups' dataFormat={arrayCountRenderer}>Groups</TableHeaderColumn>
+              <TableHeaderColumn dataField='analyses' dataFormat={arrayCountRenderer}>Analyses</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._toolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
           </Col>

@@ -5,6 +5,10 @@ import uuid from 'uuid'
 const addGroup = createAction('add group')
 const appendCommuters = createAction('append commuters')
 export const appendToGroup = ({ newCommuters, groupId }) => {
+  newCommuters = newCommuters.map((commuter) => {
+    commuter.groupId = groupId
+    return commuter
+  })
   return [
     appendCommuters({ commuters: newCommuters, groupId }),
     push(`/group/${groupId}`)
@@ -15,6 +19,11 @@ export const createGroup = (newGroup) => {
   newGroup.allAddressesGeocoded = false
   if (!newGroup.commuters) {
     newGroup.commuters = []
+  } else {
+    newGroup.commuters = newGroup.commuters.map((commuter) => {
+      commuter.groupId = newGroup.id
+      return commuter
+    })
   }
   return [
     addGroup(newGroup),
@@ -35,7 +44,7 @@ export const deleteGroup = ({ id, organizationId }) => [
   push(`/organization/${organizationId}`)
 ]
 
-const updateLocally = createAction('update group')
+const updateLocally = createAction('set group')
 /* const updateOnServer = (id) =>
   serverAction({
     url: `/api/group/${id}`,

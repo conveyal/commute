@@ -868,7 +868,7 @@ Object {
     "organizationId": "organization-2",
     "radius": 0.5,
   },
-  "type": "update site",
+  "type": "set site",
 }
 `;
 

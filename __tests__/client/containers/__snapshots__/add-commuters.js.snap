@@ -119,6 +119,7 @@ Array [
         Object {
           "address": "123 Main St",
           "email": "a@b.c",
+          "groupId": "group-2",
           "id": "1",
           "name": "Bob",
         },
