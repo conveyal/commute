@@ -2,7 +2,7 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const jwt = require('express-jwt')
 const path = require('path')
-const html = require('mastarm/react/html')
+const html = require('@conveyal/woonerf/html')
 
 const routes = require('./routes')
 

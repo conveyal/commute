@@ -5,6 +5,7 @@ import Application from '../components/application'
 
 function mapStateToProps (state) {
   return {
+    ...state,
     userIsLoggedIn: !!state.user
   }
 }
