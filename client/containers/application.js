@@ -1,10 +1,12 @@
 import {connect} from 'react-redux'
-import {refreshUser} from 'mastarm/react/auth0'
+import {refreshUser} from '@conveyal/woonerf/auth0'
 
 import Application from '../components/application'
 
 function mapStateToProps (state) {
-  return state
+  return {
+    userIsLoggedIn: !!state.user
+  }
 }
 
 function mapDispatchToProps (dispatch) {

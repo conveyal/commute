@@ -1,4 +1,4 @@
-import Auth0 from 'mastarm/react/auth0'
+import Auth0 from '@conveyal/woonerf/components/auth0-lock'
 import React from 'react'
 import {
   IndexRoute,

@@ -1,3 +1,6 @@
+entries:
+  - client/index.js:assets/index.js
+  - client/index.css:assets/index.css
 map:
   focus:
     lat: 38.8886

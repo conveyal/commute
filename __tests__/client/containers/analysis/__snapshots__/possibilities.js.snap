@@ -254,8 +254,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
     bsStyle="default"
     defaultExpanded={false}>
     <div
-      className="panel panel-default"
-      id={undefined}>
+      className="panel panel-default">
       <div
         className="panel-body">
         <FormGroup
@@ -281,7 +280,6 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
                 className="form-control"
                 id="histogram-metric-select"
                 onChange={[Function]}
-                type={undefined}
                 value="percent">
                 <option
                   value="percent">

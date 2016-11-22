@@ -87,8 +87,7 @@ exports[`Container > EditAgency Create/Edit Agency View loads (create mode) 1`] 
                     name="name"
                     onChange={[Function]}
                     placeholder="Enter name"
-                    type="text"
-                    value={undefined}>
+                    type="text">
                     <FormGroup
                       bsClass="form-group"
                       controlId="group-item-name">
