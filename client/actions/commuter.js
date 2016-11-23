@@ -4,7 +4,7 @@ import uuid from 'uuid'
 
 const addCommuter = createAction('add commuter')
 export const createCommuter = (commuter) => {
-  commuter.id = uuid.v4()
+  commuter._id = uuid.v4()
   return [
     addCommuter(commuter),
     push(`/group/${commuter.groupId}`)

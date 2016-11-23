@@ -18,7 +18,7 @@ export function makeChildrenHandlers (cfg) {
     return update(state, {
       [newEntity[cfg.parentIdField]]: {
         [cfg.childPluralName]: {
-          $push: [newEntity.id]
+          $push: [newEntity._id]
         }
       }
     })
@@ -30,7 +30,7 @@ export function makeChildrenHandlers (cfg) {
     return update(state, {
       [entity[cfg.parentIdField]]: {
         [cfg.childPluralName]: {
-          $set: childIds.filter((id) => id !== entity.id)
+          $set: childIds.filter((id) => id !== entity._id)
         }
       }
     })

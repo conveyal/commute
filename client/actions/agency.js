@@ -1,16 +1,29 @@
 import fetchAction from '@conveyal/woonerf/fetch'
 import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
-import uuid from 'uuid'
 
 const addLocally = createAction('add agency')
+
 export const createAgency = (newAgency) => {
-  newAgency.id = uuid.v4()
   newAgency.organizations = []
-  return [
-    addLocally(newAgency),
-    push(`/agency/${newAgency.id}`)
-  ] // TODO save to server
+  return fetchAction({
+    next: (res, err) => {
+      if (err) {
+        // TODO handle error
+      } else {
+        const createdAgency = res.value
+        return [
+          addLocally(createdAgency),
+          push(`/agency/${createdAgency._id}`)
+        ]
+      }
+    },
+    options: {
+      body: newAgency,
+      method: 'POST'
+    },
+    url: '/api/agency'
+  })
 }
 
 const deleteLocally = createAction('delete agency')
@@ -24,21 +37,22 @@ const deleteLocally = createAction('delete agency')
 export const deleteAgency = (id) => [deleteLocally(id), push('/')]
 
 export const loadAgencies = () => fetchAction({
-  url: '/api/agency',
   next: (res, err) => {
     if (!err) {
-      return setAllLocally(res)
+      return setAllLocally(res.value)
     }
-  }
+    // TODO handle error
+  },
+  url: '/api/agency'
 })
 
 export const updateAgency = (agency) => [
   setLocally(agency),
-  push(`/agency/${agency.id}`)
+  push(`/agency/${agency._id}`)
 ]
 /* const updateOnServer = (agency) =>
   serverAction({
-    url: `/api/agency/${agency.id}`,
+    url: `/api/agency/${agency._id}`,
     options: {
       body: JSON.stringify(agency),
       method: 'put'

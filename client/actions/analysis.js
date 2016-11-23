@@ -5,15 +5,15 @@ import uuid from 'uuid'
 
 const addAnalysis = createAction('add analysis')
 export const createAnalysis = (newAnalysis) => {
-  newAnalysis.id = uuid.v4()
+  newAnalysis._id = uuid.v4()
   newAnalysis.lastRunDateTime = moment().unix()
   const commuters = newAnalysis.commuters
   delete newAnalysis.commuters
   const organizationId = newAnalysis.organizationId
   return [
     addAnalysis(newAnalysis),
-    push(`/analysis/${newAnalysis.id}`),
-    makeMockTrips({ analysisId: newAnalysis.id, organizationId, commuters })
+    push(`/analysis/${newAnalysis._id}`),
+    makeMockTrips({ analysisId: newAnalysis._id, organizationId, commuters })
   ] // TODO save to server
 }
 
@@ -36,7 +36,7 @@ const makeMockTrips = ({analysisId, organizationId, commuters}) => {
   const randRange = () => Math.random() * 0.4 + 0.8
   commuters.forEach((commuter) => {
     const curTrip = {
-      commuterId: commuter.id
+      commuterId: commuter._id
     }
     const tripMetricBase = Math.random()
     let bestValue = 9999999

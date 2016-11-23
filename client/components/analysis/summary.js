@@ -22,7 +22,7 @@ export default class Summary extends Component {
   handleDelete () {
     const {analysis, deleteAnalysis, organizationId} = this.props
     const doDelete = () => {
-      deleteAnalysis(analysis.id, organizationId)
+      deleteAnalysis(analysis._id, organizationId)
     }
     actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
   }

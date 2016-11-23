@@ -28,21 +28,21 @@ export default class Organization extends Component {
 
   _analysisGroupNameRenderer = (cell, row) => {
     const group = this.props.group[row.groupId]
-    return <Link to={`/group/${group.id}`}>{group.name}</Link>
+    return <Link to={`/group/${group._id}`}>{group.name}</Link>
   }
 
   _analysisNameRenderer = (cell, row) => {
-    return <Link to={`/analysis/${row.id}`}>{row.name}</Link>
+    return <Link to={`/analysis/${row._id}`}>{row.name}</Link>
   }
 
   _analysisSiteNameRenderer = (cell, row) => {
     const site = this.props.site[row.siteId]
-    return <Link to={`/group/${site.id}`}>{site.name}</Link>
+    return <Link to={`/group/${site._id}`}>{site.name}</Link>
   }
 
   _analysisToolsRenderer = (cell, row) => {
     const doDelete = () => {
-      this.props.deleteAnalysis({ id: row.id, organizationId: this.props.organization.id })
+      this.props.deleteAnalysis({ id: row._id, organizationId: this.props.organization._id })
     }
     const onClick = () => actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
@@ -54,26 +54,26 @@ export default class Organization extends Component {
   }
 
   _groupNameRenderer = (cell, row) => {
-    return <Link to={`/group/${row.id}/`}>{row.name}</Link>
+    return <Link to={`/group/${row._id}/`}>{row.name}</Link>
   }
 
   _groupToolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteGroup({ id: row.id, organizationId: this.props.organization.id })
+    const doDelete = () => this.props.deleteGroup({ id: row._id, organizationId: this.props.organization._id })
     const onClick = () => actUponConfirmation(messages.group.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
   }
 
   _siteNameRenderer = (cell, row) => {
-    return <Link to={`/site/${row.id}/edit`}>{row.name}</Link>
+    return <Link to={`/site/${row._id}/edit`}>{row.name}</Link>
   }
 
   _siteToolsRenderer = (cell, row) => {
-    const organizationId = this.props.organization.id
-    const doDelete = () => this.props.deleteSite({ id: row.id, organizationId })
+    const organizationId = this.props.organization._id
+    const doDelete = () => this.props.deleteSite({ id: row._id, organizationId })
     const onClick = () => actUponConfirmation(messages.site.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/site/${row.id}/edit`}>Edit</Link>
+        <Link to={`/site/${row._id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>

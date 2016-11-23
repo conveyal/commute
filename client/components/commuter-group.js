@@ -23,12 +23,12 @@ export default class CommuterGroup extends Component {
   }
 
   _commuterToolsRenderer = (cell, row) => {
-    const groupId = this.props.group.id
-    const doDelete = () => this.props.deleteCommuter({ id: row.id, groupId })
+    const groupId = this.props.group._id
+    const doDelete = () => this.props.deleteCommuter({ id: row._id, groupId })
     const onClick = () => actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/commuter/${row.id}/edit`}>Edit</Link>
+        <Link to={`/commuter/${row._id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>
@@ -130,7 +130,7 @@ const mapCommuters = (allAddressesGeocoded, commuters) => {
   } else if (commuters.length === 1) {
     return {
       markers: [{
-        id: commuters[0].id,
+        id: commuters[0]._id,
         name: commuters[0].name,
         position: {
           lat: commuters[0].lat,

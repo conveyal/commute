@@ -13,7 +13,7 @@ export const reducers = makeGenericReducerHandlers({
 
 reducers['add group'] = function (state, action) {
   const newGroup = {...action.payload}
-  newGroup.commuters = newGroup.commuters.map((commuter) => commuter.id)
+  newGroup.commuters = newGroup.commuters.map((commuter) => commuter._id)
   return addToEntityMap(state, newGroup)
 }
 

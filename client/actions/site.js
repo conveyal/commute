@@ -4,7 +4,7 @@ import uuid from 'uuid'
 
 const addSite = createAction('add site')
 export const createSite = (newSite) => {
-  newSite.id = uuid.v4()
+  newSite._id = uuid.v4()
   return [
     addSite(newSite),
     push(`/organization/${newSite.organizationId}`)

@@ -20,16 +20,16 @@ export default class Organizations extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.deleteAgency(this.props.agency.id)
+    const doDelete = () => this.props.deleteAgency(this.props.agency._id)
     actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteOrganization({ agencyId: this.props.agency.id, id: row.id })
+    const doDelete = () => this.props.deleteOrganization({ agencyId: this.props.agency._id, id: row._id })
     const onClick = () => actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
-        <Link to={`/organization/${row.id}/edit`}>Edit</Link>
+        <Link to={`/organization/${row._id}/edit`}>Edit</Link>
       </Button>
       <Button bsStyle='danger' onClick={onClick}>Delete</Button>
     </div>
@@ -77,5 +77,5 @@ export default class Organizations extends Component {
 }
 
 const nameRenderer = (cell, row) => {
-  return <Link to={`/organization/${row.id}`}>{cell}</Link>
+  return <Link to={`/organization/${row._id}`}>{cell}</Link>
 }

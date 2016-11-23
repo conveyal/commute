@@ -44,7 +44,7 @@ export default class AddCommuters extends Component {
   handleSubmit = () => {
     const {append, appendMode, create, group} = this.props
     if (appendMode) {
-      append({ newCommuters: this.state.newCommuters, groupId: group.id })
+      append({ newCommuters: this.state.newCommuters, groupId: group._id })
     } else {
       const newGroup = {...this.state}
       newGroup.commuters = newGroup.newCommuters
@@ -70,7 +70,7 @@ export default class AddCommuters extends Component {
     r.onload = (e) => {
       const newCommuters = csvParse(e.target.result, (row) => {
         const {address, email, name} = row
-        const id = row.id || uuid.v4()
+        const id = row._id || uuid.v4()
         // TODO: parse more field possibilities (first name, last name, etc)
         return {address, email, id, name}
       })
@@ -93,7 +93,7 @@ export default class AddCommuters extends Component {
             <h3>
               <span>{appendMode ? 'Add Commuters to Group' : 'Create Commuter Group'}</span>
               <Button className='pull-right'>
-                <Link to={appendMode ? `/group/${group.id}` : `/organization/${organizationId}`}>
+                <Link to={appendMode ? `/group/${group._id}` : `/organization/${organizationId}`}>
                   <Icon type='arrow-left' />
                   <span>Back</span>
                 </Link>

@@ -4,13 +4,13 @@ import uuid from 'uuid'
 
 const addLocally = createAction('add organization')
 export const createOrganization = (newOrganization) => {
-  newOrganization.id = uuid.v4()
+  newOrganization._id = uuid.v4()
   newOrganization.analyses = []
   newOrganization.groups = []
   newOrganization.sites = []
   return [
     addLocally(newOrganization),
-    push(`/organization/${newOrganization.id}`)
+    push(`/organization/${newOrganization._id}`)
   ] // TODO save to server
 }
 
@@ -29,11 +29,11 @@ export const deleteOrganization = ({agencyId, id}) => [
 
 export const updateOrganization = (organization) => [
   setLocally(organization),
-  push(`/organization/${organization.id}`)
+  push(`/organization/${organization._id}`)
 ]
 /* const updateOnServer = (organization) =>
   serverAction({
-    url: `/api/organization/${organization.id}`,
+    url: `/api/organization/${organization._id}`,
     options: {
       body: JSON.stringify(organization),
       method: 'put'

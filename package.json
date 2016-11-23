@@ -4,7 +4,7 @@
   "scripts": {
     "build": "mastarm build client/index.js:assets/index.js client/index.css:assets/index.css",
     "deploy": "mastarm deploy client/index.js:assets/index.js client/index.css:assets/index.css",
-    "cover-all": "npm run test-all -- --coverage --coverage-paths \"client/**/*.js server/**/*.js\"",
+    "cover": "npm run test-all -- --coverage --coverage-paths \"client/**/*.js server/**/*.js\"",
     "cover-client": "npm run test-client -- --coverage --coverage-paths \"client/**/*.js\"",
     "cover-server": "npm run test-server -- --coverage --coverage-paths \"server/**/*.js\"",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",

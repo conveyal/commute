@@ -14,7 +14,7 @@ import update from 'react-addons-update'
  */
 export function addToEntityMap (map, newEntity) {
   return update(map, {
-    [newEntity.id]: {
+    [newEntity._id]: {
       $set: newEntity
     }
   })
@@ -43,7 +43,7 @@ export function deleteFromEntityMap (map, entityId) {
  * @return {Array}     An array of entity ids
  */
 export function entityArrayToEntityIdArray (arr) {
-  return arr.map((entity) => entity.id)
+  return arr.map((entity) => entity._id)
 }
 
 /**
@@ -54,7 +54,7 @@ export function entityArrayToEntityIdArray (arr) {
  */
 export function entityArrayToEntityMap (arr) {
   const obj = {}
-  for (let i = 0; i < arr.length; i++) obj[arr[i].id] = arr[i]
+  for (let i = 0; i < arr.length; i++) obj[arr[i]._id] = arr[i]
   return obj
 }
 

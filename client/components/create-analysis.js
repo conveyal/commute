@@ -73,7 +73,7 @@ export default class CreateAnalysis extends Component {
                 <ControlLabel>Site</ControlLabel>
                 <Select
                   onChange={this._handleSiteChange}
-                  options={sites.map((site) => { return {label: site.name, value: site.id} })}
+                  options={sites.map((site) => { return {label: site.name, value: site._id} })}
                   placeholder='Select a Site...'
                   value={this.state.siteId}
                   />
@@ -86,7 +86,7 @@ export default class CreateAnalysis extends Component {
                     return {
                       commuters: group.commuters,
                       label: group.name,
-                      value: group.id
+                      value: group._id
                     }
                   })}
                   placeholder='Select a Commuter Group...'
