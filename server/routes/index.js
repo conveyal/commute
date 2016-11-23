@@ -12,6 +12,7 @@ routes.makeRoutes = (app) => {
 }
 
 const makeGenericModelResponse = (res) => (err, data) => {
+  res.set('Content-Type', 'application/json')
   if (err) return res.status(500).json({error: err})
   res.json(data)
 }

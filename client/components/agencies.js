@@ -11,10 +11,15 @@ import {actUponConfirmation} from '../utils/ui'
 export default class Agencies extends Component {
   static propTypes = {
     // dispatch
-    deleteAgency: PropTypes.func,
+    deleteAgency: PropTypes.func.isRequired,
+    loadAgencies: PropTypes.func.isRequired,
 
     // props
-    agencies: PropTypes.array
+    agencies: PropTypes.array.isRequired
+  }
+
+  componentWillMount () {
+    this.props.loadAgencies()
   }
 
   _toolsRenderer = (cell, row) => {

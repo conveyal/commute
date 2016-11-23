@@ -43,6 +43,9 @@ describe('Container > Agencies', () => {
       </Provider>
     )
 
+    // clear load action
+    mockStore.clearActions()
+
     // When the user clicks the delete button for an existing organization
     // And the user confirms the Confirm Deletion dialog
     const deleteButton = tree.find('table').find('Button').last()

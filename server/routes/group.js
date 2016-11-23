@@ -17,6 +17,7 @@ module.exports = function makeRoutes (app) {
 
   // rest-ish endpoints
   app.post('/api/group', (req, res) => {
+    res.set('Content-Type', 'application/json')
     const handleErr = (err) => res.status(500).json({error: err})
     models.Group.create(pick(req.body, ['name', 'organization']))
       .then((group) => {

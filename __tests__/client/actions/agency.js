@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global describe, expect, it */
 
 import {expectCreateAction, expectDeleteAgency, expectUpdateAction} from '../../test-utils/actions'
 import * as agency from '../../../client/actions/agency'
@@ -11,6 +11,13 @@ describe('actions > agency', () => {
     const actions = agency.createAgency(data)
 
     expectCreateAction(actions)
+  })
+
+  it('loadAgencies should work', () => {
+    const action = agency.loadAgencies()
+    expect(action.type).toBe('fetch')
+    const nextAction = action.payload.next([])
+    expect(nextAction.type).toBe('set agencies')
   })
 
   it('update agency should work', () => {
