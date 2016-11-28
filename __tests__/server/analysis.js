@@ -12,14 +12,14 @@ describe('analysis', () => {
   })
 
   const initAnalysisData = {
-    group: mongoose.Types.ObjectId(),
+    groupId: mongoose.Types.ObjectId(),
     name: 'test-analysis',
-    organization: mongoose.Types.ObjectId(),
-    site: mongoose.Types.ObjectId()
+    organizationId: mongoose.Types.ObjectId(),
+    siteId: mongoose.Types.ObjectId()
   }
 
-  makeRestEndpointTests('analysis',
-    {
+  makeRestEndpointTests({
+    endpoints: {
       'Collection GET': {},
       'Collection POST': {
         creationData: initAnalysisData,
@@ -34,6 +34,8 @@ describe('analysis', () => {
         initData: initAnalysisData
       }
     },
-    Analysis
-  )
+    foreignKeys: ['groupId', 'organizationId', 'siteId'],
+    model: Analysis,
+    name: 'analysis'
+  })
 })

@@ -15,11 +15,11 @@ describe('group', () => {
 
   const initGroupData = {
     name: 'test-group',
-    organization: mongoose.Types.ObjectId()
+    organizationId: mongoose.Types.ObjectId()
   }
 
-  makeRestEndpointTests('group',
-    {
+  makeRestEndpointTests({
+    endpoints: {
       'Collection GET': {},
       'Collection POST': {
         creationData: initGroupData
@@ -41,8 +41,10 @@ describe('group', () => {
         }
       }
     },
-    Group
-  )
+    foreignKeys: ['organizationId'],
+    model: Group,
+    name: 'group'
+  })
 
   describe('rest-ish endpoints', () => {
     const removeFn = async () => {
@@ -65,7 +67,7 @@ describe('group', () => {
             name: 'test commuter'
           }],
           name: 'test group',
-          organization: mongoose.Types.ObjectId()
+          organizationId: mongoose.Types.ObjectId()
         })
 
       // handle response
@@ -75,8 +77,9 @@ describe('group', () => {
       const commuterCount = await Commuter.count().exec()
       expect(commuterCount).toBe(1)
       expect(json.name).toBe('test group')
+      expect(json.commuters.length).toBe(1)
       const commuters = await Commuter.find().exec()
-      expect(`${commuters[0].group}`).toBe(json._id)
+      expect(`${commuters[0].groupId}`).toBe(json._id)
     })
   })
 })

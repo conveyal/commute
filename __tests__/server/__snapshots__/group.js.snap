@@ -1,0 +1,20 @@
+exports[`group rest endpoint should add model 1`] = `
+Object {
+  "__v": 0,
+  "name": "test-group",
+}
+`;
+
+exports[`group rest endpoint should get model 1`] = `
+Object {
+  "__v": 0,
+  "name": "test-group",
+}
+`;
+
+exports[`group rest endpoint should update model 1`] = `
+Object {
+  "__v": 0,
+  "name": "updated name",
+}
+`;

@@ -3,14 +3,29 @@ const makeRestEndpoints = require('./').makeRestEndpoints
 
 module.exports = function makeRoutes (app) {
   makeRestEndpoints(app,
-    'organization',
     {
-      'Collection GET': {},
-      'Collection POST': {},
-      'GET': {},
-      'DELETE': {},
-      'PUT': {}
-    },
-    models.Organization
+      childModels: [{
+        foreignKey: 'organizationId',
+        key: 'analyses',
+        model: models.Analysis
+      }, {
+        foreignKey: 'organizationId',
+        key: 'groups',
+        model: models.Group
+      }, {
+        foreignKey: 'organizationId',
+        key: 'sites',
+        model: models.Site
+      }],
+      commands: {
+        'Collection GET': {},
+        'Collection POST': {},
+        'GET': {},
+        'DELETE': {},
+        'PUT': {}
+      },
+      model: models.Organization,
+      name: 'organization'
+    }
   )
 }

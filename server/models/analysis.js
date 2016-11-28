@@ -1,7 +1,7 @@
 const {Schema} = require('mongoose')
 
 module.exports = new Schema({
-  group: {
+  groupId: {
     ref: 'Group',
     required: true,
     type: Schema.Types.ObjectId
@@ -10,12 +10,12 @@ module.exports = new Schema({
     required: true,
     type: String
   },
-  organization: {
+  organizationId: {
     ref: 'Organization',
     required: true,
     type: Schema.Types.ObjectId
   },
-  site: {
+  siteId: {
     ref: 'Site',
     required: true,
     type: Schema.Types.ObjectId

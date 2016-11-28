@@ -18,11 +18,11 @@ describe('site', () => {
       lon: 34
     },
     name: 'test-site',
-    organization: mongoose.Types.ObjectId()
+    organizationId: mongoose.Types.ObjectId()
   }
 
-  makeRestEndpointTests('site',
-    {
+  makeRestEndpointTests({
+    endpoints: {
       'Collection GET': {},
       'Collection POST': {
         creationData: initSiteData,
@@ -47,9 +47,9 @@ describe('site', () => {
         }
       }
     },
-    Site,
-    {
-      geocodePlugin: true
-    }
-  )
+    foreignKeys: ['organizationId'],
+    geocodePlugin: true,
+    model: Site,
+    name: 'site'
+  })
 })

@@ -1,12 +1,18 @@
 const {Schema} = require('mongoose')
 
-module.exports = new Schema({
+import Organization from './organization'
+
+const agencySchema = new Schema({
   name: {
     required: true,
     type: String
-  },
-  organizations: [{
-    ref: 'Organization',
-    type: Schema.Types.ObjectId
-  }]
+  }
 })
+
+agencySchema.pre('remove', function (next) {
+  // CASCADE DELETE
+  Organization.remove({ agencyId: this._id }).exec()
+  next()
+})
+
+module.exports = agencySchema

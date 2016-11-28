@@ -1,0 +1,20 @@
+exports[`organization rest endpoint should add model 1`] = `
+Object {
+  "__v": 0,
+  "name": "test-org",
+}
+`;
+
+exports[`organization rest endpoint should get model 1`] = `
+Object {
+  "__v": 0,
+  "name": "test-org",
+}
+`;
+
+exports[`organization rest endpoint should update model 1`] = `
+Object {
+  "__v": 0,
+  "name": "updated name",
+}
+`;

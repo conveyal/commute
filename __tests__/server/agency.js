@@ -15,8 +15,8 @@ describe('agency', () => {
     name: 'test-agency'
   }
 
-  makeRestEndpointTests('agency',
-    {
+  makeRestEndpointTests({
+    endpoints: {
       'Collection GET': {},
       'Collection POST': {
         creationData: initAgencyData,
@@ -41,6 +41,7 @@ describe('agency', () => {
         }
       }
     },
-    Agency
-  )
+    model: Agency,
+    name: 'agency'
+  })
 })

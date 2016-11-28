@@ -18,11 +18,11 @@ describe('commuter', () => {
       lon: 34
     },
     name: 'test-commuter',
-    group: mongoose.Types.ObjectId()
+    groupId: mongoose.Types.ObjectId()
   }
 
-  makeRestEndpointTests('commuter',
-    {
+  makeRestEndpointTests({
+    endpoints: {
       'Collection GET': {},
       'Collection POST': {
         creationData: initCommuterData,
@@ -47,9 +47,9 @@ describe('commuter', () => {
         }
       }
     },
-    Commuter,
-    {
-      geocodePlugin: true
-    }
-  )
+    foreignKeys: ['groupId'],
+    geocodePlugin: true,
+    model: Commuter,
+    name: 'commuter'
+  })
 })

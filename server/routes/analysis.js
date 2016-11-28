@@ -3,13 +3,15 @@ const makeRestEndpoints = require('./').makeRestEndpoints
 
 module.exports = function makeRoutes (app) {
   makeRestEndpoints(app,
-    'analysis',
     {
-      'Collection GET': {},
-      'Collection POST': {},
-      'GET': {},
-      'DELETE': {}
-    },
-    models.Analysis
+      commands: {
+        'Collection GET': {},
+        'Collection POST': {},
+        'GET': {},
+        'DELETE': {}
+      },
+      model: models.Analysis,
+      name: 'analysis'
+    }
   )
 }

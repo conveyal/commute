@@ -4,7 +4,7 @@ const geocodingPlugin = require('./plugins/geocode')
 
 const schema = new Schema({
   address: String,
-  group: {
+  groupId: {
     ref: 'Group',
     required: true,
     type: Schema.Types.ObjectId

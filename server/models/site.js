@@ -12,7 +12,7 @@ const schema = new Schema({
     required: true,
     type: String
   },
-  organization: {
+  organizationId: {
     ref: 'Organization',
     required: true,
     type: Schema.Types.ObjectId

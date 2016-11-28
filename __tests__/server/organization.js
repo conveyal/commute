@@ -12,11 +12,12 @@ describe('organization', () => {
   })
 
   const initOrganizationData = {
+    agencyId: mongoose.Types.ObjectId(),
     name: 'test-org'
   }
 
-  makeRestEndpointTests('organization',
-    {
+  makeRestEndpointTests({
+    endpoints: {
       'Collection GET': {},
       'Collection POST': {
         creationData: initOrganizationData,
@@ -41,6 +42,8 @@ describe('organization', () => {
         }
       }
     },
-    Organization
-  )
+    foreignKeys: ['agencyId'],
+    model: Organization,
+    name: 'organization'
+  })
 })

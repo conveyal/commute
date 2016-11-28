@@ -1,0 +1,20 @@
+exports[`agency rest endpoint should add model 1`] = `
+Object {
+  "__v": 0,
+  "name": "test-agency",
+}
+`;
+
+exports[`agency rest endpoint should get model 1`] = `
+Object {
+  "__v": 0,
+  "name": "test-agency",
+}
+`;
+
+exports[`agency rest endpoint should update model 1`] = `
+Object {
+  "__v": 0,
+  "name": "updated name",
+}
+`;

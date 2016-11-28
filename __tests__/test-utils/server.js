@@ -1,5 +1,6 @@
 /* globals afterEach, beforeEach, describe, expect, it */
 
+import omit from 'lodash.omit'
 import nock from 'nock'
 import request from 'supertest-as-promised'
 
@@ -111,12 +112,24 @@ export const makeRemoveModelsFn = (model) => async () => await model.remove({}).
 /**
  * Make a rest endpoint tests with the specified routes
  *
- * @param  {String} name      The endpoint name
- * @param  {Object} endpoints Keys representing endpoints to make and their corresponding options
- * @param  {Object} model     The mongo model to use
+ * @param {Object} cfg   A configuration object with the following data:
+ *   - {Object} endpoints    Keys representing endpoints to make and their corresponding options
+ *   - {Array} foreignKeys   An array of strings representing foreign keys in the model
+ *   - {bool} geocodePlugin  whether or not the model has a geocodePlugin
+ *   - {Object} model        The mongo model to use
+ *   - {String} name         The endpoint name
+ *   - {Object} parentModel  An object describing a parent relationship in this model.
+ *     Has the following keys
+ *     - {String} childrenField  children field in the paret model
+ *     - {String} foreignKey     foreign key field name
+ *     - {Object} model          parent model
  */
-export const makeRestEndpointTests = (name, endpoints, model, opts) => {
-  opts = opts || {}
+export const makeRestEndpointTests = (cfg) => {
+  const endpoints = cfg.endpoints
+  const geocodePlugin = cfg.geocodePlugin
+  const model = cfg.model
+  const name = cfg.name
+  const snapshotOmitions = ['_id'].concat(cfg.foreignKeys || [])
   describe('rest endpoint', () => {
     beforeEach(makeRemoveModelsFn(model))
     afterEach(makeRemoveModelsFn(model))
@@ -137,7 +150,7 @@ export const makeRestEndpointTests = (name, endpoints, model, opts) => {
       const creationData = cfg.creationData || {}
       const customAssertions = cfg.customAssertions || (() => 'no-op')
       it('should add model', async () => {
-        if (opts.geocodePlugin) prepareGeocodeNock()
+        if (geocodePlugin) prepareGeocodeNock()
 
         // make request
         const res = await request(app)
@@ -146,8 +159,10 @@ export const makeRestEndpointTests = (name, endpoints, model, opts) => {
 
         // handle response
         const json = parseServerResponse(res)
+        expect(omit(json, snapshotOmitions)).toMatchSnapshot()
         const count = await model.count().exec()
         expect(count).toBe(1)
+
         customAssertions(json, res)
       })
     }
@@ -156,7 +171,7 @@ export const makeRestEndpointTests = (name, endpoints, model, opts) => {
       it('should delete model', async () => {
         const cfg = endpoints['DELETE']
         const initData = cfg.initData || {}
-        if (opts.geocodePlugin) prepareGeocodeNock()
+        if (geocodePlugin) prepareGeocodeNock()
 
         // create model
         const createdModel = await model.create(initData)
@@ -180,7 +195,7 @@ export const makeRestEndpointTests = (name, endpoints, model, opts) => {
         const cfg = endpoints['GET']
         requireKeys(cfg, ['initData'])
         const initData = cfg.initData
-        if (opts.geocodePlugin) prepareGeocodeNock()
+        if (geocodePlugin) prepareGeocodeNock()
 
         // create model
         const createdModel = await model.create(initData)
@@ -192,6 +207,7 @@ export const makeRestEndpointTests = (name, endpoints, model, opts) => {
 
         // handle response
         const json = parseServerResponse(res)
+        expect(omit(json, snapshotOmitions)).toMatchSnapshot()
         expect(json._id).toEqual(`${modelId}`)
         customAssertions(json, res)
       })
@@ -202,7 +218,7 @@ export const makeRestEndpointTests = (name, endpoints, model, opts) => {
         const cfg = endpoints['PUT']
         requireKeys(cfg, ['customAssertions', 'initData', 'updateData'])
         const {customAssertions, initData, updateData} = cfg
-        if (opts.geocodePlugin) prepareGeocodeNock()
+        if (geocodePlugin) prepareGeocodeNock()
 
         // create model
         const createdModel = await model.create(initData)
@@ -213,6 +229,7 @@ export const makeRestEndpointTests = (name, endpoints, model, opts) => {
 
         // handle response
         const json = parseServerResponse(res)
+        expect(omit(json, snapshotOmitions)).toMatchSnapshot()
         const data = await model.findById(modelId).exec()
         customAssertions(data, json, res)
       })
