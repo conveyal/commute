@@ -1,14 +1,4 @@
-exports[`actions > commuter create commuter should work 1`] = `
-Object {
-  "payload": Object {
-    "groupId": "group-id",
-    "name": "mockCommuter",
-  },
-  "type": "add commuter",
-}
-`;
-
-exports[`actions > commuter create commuter should work 2`] = `
+exports[`actions > commuter generic model actions create should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
@@ -20,42 +10,23 @@ Object {
 }
 `;
 
-exports[`actions > commuter delete commuter should work 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "groupId": "group-id",
-      "id": "commuter-id",
-    },
-    "type": "delete commuter",
-  },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/group/group-id",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
-`;
-
-exports[`actions > commuter update commuter should work 1`] = `
-Object {
-  "payload": Object {
-    "id": "commuter-id",
-    "name": "mockCommuter",
-  },
-  "type": "set commuter",
-}
-`;
-
-exports[`actions > commuter update commuter should work 2`] = `
+exports[`actions > commuter generic model actions delete should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/group/undefined",
+      "/group/group-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > commuter generic model actions update should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/group-2",
     ],
     "method": "push",
   },

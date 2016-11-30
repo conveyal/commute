@@ -1,33 +1,32 @@
-/* global describe, it */
+/* global describe */
 
-import {expectCreateSite, expectDeleteSite, expectUpdateAction} from '../../test-utils/actions'
+import {makeGenericModelActionsTests} from '../../test-utils/actions'
+import {mockSite} from '../../test-utils/mock-data'
+
 import * as site from '../../../client/actions/site'
 
 describe('actions > site', () => {
-  it('create site should work', () => {
-    const data = {
-      name: 'mockSite',
-      organizationId: 'organization-id'
-    }
-    const actions = site.createSite(data)
-
-    expectCreateSite(actions)
-  })
-
-  it('update site should work', () => {
-    const data = {
-      id: 'site-id',
-      name: 'New Name',
-      organizationId: 'organization-id'
-    }
-    const actions = site.updateSite(data)
-
-    expectUpdateAction(actions)
-  })
-
-  it('delete site should work', () => {
-    const result = site.deleteSite({ id: 'site-id', organizationId: 'organization-id' })
-
-    expectDeleteSite(result)
+  makeGenericModelActionsTests({
+    actions: site,
+    commands: {
+      'Collection GET': {},
+      'Collection POST': {
+        args: {
+          name: 'New Site',
+          organizationId: 'organization-id'
+        }
+      },
+      'DELETE': {
+        args: mockSite
+      },
+      'GET': {
+        args: 'entity-id'
+      },
+      'PUT': {
+        args: mockSite
+      }
+    },
+    pluralName: 'sites',
+    singularName: 'site'
   })
 })

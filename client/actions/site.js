@@ -1,38 +1,21 @@
-import {push} from 'react-router-redux'
-import {createAction} from 'redux-actions'
-import uuid from 'uuid'
+import makeGenericModelActions from '../utils/actions'
 
-const addSite = createAction('add site')
-export const createSite = (newSite) => {
-  newSite._id = uuid.v4()
-  return [
-    addSite(newSite),
-    push(`/organization/${newSite.organizationId}`)
-  ] // TODO save to server
-}
-
-const deleteLocally = createAction('delete site')
-/* const deleteOnServer = (id) =>
-  serverAction({
-    url: `/api/site/${id}`,
-    options: {
-      method: 'delete'
+const actions = makeGenericModelActions({
+  commands: {
+    'Collection GET': {},
+    'Collection POST': {
+      redirectionStrategy: 'toParent'
+    },
+    'DELETE': {},
+    'GET': {},
+    'PUT': {
+      redirectionStrategy: 'toParent'
     }
-  }) */ // TODO delete on server
-export const deleteSite = ({id, organizationId}) => [
-  deleteLocally({id, organizationId}),
-  push(`/organization/${organizationId}`)
-]
+  },
+  parentKey: 'organizationId',
+  parentName: 'organization',
+  pluralName: 'sites',
+  singularName: 'site'
+})
 
-const updateLocally = createAction('set site')
-/* const updateOnServer = (id) =>
-  serverAction({
-    url: `/api/site/${id}`,
-    options: {
-      method: 'update'
-    }
-  }) */ // TODO update on server
-export const updateSite = (site) => [
-  updateLocally(site),
-  push(`/organization/${site.organizationId}`)
-]
+export default actions

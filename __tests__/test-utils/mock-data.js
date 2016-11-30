@@ -7,13 +7,13 @@ export const makeMockStore = configureStore([multi, promise])
 
 // mock agencies
 export const blankAgency = {
-  id: 'agency-1',
+  _id: 'agency-1',
   name: 'Mock Agency',
   organizations: []
 }
 
 export const agencyWithAnOrganization = {
-  id: 'agency-2',
+  _id: 'agency-2',
   name: 'Mock Agency',
   organizations: ['organization-2']
 }
@@ -22,7 +22,7 @@ export const agencyWithAnOrganization = {
 export const commuterSal = {
   address: '9876 ABC Ct',
   email: 'sal@a.mander',
-  id: 'commuter-3',
+  _id: 'commuter-3',
   lat: 38.915,
   lng: -76.971,
   name: 'Sal A. Mander'
@@ -32,7 +32,7 @@ export const mockCommuter = {
   address: '4321 XYZ Boulevard',
   email: 'luke@warm.cold',
   groupId: 'group-2',
-  id: 'commuter-2',
+  _id: 'commuter-2',
   lat: 38.916089,
   lng: -76.970221,
   name: 'Luke Warm'
@@ -41,7 +41,7 @@ export const mockCommuter = {
 export const mockGroup = {
   allAddressesGeocoded: true,
   commuters: ['commuter-2'],
-  id: 'group-2',
+  _id: 'group-2',
   name: 'Mock Group',
   organizationId: 'organization-2'
 }
@@ -51,16 +51,16 @@ export const mockGroupCreation = {
     address: '4321 XYZ Boulevard',
     email: 'luke@warm.cold',
     groupId: 'new-group',
-    id: 'new-commuter',
+    _id: 'new-commuter',
     name: 'Fake Commuter'
   }],
-  id: 'new-group',
+  _id: 'new-group',
   name: 'Fake Group',
   organizationId: 'organization-1'
 }
 
 export const mockSite = {
-  id: 'site-2',
+  _id: 'site-2',
   name: 'Acme Corp',
   address: '123 ABC St',
   lat: 38.8886,
@@ -105,7 +105,7 @@ export const mockTrip = {
 }
 
 export const mockAnalysis = {
-  id: 'analysis-2',
+  _id: 'analysis-2',
   groupId: 'group-2',
   lastRunDateTime: 1477697490,
   name: 'An Analysis',
@@ -148,7 +148,7 @@ export const mockAnalysis = {
 export const blankOrganization = {
   agencyId: 'agency-3',
   analyses: [],
-  id: 'organization-1',
+  _id: 'organization-1',
   contact: 'someone',
   email: 'abc@def.ghi',
   groups: [],
@@ -161,7 +161,7 @@ export const blankOrganization = {
 export const organizationWithAnAnalysis = {
   agencyId: 'agency-2',
   analyses: ['analysis-2'],
-  id: 'organization-2',
+  _id: 'organization-2',
   contact: 'someone',
   email: 'abc@def.ghi',
   groups: ['group-2'],
@@ -217,7 +217,7 @@ export const mockStores = {
   withBlankOrganization: {
     agency: {
       'agency-3': {
-        id: 'agency-3',
+        _id: 'agency-3',
         name: 'An agency',
         organizations: ['organization-1']
       }

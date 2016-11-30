@@ -1,43 +1,17 @@
-import {push} from 'react-router-redux'
-import {createAction} from 'redux-actions'
-import uuid from 'uuid'
+import makeGenericModelActions from '../utils/actions'
 
-const addLocally = createAction('add organization')
-export const createOrganization = (newOrganization) => {
-  newOrganization._id = uuid.v4()
-  newOrganization.analyses = []
-  newOrganization.groups = []
-  newOrganization.sites = []
-  return [
-    addLocally(newOrganization),
-    push(`/organization/${newOrganization._id}`)
-  ] // TODO save to server
-}
+const actions = makeGenericModelActions({
+  commands: {
+    'Collection GET': {},
+    'Collection POST': {},
+    'DELETE': {},
+    'GET': {},
+    'PUT': {}
+  },
+  parentKey: 'agencyId',
+  parentName: 'agency',
+  pluralName: 'organizations',
+  singularName: 'organization'
+})
 
-const deleteLocally = createAction('delete organization')
-/* const deleteOnServer = (id) =>
-  serverAction({
-    url: `/api/organization/${id}`,
-    options: {
-      method: 'delete'
-    }
-  }) */ // TODO delete on server
-export const deleteOrganization = ({agencyId, id}) => [
-  deleteLocally({agencyId, id}),
-  push(`/agency/${agencyId}`)
-]
-
-export const updateOrganization = (organization) => [
-  setLocally(organization),
-  push(`/organization/${organization._id}`)
-]
-/* const updateOnServer = (organization) =>
-  serverAction({
-    url: `/api/organization/${organization._id}`,
-    options: {
-      body: JSON.stringify(organization),
-      method: 'put'
-    }
-  }) */  // TODO: update on server
-
-export const setLocally = createAction('set organization')
+export default actions

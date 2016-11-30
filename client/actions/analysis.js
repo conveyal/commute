@@ -1,36 +1,22 @@
 import moment from 'moment'
 import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
-import uuid from 'uuid'
+import makeGenericModelActions from '../utils/actions'
 
-const addAnalysis = createAction('add analysis')
-export const createAnalysis = (newAnalysis) => {
-  newAnalysis._id = uuid.v4()
-  newAnalysis.lastRunDateTime = moment().unix()
-  const commuters = newAnalysis.commuters
-  delete newAnalysis.commuters
-  const organizationId = newAnalysis.organizationId
-  return [
-    addAnalysis(newAnalysis),
-    push(`/analysis/${newAnalysis._id}`),
-    makeMockTrips({ analysisId: newAnalysis._id, organizationId, commuters })
-  ] // TODO save to server
-}
+const actions = makeGenericModelActions({
+  commands: {
+    'Collection GET': {},
+    'Collection POST': {},
+    'DELETE': {},
+    'GET': {}
+  },
+  parentKey: 'organizationId',
+  parentName: 'organization',
+  pluralName: 'analyses',
+  singularName: 'analysis'
+})
 
-const deleteLocally = createAction('delete analysis')
-/* const deleteOnServer = (id) =>
-  serverAction({
-    url: `/api/analysis/${id}`,
-    options: {
-      method: 'delete'
-    }
-  }) */ // TODO delete on server
-export const deleteAnalysis = ({ id, organizationId }) => [
-  deleteLocally({ id, organizationId }),
-  push(`/organization/${organizationId}`)
-]
-
-const makeMockTrips = ({analysisId, organizationId, commuters}) => {
+actions.makeMockTrips = ({analysisId, organizationId, commuters}) => {
   const trips = []
   const modes = ['bike', 'car', 'transit', 'walk']
   const randRange = () => Math.random() * 0.4 + 0.8
@@ -57,3 +43,5 @@ const makeMockTrips = ({analysisId, organizationId, commuters}) => {
   return sendMockTrips({analysisId, organizationId, trips})
 }
 const sendMockTrips = createAction('receive mock calculated trips')
+
+export default actions

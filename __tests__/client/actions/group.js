@@ -1,33 +1,29 @@
-/* global describe, it */
+/* global describe */
 
-import {expectCreateAction, expectDeleteGroup, expectUpdateGroup} from '../../test-utils/actions'
+import {makeGenericModelActionsTests} from '../../test-utils/actions'
+import {mockGroup, mockGroupCreation} from '../../test-utils/mock-data'
 
 import * as group from '../../../client/actions/group'
 
 describe('actions > group', () => {
-  it('create group should work', () => {
-    const data = {
-      name: 'Mock Group',
-      organizationId: 'organization-id'
-    }
-    const result = group.createGroup(data)
-
-    expectCreateAction(result)
-  })
-
-  it('delete group should work', () => {
-    const result = group.deleteGroup({ id: 'group-id', organizationId: 'organization-id' })
-
-    expectDeleteGroup(result)
-  })
-
-  it('update group should work', () => {
-    const data = {
-      id: 'group-id',
-      name: 'New Name'
-    }
-    const actions = group.updateGroup(data)
-
-    expectUpdateGroup(actions)
+  makeGenericModelActionsTests({
+    actions: group,
+    commands: {
+      'Collection GET': {},
+      'Collection POST': {
+        args: mockGroupCreation
+      },
+      'DELETE': {
+        args: mockGroup
+      },
+      'GET': {
+        args: 'entity-id'
+      },
+      'PUT': {
+        args: mockGroup
+      }
+    },
+    pluralName: 'groups',
+    singularName: 'group'
   })
 })

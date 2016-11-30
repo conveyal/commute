@@ -1,14 +1,4 @@
-exports[`actions > site create site should work 1`] = `
-Object {
-  "payload": Object {
-    "name": "mockSite",
-    "organizationId": "organization-id",
-  },
-  "type": "add site",
-}
-`;
-
-exports[`actions > site create site should work 2`] = `
+exports[`actions > site generic model actions create should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
@@ -20,43 +10,23 @@ Object {
 }
 `;
 
-exports[`actions > site delete site should work 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "id": "site-id",
-      "organizationId": "organization-id",
-    },
-    "type": "delete site",
-  },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-id",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
-`;
-
-exports[`actions > site update site should work 1`] = `
-Object {
-  "payload": Object {
-    "id": "site-id",
-    "name": "New Name",
-    "organizationId": "organization-id",
-  },
-  "type": "set site",
-}
-`;
-
-exports[`actions > site update site should work 2`] = `
+exports[`actions > site generic model actions delete should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organization/organization-id",
+      "/organization/organization-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > site generic model actions update should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
     ],
     "method": "push",
   },

@@ -1,17 +1,4 @@
-exports[`actions > organization create organization should work 1`] = `
-Object {
-  "payload": Object {
-    "agencyId": "agency-id",
-    "analyses": Array [],
-    "groups": Array [],
-    "name": "mockOrg",
-    "sites": Array [],
-  },
-  "type": "add organization",
-}
-`;
-
-exports[`actions > organization create organization should work 2`] = `
+exports[`actions > organization generic model actions create should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
@@ -23,52 +10,26 @@ Object {
 }
 `;
 
-exports[`actions > organization delete organization should work 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "agencyId": "agencyId",
-      "id": "organization-id",
-    },
-    "type": "delete organization",
+exports[`actions > organization generic model actions delete should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/agency/agency-3",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/agency/agencyId",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
-exports[`actions > organization update organization should work 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "agencyId": "agency-3",
-      "analyses": Array [],
-      "contact": "someone",
-      "email": "abc@def.ghi",
-      "groups": Array [],
-      "id": "organization-1",
-      "logo_url": "https://placekitten.com/80/80",
-      "main_url": "https://placekitten.com/",
-      "name": "Mock Organization",
-      "sites": Array [],
-    },
-    "type": "set organization",
+exports[`actions > organization generic model actions update should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-1",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-1",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;

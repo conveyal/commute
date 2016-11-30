@@ -1,6 +1,188 @@
-/* globals expect */
+/* globals describe, expect, it */
 
 import moment from 'moment'
+
+const expectFetchActionAndGetNextFn = (action, url, optionsToAssertEqual) => {
+  // expect fetch type to be handled by middleware
+  expect(action.type).toEqual('fetch')
+
+  // parse payload
+  const payload = action.payload
+  // expect url to match expectation
+  expect(payload.url).toEqual(url)
+  // expect next function to exist
+  expect(payload.next).toBeTruthy()
+  // expect the options to equal optionsToAssertEqual argument if it is provided
+  if (optionsToAssertEqual) {
+    expect(payload.options).toEqual(optionsToAssertEqual)
+  }
+  return payload.next
+}
+
+/**
+ * Make tests for generated generic model actions
+ *
+ * @param  {Object} cfg An object with the following parameters:
+ * - actions: The actions to test
+ * - commands: An object with the keys being commands and the corresponding cfg of each command
+ * -- args: The arguments sent to the action
+ * - pluralName: Plural name of the model
+ * - singularName: Singular name of the model
+ */
+export function makeGenericModelActionsTests (cfg) {
+  const {actions, commands, singularName, pluralName} = cfg
+
+  const addLocallyType = `add ${singularName}`
+  const deleteLocallyType = `delete ${singularName}`
+  const setLocallyType = `set ${singularName}`
+  const setAllLocallyType = `set ${pluralName}`
+
+  const baseEndpoint = `/api/${singularName}`
+
+  describe('generic model actions', () => {
+    if (commands['Collection GET']) {
+      const testCfg = commands['Collection GET']
+
+      it('loadAll should work', () => {
+        // expect action to exist
+        expect(actions['loadAll']).toBeTruthy()
+
+        // expect fetch action to be returned
+        const nextFn = expectFetchActionAndGetNextFn(actions.loadAll(testCfg.args), baseEndpoint)
+
+        // execute nextFn with mock server response
+        const nextFnResult = nextFn({ value: 'mock data' })
+
+        // expect single setAllLocallyType action as a result
+        expect(nextFnResult.type).toEqual(setAllLocallyType)
+        expect(nextFnResult.payload).toEqual('mock data')
+      })
+    }
+
+    if (commands['Collection POST']) {
+      const testCfg = commands['Collection POST']
+      const newEntity = testCfg.args
+
+      it('create should work', () => {
+        // expect action to exist
+        expect(actions['create']).toBeTruthy()
+
+        // expect fetch action to be returned
+        const nextFn = expectFetchActionAndGetNextFn(actions.create(newEntity),
+          baseEndpoint,
+          {
+            body: newEntity,
+            method: 'POST'
+          })
+
+        // execute nextFn with mock server response
+        const createdEntity = Object.assign(newEntity, { _id: 'new-entity-id' })
+        const nextFnResult = nextFn({ value: createdEntity })
+
+        // expect two actions as result
+        expect(nextFnResult.length).toEqual(2)
+
+        // expect first action to be addLocallyType
+        const firstAction = nextFnResult[0]
+        expect(firstAction.type).toEqual(addLocallyType)
+        expect(firstAction.payload).toEqual(createdEntity)
+
+        // expect second action to be react router action
+        const secondAction = nextFnResult[1]
+        // using snapshot here so that changes to react router can be updated quickly
+        expect(secondAction).toMatchSnapshot()
+      })
+    }
+
+    if (commands['DELETE']) {
+      const testCfg = commands['DELETE']
+      const entity = testCfg.args
+
+      it('delete should work', () => {
+        // expect action to exist
+        expect(actions['delete']).toBeTruthy()
+
+        // expect fetch action to be returned
+        const nextFn = expectFetchActionAndGetNextFn(actions.delete(entity),
+          `${baseEndpoint}/${entity._id}`,
+          {
+            method: 'DELETE'
+          })
+
+        // execute nextFn with mock server response
+        const nextFnResult = nextFn()
+
+        // expect two actions as result
+        expect(nextFnResult.length).toEqual(2)
+
+        // expect first action to be deleteLocallyType
+        const firstAction = nextFnResult[0]
+        expect(firstAction.type).toEqual(deleteLocallyType)
+        expect(firstAction.payload).toEqual(entity._id)
+
+        // expect second action to be react router action
+        const secondAction = nextFnResult[1]
+        // using snapshot here so that changes to react router can be updated quickly
+        expect(secondAction).toMatchSnapshot()
+      })
+    }
+
+    if (commands['GET']) {
+      const testCfg = commands['GET']
+      const entityId = testCfg.args
+
+      it('loadOne should work', () => {
+        // expect action to exist
+        expect(actions['loadOne']).toBeTruthy()
+
+        // expect fetch action to be returned
+        const nextFn = expectFetchActionAndGetNextFn(actions.loadOne(entityId),
+          `${baseEndpoint}/${entityId}`)
+
+        // execute nextFn with mock server response
+        const nextFnResult = nextFn({ value: { _id: entityId } })
+
+        // expect single setAllLocallyType action as a result
+        expect(nextFnResult.type).toEqual(setLocallyType)
+        expect(nextFnResult.payload).toEqual({ _id: entityId })
+      })
+    }
+
+    if (commands['PUT']) {
+      const testCfg = commands['PUT']
+      const entity = testCfg.args
+
+      it('update should work', () => {
+        // expect action to exist
+        expect(actions['update']).toBeTruthy()
+
+        // expect fetch action to be returned
+        const nextFn = expectFetchActionAndGetNextFn(actions.update(entity),
+          `${baseEndpoint}/${entity._id}`,
+          {
+            body: entity,
+            method: 'PUT'
+          })
+
+        // execute nextFn with mock server response
+        const nextFnResult = nextFn({ value: entity })
+
+        // expect two actions as result
+        expect(nextFnResult.length).toEqual(2)
+
+        // expect first action to be setLocallyType
+        const firstAction = nextFnResult[0]
+        expect(firstAction.type).toEqual(setLocallyType)
+        expect(firstAction.payload).toEqual(entity)
+
+        // expect second action to be react router action
+        const secondAction = nextFnResult[1]
+        // using snapshot here so that changes to react router can be updated quickly
+        expect(secondAction).toMatchSnapshot()
+      })
+    }
+  })
+}
 
 export function expectAppendCommuters (actions) {
   // expect 2 actions

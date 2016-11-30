@@ -1,38 +1,21 @@
-import {push} from 'react-router-redux'
-import {createAction} from 'redux-actions'
-import uuid from 'uuid'
+import makeGenericModelActions from '../utils/actions'
 
-const addCommuter = createAction('add commuter')
-export const createCommuter = (commuter) => {
-  commuter._id = uuid.v4()
-  return [
-    addCommuter(commuter),
-    push(`/group/${commuter.groupId}`)
-  ] // TODO save to server
-}
-
-const deleteLocally = createAction('delete commuter')
-/* const deleteOnServer = (id) =>
-  serverAction({
-    url: `/api/commuter/${id}`,
-    options: {
-      method: 'delete'
+const actions = makeGenericModelActions({
+  commands: {
+    'Collection GET': {},
+    'Collection POST': {
+      redirectionStrategy: 'toParent'
+    },
+    'DELETE': {},
+    'GET': {},
+    'PUT': {
+      redirectionStrategy: 'toParent'
     }
-  }) */ // TODO delete on server
-export const deleteCommuter = ({ id, groupId }) => [
-  deleteLocally({ id, groupId }),
-  push(`/group/${groupId}`)
-]
+  },
+  parentKey: 'groupId',
+  parentName: 'group',
+  pluralName: 'commuters',
+  singularName: 'commuter'
+})
 
-const updateLocally = createAction('set commuter')
-/* const updateOnServer = (id) =>
-  serverAction({
-    url: `/api/commuter/${id}`,
-    options: {
-      method: 'update'
-    }
-  }) */ // TODO update on server
-export const updateCommuter = (commuter) => [
-  updateLocally(commuter),
-  push(`/group/${commuter.groupId}`)
-]
+export default actions

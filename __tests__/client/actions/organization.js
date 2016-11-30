@@ -1,31 +1,31 @@
-/* global describe, expect, it */
+/* global describe */
 
-import {expectCreateAction, expectDeleteOrganization} from '../../test-utils/actions'
+import {makeGenericModelActionsTests} from '../../test-utils/actions'
 import {blankOrganization} from '../../test-utils/mock-data'
 
 import * as organization from '../../../client/actions/organization'
 
 describe('actions > organization', () => {
-  it('create organization should work', () => {
-    const data = {
-      agencyId: 'agency-id',
-      name: 'mockOrg'
-    }
-    const result = organization.createOrganization(data)
-
-    expectCreateAction(result)
-  })
-
-  it('update organization should work', () => {
-    const result = organization.updateOrganization(blankOrganization)
-
-    expect(result.length).toBe(2)
-    expect(result).toMatchSnapshot()
-  })
-
-  it('delete organization should work', () => {
-    const result = organization.deleteOrganization({ agencyId: 'agencyId', id: 'organization-id' })
-
-    expectDeleteOrganization(result)
+  makeGenericModelActionsTests({
+    actions: organization,
+    commands: {
+      'Collection GET': {},
+      'Collection POST': {
+        args: {
+          name: 'New Organization'
+        }
+      },
+      'DELETE': {
+        args: blankOrganization
+      },
+      'GET': {
+        args: 'entity-id'
+      },
+      'PUT': {
+        args: blankOrganization
+      }
+    },
+    pluralName: 'organizations',
+    singularName: 'organization'
   })
 })

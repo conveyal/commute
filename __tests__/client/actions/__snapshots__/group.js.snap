@@ -1,16 +1,4 @@
-exports[`actions > group create group should work 1`] = `
-Object {
-  "payload": Object {
-    "allAddressesGeocoded": false,
-    "commuters": Array [],
-    "name": "Mock Group",
-    "organizationId": "organization-id",
-  },
-  "type": "add group",
-}
-`;
-
-exports[`actions > group create group should work 2`] = `
+exports[`actions > group generic model actions create should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
@@ -22,33 +10,26 @@ Object {
 }
 `;
 
-exports[`actions > group delete group should work 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "id": "group-id",
-      "organizationId": "organization-id",
-    },
-    "type": "delete group",
-  },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-id",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
-`;
-
-exports[`actions > group update group should work 1`] = `
+exports[`actions > group generic model actions delete should work 1`] = `
 Object {
   "payload": Object {
-    "id": "group-id",
-    "name": "New Name",
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
   },
-  "type": "set group",
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > group generic model actions update should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/group-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
 }
 `;
