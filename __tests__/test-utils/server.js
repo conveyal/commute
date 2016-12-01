@@ -159,7 +159,8 @@ export const makeRestEndpointTests = (cfg) => {
 
         // handle response
         const json = parseServerResponse(res)
-        expect(omit(json, snapshotOmitions)).toMatchSnapshot()
+        const entitiesToSnapshot = json.map((entity) => omit(entity, snapshotOmitions))
+        expect(entitiesToSnapshot).toMatchSnapshot()
         const count = await model.count().exec()
         expect(count).toBe(1)
 

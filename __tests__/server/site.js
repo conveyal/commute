@@ -27,7 +27,7 @@ describe('site', () => {
       'Collection POST': {
         creationData: initSiteData,
         customAssertions: (json) => {
-          expect(json.name).toBe('test-site')
+          expect(json[0].name).toBe('test-site')
         }
       },
       'DELETE': {

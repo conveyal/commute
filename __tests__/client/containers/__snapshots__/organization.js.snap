@@ -1,85 +1,49 @@
 exports[`Container > Organization Delete Analysis 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "id": "analysis-2",
-      "organizationId": "organization-2",
-    },
-    "type": "delete analysis",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-2",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
 exports[`Container > Organization Delete Commuter Group 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "id": "group-2",
-      "organizationId": "organization-2",
-    },
-    "type": "delete group",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-2",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
 exports[`Container > Organization Delete Organization 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "agencyId": "agency-3",
-      "id": "organization-1",
-    },
-    "type": "delete organization",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/agency/agency-3",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/agency/agency-3",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
 exports[`Container > Organization Delete Site 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "id": "site-2",
-      "organizationId": "organization-2",
-    },
-    "type": "delete site",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-2",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
 exports[`Container > Organization Organization View loads 1`] = `
@@ -116,7 +80,7 @@ exports[`Container > Organization Organization View loads 1`] = `
             <table class=\"table table-hover table-bordered\">
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
@@ -185,7 +149,7 @@ exports[`Container > Organization Organization View loads 1`] = `
             <table class=\"table table-hover table-bordered\">
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
@@ -251,7 +215,7 @@ exports[`Container > Organization Organization View loads 1`] = `
             <table class=\"table table-hover table-bordered\">
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">

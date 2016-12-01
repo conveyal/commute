@@ -15,9 +15,9 @@ import {actUponConfirmation} from '../utils/ui'
 export default class EditSite extends Component {
   static propTypes = {
     // dispatch
-    create: PropTypes.func,
-    delete: PropTypes.func,
-    update: PropTypes.func,
+    create: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
 
     // props
     editMode: PropTypes.bool.isRequired,

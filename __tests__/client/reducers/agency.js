@@ -10,14 +10,14 @@ describe('client > reducers > agency', () => {
     add: {
       affectedParentId: 'agency-1',
       initialState: mockStores.withBlankAgency.agency,
-      payload: { id: 'organization-new', agencyId: 'agency-1' }
+      payload: { _id: 'organization-new', agencyId: 'agency-1' }
     },
     childPluralName: 'organizations',
     childSingularName: 'organization',
     delete: {
       affectedParentId: 'agency-3',
       initialState: mockStores.withBlankOrganization.agency,
-      payload: { id: 'organization-1', agencyId: 'agency-3' }
+      payload: { _id: 'organization-1', agencyId: 'agency-3' }
     },
     initialState: agency.initialState,
     reducers: agency.reducers

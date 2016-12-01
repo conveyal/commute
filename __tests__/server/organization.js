@@ -22,7 +22,7 @@ describe('organization', () => {
       'Collection POST': {
         creationData: initOrganizationData,
         customAssertions: (json) => {
-          expect(json.name).toBe('test-org')
+          expect(json[0].name).toBe('test-org')
         }
       },
       'DELETE': {

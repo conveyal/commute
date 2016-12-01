@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import {createOrganization, deleteOrganization, updateOrganization} from '../actions/organization'
+import organizationActions from '../actions/organization'
 import EditOrganization from '../components/edit-organization'
 
 function mapStateToProps (state, props) {
@@ -23,9 +23,9 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts) => dispatch(createOrganization(opts)),
-    delete: (opts) => dispatch(deleteOrganization(opts)),
-    update: (opts) => dispatch(updateOrganization(opts))
+    create: (opts) => dispatch(organizationActions.create(opts)),
+    delete: (opts) => dispatch(organizationActions.delete(opts)),
+    update: (opts) => dispatch(organizationActions.update(opts))
   }
 }
 

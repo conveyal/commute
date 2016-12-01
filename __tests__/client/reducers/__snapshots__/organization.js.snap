@@ -1,6 +1,7 @@
 exports[`client > reducers > organization analyses children handler reducer tests it should handle add analysis 1`] = `
 Object {
   "organization-1": Object {
+    "_id": "organization-1",
     "agencyId": "agency-3",
     "analyses": Array [
       "analysis-new",
@@ -8,7 +9,6 @@ Object {
     "contact": "someone",
     "email": "abc@def.ghi",
     "groups": Array [],
-    "id": "organization-1",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -20,6 +20,7 @@ Object {
 exports[`client > reducers > organization analyses children handler reducer tests it should handle delete analysis 1`] = `
 Object {
   "organization-2": Object {
+    "_id": "organization-2",
     "agencyId": "agency-2",
     "analyses": Array [],
     "contact": "someone",
@@ -27,7 +28,6 @@ Object {
     "groups": Array [
       "group-2",
     ],
-    "id": "organization-2",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -41,12 +41,12 @@ Object {
 exports[`client > reducers > organization generic reducer tests should handle add organization 1`] = `
 Object {
   "organization-1": Object {
+    "_id": "organization-1",
     "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
     "email": "abc@def.ghi",
     "groups": Array [],
-    "id": "organization-1",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -60,18 +60,19 @@ exports[`client > reducers > organization generic reducer tests should handle de
 exports[`client > reducers > organization generic reducer tests should handle set organization 1`] = `
 Object {
   "organization-1": Object {
+    "_id": "organization-1",
     "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
     "email": "abc@def.ghi",
     "groups": Array [],
-    "id": "organization-1",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
     "sites": Array [],
   },
   "organization-2": Object {
+    "_id": "organization-2",
     "agencyId": "agency-2",
     "analyses": Array [
       "analysis-2",
@@ -81,7 +82,6 @@ Object {
     "groups": Array [
       "group-2",
     ],
-    "id": "organization-2",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -95,18 +95,19 @@ Object {
 exports[`client > reducers > organization generic reducer tests should handle set organizations 1`] = `
 Object {
   "organization-1": Object {
+    "_id": "organization-1",
     "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
     "email": "abc@def.ghi",
     "groups": Array [],
-    "id": "organization-1",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
     "sites": Array [],
   },
   "organization-2": Object {
+    "_id": "organization-2",
     "agencyId": "agency-2",
     "analyses": Array [
       "analysis-2",
@@ -116,7 +117,6 @@ Object {
     "groups": Array [
       "group-2",
     ],
-    "id": "organization-2",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -130,6 +130,7 @@ Object {
 exports[`client > reducers > organization groups children handler reducer tests it should handle add group 1`] = `
 Object {
   "organization-1": Object {
+    "_id": "organization-1",
     "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
@@ -137,7 +138,6 @@ Object {
     "groups": Array [
       "group-new",
     ],
-    "id": "organization-1",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -149,6 +149,7 @@ Object {
 exports[`client > reducers > organization groups children handler reducer tests it should handle delete group 1`] = `
 Object {
   "organization-2": Object {
+    "_id": "organization-2",
     "agencyId": "agency-2",
     "analyses": Array [
       "analysis-2",
@@ -156,7 +157,6 @@ Object {
     "contact": "someone",
     "email": "abc@def.ghi",
     "groups": Array [],
-    "id": "organization-2",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -170,12 +170,12 @@ Object {
 exports[`client > reducers > organization sites children handler reducer tests it should handle add site 1`] = `
 Object {
   "organization-1": Object {
+    "_id": "organization-1",
     "agencyId": "agency-3",
     "analyses": Array [],
     "contact": "someone",
     "email": "abc@def.ghi",
     "groups": Array [],
-    "id": "organization-1",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",
@@ -189,6 +189,7 @@ Object {
 exports[`client > reducers > organization sites children handler reducer tests it should handle delete site 1`] = `
 Object {
   "organization-2": Object {
+    "_id": "organization-2",
     "agencyId": "agency-2",
     "analyses": Array [
       "analysis-2",
@@ -198,7 +199,6 @@ Object {
     "groups": Array [
       "group-2",
     ],
-    "id": "organization-2",
     "logo_url": "https://placekitten.com/80/80",
     "main_url": "https://placekitten.com/",
     "name": "Mock Organization",

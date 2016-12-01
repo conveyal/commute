@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import {createAgency, deleteAgency, updateAgency} from '../actions/agency'
+import agencyActions from '../actions/agency'
 import EditAgency from '../components/edit-agency'
 
 function mapStateToProps (state, props) {
@@ -21,9 +21,9 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts) => dispatch(createAgency(opts)),
-    delete: (opts) => dispatch(deleteAgency(opts)),
-    update: (opts) => dispatch(updateAgency(opts))
+    create: (opts) => dispatch(agencyActions.create(opts)),
+    delete: (opts) => dispatch(agencyActions.delete(opts)),
+    update: (opts) => dispatch(agencyActions.update(opts))
   }
 }
 

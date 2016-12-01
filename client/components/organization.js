@@ -41,9 +41,7 @@ export default class Organization extends Component {
   }
 
   _analysisToolsRenderer = (cell, row) => {
-    const doDelete = () => {
-      this.props.deleteAnalysis({ id: row._id, organizationId: this.props.organization._id })
-    }
+    const doDelete = () => this.props.deleteAnalysis(row)
     const onClick = () => actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
   }
@@ -58,7 +56,7 @@ export default class Organization extends Component {
   }
 
   _groupToolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteGroup({ id: row._id, organizationId: this.props.organization._id })
+    const doDelete = () => this.props.deleteGroup(row)
     const onClick = () => actUponConfirmation(messages.group.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
   }
@@ -68,8 +66,7 @@ export default class Organization extends Component {
   }
 
   _siteToolsRenderer = (cell, row) => {
-    const organizationId = this.props.organization._id
-    const doDelete = () => this.props.deleteSite({ id: row._id, organizationId })
+    const doDelete = () => this.props.deleteSite(row)
     const onClick = () => actUponConfirmation(messages.site.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
@@ -81,7 +78,7 @@ export default class Organization extends Component {
 
   render () {
     const {analyses, groups, sites} = this.props
-    const {id: organizationId, name} = this.props.organization
+    const {_id: organizationId, name} = this.props.organization
 
     return (
       <Grid>
@@ -102,7 +99,7 @@ export default class Organization extends Component {
             </h3>
             <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
             <BootstrapTable data={sites}>
-              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataFormat={this._siteNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._siteToolsRenderer}>Tools</TableHeaderColumn>
@@ -114,7 +111,7 @@ export default class Organization extends Component {
             </h3>
             <p>A commuter group is a list of commuters that can commute to a particular site.</p>
             <BootstrapTable data={groups}>
-              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataFormat={this._groupNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}>Commuters</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._groupToolsRenderer}>Tools</TableHeaderColumn>
@@ -126,7 +123,7 @@ export default class Organization extends Component {
             </h3>
             <p>An analysis calculates commuting statistics for a pairing of a commuter group and site.</p>
             <BootstrapTable data={analyses}>
-              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataFormat={this._analysisNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._analysisSiteNameRenderer}>Site</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._analysisGroupNameRenderer}>Group</TableHeaderColumn>

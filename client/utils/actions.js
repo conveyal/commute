@@ -94,27 +94,29 @@ const makeGenericModelActions = (cfg) => {
 
   if (commands['Collection POST']) {
     const endpointCfg = commands['Collection POST']
-    actions.create = (newEntity) => {
+    actions.create = (newEntities) => {
+      let body = newEntities
+      if (!Array.isArray(body)) {
+        body = [body]
+      }
       return fetchAction({
         next: (res, err) => {
           if (err) {
             // TODO handle error
           } else {
-            const createdEntity = res.value
-            const actions = [
-              addLocally(createdEntity)
-            ]
+            const createdEntities = res.value
+            const actions = createdEntities.map((createdEntity) => addLocally(createdEntity))
             doRedirectIfNecessary({
               actions,
               endpointCfg,
               defaultStrategy: 'toEntity',
-              redirectArgs: createdEntity
+              redirectArgs: createdEntities[0]
             })
             return actions
           }
         },
         options: {
-          body: newEntity,
+          body,
           method: 'POST'
         },
         url: baseEndpoint

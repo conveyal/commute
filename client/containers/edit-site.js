@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import {createSite, deleteSite, updateSite} from '../actions/site'
+import siteActions from '../actions/site'
 import EditSite from '../components/edit-site'
 
 function mapStateToProps (state, props) {
@@ -23,9 +23,9 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts) => dispatch(createSite(opts)),
-    delete: (opts) => dispatch(deleteSite(opts)),
-    update: (opts) => dispatch(updateSite(opts))
+    create: (opts) => dispatch(siteActions.create(opts)),
+    delete: (opts) => dispatch(siteActions.delete(opts)),
+    update: (opts) => dispatch(siteActions.update(opts))
   }
 }
 

@@ -102,7 +102,7 @@ export default class Possibilities extends Component {
   }
 
   render () {
-    const {id, name} = this.props.analysis
+    const {_id: analysisId, name} = this.props.analysis
     const {groupName, siteName} = this.props
     const {series, yAxisUnit} = this.state
     const activeSeries = series.filter((s) => !s.disabled)
@@ -113,7 +113,7 @@ export default class Possibilities extends Component {
             <h3>
               <span>{name}</span>
               <Button className='pull-right'>
-                <Link to={`/analysis/${id}`}>
+                <Link to={`/analysis/${analysisId}`}>
                   <Icon type='arrow-left' />
                   <span>Back</span>
                 </Link>

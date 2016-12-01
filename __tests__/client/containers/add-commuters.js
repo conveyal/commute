@@ -5,13 +5,22 @@ import pretty from 'pretty'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectAppendCommuters, expectCreateAction} from '../../test-utils/actions'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import AddCommuters from '../../../client/containers/add-commuters'
 
+const commuterExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'commuters',
+  singularName: 'commuter'
+})
+const groupExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'groups',
+  singularName: 'group'
+})
+
 // include id field in csv file for consistent testing results, normally it should be omitted
-const mockCsvFile = new File(['id,name,email,address\n1,Bob,a@b.c,"123 Main St"'], 'mockFile.csv')
+const mockCsvFile = new File(['_id,name,email,address\n1,Bob,a@b.c,"123 Main St"'], 'mockFile.csv')
 
 describe('Container > AddCommuters', () => {
   it('Add Commuters View loads (create mode)', () => {
@@ -89,7 +98,13 @@ describe('Container > AddCommuters', () => {
     // And the user submits the form
     tree.find('form').find('button').simulate('click')
 
-    expectCreateAction(mockStore.getActions())
+    groupExpectations.expectCreateAction({
+      action: mockStore.getActions()[0],
+      newEntity: {
+        name: 'Mock Name',
+        organizationId: 'organization-1'
+      }
+    })
   })
 
   it('Append Commuters to existing commuter group', (done) => {
@@ -112,7 +127,21 @@ describe('Container > AddCommuters', () => {
       // And the user submits the form
       tree.find('form').find('button').simulate('click')
 
-      expectAppendCommuters(mockStore.getActions())
+      try {
+        commuterExpectations.expectCreateAction({
+          action: mockStore.getActions()[0],
+          newEntity: {
+            _id: '1',
+            address: '123 Main St',
+            email: 'a@b.c',
+            groupId: 'group-2',
+            name: 'Bob'
+          }
+        })
+      } catch (e) {
+        console.error(e)
+        throw e
+      }
       done()
     }, 1000)
   })

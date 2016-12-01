@@ -5,11 +5,16 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectCreateCommuter, expectDeleteCommuter, expectUpdateAction} from '../../test-utils/actions'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data'
 import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditCommuter from '../../../client/containers/edit-commuter'
+
+const commuterExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'commuters',
+  singularName: 'commuter'
+})
 
 describe('Container > EditCommuter', () => {
   it('Create/Edit Commuter View loads (create or edit mode)', () => {
@@ -110,7 +115,17 @@ describe('Container > EditCommuter', () => {
     tree.find('.commuter-submit-buttons').find('button').first().simulate('click')
 
     // expect create action
-    expectCreateCommuter(mockStore.getActions())
+    commuterExpectations.expectCreateAction({
+      action: mockStore.getActions()[0],
+      newEntity: {
+        address: 'Abraham Lincoln/Emancipation Monument, Washington, USA',
+        email: 'mock@email.fake',
+        groupId: 'group-2',
+        lat: 38.89011,
+        lng: -76.9897,
+        name: 'Mock Commuter'
+      }
+    })
   })
 
   it('Update commuter', () => {
@@ -129,28 +144,39 @@ describe('Container > EditCommuter', () => {
 
     // give each text field some input
     // name
-    tree.find('input').first().simulate('change', {target: {value: 'Mock Commuter'}})
+    tree.find('input').first().simulate('change', {target: {value: 'Different Name'}})
     // email
-    tree.find('input').at(1).simulate('change', {target: {value: 'mock@email.fake'}})
+    tree.find('input').at(1).simulate('change', {target: {value: 'different@email.fake'}})
     // address
     tree.find('.form-group').find('Geocoder').props().onChange({
       type: 'Feature',
       geometry: {
         type: 'Point',
         coordinates: [
-          -76.9897,
-          38.89011
+          -123.45,
+          67.89
         ]
       },
       properties: {
-        label: 'Abraham Lincoln/Emancipation Monument, Washington, USA'
+        label: 'A fake place'
       }
     })
 
     // submit form
     tree.find('.commuter-submit-buttons').find('button').first().simulate('click')
 
-    expectUpdateAction(mockStore.getActions())
+    commuterExpectations.expectUpdateAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'commuter-2',
+        address: 'A fake place',
+        email: 'different@email.fake',
+        groupId: 'group-2',
+        lat: 67.89,
+        lng: -123.45,
+        name: 'Different Name'
+      }
+    })
   })
 
   it('Delete Commuter', () => {
@@ -173,6 +199,13 @@ describe('Container > EditCommuter', () => {
     // And the user confirms the Confirm Deletion dialog
     tree.find('.commuter-submit-buttons').find('button').last().simulate('click')
 
-    expectDeleteCommuter(mockStore.getActions())
+    commuterExpectations.expectDeleteAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'commuter-2',
+        groupId: 'group-2',
+        name: 'Mock Commuter'
+      }
+    })
   })
 })

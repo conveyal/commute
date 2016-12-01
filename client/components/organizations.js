@@ -13,19 +13,24 @@ export default class Organizations extends Component {
     // dispatch
     deleteAgency: PropTypes.func.isRequired,
     deleteOrganization: PropTypes.func.isRequired,
+    loadOrganizations: PropTypes.func.isRequired,
 
     // props
     agency: PropTypes.object.isRequired,
     organizations: PropTypes.array.isRequired
   }
 
+  componentWillMount () {
+    this.props.loadOrganizations({ agencyId: this.props.agency._id })
+  }
+
   _handleDelete = () => {
-    const doDelete = () => this.props.deleteAgency(this.props.agency._id)
+    const doDelete = () => this.props.deleteAgency(this.props.agency)
     actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteOrganization({ agencyId: this.props.agency._id, id: row._id })
+    const doDelete = () => this.props.deleteOrganization(row)
     const onClick = () => actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
@@ -36,7 +41,7 @@ export default class Organizations extends Component {
   }
 
   render () {
-    const {id: agencyId, name} = this.props.agency
+    const {_id: agencyId, name} = this.props.agency
     const {organizations} = this.props
     return (
       <Grid>
@@ -62,7 +67,7 @@ export default class Organizations extends Component {
             </h3>
             <p>An organization is a collection of sites <Icon type='building' /> and commuters <Icon type='users' />.</p>
             <BootstrapTable data={organizations}>
-              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={nameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='sites' dataFormat={arrayCountRenderer}>Sites</TableHeaderColumn>
               <TableHeaderColumn dataField='groups' dataFormat={arrayCountRenderer}>Groups</TableHeaderColumn>

@@ -6,10 +6,20 @@ import React from 'react'
 import {Button} from 'react-bootstrap'
 import {Provider} from 'react-redux'
 
-import {expectDeleteOrganization} from '../../test-utils/actions'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data'
 
 import Organizations from '../../../client/containers/organizations'
+
+/* TODO: test delete agency
+const agencyExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'agencies',
+  singularName: 'agency'
+}) */
+const organizationExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'organizations',
+  singularName: 'organization'
+})
 
 describe('Container > Organizations', () => {
   it('Organizations View loads', () => {
@@ -55,6 +65,14 @@ describe('Container > Organizations', () => {
     const deleteButton = tree.find('table').find(Button).last()
     deleteButton.simulate('click')
 
-    expectDeleteOrganization(mockStore.getActions())
+    organizationExpectations.expectDeleteAction({
+      action: mockStore.getActions()[1],
+      entity: {
+        _id: 'organization-1',
+        agencyId: 'agency-3',
+        email: 'My new value',
+        name: 'Mock Organization'
+      }
+    })
   })
 })

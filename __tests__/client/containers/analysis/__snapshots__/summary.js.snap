@@ -8,8 +8,8 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
   <Summary
     analysis={
       Object {
+        "_id": "analysis-2",
         "groupId": "group-2",
-        "id": "analysis-2",
         "lastRunDateTime": 1477697490,
         "name": "An Analysis",
         "organizationId": "organization-2",
@@ -109,10 +109,10 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
     commuterStore={
       Object {
         "commuter-2": Object {
+          "_id": "commuter-2",
           "address": "4321 XYZ Boulevard",
           "email": "luke@warm.cold",
           "groupId": "group-2",
-          "id": "commuter-2",
           "lat": 38.916089,
           "lng": -76.970221,
           "name": "Luke Warm",

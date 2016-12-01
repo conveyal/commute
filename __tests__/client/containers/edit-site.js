@@ -5,11 +5,16 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectCreateSite, expectDeleteSite, expectUpdateAction} from '../../test-utils/actions'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data'
 import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditSite from '../../../client/containers/edit-site'
+
+const siteExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'sites',
+  singularName: 'site'
+})
 
 describe('Container > EditSite', () => {
   it('Create/Edit Site View loads (create or edit mode)', () => {
@@ -110,7 +115,17 @@ describe('Container > EditSite', () => {
     tree.find('.site-submit-buttons').find('button').first().simulate('click')
 
     // expect create action
-    expectCreateSite(mockStore.getActions())
+    siteExpectations.expectCreateAction({
+      action: mockStore.getActions()[0],
+      newEntity: {
+        address: 'Abraham Lincoln/Emancipation Monument, Washington, USA',
+        lat: 38.89011,
+        lng: -76.9897,
+        name: 'Mock Site',
+        organizationId: 'organization-1',
+        radius: 0.5
+      }
+    })
   })
 
   it('Update site', () => {
@@ -129,28 +144,39 @@ describe('Container > EditSite', () => {
 
     // give each text field some input
     // name
-    tree.find('input').first().simulate('change', {target: {value: 'Mock Site'}})
+    tree.find('input').first().simulate('change', {target: {value: 'Different Name'}})
     // address
     tree.find('.form-group').find('Geocoder').props().onChange({
       type: 'Feature',
       geometry: {
         type: 'Point',
         coordinates: [
-          -76.9897,
-          38.89011
+          -123.45,
+          67.89
         ]
       },
       properties: {
-        label: 'Abraham Lincoln/Emancipation Monument, Washington, USA'
+        label: 'A fake place'
       }
     })
     // radius
-    tree.find('input').last().simulate('change', {target: {value: 0.5}})
+    tree.find('input').last().simulate('change', {target: {value: 1.5}})
 
     // submit form
     tree.find('.site-submit-buttons').find('button').first().simulate('click')
 
-    expectUpdateAction(mockStore.getActions())
+    siteExpectations.expectUpdateAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'site-2',
+        address: 'A fake place',
+        lat: 67.89,
+        lng: -123.45,
+        name: 'Different Name',
+        organizationId: 'organization-2',
+        radius: 1.5
+      }
+    })
   })
 
   it('Delete Site', () => {
@@ -173,6 +199,13 @@ describe('Container > EditSite', () => {
     // And the user confirms the Confirm Deletion dialog
     tree.find('.site-submit-buttons').find('button').last().simulate('click')
 
-    expectDeleteSite(mockStore.getActions())
+    siteExpectations.expectDeleteAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'site-2',
+        name: 'Mock Site',
+        organizationId: 'organization-2'
+      }
+    })
   })
 })

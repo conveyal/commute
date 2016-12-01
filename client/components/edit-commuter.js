@@ -15,9 +15,9 @@ import {actUponConfirmation} from '../utils/ui'
 export default class EditCommuter extends Component {
   static propTypes = {
     // dispatch
-    create: PropTypes.func,
-    delete: PropTypes.func,
-    update: PropTypes.func,
+    create: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
 
     // props
     editMode: PropTypes.bool,
@@ -64,11 +64,11 @@ export default class EditCommuter extends Component {
   }
 
   _handleSubmit = () => {
-    const {create, editMode, groupId, update} = this.props
+    const {create, editMode, update} = this.props
     if (editMode) {
-      update(this.state, groupId)
+      update(this.state)
     } else {
-      create(this.state, groupId)
+      create(this.state)
     }
   }
 

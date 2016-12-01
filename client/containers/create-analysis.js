@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import {createAnalysis} from '../actions/analysis'
+import {create as createAnalysis} from '../actions/analysis'
 import CreateAnalysis from '../components/create-analysis'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 

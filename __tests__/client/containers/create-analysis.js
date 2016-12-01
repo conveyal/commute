@@ -5,10 +5,15 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectCreateAnalysis} from '../../test-utils/actions'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import CreateAnalysis from '../../../client/containers/create-analysis'
+
+const analysisExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'analyses',
+  singularName: 'analysis'
+})
 
 describe('Container > CreateAnalysis', () => {
   it('Create Analysis View loads', () => {
@@ -43,11 +48,18 @@ describe('Container > CreateAnalysis', () => {
     // site
     tree.find('Select').first().props().onChange({ value: 'site-2' })
     // group
-    tree.find('Select').last().props().onChange({ commuters: ['commuter-2'], value: 'group-2' })
+    tree.find('Select').last().props().onChange({ value: 'group-2' })
 
     // And the user submits the form
     tree.find('button').last().simulate('click')
 
-    expectCreateAnalysis(mockStore.getActions())
+    analysisExpectations.expectCreateAction({
+      action: mockStore.getActions()[0],
+      newEntity: {
+        groupId: 'group-2',
+        organizationId: 'organization-2',
+        siteId: 'site-2'
+      }
+    })
   })
 })

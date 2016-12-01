@@ -166,7 +166,7 @@ export default class Histogram extends Component {
   }
 
   render () {
-    const {id, name} = this.props.analysis
+    const {_id: analysisId, name} = this.props.analysis
     const {groupName, siteName} = this.props
     const {crosshairValues, metric: selectedMetric, series} = this.state
     return (
@@ -176,7 +176,7 @@ export default class Histogram extends Component {
             <h3>
               <span>{name}</span>
               <Button className='pull-right'>
-                <Link to={`/analysis/${id}`}>
+                <Link to={`/analysis/${analysisId}`}>
                   <Icon type='arrow-left' />
                   <span>Back</span>
                 </Link>

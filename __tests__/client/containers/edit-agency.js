@@ -5,10 +5,15 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectCreateAction, expectDeleteAgency} from '../../test-utils/actions'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import EditAgency from '../../../client/containers/edit-agency'
+
+const agencyExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'agencies',
+  singularName: 'agency'
+})
 
 describe('Container > EditAgency', () => {
   it('Create/Edit Agency View loads (create mode)', () => {
@@ -58,7 +63,12 @@ describe('Container > EditAgency', () => {
     tree.find('form').find('button').simulate('click')
 
     // expect create action
-    expectCreateAction(mockStore.getActions())
+    agencyExpectations.expectCreateAction({
+      action: mockStore.getActions()[0],
+      newEntity: {
+        name: 'My new value'
+      }
+    })
   })
 
   it('Update agency', () => {
@@ -80,9 +90,13 @@ describe('Container > EditAgency', () => {
     tree.find('form').find('button').first().simulate('click')
 
     // expect update action
-    const actions = mockStore.getActions()
-    expect(actions.length).toBe(2)
-    expect(actions).toMatchSnapshot()
+    agencyExpectations.expectUpdateAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'agency-1',
+        name: 'My new value'
+      }
+    })
   })
 
   it('Delete agency', () => {
@@ -104,6 +118,12 @@ describe('Container > EditAgency', () => {
     const deleteButton = tree.find('button').last()
     deleteButton.simulate('click')
 
-    expectDeleteAgency(mockStore.getActions())
+    agencyExpectations.expectDeleteAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'agency-1',
+        name: 'Mock Agency'
+      }
+    })
   })
 })

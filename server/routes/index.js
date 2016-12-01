@@ -21,13 +21,14 @@ const makeGenericModelResponse = (res) => (err, data) => {
 
 const makeGetModelResponse = (childModels, res, isCollection) => (err, data) => {
   const genericResponder = makeGenericModelResponse(res)
-  if (!childModels) return genericResponder(err, data)
-
-  // wow, awesome, with normalized mongoose models I get to make extra queries
-  // to the db to do joins!  </sarcasm>
   if (!Array.isArray(data)) {
     data = [data]
   }
+
+  if (!childModels) return genericResponder(err, isCollection ? data : data[0])
+
+  // wow, awesome, with normalized mongoose models I get to make extra queries
+  // to the db to do joins!  </sarcasm>
   each(data, (entity, entityCb) => {
     each(childModels, (childModel, childCb) => {
       childModel.model.find({ [childModel.foreignKey]: entity._id }, (err, childEntities) => {
@@ -68,7 +69,7 @@ routes.makeRestEndpoints = (app, cfg) => {
   if (commands['Collection POST']) {
     app.post(`/api/${name}`, (req, res) => {
       res.set('Content-Type', 'application/json')
-      model.create(req.body, makeGenericModelResponse(res))
+      model.create(req.body, makeGetModelResponse(cfg.childModels, res, true))
     })
   }
 

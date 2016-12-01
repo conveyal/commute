@@ -1,23 +1,6 @@
 exports[`Container > EditOrganization Create organization 1`] = `
 Object {
   "payload": Object {
-    "agencyId": "agency-1",
-    "analyses": Array [],
-    "contact": "My new value",
-    "email": "My new value",
-    "groups": Array [],
-    "logo_url": "My new value",
-    "main_url": "My new value",
-    "name": "My new value",
-    "sites": Array [],
-  },
-  "type": "add organization",
-}
-`;
-
-exports[`Container > EditOrganization Create organization 2`] = `
-Object {
-  "payload": Object {
     "args": Array [
       "/organization/new-entity-id",
     ],
@@ -328,12 +311,12 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
     editMode={true}
     organization={
       Object {
+        "_id": "organization-1",
         "agencyId": "agency-3",
         "analyses": Array [],
         "contact": "someone",
         "email": "abc@def.ghi",
         "groups": Array [],
-        "id": "organization-1",
         "logo_url": "https://placekitten.com/80/80",
         "main_url": "https://placekitten.com/",
         "name": "Mock Organization",
@@ -636,51 +619,25 @@ exports[`Container > EditOrganization Create/Edit Organization View loads in edi
 `;
 
 exports[`Container > EditOrganization Delete organization 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "agencyId": "agency-3",
-      "id": "organization-1",
-    },
-    "type": "delete organization",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/agency/agency-3",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/agency/agency-3",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
 exports[`Container > EditOrganization Update organization 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "agencyId": "agency-3",
-      "analyses": Array [],
-      "contact": "My new value",
-      "email": "My new value",
-      "groups": Array [],
-      "id": "organization-1",
-      "logo_url": "My new value",
-      "main_url": "My new value",
-      "name": "My new value",
-      "sites": Array [],
-    },
-    "type": "set organization",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-1",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-1",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;

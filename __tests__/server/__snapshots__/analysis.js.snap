@@ -1,9 +1,11 @@
 exports[`analysis rest endpoint should add model 1`] = `
-Object {
-  "__v": 0,
-  "name": "test-analysis",
-  "trips": Array [],
-}
+Array [
+  Object {
+    "__v": 0,
+    "name": "test-analysis",
+    "trips": Array [],
+  },
+]
 `;
 
 exports[`analysis rest endpoint should get model 1`] = `

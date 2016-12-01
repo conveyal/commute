@@ -8,20 +8,20 @@ import {makeChildrenHandlerTestCases, makeGenericReducerTestCases} from '../../t
 import * as group from '../../../client/reducers/group'
 
 describe('client > reducers > group', () => {
-  const anotherGroup = { id: 'group-3', name: 'Another Group', commuters: [] }
+  const anotherGroup = { _id: 'group-3', name: 'Another Group', commuters: [] }
 
   makeChildrenHandlerTestCases({
     add: {
       affectedParentId: 'group-2',
       initialState: mockStores.withAnalysisRun.group,
-      payload: { id: 'commuter-new', groupId: 'group-2' }
+      payload: { _id: 'commuter-new', groupId: 'group-2' }
     },
     childPluralName: 'commuters',
     childSingularName: 'commuter',
     delete: {
       affectedParentId: 'group-2',
       initialState: mockStores.withAnalysisRun.group,
-      payload: { id: 'commuter-2', groupId: 'group-2' }
+      payload: { _id: 'commuter-2', groupId: 'group-2' }
     },
     initialState: group.initialState,
     reducers: group.reducers

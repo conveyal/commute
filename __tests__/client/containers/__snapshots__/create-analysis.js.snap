@@ -9,10 +9,10 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
     commutersById={
       Object {
         "commuter-2": Object {
+          "_id": "commuter-2",
           "address": "4321 XYZ Boulevard",
           "email": "luke@warm.cold",
           "groupId": "group-2",
-          "id": "commuter-2",
           "lat": 38.916089,
           "lng": -76.970221,
           "name": "Luke Warm",
@@ -23,11 +23,11 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
     groups={
       Array [
         Object {
+          "_id": "group-2",
           "allAddressesGeocoded": true,
           "commuters": Array [
             "commuter-2",
           ],
-          "id": "group-2",
           "name": "Mock Group",
           "organizationId": "organization-2",
         },
@@ -42,8 +42,8 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
     sites={
       Array [
         Object {
+          "_id": "site-2",
           "address": "123 ABC St",
-          "id": "site-2",
           "lat": 38.8886,
           "lng": -77.043,
           "name": "Acme Corp",
@@ -331,9 +331,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                         options={
                           Array [
                             Object {
-                              "commuters": Array [
-                                "commuter-2",
-                              ],
                               "label": "Mock Group",
                               "value": "group-2",
                             },
@@ -455,17 +452,6 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
 `;
 
 exports[`Container > CreateAnalysis Create analysis 1`] = `
-Object {
-  "payload": Object {
-    "groupId": "group-2",
-    "organizationId": "organization-2",
-    "siteId": "site-2",
-  },
-  "type": "add analysis",
-}
-`;
-
-exports[`Container > CreateAnalysis Create analysis 2`] = `
 Object {
   "payload": Object {
     "args": Array [

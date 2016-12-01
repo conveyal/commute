@@ -26,7 +26,7 @@ exports[`Container > Agencies Agencies View loads 1`] = `
             <table class=\"table table-hover table-bordered\">
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none;\" data-field=\"id\">
+                  <th class=\"\" style=\"text-align: left; display: none;\" data-field=\"_id\">
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
@@ -98,7 +98,7 @@ exports[`Container > Agencies Agencies View loads with one agency 1`] = `
             <table class=\"table table-hover table-bordered\">
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
@@ -157,19 +157,13 @@ exports[`Container > Agencies Agencies View loads with one agency 1`] = `
 `;
 
 exports[`Container > Agencies Delete Agency 1`] = `
-Array [
-  Object {
-    "payload": "agency-1",
-    "type": "delete agency",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;

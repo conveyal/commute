@@ -1,20 +1,6 @@
 exports[`Container > EditSite Create site 1`] = `
 Object {
   "payload": Object {
-    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-    "lat": 38.89011,
-    "lng": -76.9897,
-    "name": "Mock Site",
-    "organizationId": "organization-1",
-    "radius": 0.5,
-  },
-  "type": "add site",
-}
-`;
-
-exports[`Container > EditSite Create site 2`] = `
-Object {
-  "payload": Object {
     "args": Array [
       "/organization/organization-1",
     ],
@@ -813,42 +799,18 @@ Object {
 `;
 
 exports[`Container > EditSite Delete Site 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "id": "site-2",
-      "organizationId": "organization-2",
-    },
-    "type": "delete site",
-  },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/organization/organization-2",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
-`;
-
-exports[`Container > EditSite Update site 1`] = `
 Object {
   "payload": Object {
-    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-    "id": "site-2",
-    "lat": 38.89011,
-    "lng": -76.9897,
-    "name": "Mock Site",
-    "organizationId": "organization-2",
-    "radius": 0.5,
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
   },
-  "type": "set site",
+  "type": "@@router/CALL_HISTORY_METHOD",
 }
 `;
 
-exports[`Container > EditSite Update site 2`] = `
+exports[`Container > EditSite Update site 1`] = `
 Object {
   "payload": Object {
     "args": Array [

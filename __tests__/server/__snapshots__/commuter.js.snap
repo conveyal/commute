@@ -1,22 +1,24 @@
 exports[`commuter rest endpoint should add model 1`] = `
-Object {
-  "__v": 0,
-  "address": "Takoma, Takoma Park, MD, USA",
-  "city": "Takoma Park",
-  "coordinate": Object {
-    "lat": 38.976745,
-    "lng": -77.023104,
+Array [
+  Object {
+    "__v": 0,
+    "address": "Takoma, Takoma Park, MD, USA",
+    "city": "Takoma Park",
+    "coordinate": Object {
+      "lat": 38.976745,
+      "lng": -77.023104,
+    },
+    "country": "United States",
+    "county": "Montgomery County",
+    "location": Object {
+      "lat": 12,
+      "lon": 34,
+    },
+    "name": "test-commuter",
+    "original_address": "123 Main St",
+    "state": "Maryland",
   },
-  "country": "United States",
-  "county": "Montgomery County",
-  "location": Object {
-    "lat": 12,
-    "lon": 34,
-  },
-  "name": "test-commuter",
-  "original_address": "123 Main St",
-  "state": "Maryland",
-}
+]
 `;
 
 exports[`commuter rest endpoint should get model 1`] = `

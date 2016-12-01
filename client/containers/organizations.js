@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import {deleteAgency} from '../actions/agency'
-import {deleteOrganization} from '../actions/organization'
+import agencyActions from '../actions/agency'
+import organizationActions from '../actions/organization'
 import Organizations from '../components/organizations'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
@@ -16,8 +16,9 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteAgency: (opts) => dispatch(deleteAgency(opts)),
-    deleteOrganization: (opts) => dispatch(deleteOrganization(opts))
+    deleteAgency: (opts) => dispatch(agencyActions.delete(opts)),
+    deleteOrganization: (opts) => dispatch(organizationActions.delete(opts)),
+    loadOrganizations: (opts) => dispatch(organizationActions.loadAll(opts))
   }
 }
 

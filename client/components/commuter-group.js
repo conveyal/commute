@@ -35,7 +35,7 @@ export default class CommuterGroup extends Component {
   }
 
   handleDelete = () => {
-    const {id: groupId, organizationId} = this.props.group
+    const {_id: groupId, organizationId} = this.props.group
     const doDelete = () => this.props.deleteGroup(groupId, organizationId)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
@@ -84,7 +84,7 @@ export default class CommuterGroup extends Component {
         <Row className='group-content'>
           <Col xs={12}>
             <BootstrapTable data={commuters}>
-              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
               <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
@@ -145,9 +145,9 @@ const mapCommuters = (allAddressesGeocoded, commuters) => {
   const firstLL = [commuters[0].lat, commuters[0].lng]
   const bounds = latLngBounds([firstLL, firstLL])
   commuters.forEach((commuter) => {
-    const {id, lat, lng, name} = commuter
+    const {_id, lat, lng, name} = commuter
     markers.push({
-      id,
+      _id,
       name,
       position: { lat, lng }
     })

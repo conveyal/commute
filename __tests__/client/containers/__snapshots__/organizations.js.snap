@@ -1,22 +1,13 @@
 exports[`Container > Organizations Delete Organization 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "agencyId": "agency-3",
-      "id": "organization-1",
-    },
-    "type": "delete organization",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/agency/agency-3",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/agency/agency-3",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
 exports[`Container > Organizations Organizations View loads 1`] = `
@@ -56,7 +47,7 @@ exports[`Container > Organizations Organizations View loads 1`] = `
             <table class=\"table table-hover table-bordered\">
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none;\" data-field=\"id\">
+                  <th class=\"\" style=\"text-align: left; display: none;\" data-field=\"_id\">
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
@@ -149,7 +140,7 @@ exports[`Container > Organizations Organizations View loads with one organizatio
             <table class=\"table table-hover table-bordered\">
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">

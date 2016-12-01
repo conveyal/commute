@@ -23,7 +23,7 @@ export default class Agencies extends Component {
   }
 
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => { this.props.deleteAgency(row._id) }
+    const doDelete = () => { this.props.deleteAgency(row) }
     const onClick = () => actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
@@ -46,7 +46,7 @@ export default class Agencies extends Component {
             </h2>
             <p>An agency is a collection of organizations <Icon type='shield' />.</p>
             <BootstrapTable data={agencies}>
-              <TableHeaderColumn dataField='id' isKey hidden />
+              <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={nameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='organizations' dataFormat={arrayCountRenderer}>Organizations</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._toolsRenderer}>Tools</TableHeaderColumn>

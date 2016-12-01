@@ -5,10 +5,15 @@ import pretty from 'pretty'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectDeleteAction} from '../../test-utils/actions'
-import {makeMockStore, mockStores} from '../../test-utils/mock-data'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {blankAgency, makeMockStore, mockStores} from '../../test-utils/mock-data'
 
 import Agencies from '../../../client/containers/agencies'
+
+const agencyExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'agencies',
+  singularName: 'agency'
+})
 
 describe('Container > Agencies', () => {
   it('Agencies View loads', () => {
@@ -51,6 +56,9 @@ describe('Container > Agencies', () => {
     const deleteButton = tree.find('table').find('Button').last()
     deleteButton.simulate('click')
 
-    expectDeleteAction(mockStore.getActions())
+    agencyExpectations.expectDeleteAction({
+      action: mockStore.getActions()[0],
+      entity: blankAgency
+    })
   })
 })

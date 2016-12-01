@@ -1,10 +1,10 @@
 exports[`client > reducers > commuter generic reducer tests should handle add commuter 1`] = `
 Object {
   "commuter-2": Object {
+    "_id": "commuter-2",
     "address": "4321 XYZ Boulevard",
     "email": "luke@warm.cold",
     "groupId": "group-2",
-    "id": "commuter-2",
     "lat": 38.916089,
     "lng": -76.970221,
     "name": "Luke Warm",
@@ -17,18 +17,18 @@ exports[`client > reducers > commuter generic reducer tests should handle delete
 exports[`client > reducers > commuter generic reducer tests should handle set commuter 1`] = `
 Object {
   "commuter-2": Object {
+    "_id": "commuter-2",
     "address": "4321 XYZ Boulevard",
     "email": "luke@warm.cold",
     "groupId": "group-2",
-    "id": "commuter-2",
     "lat": 38.916089,
     "lng": -76.970221,
     "name": "Luke Warm",
   },
   "commuter-3": Object {
+    "_id": "commuter-3",
     "address": "9876 ABC Ct",
     "email": "sal@a.mander",
-    "id": "commuter-3",
     "lat": 38.915,
     "lng": -76.971,
     "name": "Sal A. Mander",
@@ -39,10 +39,10 @@ Object {
 exports[`client > reducers > commuter generic reducer tests should handle set commuters 1`] = `
 Object {
   "commuter-2": Object {
+    "_id": "commuter-2",
     "address": "4321 XYZ Boulevard",
     "email": "luke@warm.cold",
     "groupId": "group-2",
-    "id": "commuter-2",
     "lat": 38.916089,
     "lng": -76.970221,
     "name": "Luke Warm",
@@ -53,10 +53,10 @@ Object {
 exports[`client > reducers > commuter should handle add group 1`] = `
 Object {
   "new-commuter": Object {
+    "_id": "new-commuter",
     "address": "4321 XYZ Boulevard",
     "email": "luke@warm.cold",
     "groupId": "new-group",
-    "id": "new-commuter",
     "name": "Fake Commuter",
   },
 }
@@ -65,18 +65,18 @@ Object {
 exports[`client > reducers > commuter should handle append commuters 1`] = `
 Object {
   "commuter-2": Object {
+    "_id": "commuter-2",
     "address": "4321 XYZ Boulevard",
     "email": "luke@warm.cold",
     "groupId": "group-2",
-    "id": "commuter-2",
     "lat": 38.916089,
     "lng": -76.970221,
     "name": "Luke Warm",
   },
   "commuter-3": Object {
+    "_id": "commuter-3",
     "address": "9876 ABC Ct",
     "email": "sal@a.mander",
-    "id": "commuter-3",
     "lat": 38.915,
     "lng": -76.971,
     "name": "Sal A. Mander",

@@ -1,20 +1,6 @@
 exports[`Container > EditCommuter Create commuter 1`] = `
 Object {
   "payload": Object {
-    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-    "email": "mock@email.fake",
-    "groupId": "group-2",
-    "lat": 38.89011,
-    "lng": -76.9897,
-    "name": "Mock Commuter",
-  },
-  "type": "add commuter",
-}
-`;
-
-exports[`Container > EditCommuter Create commuter 2`] = `
-Object {
-  "payload": Object {
     "args": Array [
       "/group/group-2",
     ],
@@ -819,42 +805,18 @@ Object {
 `;
 
 exports[`Container > EditCommuter Delete Commuter 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "groupId": "group-2",
-      "id": "commuter-2",
-    },
-    "type": "delete commuter",
-  },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/group/group-2",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
-`;
-
-exports[`Container > EditCommuter Update commuter 1`] = `
 Object {
   "payload": Object {
-    "address": "Abraham Lincoln/Emancipation Monument, Washington, USA",
-    "email": "mock@email.fake",
-    "groupId": "group-2",
-    "id": "commuter-2",
-    "lat": 38.89011,
-    "lng": -76.9897,
-    "name": "Mock Commuter",
+    "args": Array [
+      "/group/group-2",
+    ],
+    "method": "push",
   },
-  "type": "set commuter",
+  "type": "@@router/CALL_HISTORY_METHOD",
 }
 `;
 
-exports[`Container > EditCommuter Update commuter 2`] = `
+exports[`Container > EditCommuter Update commuter 1`] = `
 Object {
   "payload": Object {
     "args": Array [

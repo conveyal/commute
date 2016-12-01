@@ -5,12 +5,11 @@ import Select from 'react-select'
 
 import FieldGroup from './fieldgroup'
 import Icon from './icon'
-import {entityIdArrayToEntityArray} from '../utils/entities'
 
 export default class CreateAnalysis extends Component {
   static propTypes = {
     // dispatch
-    create: PropTypes.func,
+    create: PropTypes.func.isRequired,
 
     // props
     commutersById: PropTypes.object.isRequired,
@@ -32,7 +31,6 @@ export default class CreateAnalysis extends Component {
   _handleGroupChange = (event) => {
     const groupId = event.value
     this.setState({
-      commuters: entityIdArrayToEntityArray(event.commuters, this.props.commutersById),
       groupId
     })
   }
@@ -42,7 +40,7 @@ export default class CreateAnalysis extends Component {
   }
 
   _handleSubmit = () => {
-    this.props.create(this.state, this.props.organizationId)
+    this.props.create(this.state)
   }
 
   render () {
@@ -84,7 +82,6 @@ export default class CreateAnalysis extends Component {
                   onChange={this._handleGroupChange}
                   options={groups.map((group) => {
                     return {
-                      commuters: group.commuters,
                       label: group.name,
                       value: group._id
                     }

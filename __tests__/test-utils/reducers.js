@@ -24,7 +24,7 @@ export function makeChildrenHandlerTestCases (cfg) {
     it(`it should handle ${addType}`, () => {
       const action = { payload: cfg.add.payload, type: addType }
       const result = reducer(cfg.add.initialState, action)
-      expect(result[cfg.add.affectedParentId][cfg.childPluralName]).toContain(cfg.add.payload.id)
+      expect(result[cfg.add.affectedParentId][cfg.childPluralName]).toContain(cfg.add.payload._id)
       expect(result).toMatchSnapshot()
     })
 
@@ -32,7 +32,7 @@ export function makeChildrenHandlerTestCases (cfg) {
     it(`it should handle ${deleteType}`, () => {
       const action = { payload: cfg.delete.payload, type: deleteType }
       const result = reducer(cfg.delete.initialState, action)
-      expect(result[cfg.delete.affectedParentId][cfg.childPluralName]).not.toContain(cfg.delete.payload.id)
+      expect(result[cfg.delete.affectedParentId][cfg.childPluralName]).not.toContain(cfg.delete.payload._id)
       expect(result).toMatchSnapshot()
     })
   })
@@ -65,7 +65,7 @@ export function makeGenericReducerTestCases (cfg) {
         const entity = addCfg.payload
         const action = { payload: addCfg.payload, type: addType }
         const result = reducer(addCfg.initialState, action)
-        expect(result).toEqual({ [entity.id]: entity })
+        expect(result).toEqual({ [entity._id]: entity })
         expect(result).toMatchSnapshot()
       })
     }
@@ -89,7 +89,7 @@ export function makeGenericReducerTestCases (cfg) {
         const entity = setCfg.payload
         const action = { payload: setCfg.payload, type: setType }
         const result = reducer(setCfg.initialState, action)
-        expect(result[entity.id]).toEqual(entity)
+        expect(result[entity._id]).toEqual(entity)
         expect(result).toMatchSnapshot()
       })
     }
@@ -101,7 +101,7 @@ export function makeGenericReducerTestCases (cfg) {
         const firstEntity = setAllCfg.payload[0]
         const action = { payload: setAllCfg.payload, type: setAllType }
         const result = reducer(setAllCfg.initialState, action)
-        expect(result[firstEntity.id]).toEqual(firstEntity)
+        expect(result[firstEntity._id]).toEqual(firstEntity)
         expect(result).toMatchSnapshot()
       })
     }

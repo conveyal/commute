@@ -66,7 +66,7 @@ describe('group', () => {
             address: '123 Abc Street',
             name: 'test commuter'
           }],
-          name: 'test group',
+          name: 'test group with commuters',
           organizationId: mongoose.Types.ObjectId()
         })
 
@@ -76,10 +76,10 @@ describe('group', () => {
       expect(groupCount).toBe(1)
       const commuterCount = await Commuter.count().exec()
       expect(commuterCount).toBe(1)
-      expect(json.name).toBe('test group')
-      expect(json.commuters.length).toBe(1)
+      expect(json[0].name).toBe('test group with commuters')
+      expect(json[0].commuters.length).toBe(1)
       const commuters = await Commuter.find().exec()
-      expect(`${commuters[0].groupId}`).toBe(json._id)
+      expect(`${commuters[0].groupId}`).toBe(json[0]._id)
     })
   })
 })

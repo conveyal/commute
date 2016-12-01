@@ -32,7 +32,7 @@ export default class EditAgency extends Component {
   }
 
   handleDelete = () => {
-    const doDelete = () => this.props.delete(this.props.agency._id)
+    const doDelete = () => this.props.delete(this.props.agency)
     actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 

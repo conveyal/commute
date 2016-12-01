@@ -5,10 +5,15 @@ import {mountToJson} from 'enzyme-to-json'
 import React from 'react'
 import {Provider} from 'react-redux'
 
-import {expectCreateAction, expectDeleteOrganization} from '../../test-utils/actions'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import EditOrganization from '../../../client/containers/edit-organization'
+
+const organizationExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'organizations',
+  singularName: 'organization'
+})
 
 describe('Container > EditOrganization', () => {
   it('Create/Edit Organization View loads (create or edit mode)', () => {
@@ -58,7 +63,17 @@ describe('Container > EditOrganization', () => {
     tree.find('form').find('button').simulate('click')
 
     // expect create action
-    expectCreateAction(mockStore.getActions())
+    organizationExpectations.expectCreateAction({
+      action: mockStore.getActions()[0],
+      newEntity: {
+        agencyId: 'agency-1',
+        contact: 'My new value',
+        email: 'My new value',
+        logo_url: 'My new value',
+        main_url: 'My new value',
+        name: 'My new value'
+      }
+    })
   })
 
   it('Update organization', () => {
@@ -80,9 +95,18 @@ describe('Container > EditOrganization', () => {
     tree.find('form').find('button').first().simulate('click')
 
     // expect update action
-    const actions = mockStore.getActions()
-    expect(actions.length).toBe(2)
-    expect(actions).toMatchSnapshot()
+    organizationExpectations.expectUpdateAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'organization-1',
+        agencyId: 'agency-3',
+        contact: 'My new value',
+        email: 'My new value',
+        logo_url: 'My new value',
+        main_url: 'My new value',
+        name: 'My new value'
+      }
+    })
   })
 
   it('Delete organization', () => {
@@ -104,6 +128,14 @@ describe('Container > EditOrganization', () => {
     const deleteButton = tree.find('button').last()
     deleteButton.simulate('click')
 
-    expectDeleteOrganization(mockStore.getActions())
+    organizationExpectations.expectDeleteAction({
+      action: mockStore.getActions()[0],
+      entity: {
+        _id: 'organization-1',
+        agencyId: 'agency-3',
+        email: 'My new value',
+        name: 'Mock Organization'
+      }
+    })
   })
 })

@@ -46,7 +46,7 @@ exports[`Container > CommuterGroup Commuter Group View loads 2`] = `
           <table class=\"table table-hover table-bordered\">
             <thead>
               <tr>
-                <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                   <div></div>
                 </th>
                 <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">

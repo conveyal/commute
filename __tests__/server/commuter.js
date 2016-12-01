@@ -27,7 +27,7 @@ describe('commuter', () => {
       'Collection POST': {
         creationData: initCommuterData,
         customAssertions: (json) => {
-          expect(json.name).toBe('test-commuter')
+          expect(json[0].name).toBe('test-commuter')
         }
       },
       'DELETE': {

@@ -58,7 +58,7 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
                       <table class=\"table table-hover table-bordered\">
                         <thead>
                           <tr>
-                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                               <div></div>
                             </th>
                             <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
@@ -112,47 +112,18 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
 `;
 
 exports[`Container > AddCommuters Append Commuters to existing commuter group 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "commuters": Array [
-        Object {
-          "address": "123 Main St",
-          "email": "a@b.c",
-          "groupId": "group-2",
-          "id": "1",
-          "name": "Bob",
-        },
-      ],
-      "groupId": "group-2",
-    },
-    "type": "append commuters",
-  },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/group/group-2",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
-`;
-
-exports[`Container > AddCommuters Create Commuter Group 1`] = `
 Object {
   "payload": Object {
-    "allAddressesGeocoded": false,
-    "commuters": Array [],
-    "name": "Mock Name",
-    "organizationId": "organization-1",
+    "args": Array [
+      "/group/group-2",
+    ],
+    "method": "push",
   },
-  "type": "add group",
+  "type": "@@router/CALL_HISTORY_METHOD",
 }
 `;
 
-exports[`Container > AddCommuters Create Commuter Group 2`] = `
+exports[`Container > AddCommuters Create Commuter Group 1`] = `
 Object {
   "payload": Object {
     "args": Array [
@@ -198,7 +169,7 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
                       <table class=\"table table-hover table-bordered\">
                         <thead>
                           <tr>
-                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"id\">
+                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
                               <div></div>
                             </th>
                             <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">

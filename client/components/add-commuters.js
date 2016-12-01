@@ -14,8 +14,8 @@ import Icon from './icon'
 export default class AddCommuters extends Component {
   static propTypes = {
     // dispatch
-    create: PropTypes.func,
-    append: PropTypes.func,
+    createCommuter: PropTypes.func.isRequired,
+    createGroup: PropTypes.func.isRequired,
 
     // props
     appendMode: PropTypes.bool,
@@ -42,21 +42,21 @@ export default class AddCommuters extends Component {
   }
 
   handleSubmit = () => {
-    const {append, appendMode, create, group} = this.props
+    const {appendMode, createCommuter, createGroup} = this.props
     if (appendMode) {
-      append({ newCommuters: this.state.newCommuters, groupId: group._id })
+      createCommuter(this.state.newCommuters)
     } else {
       const newGroup = {...this.state}
       newGroup.commuters = newGroup.newCommuters
       delete newGroup.newCommuters
-      create(newGroup)
+      createGroup(newGroup)
     }
   }
 
   makeCommuterTable (commuters) {
     return (
       <BootstrapTable data={commuters}>
-        <TableHeaderColumn dataField='id' isKey hidden />
+        <TableHeaderColumn dataField='_id' isKey hidden />
         <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
         <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
         <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
@@ -65,14 +65,19 @@ export default class AddCommuters extends Component {
   }
 
   onDrop = (files) => {
+    const {appendMode, group} = this.props
     const r = new FileReader()
 
     r.onload = (e) => {
       const newCommuters = csvParse(e.target.result, (row) => {
         const {address, email, name} = row
-        const id = row._id || uuid.v4()
+        const _id = row._id || uuid.v4()
         // TODO: parse more field possibilities (first name, last name, etc)
-        return {address, email, id, name}
+        const newCommuter = {address, email, _id, name}
+        if (appendMode) {
+          newCommuter.groupId = group._id
+        }
+        return newCommuter
       })
 
       this.setState({newCommuters})

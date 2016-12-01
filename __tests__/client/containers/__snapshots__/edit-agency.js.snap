@@ -1,16 +1,6 @@
 exports[`Container > EditAgency Create agency 1`] = `
 Object {
   "payload": Object {
-    "name": "My new value",
-    "organizations": Array [],
-  },
-  "type": "add agency",
-}
-`;
-
-exports[`Container > EditAgency Create agency 2`] = `
-Object {
-  "payload": Object {
     "args": Array [
       "/agency/new-entity-id",
     ],
@@ -156,7 +146,7 @@ exports[`Container > EditAgency Create/Edit Agency View loads in edit mode 1`] =
   <EditAgency
     agency={
       Object {
-        "id": "agency-1",
+        "_id": "agency-1",
         "name": "Mock Agency",
         "organizations": Array [],
       }
@@ -304,41 +294,25 @@ exports[`Container > EditAgency Create/Edit Agency View loads in edit mode 1`] =
 `;
 
 exports[`Container > EditAgency Delete agency 1`] = `
-Array [
-  Object {
-    "payload": "agency-1",
-    "type": "delete agency",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;
 
 exports[`Container > EditAgency Update agency 1`] = `
-Array [
-  Object {
-    "payload": Object {
-      "id": "agency-1",
-      "name": "My new value",
-      "organizations": Array [],
-    },
-    "type": "set agency",
+Object {
+  "payload": Object {
+    "args": Array [
+      "/agency/agency-1",
+    ],
+    "method": "push",
   },
-  Object {
-    "payload": Object {
-      "args": Array [
-        "/agency/agency-1",
-      ],
-      "method": "push",
-    },
-    "type": "@@router/CALL_HISTORY_METHOD",
-  },
-]
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;

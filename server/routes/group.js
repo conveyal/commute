@@ -26,21 +26,37 @@ module.exports = function makeRoutes (app) {
   app.post('/api/group', (req, res) => {
     res.set('Content-Type', 'application/json')
     const handleErr = (err) => res.status(500).json({error: err})
-    models.Group.create(pick(req.body, ['name', 'organizationId']))
-      .then((group) => {
-        if (req.body.commuters && req.body.commuters.length > 0) {
-          // insert commuters one-by-one to trigger pre-save hook
-          Promise.all(req.body.commuters.map((commuter) => {
-            return models.Commuter.create(Object.assign(commuter, { groupId: group._id }))
-          }))
-            .then((data) => {
-              const output = Object.assign({ commuters: data.map((commuter) => commuter._id) }, group._doc)
-              res.json(output)
-            })
-            .catch(handleErr)
-        } else {
-          res.json(group)
-        }
+    let body = req.body
+    if (!Array.isArray(body)) {
+      body = [body]
+    }
+    const groupsToCreate = body.map((newGroup) => pick(newGroup, ['name', 'organizationId']))
+    models.Group.create(groupsToCreate)
+      .then((groups) => {
+        const createGroupCommutersPromises = groups.map((group, idx) => {
+          return new Promise((resolve, reject) => {
+            if (body[idx].commuters && body[idx].commuters.length > 0) {
+              // insert commuters one-by-one to trigger pre-save hook
+              Promise.all(body[idx].commuters.map((commuter) => {
+                return models.Commuter.create(Object.assign(commuter, { groupId: group._id }))
+              }))
+                .then((data) => {
+                  const output = Object.assign({ commuters: data.map((commuter) => commuter._id) }, group._doc)
+                  resolve(output)
+                })
+                .catch(reject)
+            } else {
+              resolve(group)
+            }
+          })
+        })
+        Promise.all(createGroupCommutersPromises)
+          .then((data) => {
+            res.json(data)
+          })
+          .catch((err) => {
+            handleErr(err)
+          })
       })
       .catch(handleErr)
   })

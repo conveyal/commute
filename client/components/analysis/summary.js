@@ -28,7 +28,7 @@ export default class Summary extends Component {
   }
 
   render () {
-    const {id, name, summary} = this.props.analysis
+    const {_id: analysisId, name, summary} = this.props.analysis
     const {analysis, groupName, siteName} = this.props
     return (
       <Grid>
@@ -107,17 +107,17 @@ export default class Summary extends Component {
           </Col>
           <Col xs={12}>
             <p>
-              <Link to={`/analysis/${id}/histogram`}>
+              <Link to={`/analysis/${analysisId}/histogram`}>
                 Commute Metrics Histogram
               </Link>
             </p>
             <p>
-              <Link to={`/analysis/${id}/possibilities`}>
+              <Link to={`/analysis/${analysisId}/possibilities`}>
                 Possibilities Analysis
               </Link>
             </p>
             <p>
-              <Link to={`/analysis/${id}/individuals`}>
+              <Link to={`/analysis/${analysisId}/individuals`}>
                 Individual Commuter Analysis
               </Link>
             </p>

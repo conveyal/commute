@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import {createCommuter, deleteCommuter, updateCommuter} from '../actions/commuter'
+import commuterActions from '../actions/commuter'
 import EditCommuter from '../components/edit-commuter'
 
 function mapStateToProps (state, props) {
@@ -23,9 +23,9 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    create: (opts) => dispatch(createCommuter(opts)),
-    delete: (opts) => dispatch(deleteCommuter(opts)),
-    update: (opts) => dispatch(updateCommuter(opts))
+    create: (opts) => dispatch(commuterActions.create(opts)),
+    delete: (opts) => dispatch(commuterActions.delete(opts)),
+    update: (opts) => dispatch(commuterActions.update(opts))
   }
 }
 

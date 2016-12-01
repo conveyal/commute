@@ -24,7 +24,7 @@ describe('analysis', () => {
       'Collection POST': {
         creationData: initAnalysisData,
         customAssertions: (json) => {
-          expect(json.name).toBe('test-analysis')
+          expect(json[0].name).toBe('test-analysis')
         }
       },
       'DELETE': {

@@ -1,8 +1,8 @@
 exports[`client > reducers > analysis generic reducer tests should handle add analysis 1`] = `
 Object {
   "analysis-2": Object {
+    "_id": "analysis-2",
     "groupId": "group-2",
-    "id": "analysis-2",
     "lastRunDateTime": 1477697490,
     "name": "An Analysis",
     "organizationId": "organization-2",
@@ -106,8 +106,8 @@ exports[`client > reducers > analysis generic reducer tests should handle delete
 exports[`client > reducers > analysis generic reducer tests should handle set analyses 1`] = `
 Object {
   "analysis-2": Object {
+    "_id": "analysis-2",
     "groupId": "group-2",
-    "id": "analysis-2",
     "lastRunDateTime": 1477697490,
     "name": "An Analysis",
     "organizationId": "organization-2",
@@ -208,8 +208,8 @@ Object {
 
 exports[`client > reducers > analysis should handle receive mock calculated trips 1`] = `
 Object {
+  "_id": "analysis-2",
   "groupId": "group-2",
-  "id": "analysis-2",
   "lastRunDateTime": 1477697490,
   "name": "An Analysis",
   "organizationId": "organization-2",
