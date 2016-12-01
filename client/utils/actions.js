@@ -81,11 +81,11 @@ const makeGenericModelActions = (cfg) => {
 
       // make request
       return fetchAction({
-        next: (res, err) => {
+        next: (err, res) => {
           if (!err) {
             return setAllLocally(res.value)
           }
-          // TODO handle error
+          console.error('Fetch (Collection GET) error handler not implemented') // TODO handle error
         },
         url: baseEndpoint + queryString
       })
@@ -100,9 +100,9 @@ const makeGenericModelActions = (cfg) => {
         body = [body]
       }
       return fetchAction({
-        next: (res, err) => {
+        next: (err, res) => {
           if (err) {
-            // TODO handle error
+            console.error('Fetch (Collection POST) error handler not implemented') // TODO handle error
           } else {
             const createdEntities = res.value
             const actions = createdEntities.map((createdEntity) => addLocally(createdEntity))
@@ -128,9 +128,9 @@ const makeGenericModelActions = (cfg) => {
     const endpointCfg = commands['DELETE']
     actions.delete = (entity) => {
       return fetchAction({
-        next: (res, err) => {
+        next: (err, res) => {
           if (err) {
-            // TODO handle error
+            console.error('Fetch (DELETE) error handler not implemented') // TODO handle error
           } else {
             const actions = [
               deleteLocally(entity._id)
@@ -154,11 +154,11 @@ const makeGenericModelActions = (cfg) => {
 
   if (commands['GET']) {
     actions.loadOne = (id) => fetchAction({
-      next: (res, err) => {
+      next: (err, res) => {
         if (!err) {
           return setLocally(res.value)
         }
-        // TODO handle error
+        console.error('Fetch (GET) handler not implemented') // TODO handle error
       },
       url: `${baseEndpoint}/${id}`
     })
@@ -167,9 +167,9 @@ const makeGenericModelActions = (cfg) => {
   if (commands['PUT']) {
     const endpointCfg = commands['PUT']
     actions.update = (entity) => fetchAction({
-      next: (res, err) => {
+      next: (err, res) => {
         if (err) {
-          // TODO handle error
+          console.error('Fetch (PUT) error handler not implemented') // TODO handle error
         } else {
           const updatedEntity = res.value
           const actions = [

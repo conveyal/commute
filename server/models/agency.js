@@ -1,6 +1,6 @@
 const {Schema} = require('mongoose')
 
-import Organization from './organization'
+const Organization = require('./organization')
 
 const agencySchema = new Schema({
   name: {

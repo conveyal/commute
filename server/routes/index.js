@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-import each from 'async/each'
+const each = require('async/each')
 
 const routes = {}
 module.exports = routes
@@ -29,16 +29,22 @@ const makeGetModelResponse = (childModels, res, isCollection) => (err, data) => 
 
   // wow, awesome, with normalized mongoose models I get to make extra queries
   // to the db to do joins!  </sarcasm>
+  const outputData = []
   each(data, (entity, entityCb) => {
+    const curEntity = Object.assign({}, entity._doc)
     each(childModels, (childModel, childCb) => {
-      childModel.model.find({ [childModel.foreignKey]: entity._id }, (err, childEntities) => {
+      childModel.model.find({ [childModel.foreignKey]: curEntity._id }, (err, childEntities) => {
         if (err) return childCb(err)
-        entity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
+        curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
         childCb()
       })
-    }, entityCb)
+    }, (err) => {
+      if (err) return entityCb(err)
+      outputData.push(curEntity)
+      entityCb()
+    })
   }, (err) => {
-    genericResponder(err, isCollection ? data : data[0])
+    genericResponder(err, isCollection ? outputData : outputData[0])
   })
 }
 

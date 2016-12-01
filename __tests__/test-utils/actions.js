@@ -79,7 +79,7 @@ export function makeGenericModelActionsExpectations (cfg) {
 
       // execute nextFn with mock server response
       const createdEntities = [Object.assign(newEntity, { _id: 'new-entity-id' })]
-      const nextFnResult = nextFn({ value: createdEntities })
+      const nextFnResult = nextFn(null, { value: createdEntities })
 
       // expect two actions as result
       expect(nextFnResult.length).toEqual(2)
@@ -140,7 +140,7 @@ export function makeGenericModelActionsExpectations (cfg) {
       const nextFn = expectFetchActionAndGetNextFn(action, baseEndpoint)
 
       // execute nextFn with mock server response
-      const nextFnResult = nextFn({ value: 'mock data' })
+      const nextFnResult = nextFn(null, { value: 'mock data' })
 
       // expect single setAllLocallyType action as a result
       expect(nextFnResult.type).toEqual(setAllLocallyType)
@@ -161,7 +161,7 @@ export function makeGenericModelActionsExpectations (cfg) {
         `${baseEndpoint}/${entityId}`)
 
       // execute nextFn with mock server response
-      const nextFnResult = nextFn({ value: { _id: entityId } })
+      const nextFnResult = nextFn(null, { value: { _id: entityId } })
 
       // expect single setAllLocallyType action as a result
       expect(nextFnResult.type).toEqual(setLocallyType)
@@ -186,7 +186,7 @@ export function makeGenericModelActionsExpectations (cfg) {
         })
 
       // execute nextFn with mock server response
-      const nextFnResult = nextFn({ value: entity })
+      const nextFnResult = nextFn(null, { value: entity })
 
       // expect two actions as result
       expect(nextFnResult.length).toEqual(2)

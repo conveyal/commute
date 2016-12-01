@@ -1,8 +1,8 @@
 const {Schema} = require('mongoose')
 
-import Analysis from './analysis'
-import Group from './group'
-import Site from './site'
+const Analysis = require('./analysis')
+const Group = require('./group')
+const Site = require('./site')
 
 const organizationSchema = new Schema({
   agencyId: {

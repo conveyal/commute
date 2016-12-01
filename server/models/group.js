@@ -1,6 +1,6 @@
 const {Schema} = require('mongoose')
 
-import Commuter from './commuter'
+const Commuter = require('./commuter')
 
 const groupSchema = new Schema({
   name: {
