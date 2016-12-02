@@ -18,7 +18,10 @@ before_script:
 install:
   - yarn
 script:
-  - npm run cover-server
+  - npm run test-lint
+  - npm run cover
+  - codecov
+  - npm run build
 after_success:
   - npm run semantic-release
 branches:
