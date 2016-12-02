@@ -18,7 +18,7 @@ before_script:
 install:
   - yarn
 script:
-  - npm run test-server
+  - npm run cover-server
 after_success:
   - npm run semantic-release
 branches:
