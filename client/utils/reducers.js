@@ -57,7 +57,7 @@ export function makeGenericReducerHandlers (cfg) {
 
   if (cfg.handlers.indexOf('delete') !== -1) {
     reducers[`delete ${cfg.name.singular}`] = function (state, action) {
-      return deleteFromEntityMap(state, action.payload)
+      return deleteFromEntityMap(state, action.payload._id)
     }
   }
 

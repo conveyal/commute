@@ -36,31 +36,32 @@ export default class BreadcrumbBar extends Component {
     }
 
     const appendAgency = (agencyId, isActive) => {
-      appendEntity(agencyId, this.props.agency[agencyId].name, '/agency/', isActive)
+      const agency = this.props.agency[agencyId]
+      appendEntity(agencyId, agency ? agency.name : '?', '/agency/', isActive)
     }
 
     const appendOrganization = (organizationId, isActive) => {
       const organization = this.props.organization[organizationId]
-      appendAgency(organization.agencyId)
-      appendEntity(organizationId, organization.name, '/organization/', isActive)
+      appendAgency(organization ? organization.agencyId : 'none')
+      appendEntity(organizationId, organization ? organization.name : '?', '/organization/', isActive)
     }
 
     const appendAnalysis = (analysisId, isActive) => {
       const analysis = this.props.analysis[analysisId]
-      appendOrganization(analysis.organizationId)
-      appendEntity(analysisId, analysis.name, '/analysis/', isActive)
+      appendOrganization(analysis ? analysis.organizationId : 'none')
+      appendEntity(analysisId, analysis ? analysis.name : '?', '/analysis/', isActive)
     }
 
     const appendGroup = (groupId, isActive) => {
       const group = this.props.group[groupId]
-      appendOrganization(group.organizationId)
-      appendEntity(groupId, group.name, '/group/', isActive)
+      appendOrganization(group ? group.organizationId : 'none')
+      appendEntity(groupId, group ? group.name : '?', '/group/', isActive)
     }
 
     const appendSite = (siteId, isActive) => {
       const site = this.props.site[siteId]
-      appendOrganization(site.organizationId)
-      appendEntity(siteId, site.name, '/site/', isActive)
+      appendOrganization(site ? site.organizationId : 'none')
+      appendEntity(siteId, site ? site.name : '?', '/site/', isActive)
     }
 
     if (path === '/') {

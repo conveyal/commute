@@ -132,15 +132,14 @@ const makeGenericModelActions = (cfg) => {
           if (err) {
             console.error('Fetch (DELETE) error handler not implemented') // TODO handle error
           } else {
-            const actions = [
-              deleteLocally(entity)
-            ]
+            const actions = []
             doRedirectIfNecessary({
               actions,
               endpointCfg,
               defaultStrategy: 'toParent',
               redirectArgs: entity
             })
+            actions.push(deleteLocally(entity))
             return actions
           }
         },
