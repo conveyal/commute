@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import {deleteCommuter} from '../actions/commuter'
-import {deleteGroup, updateGroup} from '../actions/group'
+import commuterActions from '../actions/commuter'
+import groupActions from '../actions/group'
 import CommuterGroup from '../components/commuter-group'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
@@ -17,9 +17,10 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    deleteCommuter: (opts) => dispatch(deleteCommuter(opts)),
-    deleteGroup: (opts) => dispatch(deleteGroup(opts)),
-    update: (opts) => dispatch(updateGroup(opts))
+    deleteCommuter: (opts) => dispatch(commuterActions.delete(opts)),
+    deleteGroup: (opts) => dispatch(groupActions.delete(opts)),
+    loadCommuters: (opts) => dispatch(commuterActions.loadMany(opts)),
+    update: (opts) => dispatch(groupActions.update(opts))
   }
 }
 

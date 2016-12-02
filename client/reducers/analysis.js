@@ -8,7 +8,7 @@ import {makeGenericReducerHandlers} from '../utils/reducers'
 const METRICS = Object.keys(settings.metrics)
 
 export const reducers = makeGenericReducerHandlers({
-  handlers: ['add', 'delete', 'set all'],
+  handlers: ['add', 'delete', 'set many'],
   name: {
     singular: 'analysis',
     plural: 'analyses'

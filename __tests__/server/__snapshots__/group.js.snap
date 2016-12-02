@@ -10,6 +10,7 @@ Array [
 exports[`group rest endpoint should get model 1`] = `
 Object {
   "__v": 0,
+  "commuters": Array [],
   "name": "test-group",
 }
 `;

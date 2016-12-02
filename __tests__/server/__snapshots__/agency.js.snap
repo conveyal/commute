@@ -3,6 +3,7 @@ Array [
   Object {
     "__v": 0,
     "name": "test-agency",
+    "organizations": Array [],
   },
 ]
 `;
@@ -11,6 +12,7 @@ exports[`agency rest endpoint should get model 1`] = `
 Object {
   "__v": 0,
   "name": "test-agency",
+  "organizations": Array [],
 }
 `;
 

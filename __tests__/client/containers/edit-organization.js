@@ -6,7 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
-import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
+import {blankOrganization, makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import EditOrganization from '../../../client/containers/edit-organization'
 
@@ -123,6 +123,9 @@ describe('Container > EditOrganization', () => {
       </Provider>
     )
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // When the user clicks the delete button for an existing organization
     // And the user confirms the Confirm Deletion dialog
     const deleteButton = tree.find('button').last()
@@ -130,12 +133,7 @@ describe('Container > EditOrganization', () => {
 
     organizationExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
-      entity: {
-        _id: 'organization-1',
-        agencyId: 'agency-3',
-        email: 'My new value',
-        name: 'Mock Organization'
-      }
+      entity: blankOrganization
     })
   })
 })

@@ -21,6 +21,21 @@ export function addToEntityMap (map, newEntity) {
 }
 
 /**
+ * Add a many new entity to a entity map
+ *
+ * @param {Object} map          The entity map to add the entities to
+ * @param {Object} newEntities  The new entities
+ * @return {Object}             The updated entity map
+ */
+export function addEntitiesToEntityMap (map, newEntities) {
+  let updatedMap = map
+  newEntities.forEach((entity) => {
+    updatedMap = addToEntityMap(updatedMap, entity)
+  })
+  return updatedMap
+}
+
+/**
 * Delete an entity from an entity map
 *
 * @param {Object} map      The entity map
@@ -60,11 +75,19 @@ export function entityArrayToEntityMap (arr) {
 
 /**
  * Get the entities corresponding to a list of entity ids
+ * entities not found in store will not be added to output array
  *
  * @param  {Array} entityIdArray An array of ids
  * @param  {Object} entityMap    The entity map to lookup the objects from
  * @return {Array}               An array of entities
  */
 export function entityIdArrayToEntityArray (entityIdArray, entityMap) {
-  return entityIdArray.map((id) => entityMap[id])
+  const entities = []
+  for (let i = 0; i < entityIdArray.length; i++) {
+    const curId = entityIdArray[i]
+    if (entityMap[curId]) {
+      entities.push(entityMap[curId])
+    }
+  }
+  return entities
 }

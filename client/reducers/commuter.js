@@ -2,7 +2,7 @@ import {addToEntityMap} from '../utils/entities'
 import {makeGenericReducerHandlers} from '../utils/reducers'
 
 export const reducers = makeGenericReducerHandlers({
-  handlers: ['add', 'delete', 'set', 'set all'],
+  handlers: ['add', 'delete', 'set', 'set many'],
   name: {
     singular: 'commuter',
     plural: 'commuters'

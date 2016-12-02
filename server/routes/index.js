@@ -1,6 +1,7 @@
 const fs = require('fs')
 
 const each = require('async/each')
+const pick = require('lodash.pick')
 
 const routes = {}
 module.exports = routes
@@ -13,9 +14,14 @@ routes.makeRoutes = (app) => {
   })
 }
 
+const serverError = (res, err) => {
+  console.error(err)
+  res.status(500).json({error: err})
+}
+
 const makeGenericModelResponse = (res) => (err, data) => {
   res.set('Content-Type', 'application/json')
-  if (err) return res.status(500).json({error: err})
+  if (err) return serverError(res, err)
   res.json(data)
 }
 
@@ -65,10 +71,11 @@ const makeGetModelResponse = (childModels, res, isCollection) => (err, data) => 
 routes.makeRestEndpoints = (app, cfg) => {
   const commands = cfg.commands
   const model = cfg.model
+  const modelFields = Object.keys(model.schema.paths)
   const name = cfg.name
   if (commands['Collection GET']) {
     app.get(`/api/${name}`, (req, res) => {
-      model.find(makeGetModelResponse(cfg.childModels, res, true))
+      model.find(pick(req.query, modelFields), makeGetModelResponse(cfg.childModels, res, true))
     })
   }
 

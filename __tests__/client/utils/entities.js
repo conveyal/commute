@@ -12,6 +12,12 @@ describe('utils > entities', () => {
     expect(initialState).toEqual({})
   })
 
+  it('addEntitiesToEntityMap should work', () => {
+    const initialState = {}
+    expect(entities.addEntitiesToEntityMap(initialState, entityArray)).toEqual({ '1': entity })
+    expect(initialState).toEqual({})
+  })
+
   it('deleteFromEntityMap should work', () => {
     const initialState = { '1': { _id: '1' } }
     expect(entities.deleteFromEntityMap(initialState, '1')).toEqual({})
@@ -30,5 +36,11 @@ describe('utils > entities', () => {
     const entityIdArray = ['1']
     const entityMap = { '1': { _id: '1' } }
     expect(entities.entityIdArrayToEntityArray(entityIdArray, entityMap)).toEqual([{ _id: '1' }])
+  })
+
+  it('entityIdArrayToEntityArray should not add undefined entities', () => {
+    const entityIdArray = ['2']
+    const entityMap = { '1': { _id: '1' } }
+    expect(entities.entityIdArrayToEntityArray(entityIdArray, entityMap)).toEqual([])
   })
 })

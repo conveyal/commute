@@ -6,7 +6,14 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
-import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
+import {
+  blankOrganization,
+  makeMockStore,
+  mockAnalysis,
+  mockGroup,
+  mockSite,
+  mockStores
+} from '../../test-utils/mock-data.js'
 
 import Organization from '../../../client/containers/organization'
 
@@ -54,6 +61,9 @@ describe('Container > Organization', () => {
       </Provider>
     )
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // When the user clicks the delete button for an existing organization
     // And the user confirms the Confirm Deletion dialog
     const deleteButton = tree.find('.btn-group').first().find('button').last()
@@ -61,11 +71,7 @@ describe('Container > Organization', () => {
 
     organizationExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
-      entity: {
-        _id: 'organization-1',
-        agencyId: 'agency-3',
-        name: 'Mock Organization'
-      }
+      entity: blankOrganization
     })
   })
 
@@ -83,6 +89,9 @@ describe('Container > Organization', () => {
       </Provider>
     )
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // When the user clicks the delete button for an existing site
     // And the user confirms the Confirm Deletion dialog
     const deleteButton = tree.find('table').at(1).find('button').last()
@@ -90,11 +99,7 @@ describe('Container > Organization', () => {
 
     siteExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
-      entity: {
-        _id: 'site-2',
-        name: 'Mock Site',
-        organizationId: 'organization-2'
-      }
+      entity: mockSite
     })
   })
 
@@ -112,6 +117,9 @@ describe('Container > Organization', () => {
       </Provider>
     )
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // When the user clicks the delete button for an existing commuter group
     // And the user confirms the Confirm Deletion dialog
     const deleteButton = tree.find('table').at(3).find('button').last()
@@ -119,11 +127,7 @@ describe('Container > Organization', () => {
 
     groupExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
-      entity: {
-        _id: 'group-2',
-        name: 'Mock Group',
-        organizationId: 'organization-2'
-      }
+      entity: mockGroup
     })
   })
 
@@ -141,6 +145,9 @@ describe('Container > Organization', () => {
       </Provider>
     )
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // When the user clicks the delete button for an existing analysis
     // And the user confirms the Confirm Deletion dialog
     const deleteButton = tree.find('table').at(5).find('button').last()
@@ -148,11 +155,7 @@ describe('Container > Organization', () => {
 
     analysisExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
-      entity: {
-        _id: 'analysis-2',
-        name: 'Mock Analysis',
-        organizationId: 'organization-2'
-      }
+      entity: mockAnalysis
     })
   })
 })

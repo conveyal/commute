@@ -20,5 +20,26 @@ module.exports = new Schema({
     required: true,
     type: Schema.Types.ObjectId
   },
+  summary: {
+    // fields
+    avgTravelTime: Number,
+    avgDistance: Number,
+    savingsPerTrip: Number,
+    savingsPerTripYear: Number,
+    savingsTotalPerDay: Number,
+    savingsTotalPerYear: Number,
+
+    // mongoose
+    default: {
+      avgTravelTime: 0,
+      avgDistance: 0,
+      savingsPerTrip: 0,
+      savingsPerTripYear: 0,
+      savingsTotalPerDay: 0,
+      savingsTotalPerYear: 0
+    },
+    required: true,
+    type: Schema.Types.Mixed
+  },
   trips: Array
 })

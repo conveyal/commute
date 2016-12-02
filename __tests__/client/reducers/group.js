@@ -37,7 +37,7 @@ describe('client > reducers > group', () => {
         initialState: mockStores.withBlankOrganization.group,
         payload: anotherGroup
       },
-      'set all': {
+      'set many': {
         initialState: group.initialState,
         payload: [anotherGroup]
       }

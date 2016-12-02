@@ -4,7 +4,7 @@ import {addToEntityMap, entityArrayToEntityIdArray} from '../utils/entities'
 import {makeChildrenHandlers, makeGenericReducerHandlers} from '../utils/reducers'
 
 export const reducers = makeGenericReducerHandlers({
-  handlers: ['delete', 'set', 'set all'],
+  handlers: ['delete', 'set', 'set many'],
   name: {
     singular: 'group',
     plural: 'groups'

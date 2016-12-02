@@ -26,7 +26,10 @@ function mapDispatchToProps (dispatch) {
     deleteAnalysis: (opts) => dispatch(analysisActions.delete(opts)),
     deleteGroup: (opts) => dispatch(groupActions.delete(opts)),
     deleteOrganization: (opts) => dispatch(organizationActions.delete(opts)),
-    deleteSite: (opts) => dispatch(siteActions.delete(opts))
+    deleteSite: (opts) => dispatch(siteActions.delete(opts)),
+    loadAnalyses: (opts) => dispatch(analysisActions.loadMany(opts)),
+    loadGroups: (opts) => dispatch(groupActions.loadMany(opts)),
+    loadSites: (opts) => dispatch(siteActions.loadMany(opts))
   }
 }
 

@@ -13,13 +13,18 @@ import {actUponConfirmation} from '../utils/ui'
 export default class CommuterGroup extends Component {
   static propTypes = {
     // dispatch
-    deleteCommuter: PropTypes.func,
-    deleteGroup: PropTypes.func,
-    update: PropTypes.func,
+    deleteCommuter: PropTypes.func.isRequired,
+    deleteGroup: PropTypes.func.isRequired,
+    loadCommuters: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
 
     // props
     commuters: PropTypes.array.isRequired,
     group: PropTypes.object.isRequired
+  }
+
+  componentWillMount () {
+    this.props.loadCommuters({ groupId: this.props.group._id })
   }
 
   _commuterToolsRenderer = (cell, row) => {

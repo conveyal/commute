@@ -120,7 +120,7 @@ export function makeGenericModelActionsExpectations (cfg) {
       // expect first action to be deleteLocallyType
       const firstAction = nextFnResult[0]
       expect(firstAction.type).toEqual(deleteLocallyType)
-      expect(firstAction.payload).toEqual(entity._id)
+      expect(firstAction.payload).toEqual(entity)
 
       // expect second action to be react router action
       const secondAction = nextFnResult[1]
@@ -133,7 +133,7 @@ export function makeGenericModelActionsExpectations (cfg) {
      * @param  {Object} expectationCfg  Configuration as follows:
      * - action:  The action to test
      */
-    expectLoadAllAction: (expectationCfg) => {
+    expectloadManyAction: (expectationCfg) => {
       const {action} = expectationCfg
 
       // expect fetch action to be returned
@@ -225,11 +225,11 @@ export function makeGenericModelActionsTests (cfg) {
     if (commands['Collection GET']) {
       const testCfg = commands['Collection GET']
 
-      it('loadAll should work', () => {
+      it('loadMany should work', () => {
         // expect action to exist
-        expect(actions['loadAll']).toBeTruthy()
+        expect(actions['loadMany']).toBeTruthy()
 
-        genericExpectations.expectLoadAllAction({ action: actions.loadAll(testCfg.args) })
+        genericExpectations.expectloadManyAction({ action: actions.loadMany(testCfg.args) })
       })
     }
 

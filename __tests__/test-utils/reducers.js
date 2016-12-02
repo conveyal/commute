@@ -43,7 +43,7 @@ export function makeChildrenHandlerTestCases (cfg) {
  *
  * @param  {Object} cfg  An object with parameters structured as follows:
  *   - handlers: A lookup of handlers and respective configuration for handler.
- *     Possible keys: ['add', 'delete', 'set', 'set all']
+ *     Possible keys: ['add', 'delete', 'set', 'set many']
  *     Each handler config must have the following keys: initialState and payload
  *   - initialState (optional): overall initial state of store
  *   - name: must have singular and plural keys with the corresponding strings
@@ -94,10 +94,10 @@ export function makeGenericReducerTestCases (cfg) {
       })
     }
 
-    if (cfg.handlers['set all']) {
+    if (cfg.handlers['set many']) {
       const setAllType = `set ${cfg.name.plural}`
       it(`should handle ${setAllType}`, () => {
-        const setAllCfg = cfg.handlers['set all']
+        const setAllCfg = cfg.handlers['set many']
         const firstEntity = setAllCfg.payload[0]
         const action = { payload: setAllCfg.payload, type: setAllType }
         const result = reducer(setAllCfg.initialState, action)

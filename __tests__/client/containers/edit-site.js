@@ -6,7 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
-import {makeMockStore, mockStores} from '../../test-utils/mock-data'
+import {makeMockStore, mockSite, mockStores} from '../../test-utils/mock-data'
 import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditSite from '../../../client/containers/edit-site'
@@ -195,17 +195,16 @@ describe('Container > EditSite', () => {
       attachTo: document.getElementById('test')
     })
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // When the user clicks the delete button
     // And the user confirms the Confirm Deletion dialog
     tree.find('.site-submit-buttons').find('button').last().simulate('click')
 
     siteExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
-      entity: {
-        _id: 'site-2',
-        name: 'Mock Site',
-        organizationId: 'organization-2'
-      }
+      entity: mockSite
     })
   })
 })

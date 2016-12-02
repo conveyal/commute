@@ -18,7 +18,7 @@ function mapDispatchToProps (dispatch) {
   return {
     deleteAgency: (opts) => dispatch(agencyActions.delete(opts)),
     deleteOrganization: (opts) => dispatch(organizationActions.delete(opts)),
-    loadOrganizations: (opts) => dispatch(organizationActions.loadAll(opts))
+    loadOrganizations: (opts) => dispatch(organizationActions.loadMany(opts))
   }
 }
 

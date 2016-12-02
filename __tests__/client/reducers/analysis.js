@@ -18,7 +18,7 @@ describe('client > reducers > analysis', () => {
         initialState: mockStores.withAnalysisRun.analysis,
         payload: 'analysis-2'
       },
-      'set all': {
+      'set many': {
         initialState: analysis.initialState,
         payload: [mockAnalysis]
       }

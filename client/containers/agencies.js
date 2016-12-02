@@ -12,7 +12,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     deleteAgency: (opts) => dispatch(agencyActions.delete(opts)),
-    loadAgencies: () => dispatch(agencyActions.loadAll())
+    loadAgencies: () => dispatch(agencyActions.loadMany())
   }
 }
 

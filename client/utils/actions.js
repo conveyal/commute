@@ -69,7 +69,7 @@ const makeGenericModelActions = (cfg) => {
   }
 
   if (commands['Collection GET']) {
-    actions.loadAll = (queryParams) => {
+    actions.loadMany = (queryParams) => {
       // only include filteredKeys in querystring
       let queryString = ''
       if (queryParams) {
@@ -133,7 +133,7 @@ const makeGenericModelActions = (cfg) => {
             console.error('Fetch (DELETE) error handler not implemented') // TODO handle error
           } else {
             const actions = [
-              deleteLocally(entity._id)
+              deleteLocally(entity)
             ]
             doRedirectIfNecessary({
               actions,

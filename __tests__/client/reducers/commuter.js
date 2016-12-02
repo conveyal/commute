@@ -22,7 +22,7 @@ describe('client > reducers > commuter', () => {
         initialState: mockStores.withAnalysisRun.commuter,
         payload: commuterSal
       },
-      'set all': {
+      'set many': {
         initialState: commuter.initialState,
         payload: [mockCommuter]
       }

@@ -11,10 +11,13 @@ import {actUponConfirmation} from '../utils/ui'
 export default class Organization extends Component {
   static propTypes = {
     // dispatch
-    deleteAnalysis: PropTypes.func,
-    deleteGroup: PropTypes.func,
-    deleteOrganization: PropTypes.func,
-    deleteSite: PropTypes.func,
+    deleteAnalysis: PropTypes.func.isRequired,
+    deleteGroup: PropTypes.func.isRequired,
+    deleteOrganization: PropTypes.func.isRequired,
+    deleteSite: PropTypes.func.isRequired,
+    loadAnalyses: PropTypes.func.isRequired,
+    loadGroups: PropTypes.func.isRequired,
+    loadSites: PropTypes.func.isRequired,
 
     // props
     analysis: PropTypes.object.isRequired,
@@ -24,6 +27,12 @@ export default class Organization extends Component {
     organization: PropTypes.object.isRequired,
     site: PropTypes.object.isRequired,
     sites: PropTypes.array.isRequired
+  }
+
+  componentWillMount () {
+    this.props.loadAnalyses({ organizationId: this.props.organization._id })
+    this.props.loadGroups({ organizationId: this.props.organization._id })
+    this.props.loadSites({ organizationId: this.props.organization._id })
   }
 
   _analysisGroupNameRenderer = (cell, row) => {
@@ -37,7 +46,7 @@ export default class Organization extends Component {
 
   _analysisSiteNameRenderer = (cell, row) => {
     const site = this.props.site[row.siteId]
-    return <Link to={`/group/${site._id}`}>{site.name}</Link>
+    return <Link to={`/site/${site._id}`}>{site.name}</Link>
   }
 
   _analysisToolsRenderer = (cell, row) => {
@@ -52,7 +61,7 @@ export default class Organization extends Component {
   }
 
   _groupNameRenderer = (cell, row) => {
-    return <Link to={`/group/${row._id}/`}>{row.name}</Link>
+    return <Link to={`/group/${row._id}`}>{row.name}</Link>
   }
 
   _groupToolsRenderer = (cell, row) => {

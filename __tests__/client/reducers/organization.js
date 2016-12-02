@@ -71,7 +71,7 @@ describe('client > reducers > organization', () => {
         initialState: mockStores.withBlankOrganization.organization,
         payload: organizationWithAnAnalysis
       },
-      'set all': {
+      'set many': {
         initialState: organization.initialState,
         payload: [blankOrganization, organizationWithAnAnalysis]
       }

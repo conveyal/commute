@@ -1,6 +1,7 @@
 /* globals FileReader */
 
 import {csvParse} from 'd3-dsv'
+import omit from 'lodash.omit'
 import React, {Component, PropTypes} from 'react'
 import {Accordion, Button, Col, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
@@ -43,11 +44,15 @@ export default class AddCommuters extends Component {
 
   handleSubmit = () => {
     const {appendMode, createCommuter, createGroup} = this.props
+    const commutersToCreate = this.state.newCommuters
+      ? this.state.newCommuters.map((commuter) => omit(commuter, '_id'))
+      : []
+
     if (appendMode) {
-      createCommuter(this.state.newCommuters)
+      createCommuter(commutersToCreate)
     } else {
       const newGroup = {...this.state}
-      newGroup.commuters = newGroup.newCommuters
+      newGroup.commuters = commutersToCreate
       delete newGroup.newCommuters
       createGroup(newGroup)
     }

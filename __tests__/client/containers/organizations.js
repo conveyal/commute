@@ -7,7 +7,7 @@ import {Button} from 'react-bootstrap'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
-import {makeMockStore, mockStores} from '../../test-utils/mock-data'
+import {blankOrganization, makeMockStore, mockStores} from '../../test-utils/mock-data'
 
 import Organizations from '../../../client/containers/organizations'
 
@@ -67,12 +67,7 @@ describe('Container > Organizations', () => {
 
     organizationExpectations.expectDeleteAction({
       action: mockStore.getActions()[1],
-      entity: {
-        _id: 'organization-1',
-        agencyId: 'agency-3',
-        email: 'My new value',
-        name: 'Mock Organization'
-      }
+      entity: blankOrganization
     })
   })
 })

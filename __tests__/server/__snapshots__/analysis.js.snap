@@ -3,6 +3,14 @@ Array [
   Object {
     "__v": 0,
     "name": "test-analysis",
+    "summary": Object {
+      "avgDistance": 0,
+      "avgTravelTime": 0,
+      "savingsPerTrip": 0,
+      "savingsPerTripYear": 0,
+      "savingsTotalPerDay": 0,
+      "savingsTotalPerYear": 0,
+    },
     "trips": Array [],
   },
 ]
@@ -12,6 +20,14 @@ exports[`analysis rest endpoint should get model 1`] = `
 Object {
   "__v": 0,
   "name": "test-analysis",
+  "summary": Object {
+    "avgDistance": 0,
+    "avgTravelTime": 0,
+    "savingsPerTrip": 0,
+    "savingsPerTripYear": 0,
+    "savingsTotalPerDay": 0,
+    "savingsTotalPerYear": 0,
+  },
   "trips": Array [],
 }
 `;

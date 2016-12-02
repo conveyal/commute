@@ -6,7 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
-import {makeMockStore, mockStores} from '../../test-utils/mock-data'
+import {makeMockStore, mockCommuter, mockStores} from '../../test-utils/mock-data'
 import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditCommuter from '../../../client/containers/edit-commuter'
@@ -195,17 +195,16 @@ describe('Container > EditCommuter', () => {
       attachTo: document.getElementById('test')
     })
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // When the user clicks the delete button
     // And the user confirms the Confirm Deletion dialog
     tree.find('.commuter-submit-buttons').find('button').last().simulate('click')
 
     commuterExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
-      entity: {
-        _id: 'commuter-2',
-        groupId: 'group-2',
-        name: 'Mock Commuter'
-      }
+      entity: mockCommuter
     })
   })
 })

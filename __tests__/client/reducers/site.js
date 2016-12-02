@@ -20,7 +20,7 @@ describe('client > reducers > site', () => {
         initialState: mockStores.withBlankOrganization.site,
         payload: mockSite
       },
-      'set all': {
+      'set many': {
         initialState: site.initialState,
         payload: [mockSite]
       }

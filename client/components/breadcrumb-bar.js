@@ -176,7 +176,7 @@ export default class BreadcrumbBar extends Component {
         name: 'Edit Site'
       })
     } else {
-      console.error('Path not matched for breadcrumb generation')
+      console.error(`Path not matched for breadcrumb generation: ${path}`)
     }
     return navItems
   }

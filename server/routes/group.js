@@ -40,8 +40,8 @@ module.exports = function makeRoutes (app) {
               Promise.all(body[idx].commuters.map((commuter) => {
                 return models.Commuter.create(Object.assign(commuter, { groupId: group._id }))
               }))
-                .then((data) => {
-                  const output = Object.assign({ commuters: data.map((commuter) => commuter._id) }, group._doc)
+                .then((commuters) => {
+                  const output = Object.assign({ commuters }, group._doc)
                   resolve(output)
                 })
                 .catch(reject)
