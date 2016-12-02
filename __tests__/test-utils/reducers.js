@@ -74,7 +74,7 @@ export function makeGenericReducerTestCases (cfg) {
       const deleteType = `delete ${cfg.name.singular}`
       it(`should handle ${deleteType}`, () => {
         const deleteCfg = cfg.handlers.delete
-        const entityId = deleteCfg.payload
+        const entityId = deleteCfg.payload._id
         const action = { payload: deleteCfg.payload, type: deleteType }
         const result = reducer(deleteCfg.initialState, action)
         expect(result[entityId]).toBe(undefined)

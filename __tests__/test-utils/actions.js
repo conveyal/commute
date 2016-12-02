@@ -117,15 +117,15 @@ export function makeGenericModelActionsExpectations (cfg) {
       // expect two actions as result
       expect(nextFnResult.length).toEqual(2)
 
-      // expect first action to be deleteLocallyType
-      const firstAction = nextFnResult[0]
-      expect(firstAction.type).toEqual(deleteLocallyType)
-      expect(firstAction.payload).toEqual(entity)
-
-      // expect second action to be react router action
-      const secondAction = nextFnResult[1]
+      // expect first action to be react router action
+      const routeAction = nextFnResult[0]
       // using snapshot here so that changes to react router can be updated quickly
-      expect(secondAction).toMatchSnapshot()
+      expect(routeAction).toMatchSnapshot()
+
+      // expect second action to be deleteLocallyType
+      const deleteAction = nextFnResult[1]
+      expect(deleteAction.type).toEqual(deleteLocallyType)
+      expect(deleteAction.payload).toEqual(entity)
     },
     /**
      * Expect a load all action

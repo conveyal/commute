@@ -2,7 +2,7 @@
 
 import {handleActions} from 'redux-actions'
 
-import {commuterSal, mockGroupCreation, mockStores} from '../../test-utils/mock-data'
+import {commuterSal, mockGroup, mockGroupCreation, mockStores} from '../../test-utils/mock-data'
 import {makeChildrenHandlerTestCases, makeGenericReducerTestCases} from '../../test-utils/reducers'
 
 import * as group from '../../../client/reducers/group'
@@ -31,7 +31,7 @@ describe('client > reducers > group', () => {
     handlers: {
       delete: {
         initialState: mockStores.withAnalysisRun.group,
-        payload: 'group-2'
+        payload: mockGroup
       },
       set: {
         initialState: mockStores.withBlankOrganization.group,

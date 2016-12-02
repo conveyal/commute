@@ -31,7 +31,7 @@ describe('client > reducers > agency', () => {
       },
       delete: {
         initialState: mockStores.withBlankAgency.agency,
-        payload: 'agency-1'
+        payload: blankAgency
       },
       set: {
         initialState: mockStores.withBlankAgency.agency,

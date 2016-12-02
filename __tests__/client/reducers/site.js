@@ -14,7 +14,7 @@ describe('client > reducers > site', () => {
       },
       delete: {
         initialState: mockStores.withAnalysisRun.site,
-        payload: 'site-2'
+        payload: mockSite
       },
       set: {
         initialState: mockStores.withBlankOrganization.site,

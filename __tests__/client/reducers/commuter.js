@@ -16,7 +16,7 @@ describe('client > reducers > commuter', () => {
       },
       delete: {
         initialState: mockStores.withAnalysisRun.commuter,
-        payload: 'commuter-2'
+        payload: mockCommuter
       },
       set: {
         initialState: mockStores.withAnalysisRun.commuter,

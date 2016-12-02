@@ -16,7 +16,7 @@ describe('client > reducers > analysis', () => {
       },
       delete: {
         initialState: mockStores.withAnalysisRun.analysis,
-        payload: 'analysis-2'
+        payload: mockAnalysis
       },
       'set many': {
         initialState: analysis.initialState,
