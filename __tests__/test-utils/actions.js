@@ -1,20 +1,6 @@
 /* globals describe, expect, it */
 
-const deepEqual = (actual, expected) => {
-  if (Array.isArray(actual)) {
-    for (let i = 0; i < actual.length; i++) {
-      deepEqual(actual[i], expected[i])
-    }
-  } else if (actual === null) {
-    expect(actual).toEqual(expected)
-  } else if (typeof actual === 'object') {
-    Object.keys(actual).forEach((k) => {
-      deepEqual(actual[k], expected[k])
-    })
-  } else {
-    expect(actual).toEqual(expected)
-  }
-}
+import {expectDeepEqual} from './common'
 
 const expectFetchActionAndGetNextFn = (action, url, optionsToAssertEqual) => {
   // expect fetch type to be handled by middleware
@@ -30,7 +16,7 @@ const expectFetchActionAndGetNextFn = (action, url, optionsToAssertEqual) => {
   if (optionsToAssertEqual) {
     // do own deep equal because test case fails weirdly
     try {
-      deepEqual(payload.options, optionsToAssertEqual)
+      expectDeepEqual(payload.options, optionsToAssertEqual)
     } catch (e) {
       console.error('Not deep equal')
       console.error(payload.options)
