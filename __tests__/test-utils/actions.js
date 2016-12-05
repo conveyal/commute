@@ -1,6 +1,6 @@
 /* globals describe, expect, it */
 
-const deepEqual = (actual, expected) => {
+export function deepEqual (actual, expected) {
   if (Array.isArray(actual)) {
     for (let i = 0; i < actual.length; i++) {
       deepEqual(actual[i], expected[i])
@@ -16,7 +16,7 @@ const deepEqual = (actual, expected) => {
   }
 }
 
-const expectFetchActionAndGetNextFn = (action, url, optionsToAssertEqual) => {
+export function expectFetchActionAndGetNextFn (action, url, optionsToAssertEqual) {
   // expect fetch type to be handled by middleware
   expect(action.type).toEqual('fetch')
 

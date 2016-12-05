@@ -14,7 +14,7 @@ routes.makeRoutes = (app) => {
   })
 }
 
-const serverError = (res, err) => {
+function serverError (res, err) {
   console.error(err)
   res.status(500).json({error: err})
 }

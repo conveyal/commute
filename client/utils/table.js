@@ -1,3 +1,3 @@
-export const arrayCountRenderer = (cell, row) => {
+export function arrayCountRenderer (cell, row) {
   return cell.length
 }

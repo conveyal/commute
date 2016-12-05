@@ -13,7 +13,7 @@ document.body.appendChild(div)
 process.env.LEAFLET_TILE_URL = 'mock.url/tile'
 
 // implementation for creating leaflet objects
-const makeUniqueLeafletIdFn = (prefix) => {
+function makeUniqueLeafletIdFn (prefix) {
   return () => {
     return {
       _leaflet_id: uniqueId(prefix),

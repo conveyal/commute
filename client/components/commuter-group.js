@@ -125,7 +125,7 @@ class ClusterComponent extends React.Component {
   }
 }
 
-const mapCommuters = (allAddressesGeocoded, commuters) => {
+function mapCommuters (allAddressesGeocoded, commuters) {
   if (commuters.length === 0 || !allAddressesGeocoded) {
     return {
       markers: [],

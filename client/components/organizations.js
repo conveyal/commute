@@ -81,6 +81,6 @@ export default class Organizations extends Component {
   }
 }
 
-const nameRenderer = (cell, row) => {
+function nameRenderer (cell, row) {
   return <Link to={`/organization/${row._id}`}>{cell}</Link>
 }

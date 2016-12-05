@@ -58,6 +58,6 @@ export default class Agencies extends Component {
   }
 }
 
-const nameRenderer = (cell, row) => {
+function nameRenderer (cell, row) {
   return <Link to={`/agency/${row._id}`}>{cell}</Link>
 }
