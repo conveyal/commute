@@ -58,17 +58,6 @@ export default class AddCommuters extends Component {
     }
   }
 
-  makeCommuterTable (commuters) {
-    return (
-      <BootstrapTable data={commuters}>
-        <TableHeaderColumn dataField='_id' isKey hidden />
-        <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
-        <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-      </BootstrapTable>
-    )
-  }
-
   onDrop = (files) => {
     const {appendMode, group} = this.props
     const r = new FileReader()
@@ -134,7 +123,7 @@ export default class AddCommuters extends Component {
                       bsStyle='info'
                       eventKey='1'
                       >
-                      {this.makeCommuterTable(this.state.existingCommuters)}
+                      {makeCommuterTable(this.state.existingCommuters)}
                     </Panel>
                   }
                   {!!(this.state.newCommuters) &&
@@ -143,7 +132,7 @@ export default class AddCommuters extends Component {
                       bsStyle='success'
                       eventKey='2'
                       >
-                      {this.makeCommuterTable(this.state.newCommuters)}
+                      {makeCommuterTable(this.state.newCommuters)}
                     </Panel>
                   }
                 </Accordion>
@@ -160,4 +149,15 @@ export default class AddCommuters extends Component {
       </Grid>
     )
   }
+}
+
+function makeCommuterTable (commuters) {
+  return (
+    <BootstrapTable data={commuters}>
+      <TableHeaderColumn dataField='_id' isKey hidden />
+      <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+      <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
+      <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+    </BootstrapTable>
+  )
 }

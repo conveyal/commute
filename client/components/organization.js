@@ -40,10 +40,6 @@ export default class Organization extends Component {
     return <Link to={`/group/${group._id}`}>{group.name}</Link>
   }
 
-  _analysisNameRenderer = (cell, row) => {
-    return <Link to={`/analysis/${row._id}`}>{row.name}</Link>
-  }
-
   _analysisSiteNameRenderer = (cell, row) => {
     const site = this.props.site[row.siteId]
     return <Link to={`/site/${site._id}`}>{site.name}</Link>
@@ -60,18 +56,10 @@ export default class Organization extends Component {
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
-  _groupNameRenderer = (cell, row) => {
-    return <Link to={`/group/${row._id}`}>{row.name}</Link>
-  }
-
   _groupToolsRenderer = (cell, row) => {
     const doDelete = () => this.props.deleteGroup(row)
     const onClick = () => actUponConfirmation(messages.group.deleteConfirmation, doDelete)
     return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
-  }
-
-  _siteNameRenderer = (cell, row) => {
-    return <Link to={`/site/${row._id}/edit`}>{row.name}</Link>
   }
 
   _siteToolsRenderer = (cell, row) => {
@@ -109,7 +97,7 @@ export default class Organization extends Component {
             <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
             <BootstrapTable data={sites}>
               <TableHeaderColumn dataField='_id' isKey hidden />
-              <TableHeaderColumn dataFormat={this._siteNameRenderer}>Name</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={makeNameRenderer('site', true)}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._siteToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
@@ -121,7 +109,7 @@ export default class Organization extends Component {
             <p>A commuter group is a list of commuters that can commute to a particular site.</p>
             <BootstrapTable data={groups}>
               <TableHeaderColumn dataField='_id' isKey hidden />
-              <TableHeaderColumn dataFormat={this._groupNameRenderer}>Name</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={makeNameRenderer('group')}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}>Commuters</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._groupToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
@@ -133,7 +121,7 @@ export default class Organization extends Component {
             <p>An analysis calculates commuting statistics for a pairing of a commuter group and site.</p>
             <BootstrapTable data={analyses}>
               <TableHeaderColumn dataField='_id' isKey hidden />
-              <TableHeaderColumn dataFormat={this._analysisNameRenderer}>Name</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={makeNameRenderer('analysis')}>Name</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._analysisSiteNameRenderer}>Site</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._analysisGroupNameRenderer}>Group</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._analysisToolsRenderer}>Tools</TableHeaderColumn>
@@ -142,5 +130,11 @@ export default class Organization extends Component {
         </Row>
       </Grid>
     )
+  }
+}
+
+function makeNameRenderer (linkBase, linkToEditView) {
+  return (cell, row) => {
+    return <Link to={`/${linkBase}/${row._id}` + linkToEditView ? '/edit' : ''}>{row.name}</Link>
   }
 }

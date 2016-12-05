@@ -258,7 +258,7 @@ const handleStyle = {
   textAlign: 'center'
 }
 
-const CustomHandle = props => {
+function CustomHandle (props) {
   const style = Object.assign({ left: `${props.offset}%` }, handleStyle)
   return (
     <div style={style}>{props.formatter(props.value)}</div>

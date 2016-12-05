@@ -30,22 +30,6 @@ export default class Individuals extends Component {
     }
   }
 
-  _costRenderer = (cell, row) => {
-    return `$${row.mostLikely.cost}`
-  }
-
-  _distanceRenderer = (cell, row) => {
-    return humanizeDistance(row.mostLikely.distance)
-  }
-
-  _durationRenderer = (cell, row) => {
-    return humanizeDuration(row.mostLikely.time * 60 * 1000)
-  }
-
-  _modeRenderer = (cell, row) => {
-    return row.mostLikely.mode
-  }
-
   _nameRenderer = (cell, row) => {
     return this.props.commuterStore[row.commuterId].name
   }
@@ -54,10 +38,6 @@ export default class Individuals extends Component {
     // TODO: show on map
     console.log(row)
     console.log('selected: ' + isSelected)
-  }
-
-  _ridematchesRenderer = (cell, row) => {
-    return row.mostLikely.ridematches
   }
 
   render () {
@@ -119,15 +99,35 @@ export default class Individuals extends Component {
               >
               <TableHeaderColumn dataField='commuterId' isKey hidden />
               <TableHeaderColumn dataFormat={this._nameRenderer}>Name</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={this._modeRenderer}>Mode</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={this._durationRenderer}>Duration</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={this._distanceRenderer}>Distance</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={this._costRenderer}>Cost</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={this._ridematchesRenderer}>Ridematches</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={modeRenderer}>Mode</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={durationRenderer}>Duration</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={distanceRenderer}>Distance</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={costRenderer}>Cost</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={ridematchesRenderer}>Ridematches</TableHeaderColumn>
             </BootstrapTable>
           </Col>
         </Row>
       </Grid>
     )
   }
+}
+
+function costRenderer (cell, row) {
+  return `$${row.mostLikely.cost}`
+}
+
+function distanceRenderer (cell, row) {
+  return humanizeDistance(row.mostLikely.distance)
+}
+
+function durationRenderer (cell, row) {
+  return humanizeDuration(row.mostLikely.time * 60 * 1000)
+}
+
+function modeRenderer (cell, row) {
+  return row.mostLikely.mode
+}
+
+function ridematchesRenderer (cell, row) {
+  return row.mostLikely.ridematches
 }

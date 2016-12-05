@@ -11,15 +11,15 @@ const boundary = {
   }
 }
 
-const Geocoder = ({ label, ...props }) => (
-  <FormGroup controlId='geocode-control'>
-    <ControlLabel>{label}</ControlLabel>
-    <SelectGeocoder
-      apiKey={process.env.MAPZEN_SEARCH_KEY}
-      boundary={boundary}
-      {...props}
-      />
-  </FormGroup>
-)
-
-export default Geocoder
+export default function Geocoder ({ label, ...props }) {
+  return (
+    <FormGroup controlId='geocode-control'>
+      <ControlLabel>{label}</ControlLabel>
+      <SelectGeocoder
+        apiKey={process.env.MAPZEN_SEARCH_KEY}
+        boundary={boundary}
+        {...props}
+        />
+    </FormGroup>
+  )
+}
