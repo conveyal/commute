@@ -22,12 +22,9 @@ export default class Individuals extends Component {
     siteName: PropTypes.string.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      position: settings.map.focus,
-      zoom: 8
-    }
+  state = {
+    position: settings.map.focus,
+    zoom: 8
   }
 
   _nameRenderer = (cell, row) => {

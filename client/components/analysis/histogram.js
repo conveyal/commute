@@ -29,13 +29,10 @@ export default class Histogram extends Component {
     siteName: PropTypes.string.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      crosshairValues: [],
-      metric: 'time',
-      series: getInitialSeries()
-    }
+  state = {
+    crosshairValues: [],
+    metric: 'time',
+    series: getInitialSeries()
   }
 
   componentWillMount () {

@@ -23,15 +23,12 @@ export default class Possibilities extends Component {
     siteName: PropTypes.string.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      cost: settings.metrics.cost.default,
-      distance: settings.metrics.distance.default,
-      series: getInitialSeries(),
-      time: settings.metrics.time.default * 60,
-      yAxisUnit: 'percent'
-    }
+  state = {
+    cost: settings.metrics.cost.default,
+    distance: settings.metrics.distance.default,
+    series: getInitialSeries(),
+    time: settings.metrics.time.default * 60,
+    yAxisUnit: 'percent'
   }
 
   componentWillMount () {
