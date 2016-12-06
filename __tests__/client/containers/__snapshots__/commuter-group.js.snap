@@ -107,3 +107,15 @@ exports[`Container > CommuterGroup Commuter Group View loads 2`] = `
 `;
 
 exports[`Container > CommuterGroup Commuter Group View loads 3`] = `"<div class=\"leaflet-objects-pane leaflet-marker-pane leaflet-zoom-hide react-leaflet-cluster-layer\"></div>"`;
+
+exports[`Container > CommuterGroup Delete Commuter 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/group-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
