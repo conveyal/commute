@@ -123,7 +123,9 @@ export default class AddCommuters extends Component {
                       bsStyle='info'
                       eventKey='1'
                       >
-                      {makeCommuterTable(this.state.existingCommuters)}
+                      <CommuterTable
+                        commuters={this.state.existingCommuters}
+                        />
                     </Panel>
                   }
                   {!!(this.state.newCommuters) &&
@@ -132,7 +134,9 @@ export default class AddCommuters extends Component {
                       bsStyle='success'
                       eventKey='2'
                       >
-                      {makeCommuterTable(this.state.newCommuters)}
+                      <CommuterTable
+                        commuters={this.state.newCommuters}
+                        />
                     </Panel>
                   }
                 </Accordion>
@@ -151,7 +155,7 @@ export default class AddCommuters extends Component {
   }
 }
 
-function makeCommuterTable (commuters) {
+function CommuterTable ({commuters}) {
   return (
     <BootstrapTable data={commuters}>
       <TableHeaderColumn dataField='_id' isKey hidden />

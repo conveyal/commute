@@ -23,7 +23,7 @@ export default class Individuals extends Component {
   }
 
   state = {
-    position: settings.map.focus,
+    position: settings.geocoder.focus,
     zoom: 8
   }
 

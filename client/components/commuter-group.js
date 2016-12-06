@@ -131,7 +131,7 @@ function mapCommuters (allAddressesGeocoded, commuters) {
   if (commuters.length === 0 || !allAddressesGeocoded) {
     return {
       markers: [],
-      position: settings.map.focus,
+      position: settings.geocoder.focus,
       zoom: 8
     }
   } else if (commuters.length === 1) {
@@ -144,7 +144,7 @@ function mapCommuters (allAddressesGeocoded, commuters) {
           lng: commuters[0].lng
         }
       }],
-      position: settings.map.focus,
+      position: settings.geocoder.focus,
       zoom: 8
     }
   }

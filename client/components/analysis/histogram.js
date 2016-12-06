@@ -11,12 +11,13 @@ import {
   YAxis
 } from 'react-vis'
 
-import {settings} from '../../utils/env'
 import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
+import analysisDefaults from '../../utils/analysisDefaults'
 import {calcNumLessThan, getInitialSeries} from '../../utils/components'
 
-const METRICS = Object.keys(settings.metrics)
+const {metrics} = analysisDefaults
+const metricsVals = Object.keys(metrics)
 
 export default class Histogram extends Component {
   static propTypes = {
@@ -47,7 +48,7 @@ export default class Histogram extends Component {
    */
   _calculateSeries (newState) {
     const arrayVals = this.props.analysis.tripVals
-    const metricData = settings.metrics[newState.metric]
+    const metricData = metrics[newState.metric]
     const multiplier = metricData.multiplier || 1
 
     // reset series data
@@ -96,7 +97,7 @@ export default class Histogram extends Component {
    */
   _formatCrosshairTitle = (values) => {
     return {
-      title: settings.metrics[this.state.metric].unit,
+      title: metrics[this.state.metric].unit,
       value: values[0].x
     }
   }
@@ -222,7 +223,7 @@ export default class Histogram extends Component {
               }
               <XAxis
                 tickLabelAngle={-45}
-                title={settings.metrics[selectedMetric].unit}
+                title={metrics[selectedMetric].unit}
                 />
               <YAxis title='Number of Trips' />
             </FlexiblePlot>
@@ -245,7 +246,7 @@ export default class Histogram extends Component {
                   onChange={this._handleMetricChange}
                   value={selectedMetric}
                   >
-                  {METRICS.map((metric) => {
+                  {metricsVals.map((metric) => {
                     return <option value={metric}>{metric}</option>
                   })}
                 </FormControl>

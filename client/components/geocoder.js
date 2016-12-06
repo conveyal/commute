@@ -6,8 +6,8 @@ import {settings} from '../utils/env'
 
 const boundary = {
   circle: {
-    latlng: settings.map.focus,
-    radius: settings.map.focus.radius
+    latlng: settings.geocoder.focus,
+    radius: settings.geocoder.focus.radius
   }
 }
 
