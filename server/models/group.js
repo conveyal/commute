@@ -1,8 +1,9 @@
 const {Schema} = require('mongoose')
 
 const Commuter = require('./commuter')
+const trashPlugin = require('./plugins/trash')
 
-const groupSchema = new Schema({
+const schema = new Schema({
   name: {
     required: true,
     type: String
@@ -14,10 +15,14 @@ const groupSchema = new Schema({
   }
 })
 
-groupSchema.pre('remove', function (next) {
-  // CASCADE DELETE
-  Commuter.remove({ groupId: this._id }).exec()
+schema.pre('save', function (next) {
+  // CASCADE DELETE if needed
+  if (this.isModified('trashed') && this.trashed) {
+    Commuter.update({ groupId: this._id }, { trashed: new Date() }).exec()
+  }
   next()
 })
 
-module.exports = groupSchema
+schema.plugin(trashPlugin)
+
+module.exports = schema

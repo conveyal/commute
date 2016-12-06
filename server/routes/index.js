@@ -79,7 +79,8 @@ routes.makeRestEndpoints = (app, cfg) => {
   const name = cfg.name
   if (commands['Collection GET']) {
     app.get(`/api/${name}`, (req, res) => {
-      model.find(pick(req.query, modelFields), makeGetModelResponseFn(cfg.childModels, res, true))
+      const findQuery = Object.assign({ trashed: undefined }, pick(req.query, modelFields))
+      model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true))
     })
   }
 
@@ -92,13 +93,13 @@ routes.makeRestEndpoints = (app, cfg) => {
 
   if (commands['DELETE']) {
     app.delete(`/api/${name}/:id`, (req, res) => {
-      model.findByIdAndRemove(req.params.id, makeGenericModelResponseFn(res))
+      model.findByIdAndUpdate(req.params.id, { trashed: new Date() }, {new: true}, makeGenericModelResponseFn(res))
     })
   }
 
   if (commands['GET']) {
     app.get(`/api/${name}/:id`, (req, res) => {
-      model.findById(req.params.id, makeGetModelResponseFn(cfg.childModels, res))
+      model.find({ _id: req.params.id, trashed: undefined }, makeGetModelResponseFn(cfg.childModels, res))
     })
   }
 

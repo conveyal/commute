@@ -1,18 +1,23 @@
 const {Schema} = require('mongoose')
 
 const Organization = require('./organization')
+const trashPlugin = require('./plugins/trash')
 
-const agencySchema = new Schema({
+const schema = new Schema({
   name: {
     required: true,
     type: String
   }
 })
 
-agencySchema.pre('remove', function (next) {
-  // CASCADE DELETE
-  Organization.remove({ agencyId: this._id }).exec()
+schema.pre('save', function (next) {
+  // CASCADE DELETE if needed
+  if (this.isModified('trashed') && this.trashed) {
+    Organization.update({ agencyId: this._id }, { trashed: new Date() }).exec()
+  }
   next()
 })
 
-module.exports = agencySchema
+schema.plugin(trashPlugin)
+
+module.exports = schema
