@@ -45,7 +45,7 @@ export default class Histogram extends Component {
    *
    * @param  {Object} newState The new state to work with
    */
-  _calculateSeries = (newState) => {
+  _calculateSeries (newState) {
     const arrayVals = this.props.analysis.tripVals
     const metricData = settings.metrics[newState.metric]
     const multiplier = metricData.multiplier || 1
