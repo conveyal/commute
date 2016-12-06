@@ -28,21 +28,23 @@ export default class CommuterGroup extends Component {
   }
 
   _commuterToolsRenderer = (cell, row) => {
-    const groupId = this.props.group._id
-    const doDelete = () => this.props.deleteCommuter({ id: row._id, groupId })
-    const onClick = () => actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
         <Link to={`/commuter/${row._id}/edit`}>Edit</Link>
       </Button>
-      <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+      <Button bsStyle='danger' onClick={this._onDeleteCommuterClick.bind(this, row)}>Delete</Button>
     </div>
   }
 
-  handleDelete = () => {
+  _handleDelete = () => {
     const {_id: groupId, organizationId} = this.props.group
     const doDelete = () => this.props.deleteGroup(groupId, organizationId)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+  }
+
+  _onDeleteCommuterClick (commuter) {
+    const doDelete = () => this.props.deleteCommuter(commuter)
+    actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
   }
 
   render () {

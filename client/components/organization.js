@@ -46,9 +46,7 @@ export default class Organization extends Component {
   }
 
   _analysisToolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteAnalysis(row)
-    const onClick = () => actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
-    return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+    return <Button bsStyle='danger' onClick={this._onAnalysisDeleteClick.bind(this, row)}>Delete</Button>
   }
 
   _handleDelete = () => {
@@ -57,19 +55,30 @@ export default class Organization extends Component {
   }
 
   _groupToolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteGroup(row)
-    const onClick = () => actUponConfirmation(messages.group.deleteConfirmation, doDelete)
-    return <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+    return <Button bsStyle='danger' onClick={this._onGroupDeleteClick.bind(this, row)}>Delete</Button>
+  }
+
+  _onAnalysisDeleteClick (analysis) {
+    const doDelete = () => this.props.deleteAnalysis(analysis)
+    actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
+  }
+
+  _onGroupDeleteClick (group) {
+    const doDelete = () => this.props.deleteGroup(group)
+    actUponConfirmation(messages.group.deleteConfirmation, doDelete)
+  }
+
+  _onSiteDeleteClick (site) {
+    const doDelete = () => this.props.deleteSite(site)
+    actUponConfirmation(messages.group.deleteConfirmation, doDelete)
   }
 
   _siteToolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteSite(row)
-    const onClick = () => actUponConfirmation(messages.site.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
         <Link to={`/site/${row._id}/edit`}>Edit</Link>
       </Button>
-      <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+      <Button bsStyle='danger' onClick={this._onSiteDeleteClick.bind(this, row)}>Delete</Button>
     </div>
   }
 
