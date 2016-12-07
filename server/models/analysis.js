@@ -1,6 +1,8 @@
 const {Schema} = require('mongoose')
 
-module.exports = new Schema({
+const trashPlugin = require('./plugins/trash')
+
+const schema = new Schema({
   groupId: {
     ref: 'Group',
     required: true,
@@ -43,3 +45,7 @@ module.exports = new Schema({
   },
   trips: Array
 })
+
+schema.plugin(trashPlugin)
+
+module.exports = schema

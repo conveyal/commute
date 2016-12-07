@@ -29,14 +29,17 @@ export default class Organizations extends Component {
     actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 
+  _onDeleteOrganizationClick (organization) {
+    const doDelete = () => this.props.deleteOrganization(organization)
+    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+  }
+
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => this.props.deleteOrganization(row)
-    const onClick = () => actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
         <Link to={`/organization/${row._id}/edit`}>Edit</Link>
       </Button>
-      <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+      <Button bsStyle='danger' onClick={this._onDeleteOrganizationClick.bind(this, row)}>Delete</Button>
     </div>
   }
 
@@ -81,6 +84,6 @@ export default class Organizations extends Component {
   }
 }
 
-const nameRenderer = (cell, row) => {
+function nameRenderer (cell, row) {
   return <Link to={`/organization/${row._id}`}>{cell}</Link>
 }

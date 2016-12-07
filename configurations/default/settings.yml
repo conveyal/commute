@@ -1,42 +1,9 @@
 entries:
   - client/index.js:assets/index.js
   - client/index.css:assets/index.css
-map:
+geocoder:
   focus:
     lat: 38.8886
     lng: -77.0430
     radius: 275
-metrics:
-  cost:
-    default: 20
-    max: 50
-    min: 0
-    step: 2.5
-    unit: Dollars
-  distance:
-    default: 25
-    max: 100
-    min: 0
-    step: 10
-    unit: Miles
-  time:
-    default: 30
-    max: 180
-    min: 0
-    multiplier: 60
-    step: 15
-    unit: Minutes
-modeDisplay:
-  bike:
-    color: red
-    title: Bike
-  car:
-    color: brown
-    title: Car
-  transit:
-    color: orange
-    title: Transit
-  walk:
-    color: blue
-    title: Walk
 s3bucket: commute-staging

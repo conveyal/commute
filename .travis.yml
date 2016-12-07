@@ -11,10 +11,6 @@ node_js:
   - '6'
 before_install:
   - npm i -g yarn codecov
-before_script:
-  - npm prune
-  - sleep 15
-  - mongo mydb_test --eval 'db.addUser("travis", "test");'
 install:
   - yarn
 script:

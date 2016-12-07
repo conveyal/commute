@@ -1,4 +1,4 @@
-import {settings} from './env'
+import analysisDefaults from './analysisDefaults'
 
 /**
  * Calculate number of elements in array less than or equal to target values
@@ -31,11 +31,11 @@ export function calcNumLessThan (arr, target) {
  * @return {Obj[]} Array of objects with series template
  */
 export function getInitialSeries () {
-  const modes = Object.keys(settings.modeDisplay)
+  const modes = Object.keys(analysisDefaults.modeDisplay)
   const series = []
 
   modes.forEach((mode) => {
-    series.push(Object.assign({disabled: false, mode}, settings.modeDisplay[mode]))
+    series.push(Object.assign({disabled: false, mode}, analysisDefaults.modeDisplay[mode]))
   })
 
   return series

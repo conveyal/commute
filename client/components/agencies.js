@@ -22,14 +22,17 @@ export default class Agencies extends Component {
     this.props.loadAgencies()
   }
 
+  _onDeleteAgencyClick (agency) {
+    const doDelete = () => { this.props.deleteAgency(agency) }
+    actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
+  }
+
   _toolsRenderer = (cell, row) => {
-    const doDelete = () => { this.props.deleteAgency(row) }
-    const onClick = () => actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
     return <div>
       <Button bsStyle='warning'>
         <Link to={`/agency/${row._id}/edit`}>Edit</Link>
       </Button>
-      <Button bsStyle='danger' onClick={onClick}>Delete</Button>
+      <Button bsStyle='danger' onClick={this._onDeleteAgencyClick.bind(this, row)}>Delete</Button>
     </div>
   }
 
@@ -58,6 +61,6 @@ export default class Agencies extends Component {
   }
 }
 
-const nameRenderer = (cell, row) => {
+function nameRenderer (cell, row) {
   return <Link to={`/agency/${row._id}`}>{cell}</Link>
 }

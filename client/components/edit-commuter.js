@@ -75,7 +75,7 @@ export default class EditCommuter extends Component {
   render () {
     const {editMode, groupId} = this.props
     const hasAddress = isNumber(this.state.lat) && isNumber(this.state.lng)
-    const position = hasAddress ? lonlng(this.state) : lonlng(settings.map.focus)
+    const position = hasAddress ? lonlng(this.state) : lonlng(settings.geocoder.focus)
     const zoom = hasAddress ? 13 : 8
     return (
       <Grid>

@@ -1,11 +1,11 @@
 import update from 'react-addons-update'
 
+import analysisDefaults from '../utils/analysisDefaults'
 import {fixedRound} from '../utils/common'
 import {addToEntityMap} from '../utils/entities'
-import {settings} from '../utils/env'
 import {makeGenericReducerHandlers} from '../utils/reducers'
 
-const METRICS = Object.keys(settings.metrics)
+const METRICS = Object.keys(analysisDefaults.metrics)
 
 export const reducers = makeGenericReducerHandlers({
   handlers: ['add', 'delete', 'set many'],

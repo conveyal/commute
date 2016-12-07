@@ -19,7 +19,7 @@ export default class Summary extends Component {
     siteName: PropTypes.string.isRequired
   }
 
-  handleDelete () {
+  _handleDelete () {
     const {analysis, deleteAnalysis, organizationId} = this.props
     const doDelete = () => {
       deleteAnalysis(analysis._id, organizationId)

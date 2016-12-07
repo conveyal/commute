@@ -2,9 +2,10 @@ const {Schema} = require('mongoose')
 
 const Analysis = require('./analysis')
 const Group = require('./group')
+const trashPlugin = require('./plugins/trash')
 const Site = require('./site')
 
-const organizationSchema = new Schema({
+const schema = new Schema({
   agencyId: {
     ref: 'Agency',
     required: true,
@@ -17,12 +18,16 @@ const organizationSchema = new Schema({
   owner: String
 })
 
-organizationSchema.pre('remove', function (next) {
-  // CASCADE DELETE
-  Analysis.remove({ organizationId: this._id }).exec()
-  Group.remove({ organizationId: this._id }).exec()
-  Site.remove({ organizationId: this._id }).exec()
+schema.pre('save', function (next) {
+  // CASCADE DELETE if needed
+  if (this.isModified('trashed') && this.trashed) {
+    Analysis.update({ organizationId: this._id }, { trashed: new Date() }).exec()
+    Group.update({ organizationId: this._id }, { trashed: new Date() }).exec()
+    Site.update({ organizationId: this._id }, { trashed: new Date() }).exec()
+  }
   next()
 })
 
-module.exports = organizationSchema
+schema.plugin(trashPlugin)
+
+module.exports = schema

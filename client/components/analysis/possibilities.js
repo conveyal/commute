@@ -7,10 +7,11 @@ import {DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, YAxis} from
 
 import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
+import analysisDefaults from '../../utils/analysisDefaults'
 import {calcNumLessThan, getInitialSeries, humanizeDistance} from '../../utils/components'
-import {settings} from '../../utils/env'
 
-const METRICS = Object.keys(settings.metrics)
+const {metrics} = analysisDefaults
+const metricsVals = Object.keys(metrics)
 
 export default class Possibilities extends Component {
   static propTypes = {
@@ -23,15 +24,12 @@ export default class Possibilities extends Component {
     siteName: PropTypes.string.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      cost: settings.metrics.cost.default,
-      distance: settings.metrics.distance.default,
-      series: getInitialSeries(),
-      time: settings.metrics.time.default * 60,
-      yAxisUnit: 'percent'
-    }
+  state = {
+    cost: metrics.cost.default,
+    distance: metrics.distance.default,
+    series: getInitialSeries(),
+    time: metrics.time.default * 60,
+    yAxisUnit: 'percent'
   }
 
   componentWillMount () {
@@ -49,7 +47,7 @@ export default class Possibilities extends Component {
     newState.series = newState.series.map((seriesMode) => {
       // populate all constraints
       const tripsByConstraint = []
-      METRICS.forEach((metric) => {
+      metricsVals.forEach((metric) => {
         tripsByConstraint.push(calcNumLessThan(arrayVals[seriesMode.mode][metric], newState[metric]))
       })
       const constrainedNumber = Math.min.apply(this, tripsByConstraint)
@@ -199,7 +197,7 @@ export default class Possibilities extends Component {
             <Panel>
               <p>Maximum Travel Time</p>
               <Slider
-                defaultValue={settings.metrics.time.default}
+                defaultValue={metrics.time.default}
                 handle={
                   <CustomHandle
                     formatter={
@@ -208,34 +206,34 @@ export default class Possibilities extends Component {
                     }
                     />
                 }
-                max={settings.metrics.time.max}
-                min={settings.metrics.time.min}
+                max={metrics.time.max}
+                min={metrics.time.min}
                 onChange={this._handleTimeChange}
                 />
             </Panel>
             <Panel>
               <p>Maximum Distance</p>
               <Slider
-                defaultValue={settings.metrics.distance.default}
+                defaultValue={metrics.distance.default}
                 handle={
                   <CustomHandle
                     formatter={humanizeDistance}
                     />}
-                max={settings.metrics.distance.max}
-                min={settings.metrics.distance.min}
+                max={metrics.distance.max}
+                min={metrics.distance.min}
                 onChange={this._handleDistanceChange}
                 />
             </Panel>
             <Panel>
               <p>Maximum Cost</p>
               <Slider
-                defaultValue={settings.metrics.cost.default}
+                defaultValue={metrics.cost.default}
                 handle={
                   <CustomHandle
                     formatter={(v) => `$${v}`}
                     />}
-                max={settings.metrics.cost.max}
-                min={settings.metrics.cost.min}
+                max={metrics.cost.max}
+                min={metrics.cost.min}
                 onChange={this._handleCostChange}
                 />
             </Panel>
@@ -258,7 +256,7 @@ const handleStyle = {
   textAlign: 'center'
 }
 
-const CustomHandle = props => {
+function CustomHandle (props) {
   const style = Object.assign({ left: `${props.offset}%` }, handleStyle)
   return (
     <div style={style}>{props.formatter(props.value)}</div>

@@ -184,8 +184,9 @@ export const makeRestEndpointTests = (cfg) => {
 
         // handle response
         const json = parseServerResponse(res)
-        const count = await model.count().exec()
-        expect(count).toBe(0)
+        expect(json.trashed).toBeTruthy()
+        const entity = await model.findById(modelId).exec()
+        expect(entity.trashed).toBeTruthy()
 
         customAssertions(json, res)
       })

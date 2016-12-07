@@ -2,7 +2,7 @@
 
 import {expectDeepEqual} from './common'
 
-const expectFetchActionAndGetNextFn = (action, url, optionsToAssertEqual) => {
+export function expectFetchActionAndGetNextFn (action, url, optionsToAssertEqual) {
   // expect fetch type to be handled by middleware
   expect(action.type).toEqual('fetch')
 

@@ -6,20 +6,20 @@ import {settings} from '../utils/env'
 
 const boundary = {
   circle: {
-    latlng: settings.map.focus,
-    radius: settings.map.focus.radius
+    latlng: settings.geocoder.focus,
+    radius: settings.geocoder.focus.radius
   }
 }
 
-const Geocoder = ({ label, ...props }) => (
-  <FormGroup controlId='geocode-control'>
-    <ControlLabel>{label}</ControlLabel>
-    <SelectGeocoder
-      apiKey={process.env.MAPZEN_SEARCH_KEY}
-      boundary={boundary}
-      {...props}
-      />
-  </FormGroup>
-)
-
-export default Geocoder
+export default function Geocoder ({ label, ...props }) {
+  return (
+    <FormGroup controlId='geocode-control'>
+      <ControlLabel>{label}</ControlLabel>
+      <SelectGeocoder
+        apiKey={process.env.MAPZEN_SEARCH_KEY}
+        boundary={boundary}
+        {...props}
+        />
+    </FormGroup>
+  )
+}

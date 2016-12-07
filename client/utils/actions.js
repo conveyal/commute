@@ -22,7 +22,7 @@ import {createAction} from 'redux-actions'
  * - singularName: Singular name of the model
  * @return {Object}     The actions
  */
-const makeGenericModelActions = (cfg) => {
+export default function makeGenericModelActions (cfg) {
   const {commands, parentKey, parentName, pluralName, singularName} = cfg
   const actions = {}
 
@@ -193,5 +193,3 @@ const makeGenericModelActions = (cfg) => {
 
   return actions
 }
-
-export default makeGenericModelActions

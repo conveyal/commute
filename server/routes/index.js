@@ -14,44 +14,48 @@ routes.makeRoutes = (app) => {
   })
 }
 
-const serverError = (res, err) => {
+function serverError (res, err) {
   console.error(err)
   res.status(500).json({error: err})
 }
 
-const makeGenericModelResponse = (res) => (err, data) => {
-  res.set('Content-Type', 'application/json')
-  if (err) return serverError(res, err)
-  res.json(data)
+function makeGenericModelResponseFn (res) {
+  return (err, data) => {
+    res.set('Content-Type', 'application/json')
+    if (err) return serverError(res, err)
+    res.json(data)
+  }
 }
 
-const makeGetModelResponse = (childModels, res, isCollection) => (err, data) => {
-  const genericResponder = makeGenericModelResponse(res)
-  if (!Array.isArray(data)) {
-    data = [data]
-  }
+function makeGetModelResponseFn (childModels, res, isCollection) {
+  return (err, data) => {
+    const genericResponder = makeGenericModelResponseFn(res)
+    if (!Array.isArray(data)) {
+      data = [data]
+    }
 
-  if (!childModels) return genericResponder(err, isCollection ? data : data[0])
+    if (!childModels) return genericResponder(err, isCollection ? data : data[0])
 
-  // wow, awesome, with normalized mongoose models I get to make extra queries
-  // to the db to do joins!  </sarcasm>
-  const outputData = []
-  each(data, (entity, entityCb) => {
-    const curEntity = Object.assign({}, entity._doc)
-    each(childModels, (childModel, childCb) => {
-      childModel.model.find({ [childModel.foreignKey]: curEntity._id }, (err, childEntities) => {
-        if (err) return childCb(err)
-        curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
-        childCb()
+    // wow, awesome, with normalized mongoose models I get to make extra queries
+    // to the db to do joins!  </sarcasm>
+    const outputData = []
+    each(data, (entity, entityCb) => {
+      const curEntity = Object.assign({}, entity._doc)
+      each(childModels, (childModel, childCb) => {
+        childModel.model.find({ [childModel.foreignKey]: curEntity._id }, (err, childEntities) => {
+          if (err) return childCb(err)
+          curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
+          childCb()
+        })
+      }, (err) => {
+        if (err) return entityCb(err)
+        outputData.push(curEntity)
+        entityCb()
       })
     }, (err) => {
-      if (err) return entityCb(err)
-      outputData.push(curEntity)
-      entityCb()
+      genericResponder(err, isCollection ? outputData : outputData[0])
     })
-  }, (err) => {
-    genericResponder(err, isCollection ? outputData : outputData[0])
-  })
+  }
 }
 
 /**
@@ -75,32 +79,33 @@ routes.makeRestEndpoints = (app, cfg) => {
   const name = cfg.name
   if (commands['Collection GET']) {
     app.get(`/api/${name}`, (req, res) => {
-      model.find(pick(req.query, modelFields), makeGetModelResponse(cfg.childModels, res, true))
+      const findQuery = Object.assign({ trashed: undefined }, pick(req.query, modelFields))
+      model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true))
     })
   }
 
   if (commands['Collection POST']) {
     app.post(`/api/${name}`, (req, res) => {
       res.set('Content-Type', 'application/json')
-      model.create(req.body, makeGetModelResponse(cfg.childModels, res, true))
+      model.create(req.body, makeGetModelResponseFn(cfg.childModels, res, true))
     })
   }
 
   if (commands['DELETE']) {
     app.delete(`/api/${name}/:id`, (req, res) => {
-      model.findByIdAndRemove(req.params.id, makeGenericModelResponse(res))
+      model.findByIdAndUpdate(req.params.id, { trashed: new Date() }, {new: true}, makeGenericModelResponseFn(res))
     })
   }
 
   if (commands['GET']) {
     app.get(`/api/${name}/:id`, (req, res) => {
-      model.findById(req.params.id, makeGetModelResponse(cfg.childModels, res))
+      model.find({ _id: req.params.id, trashed: undefined }, makeGetModelResponseFn(cfg.childModels, res))
     })
   }
 
   if (commands['PUT']) {
     app.put(`/api/${name}/:id`, (req, res) => {
-      model.findByIdAndUpdate(req.params.id, req.body, {new: true}, makeGenericModelResponse(res))
+      model.findByIdAndUpdate(req.params.id, req.body, {new: true}, makeGenericModelResponseFn(res))
     })
   }
 }
