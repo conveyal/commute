@@ -1,3 +1,12 @@
+/**
+ * Create a task queue that is limited by various time constraints:
+ * - example:  maximum 6 requests per second and maximum 30 requests per minute
+ *
+ * @param  {Mixed} timePeriodConstraints  An array of objects with the following config:
+ * - maxRequestsPerTimePeriod {Number}  The maximum number of request for this time period
+ * - timePeriodLength {Number}          The milliseconds of this time period
+ * @return {Object}                       A queue object with the push method to push functions to.
+ */
 module.exports = function timedQueue (timePeriodConstraints) {
   const taskStack = []
   const numRequestsPerConstraint = timePeriodConstraints.map(() => 0)
