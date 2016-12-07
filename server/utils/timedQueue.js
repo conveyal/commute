@@ -1,4 +1,4 @@
-export default function timedQueue (timePeriodConstraints) {
+module.exports = function timedQueue (timePeriodConstraints) {
   const taskStack = []
   const numRequestsPerConstraint = timePeriodConstraints.map(() => 0)
 

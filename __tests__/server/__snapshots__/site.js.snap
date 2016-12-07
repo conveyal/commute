@@ -7,10 +7,6 @@ Array [
       "lat": 0,
       "lng": 0,
     },
-    "location": Object {
-      "lat": 12,
-      "lon": 34,
-    },
     "name": "test-site",
     "original_address": "123 Main St",
   },
@@ -28,10 +24,6 @@ Object {
   },
   "country": "United States",
   "county": "Montgomery County",
-  "location": Object {
-    "lat": 12,
-    "lon": 34,
-  },
   "name": "test-site",
   "original_address": "123 Main St",
   "state": "Maryland",
@@ -45,10 +37,6 @@ Object {
   "coordinate": Object {
     "lat": 0,
     "lng": 0,
-  },
-  "location": Object {
-    "lat": 12,
-    "lon": 34,
   },
   "name": "updated name",
   "original_address": "123 Main St",

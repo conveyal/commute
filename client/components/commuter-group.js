@@ -139,10 +139,7 @@ function mapCommuters (allAddressesGeocoded, commuters) {
       markers: [{
         id: commuters[0]._id,
         name: commuters[0].name,
-        position: {
-          lat: commuters[0].lat,
-          lng: commuters[0].lng
-        }
+        position: commuters[0].coordinate
       }],
       position: settings.geocoder.focus,
       zoom: 8
@@ -152,13 +149,13 @@ function mapCommuters (allAddressesGeocoded, commuters) {
   const firstLL = [commuters[0].lat, commuters[0].lng]
   const bounds = latLngBounds([firstLL, firstLL])
   commuters.forEach((commuter) => {
-    const {_id, lat, lng, name} = commuter
+    const {_id, coordinate, name} = commuter
     markers.push({
       _id,
       name,
-      position: { lat, lng }
+      position: coordinate
     })
-    bounds.extend([lat, lng])
+    bounds.extend([coordinate.lat, coordinate.lng])
   })
   return {bounds, markers}
 }

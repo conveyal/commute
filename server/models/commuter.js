@@ -4,15 +4,10 @@ const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
 
 const schema = new Schema({
-  address: String,
   groupId: {
     ref: 'Group',
     required: true,
     type: Schema.Types.ObjectId
-  },
-  location: {
-    lat: Number,
-    lon: Number
   },
   name: {
     required: true,
