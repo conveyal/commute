@@ -93,7 +93,11 @@ routes.makeRestEndpoints = (app, cfg) => {
 
   if (commands['DELETE']) {
     app.delete(`/api/${name}/:id`, (req, res) => {
-      model.findByIdAndUpdate(req.params.id, { trashed: new Date() }, {new: true}, makeGenericModelResponseFn(res))
+      // don't use findByIdAndUpdate because it doesn't trigger pre('save') hook
+      model.findById(req.params.id, (err, doc) => {
+        if (err) return serverError(res, err)
+        doc.trash(makeGenericModelResponseFn(res))
+      })
     })
   }
 
@@ -105,7 +109,12 @@ routes.makeRestEndpoints = (app, cfg) => {
 
   if (commands['PUT']) {
     app.put(`/api/${name}/:id`, (req, res) => {
-      model.findByIdAndUpdate(req.params.id, req.body, {new: true}, makeGenericModelResponseFn(res))
+      // don't use findByIdAndUpdate because it doesn't trigger pre('save') hook
+      model.findOne({ _id: req.params.id, trashed: undefined }, (err, doc) => {
+        if (err) return serverError(res, err)
+        doc.set(req.body)
+        doc.save(makeGenericModelResponseFn(res))
+      })
     })
   }
 }

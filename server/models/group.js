@@ -1,7 +1,9 @@
 const {Schema} = require('mongoose')
 
-const Commuter = require('./commuter')
+const db = require('../db')
+const Commuter = db.model('Commuter', require('./commuter'))
 const trashPlugin = require('./plugins/trash')
+const dbUtils = require('../utils/db')
 
 const schema = new Schema({
   name: {
@@ -15,14 +17,8 @@ const schema = new Schema({
   }
 })
 
-schema.pre('save', function (next) {
-  // CASCADE DELETE if needed
-  if (this.isModified('trashed') && this.trashed) {
-    Commuter.update({ groupId: this._id }, { trashed: new Date() }).exec()
-  }
-  next()
-})
-
 schema.plugin(trashPlugin)
+
+schema.pre('save', dbUtils.makeCascadeDeleteModelsFn('groupId', [Commuter]))
 
 module.exports = schema

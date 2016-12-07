@@ -1,7 +1,9 @@
 const {Schema} = require('mongoose')
 
-const Organization = require('./organization')
+const db = require('../db')
+const Organization = db.model('Organization', require('./organization'))
 const trashPlugin = require('./plugins/trash')
+const dbUtils = require('../utils/db')
 
 const schema = new Schema({
   name: {
@@ -10,14 +12,8 @@ const schema = new Schema({
   }
 })
 
-schema.pre('save', function (next) {
-  // CASCADE DELETE if needed
-  if (this.isModified('trashed') && this.trashed) {
-    Organization.update({ agencyId: this._id }, { trashed: new Date() }).exec()
-  }
-  next()
-})
-
 schema.plugin(trashPlugin)
+
+schema.pre('save', dbUtils.makeCascadeDeleteModelsFn('agencyId', [Organization]))
 
 module.exports = schema
