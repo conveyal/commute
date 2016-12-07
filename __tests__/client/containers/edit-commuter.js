@@ -6,7 +6,13 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
-import {makeMockStore, mockCommuter, mockStores} from '../../test-utils/mock-data'
+import {
+  genGeocodedEntity,
+  makeMockStore,
+  mockCommuter,
+  mockGeocodeResponse,
+  mockStores
+} from '../../test-utils/mock-data'
 import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditCommuter from '../../../client/containers/edit-commuter'
@@ -97,19 +103,7 @@ describe('Container > EditCommuter', () => {
     // email
     tree.find('input').at(1).simulate('change', {target: {value: 'mock@email.fake'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          -76.9897,
-          38.89011
-        ]
-      },
-      properties: {
-        label: 'Abraham Lincoln/Emancipation Monument, Washington, USA'
-      }
-    })
+    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
 
     // submit form
     tree.find('.commuter-submit-buttons').find('button').first().simulate('click')
@@ -117,14 +111,11 @@ describe('Container > EditCommuter', () => {
     // expect create action
     commuterExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
-      newEntity: {
-        address: 'Abraham Lincoln/Emancipation Monument, Washington, USA',
+      newEntity: genGeocodedEntity({
         email: 'mock@email.fake',
         groupId: 'group-2',
-        lat: 38.89011,
-        lng: -76.9897,
         name: 'Mock Commuter'
-      }
+      })
     })
   })
 
@@ -148,34 +139,19 @@ describe('Container > EditCommuter', () => {
     // email
     tree.find('input').at(1).simulate('change', {target: {value: 'different@email.fake'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          -123.45,
-          67.89
-        ]
-      },
-      properties: {
-        label: 'A fake place'
-      }
-    })
+    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
 
     // submit form
     tree.find('.commuter-submit-buttons').find('button').first().simulate('click')
 
     commuterExpectations.expectUpdateAction({
       action: mockStore.getActions()[0],
-      entity: {
+      entity: genGeocodedEntity({
         _id: 'commuter-2',
-        address: 'A fake place',
         email: 'different@email.fake',
-        groupId: 'group-2',
-        lat: 67.89,
-        lng: -123.45,
-        name: 'Different Name'
-      }
+        name: 'Different Name',
+        groupId: 'group-2'
+      })
     })
   })
 

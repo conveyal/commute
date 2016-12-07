@@ -9,6 +9,7 @@ import {Link} from 'react-router'
 import FieldGroup from './fieldgroup'
 import Geocoder from './geocoder'
 import Icon from './icon'
+import {geocodeResultToState} from '../utils/components'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
 
@@ -42,18 +43,12 @@ export default class EditCommuter extends Component {
   _handleGeocoderChange = (value) => {
     if (value && value.geometry) {
       // received valid geocode result
-      const coords = lonlng(value.geometry.coordinates)
-      this.setState({
-        address: value.properties.label,
-        lat: coords.lat,
-        lng: coords.lng
-      })
+      this.setState(geocodeResultToState(value))
     } else {
       // cleared geocode
       this.setState({
         address: '',
-        lat: null,
-        lng: null
+        coordinate: {}
       })
     }
   }
@@ -74,9 +69,9 @@ export default class EditCommuter extends Component {
 
   render () {
     const {editMode, groupId} = this.props
-    const hasAddress = isNumber(this.state.lat) && isNumber(this.state.lng)
-    const position = hasAddress ? lonlng(this.state) : lonlng(settings.geocoder.focus)
-    const zoom = hasAddress ? 13 : 8
+    const hasCoordinates = this.state.coordinate && isNumber(this.state.coordinate.lat)
+    const position = hasCoordinates ? lonlng(this.state.coordinate) : lonlng(settings.geocoder.focus)
+    const zoom = hasCoordinates ? 13 : 8
     return (
       <Grid>
         <Row>
@@ -127,7 +122,7 @@ export default class EditCommuter extends Component {
                   : process.env.LEAFLET_TILE_URL}
                 attribution={process.env.LEAFLET_ATTRIBUTION}
                 />
-              {hasAddress && <Marker position={position} /> }
+              {hasCoordinates && <Marker position={position} /> }
             </LeafletMap>
           </Col>
         </Row>
