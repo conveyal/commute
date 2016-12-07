@@ -1,11 +1,823 @@
-exports[`Container > EditSite renders correctly 1`] = `
-<Connect(EditSite)>
-  <EditSite
-    dispatch={[Function]}
-    user={Object {}}>
-    <h1>
+exports[`Container > EditSite Create site 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-1",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
+<div
+  className="site-header col-xs-12">
+  <h3>
+    <span>
+      Create Site
+    </span>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="pull-right"
+      disabled={false}>
+      <button
+        className="pull-right btn btn-default"
+        disabled={false}
+        type="button">
+        <Link
+          onlyActiveOnIndex={false}
+          style={Object {}}
+          to="/organization/organization-1">
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            <Icon
+              type="arrow-left">
+              <i
+                className="fa fa-arrow-left fa-fw " />
+            </Icon>
+          </a>
+        </Link>
+      </button>
+    </Button>
+  </h3>
+</div>
+`;
+
+exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
+<div
+  className="site-form col-md-5 col-xs-12">
+  <form>
+    <FieldGroup
+      label="Name"
+      name="name"
+      onChange={[Function]}
+      placeholder="Enter name"
+      type="text">
+      <FormGroup
+        bsClass="form-group"
+        controlId="group-item-name">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="group-item-name">
+              Name
+            </label>
+          </ControlLabel>
+          <FormControl
+            bsClass="form-control"
+            componentClass="input"
+            onChange={[Function]}
+            placeholder="Enter name"
+            type="text"
+            value="">
+            <input
+              className="form-control"
+              id="group-item-name"
+              onChange={[Function]}
+              placeholder="Enter name"
+              type="text"
+              value="" />
+          </FormControl>
+        </div>
+      </FormGroup>
+    </FieldGroup>
+    <Geocoder
+      label="Address"
+      onChange={[Function]}>
+      <FormGroup
+        bsClass="form-group"
+        controlId="geocode-control">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="geocode-control">
+              Address
+            </label>
+          </ControlLabel>
+          <Geocoder
+            apiKey="test-search-key"
+            boundary={
+              Object {
+                "circle": Object {
+                  "latlng": Object {
+                    "lat": 38.8886,
+                    "lng": -77.043,
+                    "radius": 275,
+                  },
+                  "radius": 275,
+                },
+              }
+            }
+            featureToLabel={[Function]}
+            featureToValue={[Function]}
+            onChange={[Function]}
+            search={[Function]}>
+            <Async
+              apiKey="test-search-key"
+              autoload={false}
+              boundary={
+                Object {
+                  "circle": Object {
+                    "latlng": Object {
+                      "lat": 38.8886,
+                      "lng": -77.043,
+                      "radius": 275,
+                    },
+                    "radius": 275,
+                  },
+                }
+              }
+              cache={Object {}}
+              cacheAsyncResults={false}
+              featureToLabel={[Function]}
+              featureToValue={[Function]}
+              filterOptions={false}
+              ignoreAccents={true}
+              ignoreCase={true}
+              loadOptions={[Function]}
+              loadingPlaceholder="Loading..."
+              minimumInput={3}
+              onChange={[Function]}
+              options={Array []}
+              search={[Function]}
+              searchPromptText="Type to search"
+              value={null}>
+              <Select
+                addLabelText="Add \"{label}\"?"
+                apiKey="test-search-key"
+                arrowRenderer={[Function]}
+                autoload={false}
+                autosize={true}
+                backspaceRemoves={true}
+                backspaceToRemoveMessage="Press backspace to remove {label}"
+                boundary={
+                  Object {
+                    "circle": Object {
+                      "latlng": Object {
+                        "lat": 38.8886,
+                        "lng": -77.043,
+                        "radius": 275,
+                      },
+                      "radius": 275,
+                    },
+                  }
+                }
+                cache={Object {}}
+                cacheAsyncResults={false}
+                clearAllText="Clear all"
+                clearValueText="Clear value"
+                clearable={true}
+                delimiter=","
+                disabled={false}
+                escapeClearsValue={true}
+                featureToLabel={[Function]}
+                featureToValue={[Function]}
+                filterOptions={false}
+                ignoreAccents={true}
+                ignoreCase={true}
+                inputProps={Object {}}
+                isLoading={false}
+                joinValues={false}
+                labelKey="label"
+                loadOptions={[Function]}
+                loadingPlaceholder="Loading..."
+                matchPos="any"
+                matchProp="any"
+                menuBuffer={0}
+                menuRenderer={[Function]}
+                minimumInput={3}
+                multi={false}
+                noResultsText="Type to search"
+                onBlurResetsInput={true}
+                onChange={[Function]}
+                onCloseResetsInput={true}
+                onInputChange={[Function]}
+                openAfterFocus={false}
+                optionComponent={[Function]}
+                options={Array []}
+                pageSize={5}
+                placeholder="Select..."
+                required={false}
+                scrollMenuIntoView={true}
+                search={[Function]}
+                searchPromptText="Type to search"
+                searchable={true}
+                simpleValue={false}
+                tabSelectsValue={true}
+                value={null}
+                valueComponent={[Function]}
+                valueKey="value">
+                <div
+                  className="Select Select--single is-searchable">
+                  <div
+                    className="Select-control"
+                    onKeyDown={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}>
+                    <span
+                      className="Select-multi-value-wrapper"
+                      id="react-select-3--value">
+                      <div
+                        className="Select-placeholder">
+                        Select...
+                      </div>
+                      <AutosizeInput
+                        aria-activedescendant="react-select-3--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        className="Select-input"
+                        minWidth="5px"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        value="">
+                        <div
+                          className="Select-input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }>
+                          <input
+                            aria-activedescendant="react-select-3--value"
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-owns=""
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            style={
+                              Object {
+                                "boxSizing": "content-box",
+                                "width": "5pxpx",
+                              }
+                            }
+                            value="" />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            } />
+                        </div>
+                      </AutosizeInput>
+                    </span>
+                    <span
+                      className="Select-arrow-zone"
+                      onMouseDown={[Function]}>
+                      <span
+                        className="Select-arrow"
+                        onMouseDown={[Function]} />
+                    </span>
+                  </div>
+                </div>
+              </Select>
+            </Async>
+          </Geocoder>
+        </div>
+      </FormGroup>
+    </Geocoder>
+    <FieldGroup
+      label="Ridematch Radius (mi)"
+      name="radius"
+      onChange={[Function]}
+      placeholder="Enter radius"
+      type="text">
+      <FormGroup
+        bsClass="form-group"
+        controlId="group-item-radius">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="group-item-radius">
+              Ridematch Radius (mi)
+            </label>
+          </ControlLabel>
+          <FormControl
+            bsClass="form-control"
+            componentClass="input"
+            onChange={[Function]}
+            placeholder="Enter radius"
+            type="text"
+            value="">
+            <input
+              className="form-control"
+              id="group-item-radius"
+              onChange={[Function]}
+              placeholder="Enter radius"
+              type="text"
+              value="" />
+          </FormControl>
+        </div>
+      </FormGroup>
+    </FieldGroup>
+  </form>
+</div>
+`;
+
+exports[`Container > EditSite Create/Edit Site View loads in create mode 3`] = `
+<div
+  className="site-submit-buttons col-xs-12">
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="success"
+    disabled={false}
+    onClick={[Function]}>
+    <button
+      className="btn btn-success"
+      disabled={false}
+      onClick={[Function]}
+      type="button">
+      Create
+    </button>
+  </Button>
+</div>
+`;
+
+exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
+<div
+  className="site-header col-xs-12">
+  <h3>
+    <span>
       Edit Site
-    </h1>
-  </EditSite>
-</Connect(EditSite)>
+    </span>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="pull-right"
+      disabled={false}>
+      <button
+        className="pull-right btn btn-default"
+        disabled={false}
+        type="button">
+        <Link
+          onlyActiveOnIndex={false}
+          style={Object {}}
+          to="/organization/organization-2">
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            <Icon
+              type="arrow-left">
+              <i
+                className="fa fa-arrow-left fa-fw " />
+            </Icon>
+          </a>
+        </Link>
+      </button>
+    </Button>
+  </h3>
+</div>
+`;
+
+exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
+<div
+  className="site-form col-md-5 col-xs-12">
+  <form>
+    <FieldGroup
+      label="Name"
+      name="name"
+      onChange={[Function]}
+      placeholder="Enter name"
+      type="text"
+      value="Acme Corp">
+      <FormGroup
+        bsClass="form-group"
+        controlId="group-item-name">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="group-item-name">
+              Name
+            </label>
+          </ControlLabel>
+          <FormControl
+            bsClass="form-control"
+            componentClass="input"
+            onChange={[Function]}
+            placeholder="Enter name"
+            type="text"
+            value="Acme Corp">
+            <input
+              className="form-control"
+              id="group-item-name"
+              onChange={[Function]}
+              placeholder="Enter name"
+              type="text"
+              value="Acme Corp" />
+          </FormControl>
+        </div>
+      </FormGroup>
+    </FieldGroup>
+    <Geocoder
+      label="Address"
+      onChange={[Function]}
+      value={
+        Object {
+          "label": "123 ABC St",
+        }
+      }>
+      <FormGroup
+        bsClass="form-group"
+        controlId="geocode-control">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="geocode-control">
+              Address
+            </label>
+          </ControlLabel>
+          <Geocoder
+            apiKey="test-search-key"
+            boundary={
+              Object {
+                "circle": Object {
+                  "latlng": Object {
+                    "lat": 38.8886,
+                    "lng": -77.043,
+                    "radius": 275,
+                  },
+                  "radius": 275,
+                },
+              }
+            }
+            featureToLabel={[Function]}
+            featureToValue={[Function]}
+            onChange={[Function]}
+            search={[Function]}
+            value={
+              Object {
+                "label": "123 ABC St",
+              }
+            }>
+            <Async
+              apiKey="test-search-key"
+              autoload={false}
+              boundary={
+                Object {
+                  "circle": Object {
+                    "latlng": Object {
+                      "lat": 38.8886,
+                      "lng": -77.043,
+                      "radius": 275,
+                    },
+                    "radius": 275,
+                  },
+                }
+              }
+              cache={Object {}}
+              cacheAsyncResults={false}
+              featureToLabel={[Function]}
+              featureToValue={[Function]}
+              filterOptions={false}
+              ignoreAccents={true}
+              ignoreCase={true}
+              loadOptions={[Function]}
+              loadingPlaceholder="Loading..."
+              minimumInput={3}
+              onChange={[Function]}
+              options={Array []}
+              search={[Function]}
+              searchPromptText="Type to search"
+              value={
+                Object {
+                  "label": "123 ABC St",
+                }
+              }>
+              <Select
+                addLabelText="Add \"{label}\"?"
+                apiKey="test-search-key"
+                arrowRenderer={[Function]}
+                autoload={false}
+                autosize={true}
+                backspaceRemoves={true}
+                backspaceToRemoveMessage="Press backspace to remove {label}"
+                boundary={
+                  Object {
+                    "circle": Object {
+                      "latlng": Object {
+                        "lat": 38.8886,
+                        "lng": -77.043,
+                        "radius": 275,
+                      },
+                      "radius": 275,
+                    },
+                  }
+                }
+                cache={Object {}}
+                cacheAsyncResults={false}
+                clearAllText="Clear all"
+                clearValueText="Clear value"
+                clearable={true}
+                delimiter=","
+                disabled={false}
+                escapeClearsValue={true}
+                featureToLabel={[Function]}
+                featureToValue={[Function]}
+                filterOptions={false}
+                ignoreAccents={true}
+                ignoreCase={true}
+                inputProps={Object {}}
+                isLoading={false}
+                joinValues={false}
+                labelKey="label"
+                loadOptions={[Function]}
+                loadingPlaceholder="Loading..."
+                matchPos="any"
+                matchProp="any"
+                menuBuffer={0}
+                menuRenderer={[Function]}
+                minimumInput={3}
+                multi={false}
+                noResultsText="Type to search"
+                onBlurResetsInput={true}
+                onChange={[Function]}
+                onCloseResetsInput={true}
+                onInputChange={[Function]}
+                openAfterFocus={false}
+                optionComponent={[Function]}
+                options={Array []}
+                pageSize={5}
+                placeholder="Select..."
+                required={false}
+                scrollMenuIntoView={true}
+                search={[Function]}
+                searchPromptText="Type to search"
+                searchable={true}
+                simpleValue={false}
+                tabSelectsValue={true}
+                value={
+                  Object {
+                    "label": "123 ABC St",
+                  }
+                }
+                valueComponent={[Function]}
+                valueKey="value">
+                <div
+                  className="Select Select--single is-searchable has-value">
+                  <div
+                    className="Select-control"
+                    onKeyDown={[Function]}
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}>
+                    <span
+                      className="Select-multi-value-wrapper"
+                      id="react-select-4--value">
+                      <Value
+                        disabled={false}
+                        id="react-select-4--value-item"
+                        instancePrefix="react-select-4-"
+                        onClick={null}
+                        value={
+                          Object {
+                            "label": "123 ABC St",
+                          }
+                        }>
+                        <div
+                          className="Select-value">
+                          <span
+                            aria-selected="true"
+                            className="Select-value-label"
+                            id="react-select-4--value-item"
+                            role="option">
+                            123 ABC St
+                          </span>
+                        </div>
+                      </Value>
+                      <AutosizeInput
+                        aria-activedescendant="react-select-4--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        className="Select-input"
+                        minWidth="5px"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        value="">
+                        <div
+                          className="Select-input"
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }>
+                          <input
+                            aria-activedescendant="react-select-4--value"
+                            aria-expanded="false"
+                            aria-haspopup="false"
+                            aria-owns=""
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            required={false}
+                            role="combobox"
+                            style={
+                              Object {
+                                "boxSizing": "content-box",
+                                "width": "5pxpx",
+                              }
+                            }
+                            value="" />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            } />
+                        </div>
+                      </AutosizeInput>
+                    </span>
+                    <span
+                      aria-label="Clear value"
+                      className="Select-clear-zone"
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      title="Clear value">
+                      <span
+                        className="Select-clear"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "&times;",
+                          }
+                        } />
+                    </span>
+                    <span
+                      className="Select-arrow-zone"
+                      onMouseDown={[Function]}>
+                      <span
+                        className="Select-arrow"
+                        onMouseDown={[Function]} />
+                    </span>
+                  </div>
+                </div>
+              </Select>
+            </Async>
+          </Geocoder>
+        </div>
+      </FormGroup>
+    </Geocoder>
+    <FieldGroup
+      label="Ridematch Radius (mi)"
+      name="radius"
+      onChange={[Function]}
+      placeholder="Enter radius"
+      type="text"
+      value={1}>
+      <FormGroup
+        bsClass="form-group"
+        controlId="group-item-radius">
+        <div
+          className="form-group">
+          <ControlLabel
+            bsClass="control-label"
+            srOnly={false}>
+            <label
+              className="control-label"
+              htmlFor="group-item-radius">
+              Ridematch Radius (mi)
+            </label>
+          </ControlLabel>
+          <FormControl
+            bsClass="form-control"
+            componentClass="input"
+            onChange={[Function]}
+            placeholder="Enter radius"
+            type="text"
+            value={1}>
+            <input
+              className="form-control"
+              id="group-item-radius"
+              onChange={[Function]}
+              placeholder="Enter radius"
+              type="text"
+              value={1} />
+          </FormControl>
+        </div>
+      </FormGroup>
+    </FieldGroup>
+  </form>
+</div>
+`;
+
+exports[`Container > EditSite Create/Edit Site View loads in edit mode 3`] = `
+<div
+  className="site-submit-buttons col-xs-12">
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="warning"
+    disabled={false}
+    onClick={[Function]}>
+    <button
+      className="btn btn-warning"
+      disabled={false}
+      onClick={[Function]}
+      type="button">
+      Update
+    </button>
+  </Button>
+  <Button
+    active={false}
+    block={false}
+    bsClass="btn"
+    bsStyle="danger"
+    disabled={false}
+    onClick={[Function]}>
+    <button
+      className="btn btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button">
+      Delete
+    </button>
+  </Button>
+</div>
+`;
+
+exports[`Container > EditSite Create/Edit Site View loads in edit mode 4`] = `
+Object {
+  "lat": 38.8886,
+  "lng": -77.043,
+  "lon": -77.043,
+}
+`;
+
+exports[`Container > EditSite Delete Site 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`Container > EditSite Update site 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
 `;

@@ -12,7 +12,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage*
 tmp
 
 # nyc test coverage
@@ -36,8 +36,12 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# build results
 assets
-env.yml
+
+# secret config
+configurations/default/env.yml
 
 # Mac OS
 .DS_Store

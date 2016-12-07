@@ -1,5 +1,7 @@
 sudo: false
 language: node_js
+services:
+  - mongodb
 cache:
   directories:
     - ~/.yarn-cache
@@ -8,13 +10,11 @@ notifications:
 node_js:
   - '6'
 before_install:
-  - npm i -g yarn
-  - npm i -g codecov
-before_script:
-  - npm prune
+  - npm i -g yarn codecov
 install:
   - yarn
 script:
+  - npm run test-lint
   - npm run cover
   - codecov
   - npm run build

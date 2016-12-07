@@ -1,4 +1,4 @@
-import Auth0 from 'mastarm/react/auth0'
+import Auth0 from '@conveyal/woonerf/components/auth0-lock'
 import React from 'react'
 import {
   IndexRoute,
@@ -6,38 +6,47 @@ import {
   Route
 } from 'react-router'
 
+import Agencies from './containers/agencies'
+import AddCommuters from './containers/add-commuters'
 import Application from './containers/application'
-import CreateGroup from './containers/create-group'
-import CreateOrganization from './containers/create-organization'
-import CreateSite from './containers/create-site'
-import CreateSiteAnalysis from './containers/create-site-analysis'
+import CreateAnalysis from './containers/create-analysis'
+import EditAgency from './containers/edit-agency'
+import EditCommuter from './containers/edit-commuter'
 import EditOrganization from './containers/edit-organization'
-import EditGroup from './containers/edit-group'
 import EditSite from './containers/edit-site'
-import Group from './containers/group'
+import CommuterGroup from './containers/commuter-group'
 import Organization from './containers/organization'
 import Organizations from './containers/organizations'
-import Site from './containers/site'
-import SiteAnalysis from './containers/site-analysis'
+import {Summary, Individuals, Possibilities, Histogram} from './containers/analysis'
 
 const ApplicationRouter = ({history}) => (
   <Router history={history}>
     <Route path='/' component={Application}>
-      <IndexRoute component={Organizations} />
-      <Route path='/organizations/create' component={CreateOrganization} />
-      <Route path='/organizations/:organizationId' component={Organization}>
-        <Route path='edit' component={EditOrganization} />
-        <Route path='sites/create' component={CreateSite} />
-        <Route path='sites/:siteId' component={Site}>
-          <Route path='edit' component={EditSite} />
-          <Route path='analysis/create' component={CreateSiteAnalysis} />
-          <Route path='analysis/:analysisId' component={SiteAnalysis} />
-        </Route>
-        <Route path='groups/create' component={CreateGroup} />
-        <Route path='groups/:groupId' component={Group}>
-          <Route path='edit' component={EditGroup} />
-        </Route>
-      </Route>
+      // Agency views
+      <IndexRoute component={Agencies} />
+      <Route path='/agency/create' component={EditAgency} />
+      <Route path='/agency/:agencyId' component={Organizations} />
+      <Route path='/agency/:agencyId/edit' component={EditAgency} />
+      // Organization Views
+      <Route path='/agency/:agencyId/organization/create' component={EditOrganization} />
+      <Route path='/organization/:organizationId' component={Organization} />
+      <Route path='/organization/:organizationId/edit' component={EditOrganization} />
+      // Analysis Views
+      <Route path='/organization/:organizationId/analysis/create' component={CreateAnalysis} />
+      <Route path='/analysis/:analysisId' component={Summary} />
+      <Route path='/analysis/:analysisId/histogram' component={Histogram} />
+      <Route path='/analysis/:analysisId/possibilities' component={Possibilities} />
+      <Route path='/analysis/:analysisId/individuals' component={Individuals} />
+      // Group Views
+      <Route path='/organization/:organizationId/group/create' component={AddCommuters} />
+      <Route path='/group/:groupId' component={CommuterGroup} />
+      <Route path='/group/:groupId/add' component={AddCommuters} />
+      // Commuter Views
+      <Route path='/group/:groupId/commuter/create' component={EditCommuter} />
+      <Route path='/commuter/:commuterId/edit' component={EditCommuter} />
+      // Site Views
+      <Route path='/organization/:organizationId/site/create' component={EditSite} />
+      <Route path='/site/:siteId/edit' component={EditSite} />
     </Route>
     <Route path='/login' component={Auth0} />
   </Router>

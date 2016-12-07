@@ -1,0 +1,35 @@
+exports[`actions > group generic model actions create should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > group generic model actions delete should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > group generic model actions update should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/group-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

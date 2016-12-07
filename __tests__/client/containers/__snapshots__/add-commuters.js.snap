@@ -1,0 +1,223 @@
+exports[`Container > AddCommuters Add Commuters View loads (create mode) 1`] = `
+"<div class=\"container\">
+  <div class=\"row\">
+    <div class=\"col-xs-12\">
+      <h3><span>Create Commuter Group</span> 
+        <button type=\"button\" class=\"pull-right btn btn-default\">
+          <a>
+            <i class=\"fa fa-arrow-left fa-fw \"></i><span>Back</span> </a> 
+        </button>
+      </h3>
+      <form>
+        <div class=\"form-group\">
+          <label for=\"group-item-name\" class=\"control-label\">Name</label>
+          <input type=\"text\" placeholder=\"Enter name\" value=\"\" id=\"group-item-name\" class=\"form-control\">
+        </div>
+        <div class=\"dropzone\">
+          <div>Try dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: name, email and address.</div>
+          <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
+        </div>
+        <button type=\"button\" class=\"btn btn-success\">Create</button>
+      </form>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`Container > AddCommuters Add Commuters View loads (with existing commuter group) 1`] = `
+"<div class=\"container\">
+  <div class=\"row\">
+    <div class=\"col-xs-12\">
+      <h3><span>Add Commuters to Group</span> 
+        <button type=\"button\" class=\"pull-right btn btn-default\">
+          <a>
+            <i class=\"fa fa-arrow-left fa-fw \"></i><span>Back</span> </a> 
+        </button>
+      </h3>
+      <form>
+        <div class=\"form-group\">
+          <label for=\"group-item-name\" class=\"control-label\">Name</label>
+          <input type=\"text\" placeholder=\"Enter name\" value=\"Mock Group\" id=\"group-item-name\" class=\"form-control\">
+        </div>
+        <div class=\"dropzone\">
+          <div>Try dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: name, email and address.</div>
+          <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
+        </div>
+        <div role=\"tablist\" class=\"panel-group\">
+          <div class=\"panel panel-info\">
+            <div class=\"panel-heading\">
+              <h4 role=\"presentation\" class=\"panel-title\">
+                <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\">1 Existing Commuters</a> 
+              </h4>
+            </div>
+            <div role=\"tabpanel\" class=\"panel-collapse collapse\" aria-hidden=\"true\">
+              <div class=\"panel-body\">
+                <div class=\"react-bs-table-container\">
+                  <div class=\"react-bs-table\" style=\"height: 100%;\">
+                    <div class=\"react-bs-container-header table-header-wrapper\">
+                      <table class=\"table table-hover table-bordered\">
+                        <thead>
+                          <tr>
+                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
+                              <div></div>
+                            </th>
+                            <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
+
+                              <!-- react-text: 33 -->Name<!-- /react-text -->
+                              <div></div>
+                            </th>
+                            <th class=\"\" title=\"Email\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"email\">
+
+                              <!-- react-text: 36 -->Email<!-- /react-text -->
+                              <div></div>
+                            </th>
+                            <th class=\"\" title=\"Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+
+                              <!-- react-text: 39 -->Address<!-- /react-text -->
+                              <div></div>
+                            </th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                    <div class=\"react-bs-container-body\" style=\"height: 100%;\">
+                      <table class=\"table table-bordered\">
+                        <colgroup>
+                          <col class=\"\" style=\"display: none;\">
+                            <col class=\"\">
+                              <col class=\"\">
+                                <col class=\"\">
+                        </colgroup>
+                        <tbody>
+                          <tr class=\"\">
+                            <td class=\"\" style=\"text-align: left; display: none;\">commuter-2</td>
+                            <td class=\"\" style=\"text-align: left;\">Luke Warm</td>
+                            <td class=\"\" style=\"text-align: left;\">luke@warm.cold</td>
+                            <td class=\"\" style=\"text-align: left;\">4321 XYZ Boulevard</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type=\"button\" class=\"btn btn-success\">Append</button>
+      </form>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`Container > AddCommuters Append Commuters to existing commuter group 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/group-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`Container > AddCommuters Create Commuter Group 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`Container > AddCommuters Preview Add Commuters 1`] = `
+"<div class=\"container\">
+  <div class=\"row\">
+    <div class=\"col-xs-12\">
+      <h3><span>Create Commuter Group</span> 
+        <button type=\"button\" class=\"pull-right btn btn-default\">
+          <a>
+            <i class=\"fa fa-arrow-left fa-fw \"></i><span>Back</span> </a> 
+        </button>
+      </h3>
+      <form>
+        <div class=\"form-group\">
+          <label for=\"group-item-name\" class=\"control-label\">Name</label>
+          <input type=\"text\" placeholder=\"Enter name\" value=\"\" id=\"group-item-name\" class=\"form-control\">
+        </div>
+        <div class=\"dropzone\">
+          <div>Try dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: name, email and address.</div>
+          <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
+        </div>
+        <div role=\"tablist\" class=\"panel-group\">
+          <div class=\"panel panel-success\">
+            <div class=\"panel-heading\">
+              <h4 role=\"presentation\" class=\"panel-title\">
+                <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\">1 New Commuters</a> 
+              </h4>
+            </div>
+            <div role=\"tabpanel\" class=\"panel-collapse collapse\" aria-hidden=\"true\">
+              <div class=\"panel-body\">
+                <div class=\"react-bs-table-container\">
+                  <div class=\"react-bs-table\" style=\"height: 100%;\">
+                    <div class=\"react-bs-container-header table-header-wrapper\">
+                      <table class=\"table table-hover table-bordered\">
+                        <thead>
+                          <tr>
+                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
+                              <div></div>
+                            </th>
+                            <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
+
+                              <!-- react-text: 34 -->Name<!-- /react-text -->
+                              <div></div>
+                            </th>
+                            <th class=\"\" title=\"Email\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"email\">
+
+                              <!-- react-text: 37 -->Email<!-- /react-text -->
+                              <div></div>
+                            </th>
+                            <th class=\"\" title=\"Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+
+                              <!-- react-text: 40 -->Address<!-- /react-text -->
+                              <div></div>
+                            </th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                    <div class=\"react-bs-container-body\" style=\"height: 100%;\">
+                      <table class=\"table table-bordered\">
+                        <colgroup>
+                          <col class=\"\" style=\"display: none;\">
+                            <col class=\"\">
+                              <col class=\"\">
+                                <col class=\"\">
+                        </colgroup>
+                        <tbody>
+                          <tr class=\"\">
+                            <td class=\"\" style=\"text-align: left; display: none;\">1</td>
+                            <td class=\"\" style=\"text-align: left;\">Bob</td>
+                            <td class=\"\" style=\"text-align: left;\">a@b.c</td>
+                            <td class=\"\" style=\"text-align: left;\">123 Main St</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type=\"button\" class=\"btn btn-success\">Create</button>
+      </form>
+    </div>
+  </div>
+</div>"
+`;

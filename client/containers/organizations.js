@@ -1,9 +1,25 @@
 import {connect} from 'react-redux'
 
+import agencyActions from '../actions/agency'
+import organizationActions from '../actions/organization'
 import Organizations from '../components/organizations'
+import {entityIdArrayToEntityArray} from '../utils/entities'
 
-function mapStateToProps (state) {
-  return state
+function mapStateToProps (state, props) {
+  const {agency, organization} = state
+  const currentAgency = agency[props.params.agencyId]
+  return {
+    agency: currentAgency,
+    organizations: entityIdArrayToEntityArray(currentAgency.organizations, organization)
+  }
 }
 
-export default connect(mapStateToProps)(Organizations)
+function mapDispatchToProps (dispatch) {
+  return {
+    deleteAgency: (opts) => dispatch(agencyActions.delete(opts)),
+    deleteOrganization: (opts) => dispatch(organizationActions.delete(opts)),
+    loadOrganizations: (opts) => dispatch(organizationActions.loadMany(opts))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Organizations)

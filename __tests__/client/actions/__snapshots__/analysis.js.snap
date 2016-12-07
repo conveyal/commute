@@ -1,0 +1,23 @@
+exports[`actions > analysis generic model actions create should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/analysis/new-entity-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > analysis generic model actions delete should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/organization/organization-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

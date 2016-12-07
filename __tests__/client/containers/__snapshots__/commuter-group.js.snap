@@ -1,0 +1,121 @@
+exports[`Container > CommuterGroup Commuter Group View loads 1`] = `
+<div
+  className="group-header col-xs-12">
+  <h3>
+    <span />
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      className="pull-right"
+      disabled={false}>
+      <button
+        className="pull-right btn btn-default"
+        disabled={false}
+        type="button">
+        <Link
+          onlyActiveOnIndex={false}
+          style={Object {}}
+          to="/organization/organization-2">
+          <a
+            onClick={[Function]}
+            style={Object {}}>
+            <Icon
+              type="arrow-left">
+              <i
+                className="fa fa-arrow-left fa-fw " />
+            </Icon>
+            <span>
+              Back
+            </span>
+          </a>
+        </Link>
+      </button>
+    </Button>
+  </h3>
+</div>
+`;
+
+exports[`Container > CommuterGroup Commuter Group View loads 2`] = `
+"<div class=\"group-content row\">
+  <div class=\"col-xs-12\">
+    <div class=\"react-bs-table-container\">
+      <div class=\"react-bs-table\" style=\"height: 100%;\">
+        <div class=\"react-bs-container-header table-header-wrapper\">
+          <table class=\"table table-hover table-bordered\">
+            <thead>
+              <tr>
+                <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
+
+                  <!-- react-text: 23 -->Name<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+
+                  <!-- react-text: 26 -->Address<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Email\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"email\">
+
+                  <!-- react-text: 29 -->Email<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 32 -->Tools<!-- /react-text -->
+                  <div></div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class=\"react-bs-container-body\" style=\"height: 100%;\">
+          <table class=\"table table-bordered\">
+            <colgroup>
+              <col class=\"\" style=\"display: none;\">
+                <col class=\"\">
+                  <col class=\"\">
+                    <col class=\"\">
+                      <col class=\"\">
+            </colgroup>
+            <tbody>
+              <tr class=\"\">
+                <td class=\"\" style=\"text-align: left; display: none;\">commuter-2</td>
+                <td class=\"\" style=\"text-align: left;\">Luke Warm</td>
+                <td class=\"\" style=\"text-align: left;\">4321 XYZ Boulevard</td>
+                <td class=\"\" style=\"text-align: left;\">luke@warm.cold</td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div>
+                    <button type=\"button\" class=\"btn btn-warning\">
+                      <a>Edit</a> 
+                    </button>
+                    <button type=\"button\" class=\"btn btn-danger\">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`Container > CommuterGroup Commuter Group View loads 3`] = `"<div class=\"leaflet-objects-pane leaflet-marker-pane leaflet-zoom-hide react-leaflet-cluster-layer\"></div>"`;
+
+exports[`Container > CommuterGroup Delete Commuter 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/group/group-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

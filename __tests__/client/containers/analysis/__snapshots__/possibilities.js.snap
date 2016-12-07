@@ -1,0 +1,362 @@
+exports[`Container > Analysis > Possibilities Analysis Possibilities View loads (base case) 1`] = `
+<div
+  className="possibilities-header row">
+  <Col
+    bsClass="col"
+    componentClass="div"
+    xs={12}>
+    <div
+      className="col-xs-12">
+      <h3>
+        <span>
+          An Analysis
+        </span>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}>
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
+            type="button">
+            <Link
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to="/analysis/analysis-2">
+              <a
+                onClick={[Function]}
+                style={Object {}}>
+                <Icon
+                  type="arrow-left">
+                  <i
+                    className="fa fa-arrow-left fa-fw " />
+                </Icon>
+                <span>
+                  Back
+                </span>
+              </a>
+            </Link>
+          </button>
+        </Button>
+      </h3>
+      <h3>
+        Possibilities Analysis
+      </h3>
+    </div>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={6}
+    xs={12}>
+    <div
+      className="col-md-6 col-xs-12">
+      <h4>
+        <strong>
+          Site:
+        </strong>
+        <span>
+          Acme Corp
+        </span>
+      </h4>
+    </div>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={6}
+    xs={12}>
+    <div
+      className="col-md-6 col-xs-12">
+      <h4>
+        <strong>
+          Group:
+        </strong>
+        <span>
+          Mock Group
+        </span>
+      </h4>
+    </div>
+  </Col>
+</div>
+`;
+
+exports[`Container > Analysis > Possibilities Analysis Possibilities View loads (base case) 2`] = `
+<div
+  className="possibilities-legend-control col-sm-3 col-xs-12">
+  <DiscreteColorLegendItem
+    colors={
+      Array [
+        "#12939A",
+        "#79C7E3",
+        "#1A3177",
+        "#FF9833",
+        "#EF5D28",
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "color": "red",
+          "data": Array [
+            Object {
+              "x": 1,
+              "y": "0.0",
+            },
+          ],
+          "disabled": false,
+          "mode": "bike",
+          "title": "Bike",
+        },
+        Object {
+          "color": "brown",
+          "data": Array [
+            Object {
+              "x": 1,
+              "y": "100.0",
+            },
+          ],
+          "disabled": false,
+          "mode": "car",
+          "title": "Car",
+        },
+        Object {
+          "color": "orange",
+          "data": Array [
+            Object {
+              "x": 1,
+              "y": "0.0",
+            },
+          ],
+          "disabled": false,
+          "mode": "transit",
+          "title": "Transit",
+        },
+        Object {
+          "color": "blue",
+          "data": Array [
+            Object {
+              "x": 1,
+              "y": "0.0",
+            },
+          ],
+          "disabled": false,
+          "mode": "walk",
+          "title": "Walk",
+        },
+      ]
+    }
+    onItemClick={[Function]}
+    orientation="vertical">
+    <div
+      className="rv-discrete-color-legend vertical"
+      style={
+        Object {
+          "height": undefined,
+          "width": undefined,
+        }
+      }>
+      <DiscreteColorLegendItem
+        color="red"
+        disabled={false}
+        onClick={[Function]}
+        orientation="vertical"
+        title="Bike">
+        <div
+          className="rv-discrete-color-legend-item vertical clickable"
+          onClick={[Function]}>
+          <span
+            className="rv-discrete-color-legend-item__color"
+            style={
+              Object {
+                "background": "red",
+              }
+            } />
+          <span
+            className="rv-discrete-color-legend-item__title">
+            Bike
+          </span>
+        </div>
+      </DiscreteColorLegendItem>
+      <DiscreteColorLegendItem
+        color="brown"
+        disabled={false}
+        onClick={[Function]}
+        orientation="vertical"
+        title="Car">
+        <div
+          className="rv-discrete-color-legend-item vertical clickable"
+          onClick={[Function]}>
+          <span
+            className="rv-discrete-color-legend-item__color"
+            style={
+              Object {
+                "background": "brown",
+              }
+            } />
+          <span
+            className="rv-discrete-color-legend-item__title">
+            Car
+          </span>
+        </div>
+      </DiscreteColorLegendItem>
+      <DiscreteColorLegendItem
+        color="orange"
+        disabled={false}
+        onClick={[Function]}
+        orientation="vertical"
+        title="Transit">
+        <div
+          className="rv-discrete-color-legend-item vertical clickable"
+          onClick={[Function]}>
+          <span
+            className="rv-discrete-color-legend-item__color"
+            style={
+              Object {
+                "background": "orange",
+              }
+            } />
+          <span
+            className="rv-discrete-color-legend-item__title">
+            Transit
+          </span>
+        </div>
+      </DiscreteColorLegendItem>
+      <DiscreteColorLegendItem
+        color="blue"
+        disabled={false}
+        onClick={[Function]}
+        orientation="vertical"
+        title="Walk">
+        <div
+          className="rv-discrete-color-legend-item vertical clickable"
+          onClick={[Function]}>
+          <span
+            className="rv-discrete-color-legend-item__color"
+            style={
+              Object {
+                "background": "blue",
+              }
+            } />
+          <span
+            className="rv-discrete-color-legend-item__title">
+            Walk
+          </span>
+        </div>
+      </DiscreteColorLegendItem>
+    </div>
+  </DiscreteColorLegendItem>
+  <Panel
+    bsClass="panel"
+    bsStyle="default"
+    defaultExpanded={false}>
+    <div
+      className="panel panel-default">
+      <div
+        className="panel-body">
+        <FormGroup
+          bsClass="form-group"
+          controlId="histogram-metric-select">
+          <div
+            className="form-group">
+            <ControlLabel
+              bsClass="control-label"
+              srOnly={false}>
+              <label
+                className="control-label"
+                htmlFor="histogram-metric-select">
+                Y Axis
+              </label>
+            </ControlLabel>
+            <FormControl
+              bsClass="form-control"
+              componentClass="select"
+              onChange={[Function]}
+              value="percent">
+              <select
+                className="form-control"
+                id="histogram-metric-select"
+                onChange={[Function]}
+                value="percent">
+                <option
+                  value="percent">
+                  Percent
+                </option>
+                <option
+                  value="number">
+                  Number of Commuters
+                </option>
+              </select>
+            </FormControl>
+          </div>
+        </FormGroup>
+      </div>
+    </div>
+  </Panel>
+</div>
+`;
+
+exports[`Container > Analysis > Possibilities Analysis Possibilities View loads (base case) 3`] = `
+<table
+  className="table table-bordered">
+  <tbody>
+    <tr>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "red",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Bike - 0.0%
+        </span>
+      </td>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "brown",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Car - 100.0%
+        </span>
+      </td>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "orange",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Transit - 0.0%
+        </span>
+      </td>
+      <td>
+        <span
+          className="rv-discrete-color-legend-item__color"
+          style={
+            Object {
+              "background": "blue",
+            }
+          } />
+        <span
+          className="rv-discrete-color-legend-item__title">
+          Walk - 0.0%
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

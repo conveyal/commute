@@ -1,9 +1,32 @@
 import {connect} from 'react-redux'
 
+import siteActions from '../actions/site'
 import EditSite from '../components/edit-site'
 
-function mapStateToProps (state) {
-  return state
+function mapStateToProps (state, props) {
+  const {site} = state
+  const {organizationId, siteId} = props.params
+  if (organizationId) {
+    return {
+      organizationId,
+      editMode: false
+    }
+  } else if (siteId) {
+    const currentSite = site[siteId]
+    return {
+      editMode: true,
+      organizationId: currentSite.organizationId,
+      site: currentSite
+    }
+  }
 }
 
-export default connect(mapStateToProps)(EditSite)
+function mapDispatchToProps (dispatch, props) {
+  return {
+    create: (opts) => dispatch(siteActions.create(opts)),
+    delete: (opts) => dispatch(siteActions.delete(opts)),
+    update: (opts) => dispatch(siteActions.update(opts))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditSite)

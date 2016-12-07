@@ -1,24 +1,73 @@
 /* global describe, expect, it */
 
-import { mount } from 'enzyme'
-import { mountToJson } from 'enzyme-to-json'
+import {mount} from 'enzyme'
+import pretty from 'pretty'
 import React from 'react'
-import { Provider } from 'react-redux'
+import {Button} from 'react-bootstrap'
+import {Provider} from 'react-redux'
 
-import { makeMockStore, mockStoreData } from '../../../test-utils/mock-store.js'
+import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {blankOrganization, makeMockStore, mockStores} from '../../test-utils/mock-data'
 
 import Organizations from '../../../client/containers/organizations'
 
-const mockStore = makeMockStore(mockStoreData)
+/* TODO: test delete agency
+const agencyExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'agencies',
+  singularName: 'agency'
+}) */
+const organizationExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'organizations',
+  singularName: 'organization'
+})
 
 describe('Container > Organizations', () => {
-  it('renders correctly', () => {
+  it('Organizations View loads', () => {
+    // mount component
+    const tree = mount(
+      <Provider store={makeMockStore(mockStores.withBlankAgency)}>
+        <Organizations
+          params={{agencyId: 'agency-1'}}
+          />
+      </Provider>
+    )
+    expect(pretty(tree.find(Organizations).html())).toMatchSnapshot()
+  })
+
+  it('Organizations View loads with one organization', () => {
+    // mount component
+    const tree = mount(
+      <Provider store={makeMockStore(mockStores.withBlankOrganization)}>
+        <Organizations
+          params={{agencyId: 'agency-3'}}
+          />
+      </Provider>
+    )
+    expect(pretty(tree.find(Organizations).html())).toMatchSnapshot()
+  })
+
+  it('Delete Organization', () => {
+    const mockStore = makeMockStore(mockStores.withBlankOrganization)
+    window.confirm = () => true
+
+    // Given a logged-in user is viewing the organizations view
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <Organizations />
+        <Organizations
+          params={{agencyId: 'agency-3'}}
+          />
       </Provider>
     )
-    expect(mountToJson(tree.find(Organizations))).toMatchSnapshot()
+
+    // When the user clicks the delete button for an existing organization
+    // And the user confirms the Confirm Deletion dialog
+    const deleteButton = tree.find('table').find(Button).last()
+    deleteButton.simulate('click')
+
+    organizationExpectations.expectDeleteAction({
+      action: mockStore.getActions()[1],
+      entity: blankOrganization
+    })
   })
 })

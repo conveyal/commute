@@ -1,0 +1,179 @@
+exports[`Container > Analysis > Individuals Individuals View loads (base case) 1`] = `
+<div
+  className="individuals-header row">
+  <Col
+    bsClass="col"
+    componentClass="div"
+    xs={12}>
+    <div
+      className="col-xs-12">
+      <h3>
+        <span>
+          An Analysis
+        </span>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}>
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
+            type="button">
+            <Link
+              onlyActiveOnIndex={false}
+              style={Object {}}
+              to="/analysis/analysis-2">
+              <a
+                onClick={[Function]}
+                style={Object {}}>
+                <Icon
+                  type="arrow-left">
+                  <i
+                    className="fa fa-arrow-left fa-fw " />
+                </Icon>
+                <span>
+                  Back
+                </span>
+              </a>
+            </Link>
+          </button>
+        </Button>
+      </h3>
+      <h3>
+        Individual Commutes
+      </h3>
+    </div>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={6}
+    xs={12}>
+    <div
+      className="col-md-6 col-xs-12">
+      <h4>
+        <strong>
+          Site:
+        </strong>
+        <span>
+          Acme Corp
+        </span>
+      </h4>
+    </div>
+  </Col>
+  <Col
+    bsClass="col"
+    componentClass="div"
+    md={6}
+    xs={12}>
+    <div
+      className="col-md-6 col-xs-12">
+      <h4>
+        <strong>
+          Group:
+        </strong>
+        <span>
+          Mock Group
+        </span>
+      </h4>
+    </div>
+  </Col>
+</div>
+`;
+
+exports[`Container > Analysis > Individuals Individuals View loads (base case) 2`] = `
+"<div class=\"individuals-content row\">
+  <div class=\"col-xs-12\">
+    <h3>Individual Trips</h3>
+    <div class=\"react-bs-table-container\">
+      <div class=\"react-bs-table\" style=\"height: 100%;\">
+        <div class=\"react-bs-container-header table-header-wrapper\">
+          <table class=\"table table-hover table-bordered\">
+            <thead>
+              <tr>
+                <th style=\"text-align: center; min-width: NaNpx;\"></th>
+                <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"commuterId\">
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 35 -->Name<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Mode\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 38 -->Mode<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Duration\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 41 -->Duration<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Distance\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 44 -->Distance<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Cost\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 47 -->Cost<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Ridematches\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 50 -->Ridematches<!-- /react-text -->
+                  <div></div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class=\"react-bs-container-body\" style=\"height: 100%;\">
+          <table class=\"table table-bordered\">
+            <colgroup>
+              <col style=\"width: 30px; min-width: 30px;\">
+                <col class=\"\" style=\"display: none;\">
+                  <col class=\"\">
+                    <col class=\"\">
+                      <col class=\"\">
+                        <col class=\"\">
+                          <col class=\"\">
+                            <col class=\"\">
+            </colgroup>
+            <tbody>
+              <tr class=\"\">
+                <td class=\"\" style=\"text-align: center;\">
+                  <input type=\"radio\">
+                </td>
+                <td class=\"\" style=\"text-align: left; display: none;\">commuter-2</td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div>Luke Warm</div>
+                </td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div>transit</div>
+                </td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div>2 days, 9 hours, 36 minutes</div>
+                </td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div>30 miles</div>
+                </td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div>$3.45</div>
+                </td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>"
+`;
