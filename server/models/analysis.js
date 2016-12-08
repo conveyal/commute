@@ -1,8 +1,19 @@
 const {Schema} = require('mongoose')
 
+const db = require('../db')
+const Commuter = db.model('Commuter', require('./commuter'))
+const Group = db.model('Group', require('./group'))
 const trashPlugin = require('./plugins/trash')
+const Site = db.model('Site', require('./site'))
+const profiler = require('../utils/profiler')
+const later = require('../utils/later')
 
 const schema = new Schema({
+  calculationStatus: {
+    default: 'calculating',
+    required: true,
+    type: String
+  },
   groupId: {
     ref: 'Group',
     required: true,
@@ -42,10 +53,49 @@ const schema = new Schema({
     },
     required: true,
     type: Schema.Types.Mixed
-  },
-  trips: Array
+  }
 })
 
 schema.plugin(trashPlugin)
+
+schema.pre('save', true, function (next, done) {
+  next()
+
+  const self = this
+
+  if (this.calculationStatus === 'skipCalculation') return done()
+
+  // initiate profile analysis of all commuters in group
+  // find all commuters via groupId
+  // make sure group isn't trashed
+  const ensureGroupExists = Group.count({ _id: this.groupId, trashed: undefined }).exec()
+  const findCommuters = Commuter.find({ groupId: this.groupId, trashed: undefined }).exec()
+  const getSite = Site.findOne({ _id: this.siteId, trashed: undefined }).exec()
+  Promise.all([findCommuters, getSite, ensureGroupExists])
+    .then((results) => {
+      // verify that group, commuters and site exist
+      const commuters = results[0]
+      const site = results[1]
+      const groupCount = results[2]
+
+      if (commuters.length === 0) return done('No commuters found!')
+      if (!site) return done('Site not found!')
+      if (groupCount === 0) return done('Group not found!')
+
+      later(() => {
+        profiler({
+          analysisId: self._id,
+          commuters,
+          site
+        })
+      })
+      done()
+    })
+    .catch((err) => {
+      console.error(err)
+      self.calculationStatus = 'error'
+      done()
+    })
+})
 
 module.exports = schema

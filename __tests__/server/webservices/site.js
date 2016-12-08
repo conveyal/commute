@@ -2,54 +2,54 @@
 
 import mongoose from 'mongoose'
 
-import {Commuter} from '../../server/models'
+import {Site} from '../../../server/models'
 
-import {makeRestEndpointTests} from '../test-utils/server'
+import {makeRestEndpointTests} from '../../test-utils/server'
 
-describe('commuter', () => {
+describe('site', () => {
   afterAll(() => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  const initCommuterData = {
+  const initSiteData = {
     address: '123 Main St',
-    location: {
+    coordinate: {
       lat: 12,
       lon: 34
     },
-    name: 'test-commuter',
-    groupId: mongoose.Types.ObjectId()
+    name: 'test-site',
+    organizationId: mongoose.Types.ObjectId()
   }
 
   makeRestEndpointTests({
     endpoints: {
       'Collection GET': {},
       'Collection POST': {
-        creationData: initCommuterData,
+        creationData: initSiteData,
         customAssertions: (json) => {
-          expect(json[0].name).toBe('test-commuter')
+          expect(json[0].name).toBe('test-site')
         }
       },
       'DELETE': {
-        initData: initCommuterData
+        initData: initSiteData
       },
       'GET': {
-        initData: initCommuterData
+        initData: initSiteData
       },
       'PUT': {
+        initData: initSiteData,
+        updateData: {
+          name: 'updated name'
+        },
         customAssertions: (modelData, json) => {
           expect(modelData.name).toBe('updated name')
           expect(json.name).toBe('updated name')
-        },
-        initData: initCommuterData,
-        updateData: {
-          name: 'updated name'
         }
       }
     },
-    foreignKeys: ['groupId'],
+    foreignKeys: ['organizationId'],
     geocodePlugin: true,
-    model: Commuter,
-    name: 'commuter'
+    model: Site,
+    name: 'site'
   })
 })

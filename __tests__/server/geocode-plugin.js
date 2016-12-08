@@ -50,7 +50,7 @@ describe('geocoder plugin', () => {
     await model.create(omit(creationData, 'coordinate'))
 
     // wait for geocoding to happen in next tick
-    await timeoutPromise(100)
+    await timeoutPromise(200)
 
     // get model
     const data = await model.find().exec()

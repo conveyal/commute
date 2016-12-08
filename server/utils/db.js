@@ -1,6 +1,6 @@
 const each = require('async/each')
 
-export function makeCascadeDeleteModelsFn (foreignKey, models) {
+exports.makeCascadeDeleteModelsFn = function (foreignKey, models) {
   return function (next, done) {
     // CASCADE DELETE if needed
     if (this.isModified('trashed') && this.trashed) {

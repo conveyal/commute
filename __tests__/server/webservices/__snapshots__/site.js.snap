@@ -1,19 +1,19 @@
-exports[`commuter rest endpoint should add model 1`] = `
+exports[`site rest endpoint should add model 1`] = `
 Array [
   Object {
     "__v": 0,
     "address": "123 Main St",
     "coordinate": Object {
-      "lat": 0,
-      "lng": 0,
+      "lat": 12,
+      "lon": 34,
     },
-    "name": "test-commuter",
+    "name": "test-site",
     "original_address": "123 Main St",
   },
 ]
 `;
 
-exports[`commuter rest endpoint should get model 1`] = `
+exports[`site rest endpoint should get model 1`] = `
 Object {
   "__v": 0,
   "address": "Takoma, Takoma Park, MD, USA",
@@ -24,19 +24,19 @@ Object {
   },
   "country": "United States",
   "county": "Montgomery County",
-  "name": "test-commuter",
+  "name": "test-site",
   "original_address": "123 Main St",
   "state": "Maryland",
 }
 `;
 
-exports[`commuter rest endpoint should update model 1`] = `
+exports[`site rest endpoint should update model 1`] = `
 Object {
   "__v": 0,
   "address": "123 Main St",
   "coordinate": Object {
-    "lat": 0,
-    "lng": 0,
+    "lat": 12,
+    "lon": 34,
   },
   "name": "updated name",
   "original_address": "123 Main St",

@@ -3,10 +3,10 @@
 import mongoose from 'mongoose'
 import request from 'supertest-as-promised'
 
-import app from '../../server/app'
-import {Commuter, Group} from '../../server/models'
+import app from '../../../server/app'
+import {Commuter, Group} from '../../../server/models'
 
-import {makeRestEndpointTests, parseServerResponse, prepareGeocodeNock} from '../test-utils/server'
+import {makeRestEndpointTests, parseServerResponse, prepareGeocodeNock} from '../../test-utils/server'
 
 describe('group', () => {
   afterAll(() => {

@@ -5,6 +5,7 @@ import nock from 'nock'
 import request from 'supertest-as-promised'
 
 import {requireKeys} from './common'
+import mockTripPlanResult from './mock-trip-plan-result'
 
 import app from '../../server/app'
 
@@ -31,7 +32,7 @@ export const prepareGeocodeNock = () => nock(
   'https://search.mapzen.com/'
 )
   .get(/v1\/search/)
-  .reply(200, JSON.stringify({
+  .reply(200, {
     'geocoding': {
       'version': '0.2',
       'attribution': 'https://search.mapzen.com/v1/attribution',
@@ -105,7 +106,13 @@ export const prepareGeocodeNock = () => nock(
       -76.978642,
       39.001084
     ]
-  }))
+  })
+
+export const prepareOtpNock = () => nock(
+  'http://mock-otp.com/'
+)
+  .get(/api\/otp/)
+  .reply(200, mockTripPlanResult)
 
 export const makeRemoveModelsFn = (model) => async () => await model.remove({}).exec()
 
@@ -147,10 +154,15 @@ export const makeRestEndpointTests = (cfg) => {
 
     if (endpoints['Collection POST']) {
       const cfg = endpoints['Collection POST']
-      const creationData = cfg.creationData || {}
+      let creationData = cfg.creationData || {}
       const customAssertions = cfg.customAssertions || (() => 'no-op')
       it('should add model', async () => {
         if (geocodePlugin) prepareGeocodeNock()
+
+        if (typeof creationData === 'function') {
+          // assume that the function returns a Promise
+          creationData = await creationData()
+        }
 
         // make request
         const res = await request(app)
@@ -171,8 +183,13 @@ export const makeRestEndpointTests = (cfg) => {
     if (endpoints['DELETE']) {
       it('should delete model', async () => {
         const cfg = endpoints['DELETE']
-        const initData = cfg.initData || {}
+        let initData = cfg.initData || {}
         if (geocodePlugin) prepareGeocodeNock()
+
+        if (typeof initData === 'function') {
+          // assume that the function returns a Promise
+          initData = await initData()
+        }
 
         // create model
         const createdModel = await model.create(initData)
@@ -196,8 +213,13 @@ export const makeRestEndpointTests = (cfg) => {
       it('should get model', async () => {
         const cfg = endpoints['GET']
         requireKeys(cfg, ['initData'])
-        const initData = cfg.initData
+        let initData = cfg.initData
         if (geocodePlugin) prepareGeocodeNock()
+
+        if (typeof initData === 'function') {
+          // assume that the function returns a Promise
+          initData = await initData()
+        }
 
         // create model
         const createdModel = await model.create(initData)
@@ -219,8 +241,14 @@ export const makeRestEndpointTests = (cfg) => {
       it('should update model', async () => {
         const cfg = endpoints['PUT']
         requireKeys(cfg, ['customAssertions', 'initData', 'updateData'])
-        const {customAssertions, initData, updateData} = cfg
+        const {customAssertions, updateData} = cfg
+        let {initData} = cfg
         if (geocodePlugin) prepareGeocodeNock()
+
+        if (typeof initData === 'function') {
+          // assume that the function returns a Promise
+          initData = await initData()
+        }
 
         // create model
         const createdModel = await model.create(initData)
