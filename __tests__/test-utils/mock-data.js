@@ -24,8 +24,8 @@ export const commuterSal = {
   address: '9876 ABC Ct',
   city: 'Megalopolis',
   coordinate: {
-    lat: 38.915,
-    lng: -76.971
+    lat: 38.912314,
+    lng: -77.033994
   },
   country: 'Made up land',
   county: 'Made up county',
@@ -40,8 +40,8 @@ export const mockCommuter = {
   address: '4321 XYZ Boulevard',
   city: 'Megalopolis',
   coordinate: {
-    lat: 38.916089,
-    lng: -76.970221
+    lat: 38.910822,
+    lng: -77.041094
   },
   country: 'Made up land',
   county: 'Made up county',
@@ -79,8 +79,8 @@ export const mockSite = {
   address: '123 ABC St',
   city: 'Megalopolis',
   coordinate: {
-    lat: 38.8886,
-    lng: -77.0430
+    lat: 38.892767,
+    lng: -77.040740
   },
   country: 'Made up land',
   county: 'Made up county',
@@ -103,7 +103,7 @@ export const mockTrip = {
     time: 1234,
     polygon: 'encoded'
   },
-  commuterId: 'commuter-2',
+  commuter: 'commuter-2',
   mostLikely: {
     cost: 3.45,
     distance: 30,

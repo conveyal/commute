@@ -5,6 +5,8 @@ const Commuter = db.model('Commuter', require('./commuter'))
 const Group = db.model('Group', require('./group'))
 const trashPlugin = require('./plugins/trash')
 const Site = db.model('Site', require('./site'))
+const Trip = db.model('Trip', require('./trip'))
+const dbUtils = require('../utils/db')
 const profiler = require('../utils/profiler')
 const later = require('../utils/later')
 
@@ -57,6 +59,8 @@ const schema = new Schema({
 })
 
 schema.plugin(trashPlugin)
+
+schema.pre('save', dbUtils.makeCascadeDeleteModelsFn('analysisId', [Trip]))
 
 schema.pre('save', true, function (next, done) {
   next()

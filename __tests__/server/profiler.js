@@ -1,4 +1,4 @@
-/* globals afterAll, afterEach, describe, it */
+/* globals afterAll, afterEach, describe, expect, it */
 
 import mongoose from 'mongoose'
 
@@ -6,7 +6,7 @@ import {timeoutPromise} from '../test-utils/common'
 import {mockCommuter, mockSite} from '../test-utils/mock-data'
 import {makeRemoveModelsFn, prepareOtpNock} from '../test-utils/server'
 
-import {Analysis} from '../../server/models'
+import {Analysis, Trip} from '../../server/models'
 import profiler from '../../server/utils/profiler'
 
 describe('profiler', () => {
@@ -31,6 +31,16 @@ describe('profiler', () => {
     profiler({ analysisId: analysis._id, commuters: [mockCommuter], site: mockSite })
 
     // wait a little bit
-    await timeoutPromise(100)
+    await timeoutPromise(200)
+
+    // expect summary stats to be calculated in analysis
+    const modifiedAnalysis = await Analysis.find().exec()
+
+    expect(modifiedAnalysis.summary.avgTravelTime).toEqual(1)
+
+    // expect new trip to be saved
+    const insertedTrip = await Trip.find().exec()
+
+    expect(insertedTrip).toEqual()
   })
 })
