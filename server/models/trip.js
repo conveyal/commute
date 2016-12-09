@@ -7,7 +7,6 @@ const modeType = {
   monetaryCost: Number,
   time: Number,
   totalCost: Number,
-  polygon: String,
   possible: Boolean
 }
 

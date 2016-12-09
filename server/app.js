@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')))
 
 // api
-routes.makeRoutes(app)
+routes(app)
 
 // webapp
 app.get('*', (req, res) =>

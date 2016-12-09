@@ -1,7 +1,7 @@
 const pick = require('lodash.pick')
 
 const models = require('../models')
-const makeRestEndpoints = require('./').makeRestEndpoints
+const makeRestEndpoints = require('../utils/restEndpoints')
 
 module.exports = function makeRoutes (app) {
   makeRestEndpoints(app,

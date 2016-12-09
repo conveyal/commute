@@ -50,12 +50,12 @@ describe('geocoder plugin', () => {
     await model.create(omit(creationData, 'coordinate'))
 
     // wait for geocoding to happen in next tick
-    await timeoutPromise(200)
+    await timeoutPromise(1000)
 
     // get model
     const data = await model.find().exec()
 
-    // expect non-geocoded items
+    // expect geocoded items
     const created = data[0]
     expect(created.coordinate.lat).toEqual(38.976745)
     expect(created.state).toEqual('Maryland')

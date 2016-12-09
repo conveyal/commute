@@ -7,7 +7,6 @@ const trashPlugin = require('./plugins/trash')
 const Site = db.model('Site', require('./site'))
 const Trip = db.model('Trip', require('./trip'))
 const dbUtils = require('../utils/db')
-const profiler = require('../utils/profiler')
 const later = require('../utils/later')
 
 const schema = new Schema({
@@ -67,7 +66,10 @@ schema.pre('save', true, function (next, done) {
 
   const self = this
 
-  if (this.calculationStatus === 'skipCalculation') return done()
+  if (['skipCalculation', 'calculated'].indexOf(this.calculationStatus) !== -1 ||
+    this.trashed) return done()
+
+  const profiler = require('../utils/profiler')
 
   // initiate profile analysis of all commuters in group
   // find all commuters via groupId

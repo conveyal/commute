@@ -18,6 +18,10 @@ describe('profiler', () => {
   it('should profile commuters', async () => {
     prepareOtpNock()
 
+    // prepare commuter record
+    const fakeCommuterId = mongoose.Types.ObjectId()
+    const madeUpCommuter = Object.assign(mockCommuter, { _id: fakeCommuterId })
+
     // prepare analysis record
     const analysis = await Analysis.create({
       calculationStatus: 'skipCalculation',
@@ -28,19 +32,21 @@ describe('profiler', () => {
     })
 
     // profile some mock commuters
-    profiler({ analysisId: analysis._id, commuters: [mockCommuter], site: mockSite })
+    profiler({ analysisId: analysis._id, commuters: [madeUpCommuter], site: mockSite })
 
     // wait a little bit
-    await timeoutPromise(200)
+    await timeoutPromise(1000)
 
     // expect summary stats to be calculated in analysis
-    const modifiedAnalysis = await Analysis.find().exec()
+    const allAnalyses = await Analysis.find().exec()
+    const modifiedAnalysis = allAnalyses[0]
 
-    expect(modifiedAnalysis.summary.avgTravelTime).toEqual(1)
+    expect(modifiedAnalysis.summary.avgTravelTime).toEqual(681)
 
     // expect new trip to be saved
-    const insertedTrip = await Trip.find().exec()
+    const allTrips = await Trip.find().exec()
+    const insertedTrip = allTrips[0]
 
-    expect(insertedTrip).toEqual()
+    expect(insertedTrip.mostLikely.mode).toEqual('bike')
   })
 })

@@ -3,6 +3,13 @@ const request = require('request')
 
 const models = require('../models')
 
+const modeDbLookup = {
+  BICYCLE: 'bike',
+  CAR: 'car',
+  TRANSIT: 'transit',
+  WALK: 'walk'
+}
+
 const PROFILE_OPTIONS = {
   accessModes: 'WALK', // BICYCLE,BICYCLE_RENT
   bikeSpeed: 4.1,
@@ -22,6 +29,8 @@ const PROFILE_OPTIONS = {
 
 module.exports = function ({ analysisId, commuters, site }) {
   const sitePosition = `${site.coordinate.lat},${site.coordinate.lng}`
+  const allTrips = []
+
   const tripPlannerQueue = queue((commuter, tripPlanCallback) => {
     const requestCfg = {
       json: true,
@@ -40,6 +49,7 @@ module.exports = function ({ analysisId, commuters, site }) {
         analysisId,
         commuterId: commuter._id
       }
+
       json.options.forEach((option) => {
         // should only ever be two options
         if (option.summary === 'Non-transit options') {
@@ -49,34 +59,56 @@ module.exports = function ({ analysisId, commuters, site }) {
         }
       })
 
-      console.log(newTrip)
-      tripPlanCallback()
+      // calculate most likely trip
+      let bestMode
+      let lowestCost = Infinity
+      Object.values(modeDbLookup).forEach((mode) => {
+        const curCost = newTrip[mode].virtualCost
+        if (curCost < lowestCost) {
+          bestMode = mode
+          lowestCost = newTrip[mode].virtualCost
+        }
+      })
+
+      newTrip.mostLikely = Object.assign({ mode: bestMode }, newTrip[bestMode])
+
+      // save new trip
+      models.Trip.create(newTrip, (err, data) => {
+        if (err) console.error(err)
+        tripPlanCallback()
+      })
+      allTrips.push(newTrip)
     })
   }, 2)
 
   tripPlannerQueue.drain = () => {
-    console.log('drained')
-    // models
-    //   .Commuter
-    //   .find({ analysisId, trashed: undefined })
-    //   .exec()
-    //   .then((commuters) => {
-    //     // caluclate summary statistics
-    //     console.log(commuters)
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error finding analysis after profiling commuters', error)
-    //   })
+    // caluclate summary statistics
+    let travelTimeSum = 0
+    let distanceSum = 0 // calculated with only driving
+    let savingsTotalPerDay = 0
+    const numTrips = allTrips.length
+
+    allTrips.forEach((trip) => {
+      const {mostLikely} = trip
+      travelTimeSum += mostLikely.time
+      distanceSum += trip.car.time
+      savingsTotalPerDay += trip.car.monetaryCost - mostLikely.monetaryCost
+    })
+
+    models.Analysis.findByIdAndUpdate(analysisId, {
+      calculationStatus: 'calculated',
+      summary: {
+        avgTravelTime: travelTimeSum / numTrips,
+        avgDistance: distanceSum / numTrips,
+        savingsPerTrip: savingsTotalPerDay / numTrips,
+        savingsPerTripYear: savingsTotalPerDay / numTrips * 365.2422,
+        savingsTotalPerDay: savingsTotalPerDay,
+        savingsTotalPerYear: savingsTotalPerDay * 365.2422
+      }
+    }).exec()
   }
 
   tripPlannerQueue.push(commuters)
-}
-
-const modeDbLookup = {
-  BICYCLE: 'bike',
-  CAR: 'car',
-  TRANSIT: 'transit',
-  WALK: 'walk'
 }
 
 // 0.000621371 miles per meter, 0.54 IRS cents per mile
@@ -91,7 +123,7 @@ const monetaryCostCalculationStrategies = {
 
 // 0.004 cents per second = $15 / hr
 // valuing time in transit less since you can do other stuff
-const totalCostCalculationStrategies = {
+const virtualCostCalculationStrategies = {
   BICYCLE: (time, distance, directCost) => time * 0.004 + distance * 0.000621371 * 0.0054 + (directCost || 0),
   CAR: (time, distance, directCost) => time * 0.004 + distance * 0.000621371 * 0.54 + (directCost || 0),
   TRANSIT: (time, distance, directCost) => time * 0.003 + (directCost || 0),
@@ -104,20 +136,13 @@ function calcNonTransitTrips ({ newTrip, option }) {
   option.access.forEach((mode) => {
     possibleModes.push(mode.mode)
     // calculate totals from result
-    const travelTime = mode.time
-
-    // TODO: generate polyline from steps
-    let totalDistance = 0
-    mode.streetEdges.forEach((edge) => {
-      totalDistance += edge.distance
-    })
+    const {directCost, totalDistance, travelTime} = calcMetricsFromMode(mode)
 
     newTrip[modeDbLookup[mode.mode]] = {
       distance: totalDistance,
-      monetaryCost: monetaryCostCalculationStrategies[mode.mode](travelTime, totalDistance),
+      monetaryCost: monetaryCostCalculationStrategies[mode.mode](travelTime, totalDistance, directCost),
       time: travelTime,
-      totalCost: totalCostCalculationStrategies[mode.mode](travelTime, totalDistance),
-      polygon: 'String',
+      virtualCost: virtualCostCalculationStrategies[mode.mode](travelTime, totalDistance, directCost),
       possible: true
     }
   })
@@ -129,8 +154,8 @@ function calcNonTransitTrips ({ newTrip, option }) {
         distance: 9999999,
         monetaryCost: 9999999,
         time: 9999999,
-        totalCost: 9999999,
-        polygon: 'String',
+        virtualCost: 9999999,
+        polyline: '',
         possible: false
       }
     }
@@ -138,5 +163,42 @@ function calcNonTransitTrips ({ newTrip, option }) {
 }
 
 function calcTransitTrip ({ newTrip, option }) {
+  const fareCost = option.fares.reduce((prev, fare) => fare.peak + prev, 0)
 
+  const segmentMetrics = [option.access[0], option.egress[0]].map(calcMetricsFromMode)
+  option.transit.forEach((transitSegment) => {
+    segmentMetrics.push({
+      totalDistance: transitSegment.walkDistance, // profiler doesn't include transit distance :(
+      travelTime: transitSegment.walkTime + transitSegment.waitStats.avg + transitSegment.rideStats.avg
+    })
+  })
+
+  // add all segments
+  let totalDistance = 0
+  let travelTime = 0
+  segmentMetrics.forEach((segment) => {
+    totalDistance += segment.totalDistance
+    travelTime += segment.travelTime
+  })
+
+  newTrip.transit = {
+    distance: totalDistance,
+    monetaryCost: monetaryCostCalculationStrategies['TRANSIT'](travelTime, totalDistance, fareCost),
+    time: travelTime,
+    virtualCost: virtualCostCalculationStrategies['TRANSIT'](travelTime, totalDistance, fareCost),
+    possible: true
+  }
+}
+
+function calcMetricsFromMode (mode) {
+  let totalDistance = 0
+  mode.streetEdges.forEach((edge) => {
+    totalDistance += edge.distance
+  })
+
+  return {
+    directCost: 0,
+    totalDistance,
+    travelTime: mode.time
+  }
 }
