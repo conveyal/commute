@@ -798,9 +798,9 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 3
 
 exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 4`] = `
 Object {
-  "lat": 38.916089,
-  "lng": -76.970221,
-  "lon": -76.970221,
+  "lat": 38.910822,
+  "lng": -77.041094,
+  "lon": -77.041094,
 }
 `;
 

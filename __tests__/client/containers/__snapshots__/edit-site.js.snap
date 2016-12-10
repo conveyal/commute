@@ -792,9 +792,9 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 3`] = `
 
 exports[`Container > EditSite Create/Edit Site View loads in edit mode 4`] = `
 Object {
-  "lat": 38.8886,
-  "lng": -77.043,
-  "lon": -77.043,
+  "lat": 38.892767,
+  "lng": -77.04074,
+  "lon": -77.04074,
 }
 `;
 

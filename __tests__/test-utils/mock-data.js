@@ -103,7 +103,7 @@ export const mockTrip = {
     time: 1234,
     polygon: 'encoded'
   },
-  commuter: 'commuter-2',
+  commuterId: 'commuter-2',
   mostLikely: {
     cost: 3.45,
     distance: 30,

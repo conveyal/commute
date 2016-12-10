@@ -1,8 +1,6 @@
-/* globals describe, expect, it */
+/* globals describe */
 
-import {handleActions} from 'redux-actions'
-
-import {mockAnalysis, mockStores, mockTrip} from '../../test-utils/mock-data'
+import {mockAnalysis, mockStores} from '../../test-utils/mock-data'
 import {makeGenericReducerTestCases} from '../../test-utils/reducers'
 
 import * as analysis from '../../../client/reducers/analysis'
@@ -29,31 +27,5 @@ describe('client > reducers > analysis', () => {
       singular: 'analysis'
     },
     reducers: analysis.reducers
-  })
-
-  it('should handle receive mock calculated trips', () => {
-    const reducer = handleActions(analysis.reducers, analysis.initialState)
-
-    const calculatedTrip = Object.assign({}, mockTrip, {
-      mostLikely: {
-        cost: 4.56,
-        distance: 22,
-        time: 2321,
-        mode: 'transit',
-        polygon: 'encoded'
-      }
-    })
-    const action = {
-      type: 'receive mock calculated trips',
-      payload: {
-        analysisId: 'analysis-2',
-        trips: [calculatedTrip]
-      }
-    }
-    const result = reducer(mockStores.withAnalysisRun.analysis, action)
-    const affectedAnalysis = result['analysis-2']
-    expect(affectedAnalysis.trips.length).toBe(1)
-    expect(affectedAnalysis.tripVals.bike.cost.length).toBe(1)
-    expect(affectedAnalysis).toMatchSnapshot()
   })
 })

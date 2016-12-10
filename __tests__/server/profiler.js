@@ -35,7 +35,7 @@ describe('profiler', () => {
     profiler({ analysisId: analysis._id, commuters: [madeUpCommuter], site: mockSite })
 
     // wait a little bit
-    await timeoutPromise(1000)
+    await timeoutPromise(2000)
 
     // expect summary stats to be calculated in analysis
     const allAnalyses = await Analysis.find().exec()

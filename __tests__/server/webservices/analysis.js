@@ -1,7 +1,6 @@
 /* globals afterAll, describe, expect */
 
 import mongoose from 'mongoose'
-import nock from 'nock'
 
 import {Analysis, Commuter, Group, Site} from '../../../server/models'
 

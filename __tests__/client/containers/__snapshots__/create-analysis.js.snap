@@ -13,8 +13,8 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
           "address": "4321 XYZ Boulevard",
           "city": "Megalopolis",
           "coordinate": Object {
-            "lat": 38.916089,
-            "lng": -76.970221,
+            "lat": 38.910822,
+            "lng": -77.041094,
           },
           "country": "Made up land",
           "county": "Made up county",
@@ -53,8 +53,8 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
           "address": "123 ABC St",
           "city": "Megalopolis",
           "coordinate": Object {
-            "lat": 38.8886,
-            "lng": -77.043,
+            "lat": 38.892767,
+            "lng": -77.04074,
           },
           "country": "Made up land",
           "county": "Made up county",

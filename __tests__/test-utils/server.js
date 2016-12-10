@@ -16,7 +16,7 @@ export const parseServerResponse = (res) => {
     json = JSON.parse(res.text)
   } catch (e) {
     console.error('Unable to parse server response into JSON')
-    console.error(res.text)
+    console.error(`response text: "${res.text}"`)
     throw e
   }
   try {
