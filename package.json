@@ -94,7 +94,8 @@
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
     "request": "^2.79.0",
-    "uuid": "^2.0.3"
+    "uuid": "^2.0.3",
+    "yamljs": "^0.2.8"
   },
   "standard": {
     "parser": "babel-eslint"

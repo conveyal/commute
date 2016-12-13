@@ -9,13 +9,14 @@ function mapStateToProps (state, props) {
   const {commuter, group} = state
   const {params} = props
   const currentGroup = group[params.groupId]
-  const numCommutersGeocoded = currentGroup.commuters.reduce((commuter) => {
+  const currentCommuters = entityIdArrayToEntityArray(currentGroup.commuters, commuter)
+  const numCommutersGeocoded = currentCommuters.reduce((tally, commuter) => {
     if (!commuter.coordinate) return 0
-    return (commuter.coordinate.lat && commuter.coordinate.lng) ? 1 : 0
+    return tally + ((commuter.coordinate.lat && commuter.coordinate.lng) ? 1 : 0)
   }, 0)
   return {
     numCommutersGeocoded,
-    commuters: entityIdArrayToEntityArray(currentGroup.commuters, commuter),
+    commuters: currentCommuters,
     group: currentGroup
   }
 }

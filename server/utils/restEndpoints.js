@@ -29,7 +29,10 @@ function makeGetModelResponseFn (childModels, res, isCollection) {
     each(data, (entity, entityCb) => {
       const curEntity = Object.assign({}, entity._doc)
       each(childModels, (childModel, childCb) => {
-        childModel.model.find({ [childModel.foreignKey]: curEntity._id }, (err, childEntities) => {
+        childModel.model.find({
+          [childModel.foreignKey]: curEntity._id,
+          trashed: undefined
+        }, (err, childEntities) => {
           if (err) return childCb(err)
           curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
           childCb()

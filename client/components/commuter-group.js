@@ -7,6 +7,7 @@ import ClusterLayer from 'react-leaflet-cluster-layer'
 import {Link} from 'react-router'
 
 import Icon from './icon'
+import ProgressManager from './progress-manager'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
 
@@ -20,11 +21,12 @@ export default class CommuterGroup extends Component {
 
     // props
     commuters: PropTypes.array.isRequired,
-    group: PropTypes.object.isRequired
+    group: PropTypes.object.isRequired,
+    numCommutersGeocoded: PropTypes.number.isRequired
   }
 
   componentWillMount () {
-    this.props.loadCommuters({ groupId: this.props.group._id })
+    this._loadCommuters()
   }
 
   _commuterToolsRenderer = (cell, row) => {
@@ -42,15 +44,20 @@ export default class CommuterGroup extends Component {
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
+  _loadCommuters () {
+    this.props.loadCommuters({ groupId: this.props.group._id })
+  }
+
   _onDeleteCommuterClick (commuter) {
     const doDelete = () => this.props.deleteCommuter(commuter)
     actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
   }
 
   render () {
-    const {commuters, group} = this.props
-    const {allAddressesGeocoded, groupName, organizationId} = group
-    const {bounds, markers, position, zoom} = mapCommuters(allAddressesGeocoded, commuters)
+    const {commuters, group, numCommutersGeocoded} = this.props
+    const allAddressesGeocoded = commuters.length === numCommutersGeocoded
+    const {groupName, organizationId} = group
+    const {bounds, markers, position, zoom} = mapCommuters(commuters)
     return (
       <Grid>
         <Row>
@@ -65,26 +72,30 @@ export default class CommuterGroup extends Component {
               </Button>
             </h3>
           </Col>
-          {allAddressesGeocoded &&
-            <Col xs={12} style={{height: '400px'}}>
-              <LeafletMap center={position} bounds={bounds} zoom={zoom}>
-                <TileLayer
-                  url={Browser.retina &&
-                    process.env.LEAFLET_RETINA_URL
-                    ? process.env.LEAFLET_RETINA_URL
-                    : process.env.LEAFLET_TILE_URL}
-                  attribution={process.env.LEAFLET_ATTRIBUTION}
-                  />
-                <ClusterLayer
-                  markers={markers}
-                  clusterComponent={ClusterComponent}
-                  />
-              </LeafletMap>
-            </Col>
-          }
+          <Col xs={12} style={{height: '400px'}}>
+            <LeafletMap center={position} bounds={bounds} zoom={zoom}>
+              <TileLayer
+                url={Browser.retina &&
+                  process.env.LEAFLET_RETINA_URL
+                  ? process.env.LEAFLET_RETINA_URL
+                  : process.env.LEAFLET_TILE_URL}
+                attribution={process.env.LEAFLET_ATTRIBUTION}
+                />
+              <ClusterLayer
+                markers={markers}
+                clusterComponent={ClusterComponent}
+                />
+            </LeafletMap>
+          </Col>
           {!allAddressesGeocoded &&
             <Col xs={12} className='group-geocode-progress'>
-              <p>Geocoding commuter addresses...</p>
+              <h4>Geocoding commuter addresses...</h4>
+              <ProgressManager
+                numDone={numCommutersGeocoded}
+                numTotal={commuters.length}
+                refreshFn={() => this._loadCommuters()}
+                intervalLengthMs={1200}
+                />
             </Col>
           }
         </Row>
@@ -93,7 +104,9 @@ export default class CommuterGroup extends Component {
             <BootstrapTable data={commuters}>
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-              <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+              <TableHeaderColumn dataField='original_address'>Original Address</TableHeaderColumn>
+              <TableHeaderColumn dataField='address'>Geocoded Address</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Confidence</TableHeaderColumn>
               <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
@@ -122,13 +135,13 @@ class ClusterComponent extends React.Component {
     }
 
     return (
-      <div style={style}>{cluster.markers.length} items</div>
+      <div style={style}>{cluster.markers.length}</div>
     )
   }
 }
 
-function mapCommuters (allAddressesGeocoded, commuters) {
-  if (commuters.length === 0 || !allAddressesGeocoded) {
+function mapCommuters (commuters) {
+  if (commuters.length === 0) {
     return {
       markers: [],
       position: settings.geocoder.focus,
@@ -146,16 +159,27 @@ function mapCommuters (allAddressesGeocoded, commuters) {
     }
   }
   const markers = []
-  const firstLL = [commuters[0].lat, commuters[0].lng]
+  const firstLL = [commuters[0].coordinate.lat, commuters[0].coordinate.lng]
   const bounds = latLngBounds([firstLL, firstLL])
   commuters.forEach((commuter) => {
     const {_id, coordinate, name} = commuter
-    markers.push({
-      _id,
-      name,
-      position: coordinate
-    })
-    bounds.extend([coordinate.lat, coordinate.lng])
+    if (commuter.coordinate.lat && commuter.coordinate.lng) {
+      markers.push({
+        _id,
+        name,
+        position: coordinate
+      })
+      bounds.extend([coordinate.lat, coordinate.lng])
+    }
   })
   return {bounds, markers}
+}
+
+function geocodeConfidenceRenderer (cell, row) {
+  const {geocodeConfidence} = row
+  if (geocodeConfidence === -1) {
+    return 'calculating...'
+  } else {
+    return `${Math.round(geocodeConfidence * 100)} %`
+  }
 }

@@ -144,6 +144,6 @@ export default class Organization extends Component {
 
 function makeNameRenderer (linkBase, linkToEditView) {
   return (cell, row) => {
-    return <Link to={`/${linkBase}/${row._id}` + linkToEditView ? '/edit' : ''}>{row.name}</Link>
+    return <Link to={`/${linkBase}/${row._id}` + (linkToEditView ? '/edit' : '')}>{row.name}</Link>
   }
 }

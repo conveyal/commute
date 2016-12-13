@@ -2,13 +2,29 @@ const Schema = require('mongoose').Schema
 
 const geocoder = require('isomorphic-mapzen-search')
 
+const settings = require('../../utils/env').settings
 const later = require('../../utils/later')
 const timedQueue = require('../../utils/timedQueue')
 
 const geocodeRequestQueue = timedQueue([{
   timePeriodLength: 1100,
-  maxRequestsPerTimePeriod: 5  // max queries allowed should be 6, but limit to 5 to be safe
-}])
+  maxRequestsPerTimePeriod: 4  // max queries allowed should be 6, but limit to 4 to be safe
+} /* , {
+  // it's not documented but I was seeing error messages that say:
+  // 6 max request per minute
+  // I tried halving the amount and eventually it seems like this wasn't needed
+  timePeriodLength: 3700,
+  maxRequestsPerTimePeriod: 6
+} */])
+
+const maxRetries = 5
+
+const geocodeSearchOptions = {
+  circle: {
+    latlng: settings.geocoder.focus,
+    radius: settings.geocoder.focus.radius
+  }
+}
 
 module.exports = function (schema, options) {
   /**
@@ -16,11 +32,7 @@ module.exports = function (schema, options) {
    */
   schema.add({
     address: String,
-    neighborhood: String,
     city: String,
-    county: String,
-    state: String,
-    country: String,
     coordinate: {
       type: Schema.Types.Mixed,
       default: {
@@ -28,7 +40,15 @@ module.exports = function (schema, options) {
         lat: 0
       }
     },
-    original_address: String
+    country: String,
+    county: String,
+    geocodeConfidence: {
+      default: -1,
+      type: Number
+    },
+    neighborhood: String,
+    original_address: String,
+    state: String
   })
 
   /**
@@ -50,6 +70,7 @@ module.exports = function (schema, options) {
             self.county = ''
             self.state = ''
             self.country = ''
+            self.geocodeConfidence = 0
           }
         })
       } else if (this.address && !this.validCoordinate()) {
@@ -82,27 +103,43 @@ module.exports = function (schema, options) {
       return
     }
 
-    later(() => {
+    let numTries = 0
+    const doGeocodeUntilSuccess = () => {
+      numTries++
+      const addressToGeocode = this.fullAddress()
       geocodeRequestQueue.push(() => {
-        geocoder.search(process.env.MAPZEN_SEARCH_KEY, this.fullAddress())
+        console.log(`try geocode for ${addressToGeocode}`)
+        geocoder.search(process.env.MAPZEN_SEARCH_KEY, this.fullAddress(), geocodeSearchOptions)
           .then((geojson) => {
-            if (!geojson.features) return console.error(geojson)
+            if (!geojson.features) throw geojson
+            console.log(`successful geocode for ${addressToGeocode}`)
             const firstResult = geojson.features[0]
             this.address = firstResult.properties.label
-            this.neighborhood = firstResult.properties.neighborhood
             this.city = firstResult.properties.locality
-            this.county = firstResult.properties.county
-            this.state = firstResult.properties.region
-            this.country = firstResult.properties.country
+            this.confidence = firstResult.properties.confidence
             this.coordinate = {
               lat: firstResult.geometry.coordinates[1],
               lng: firstResult.geometry.coordinates[0]
             }
+            this.country = firstResult.properties.country
+            this.county = firstResult.properties.county
+            this.geocodeConfidence = firstResult.properties.confidence
+            this.neighborhood = firstResult.properties.neighborhood
+            this.state = firstResult.properties.region
             this.save()
           })
-          .catch(console.error)
+          .catch((err) => {
+            console.error(err)
+            if (numTries < maxRetries) {
+              doGeocodeUntilSuccess()
+            } else {
+              console.error(`Geocoding failed for ${addressToGeocode} after 5 tries!`)
+            }
+          })
       })
-    })
+    }
+
+    later(doGeocodeUntilSuccess)
   }
 
   /**
