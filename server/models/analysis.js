@@ -24,6 +24,11 @@ const schema = new Schema({
     required: true,
     type: String
   },
+  numCommuters: {
+    default: 0,
+    required: true,
+    type: Number
+  },
   organizationId: {
     ref: 'Organization',
     required: true,
@@ -87,6 +92,8 @@ schema.pre('save', true, function (next, done) {
       if (commuters.length === 0) return done('No commuters found!')
       if (!site) return done('Site not found!')
       if (groupCount === 0) return done('Group not found!')
+
+      self.numCommuters = commuters.length
 
       later(() => {
         profiler({

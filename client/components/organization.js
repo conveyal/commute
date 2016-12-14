@@ -131,8 +131,6 @@ export default class Organization extends Component {
             <BootstrapTable data={analyses}>
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataFormat={makeNameRenderer('analysis')}>Name</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={this._analysisSiteNameRenderer}>Site</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={this._analysisGroupNameRenderer}>Group</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._analysisToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
           </Col>

@@ -5,7 +5,7 @@ module.exports = function makeRoutes (app) {
   makeRestEndpoints(app,
     {
       childModels: [{
-        foreignKey: 'anlaysisId',
+        foreignKey: 'analysisId',
         key: 'trips',
         model: models.Trip
       }],
@@ -16,7 +16,8 @@ module.exports = function makeRoutes (app) {
         'DELETE': {}
       },
       model: models.Analysis,
-      name: 'analysis'
+      name: 'analysis',
+      returnChildrenAsEntities: true
     }
   )
 }

@@ -8,6 +8,7 @@ import {DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, YAxis} from
 import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
 import analysisDefaults from '../../utils/analysisDefaults'
+import {fixedRound} from '../../utils/common'
 import {calcNumLessThan, getInitialSeries, humanizeDistance} from '../../utils/components'
 
 const {metrics} = analysisDefaults
@@ -25,7 +26,7 @@ export default class Possibilities extends Component {
   }
 
   state = {
-    cost: metrics.cost.default,
+    monetaryCost: metrics.monetaryCost.default,
     distance: metrics.distance.default,
     series: getInitialSeries(),
     time: metrics.time.default * 60,
@@ -51,11 +52,11 @@ export default class Possibilities extends Component {
         tripsByConstraint.push(calcNumLessThan(arrayVals[seriesMode.mode][metric], newState[metric]))
       })
       const constrainedNumber = Math.min.apply(this, tripsByConstraint)
+      const divisor = newState.yAxisUnit === 'percent' ? this.props.analysis.trips.length * 0.01 : 1
+      const decimalPlaces = newState.yAxisUnit === 'percent' ? 1 : 0
       seriesMode.data = [{
         x: 1,
-        y: (constrainedNumber /
-          (newState.yAxisUnit === 'percent' ? this.props.analysis.trips.length * 0.01 : 1)
-        ).toFixed(newState.yAxisUnit === 'percent' ? 1 : 0)
+        y: fixedRound(constrainedNumber / divisor, decimalPlaces)
       }]
       return seriesMode
     })
@@ -65,19 +66,19 @@ export default class Possibilities extends Component {
 
   _handleCostChange = (v) => {
     const newState = {...this.state}
-    newState.cost = v
+    newState.monetaryCost = v * (metrics.monetaryCost.multiplier || 1)
     this._calculateSeries(newState)
   }
 
   _handleDistanceChange = (v) => {
     const newState = {...this.state}
-    newState.distance = v
+    newState.distance = v * (metrics.distance.multiplier || 1)
     this._calculateSeries(newState)
   }
 
   _handleTimeChange = (v) => {
     const newState = {...this.state}
-    newState.time = v * 60
+    newState.time = v * (metrics.time.multiplier || 1)
     this._calculateSeries(newState)
   }
 
@@ -202,7 +203,7 @@ export default class Possibilities extends Component {
                   <CustomHandle
                     formatter={
                       // convert minutes to milliseconds
-                      (v) => humanizeDuration(v * 60 * 1000)
+                      (v) => humanizeDuration(v * 60 * 1000, { round: true })
                     }
                     />
                 }
@@ -227,13 +228,13 @@ export default class Possibilities extends Component {
             <Panel>
               <p>Maximum Cost</p>
               <Slider
-                defaultValue={metrics.cost.default}
+                defaultValue={metrics.monetaryCost.default}
                 handle={
                   <CustomHandle
                     formatter={(v) => `$${v}`}
                     />}
-                max={metrics.cost.max}
-                min={metrics.cost.min}
+                max={metrics.monetaryCost.max}
+                min={metrics.monetaryCost.min}
                 onChange={this._handleCostChange}
                 />
             </Panel>

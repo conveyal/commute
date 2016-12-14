@@ -1,4 +1,5 @@
 import analysisDefaults from './analysisDefaults'
+import {fixedRound} from './common'
 
 /**
  * Calculate number of elements in array less than or equal to target values
@@ -64,5 +65,5 @@ export function getInitialSeries () {
  * @return {string} humanized distance
  */
 export function humanizeDistance (d) {
-  return `${d} miles`
+  return `${fixedRound(d, 1)} miles`
 }

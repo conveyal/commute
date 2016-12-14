@@ -1,9 +1,12 @@
+import currencyFormatter from 'currency-formatter'
 import humanizeDuration from 'humanize-duration'
 import React, {Component, PropTypes} from 'react'
 import {Button, Col, Grid, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
 
 import Icon from '../icon'
+import ProgressManager from '../progress-manager'
+import analysisDefaults from '../../utils/analysisDefaults'
 import {humanizeDistance} from '../../utils/components'
 import {messages} from '../../utils/env'
 import {actUponConfirmation} from '../../utils/ui'
@@ -11,7 +14,8 @@ import {actUponConfirmation} from '../../utils/ui'
 export default class Summary extends Component {
   static propTypes = {
     // dispatch
-    deleteAnalysis: PropTypes.func,
+    deleteAnalysis: PropTypes.func.isRequired,
+    loadAnalysis: PropTypes.func.isRequired,
 
     // props
     analysis: PropTypes.object.isRequired,
@@ -27,9 +31,15 @@ export default class Summary extends Component {
     actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
   }
 
+  _loadAnalysis () {
+    this.props.loadAnalysis(this.props.analysis._id)
+  }
+
   render () {
-    const {_id: analysisId, name, summary} = this.props.analysis
+    const {_id: analysisId, name, numCommuters, summary} = this.props.analysis
     const {analysis, groupName, siteName} = this.props
+    const numTrips = analysis.trips.length
+    const analysisCalculated = numCommuters === numTrips
     return (
       <Grid>
         <Row>
@@ -53,77 +63,92 @@ export default class Summary extends Component {
               <span>{groupName}</span>
             </h4>
           </Col>
-          <Col xs={12}>
-            <h4>
-              <strong>Progress:</strong>
-              <span>100%</span>
-            </h4>
-          </Col>
-          <Col xs={12} md={4}>
-            <h4>
-              <strong>Potential Savings</strong>
-            </h4>
-          </Col>
-          <Col xs={12} md={8}>
-            <table className='table table-bordered'>
-              <tbody>
-                <tr>
-                  <td>Total Costs Per Day</td>
-                  <td>{`$${summary.savingsTotalPerDay}`}</td>
-                </tr>
-                <tr>
-                  <td>Total Costs Per Year</td>
-                  <td>{`$${summary.savingsTotalPerYear}`}</td>
-                </tr>
-                <tr>
-                  <td>Cost Per Trip Per Day</td>
-                  <td>{`$${summary.savingsPerTrip}`}</td>
-                </tr>
-                <tr>
-                  <td>Cost Per Trip Per Year</td>
-                  <td>{`$${summary.savingsPerTripYear}`}</td>
-                </tr>
-              </tbody>
-            </table>
-          </Col>
-          <Col xs={12} md={4}>
-            <h4>
-              <strong>Mode Shift Stats</strong>
-            </h4>
-          </Col>
-          <Col xs={12} md={8}>
-            <table className='table table-bordered'>
-              <tbody>
-                <tr>
-                  <td>Average Travel Time</td>
-                  <td>{humanizeDuration(summary.avgTravelTime * 1000)}</td>
-                </tr>
-                <tr>
-                  <td>Average Distance</td>
-                  <td>{humanizeDistance(summary.avgDistance)}</td>
-                </tr>
-              </tbody>
-            </table>
-          </Col>
-          <Col xs={12}>
-            <p>
-              <Link to={`/analysis/${analysisId}/histogram`}>
-                Commute Metrics Histogram
-              </Link>
-            </p>
-            <p>
-              <Link to={`/analysis/${analysisId}/possibilities`}>
-                Possibilities Analysis
-              </Link>
-            </p>
-            <p>
-              <Link to={`/analysis/${analysisId}/individuals`}>
-                Individual Commuter Analysis
-              </Link>
-            </p>
-          </Col>
         </Row>
+        {!analysisCalculated &&
+          <Row>
+            <Col xs={12}>
+              <h4>Progress</h4>
+              <ProgressManager
+                numDone={numTrips}
+                numTotal={numCommuters}
+                refreshFn={() => this._loadAnalysis()}
+                intervalLengthMs={2500}
+                />
+            </Col>
+          </Row>
+        }
+        {analysisCalculated &&
+          <Row>
+            <Col xs={12} md={4}>
+              <h4>
+                <strong>Potential Savings</strong>
+              </h4>
+            </Col>
+            <Col xs={12} md={8}>
+              <table className='table table-bordered'>
+                <tbody>
+                  <tr>
+                    <td>Savings Per Day</td>
+                    <td>{formatCurrency(summary.savingsTotalPerDay)}</td>
+                  </tr>
+                  <tr>
+                    <td>Savings Per Year</td>
+                    <td>{formatCurrency(summary.savingsTotalPerYear)}</td>
+                  </tr>
+                  <tr>
+                    <td>Savings Per Trip Per Day</td>
+                    <td>{formatCurrency(summary.savingsPerTrip)}</td>
+                  </tr>
+                  <tr>
+                    <td>Savings Per Trip Per Year</td>
+                    <td>{formatCurrency(summary.savingsPerTripYear)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </Col>
+            <Col xs={12} md={4}>
+              <h4>
+                <strong>Mode Shift Stats</strong>
+              </h4>
+            </Col>
+            <Col xs={12} md={8}>
+              <table className='table table-bordered'>
+                <tbody>
+                  <tr>
+                    <td>Average Travel Time</td>
+                    <td>{humanizeDuration(summary.avgTravelTime * 1000, { round: true })}</td>
+                  </tr>
+                  <tr>
+                    <td>Average Distance</td>
+                    <td>{humanizeDistance(summary.avgDistance / analysisDefaults.metrics.distance.multiplier)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </Col>
+            <Col xs={12}>
+              <p>
+                <Link to={`/analysis/${analysisId}/histogram`}>
+                  Commute Metrics Histogram
+                </Link>
+              </p>
+              <p>
+                <Link to={`/analysis/${analysisId}/possibilities`}>
+                  Possibilities Analysis
+                </Link>
+              </p>
+              <p>
+                <Link to={`/analysis/${analysisId}/individuals`}>
+                  Individual Commuter Analysis
+                </Link>
+              </p>
+            </Col>
+          </Row>
+        }
       </Grid>
     )
   }
+}
+
+function formatCurrency (n) {
+  return currencyFormatter.format(n, { code: 'USD' })
 }

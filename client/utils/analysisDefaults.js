@@ -1,7 +1,8 @@
 const defaults = {
   metrics: {
-    cost: {
+    monetaryCost: {
       default: 20,
+      label: 'Cost',
       max: 50,
       min: 0,
       step: 2.5,
@@ -9,13 +10,16 @@ const defaults = {
     },
     distance: {
       default: 25,
+      label: 'Distance',
       max: 100,
       min: 0,
+      multiplier: 1609.34,
       step: 10,
       unit: 'Miles'
     },
     time: {
       default: 30,
+      label: 'Time',
       max: 180,
       min: 0,
       multiplier: 60,

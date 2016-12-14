@@ -14,7 +14,7 @@ function makeGenericModelResponseFn (res) {
   }
 }
 
-function makeGetModelResponseFn (childModels, res, isCollection) {
+function makeGetModelResponseFn (childModels, res, isCollection, returnChildrenAsEntities) {
   return (err, data) => {
     const genericResponder = makeGenericModelResponseFn(res)
     if (!Array.isArray(data)) {
@@ -34,7 +34,11 @@ function makeGetModelResponseFn (childModels, res, isCollection) {
           trashed: undefined
         }, (err, childEntities) => {
           if (err) return childCb(err)
-          curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
+          if (returnChildrenAsEntities) {
+            curEntity[childModel.key] = childEntities
+          } else {
+            curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
+          }
           childCb()
         })
       }, (err) => {
@@ -56,6 +60,7 @@ function makeGetModelResponseFn (childModels, res, isCollection) {
  * - {Object} commands    Keys representing commands to make and their corresponding options
  * - {String} name        The endpoint name
  * - {Object} model       The mongo model to use
+ * - {Bool} returnChildrenAsEntities  If true, returns children as entities, otherwise returns list of IDs
  * - {Array} childModels  An optional array of object cfgs describing child relationships
  *   Has the following keys
  *   - {String} foreignKey     Foreign key field name in child model
@@ -67,17 +72,18 @@ module.exports = function makeRestEndpoints (app, cfg) {
   const model = cfg.model
   const modelFields = Object.keys(model.schema.paths)
   const name = cfg.name
+  const returnChildrenAsEntities = cfg.returnChildrenAsEntities
   if (commands['Collection GET']) {
     app.get(`/api/${name}`, (req, res) => {
       const findQuery = Object.assign({ trashed: undefined }, pick(req.query, modelFields))
-      model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true))
+      model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
     })
   }
 
   if (commands['Collection POST']) {
     app.post(`/api/${name}`, (req, res) => {
       res.set('Content-Type', 'application/json')
-      model.create(req.body, makeGetModelResponseFn(cfg.childModels, res, true))
+      model.create(req.body, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
     })
   }
 
@@ -93,7 +99,8 @@ module.exports = function makeRestEndpoints (app, cfg) {
 
   if (commands['GET']) {
     app.get(`/api/${name}/:id`, (req, res) => {
-      model.find({ _id: req.params.id, trashed: undefined }, makeGetModelResponseFn(cfg.childModels, res))
+      model.find({ _id: req.params.id, trashed: undefined },
+        makeGetModelResponseFn(cfg.childModels, res, false, returnChildrenAsEntities))
     })
   }
 

@@ -80,6 +80,10 @@ accepts@~1.3.3:
     mime-types "~2.1.11"
     negotiator "0.6.1"
 
+accounting@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/accounting/-/accounting-0.4.1.tgz#87dd4103eff7f4460f1e186f5c677ed6cf566883"
+
 acorn-globals@^1.0.4:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/acorn-globals/-/acorn-globals-1.0.9.tgz#55bb5e98691507b74579d0513413217c380c54cf"
@@ -2005,6 +2009,12 @@ cssom@0.3.x, "cssom@>= 0.3.0 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.2.37.tgz#541097234cb2513c83ceed3acddc27ff27987d54"
   dependencies:
     cssom "0.3.x"
+
+currency-formatter@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/currency-formatter/-/currency-formatter-1.0.8.tgz#23268a4ea17ba740aac90c74f0c54520805bf0ff"
+  dependencies:
+    accounting "^0.4.1"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -6431,9 +6441,9 @@ react-toastr@^2.8.0:
     react-addons-update "^0.14.0 || ^15.0.0"
     react-dom "^0.14.0 || ^15.0.0"
 
-react-vis:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/react-vis/-/react-vis-0.6.4.tgz#c16e2d8a04fbd854654682bd7f3850aeb8fc5a92"
+react-vis@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/react-vis/-/react-vis-0.7.1.tgz#5e52d0593ce87cb1c3138f806cefdea7efd8b16c"
   dependencies:
     d3-array "^1.0.1"
     d3-collection "^1.0.1"

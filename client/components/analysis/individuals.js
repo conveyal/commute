@@ -110,7 +110,7 @@ export default class Individuals extends Component {
 }
 
 function costRenderer (cell, row) {
-  return `$${row.mostLikely.cost}`
+  return `$${row.mostLikely.monetaryCost}`
 }
 
 function distanceRenderer (cell, row) {
@@ -118,7 +118,7 @@ function distanceRenderer (cell, row) {
 }
 
 function durationRenderer (cell, row) {
-  return humanizeDuration(row.mostLikely.time * 60 * 1000)
+  return humanizeDuration(row.mostLikely.time * 60 * 1000, { round: true })
 }
 
 function modeRenderer (cell, row) {

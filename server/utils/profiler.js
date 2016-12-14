@@ -2,6 +2,7 @@ const queue = require('async/queue')
 const request = require('request')
 
 const models = require('../models')
+const env = require('../utils/env').env
 
 const modeDbLookup = {
   BICYCLE: 'bike',
@@ -27,27 +28,51 @@ const PROFILE_OPTIONS = {
   walkSpeed: 1.4
 }
 
+const maxAttempts = 5
+
 module.exports = function ({ analysisId, commuters, site }) {
   const sitePosition = `${site.coordinate.lat},${site.coordinate.lng}`
   const allTrips = []
+  const attemptsPerCommuter = {}
 
   const tripPlannerQueue = queue((commuter, tripPlanCallback) => {
+    console.log('profile commuter', commuter._id)
     const requestCfg = {
       json: true,
-      uri: process.env.OTP_URL,
+      uri: env.OTP_URL,
       qs: Object.assign(PROFILE_OPTIONS, {
         from: `${commuter.coordinate.lat},${commuter.coordinate.lng}`,
         to: sitePosition
       })
     }
 
+    const commuterId = commuter._id
+
+    const retryCommuterCalc = (err) => {
+      console.error('error calculating trip')
+      console.error(err)
+      if (attemptsPerCommuter[commuterId] && attemptsPerCommuter[commuterId] < maxAttempts) {
+        console.log(`add commuter ${commuterId} back to queue to retry`)
+        tripPlannerQueue.push(commuter)
+      } else {
+        console.error(`maximum retries reached for commuter ${commuterId}`)
+      }
+    }
+
+    // tally attempts per commuter
+    if (attemptsPerCommuter[commuterId]) {
+      attemptsPerCommuter[commuterId]++
+    } else {
+      attemptsPerCommuter[commuterId] = 1
+    }
+
     request(requestCfg, (err, res, json) => {
-      if (err) return tripPlanCallback(err)
+      if (err) return retryCommuterCalc(err)
 
       // parse results
       const newTrip = {
         analysisId,
-        commuterId: commuter._id
+        commuterId
       }
 
       json.options.forEach((option) => {
@@ -62,11 +87,12 @@ module.exports = function ({ analysisId, commuters, site }) {
       // calculate most likely trip
       let bestMode
       let lowestCost = Infinity
-      Object.values(modeDbLookup).forEach((mode) => {
-        const curCost = newTrip[mode].virtualCost
+      Object.keys(modeDbLookup).forEach((otpModeKey) => {
+        const dbModeKey = modeDbLookup[otpModeKey]
+        const curCost = newTrip[dbModeKey].virtualCost
         if (curCost < lowestCost) {
-          bestMode = mode
-          lowestCost = newTrip[mode].virtualCost
+          bestMode = dbModeKey
+          lowestCost = newTrip[dbModeKey].virtualCost
         }
       })
 
@@ -74,14 +100,16 @@ module.exports = function ({ analysisId, commuters, site }) {
 
       // save new trip
       models.Trip.create(newTrip, (err, data) => {
-        if (err) console.error(err)
+        if (err) return retryCommuterCalc(err)
+        console.log(`new trip created for commuter ${commuterId}`)
+        allTrips.push(newTrip)
         tripPlanCallback()
       })
-      allTrips.push(newTrip)
     })
   }, 2)
 
   tripPlannerQueue.drain = () => {
+    console.log('done profiling all commuters, calculating stats')
     // caluclate summary statistics
     let travelTimeSum = 0
     let distanceSum = 0 // calculated with only driving
@@ -91,7 +119,7 @@ module.exports = function ({ analysisId, commuters, site }) {
     allTrips.forEach((trip) => {
       const {mostLikely} = trip
       travelTimeSum += mostLikely.time
-      distanceSum += trip.car.time
+      distanceSum += trip.car.distance
       savingsTotalPerDay += trip.car.monetaryCost - mostLikely.monetaryCost
     })
 
@@ -150,7 +178,7 @@ function calcNonTransitTrips ({ newTrip, option }) {
   potentialModes.forEach((mode) => {
     if (possibleModes.indexOf(mode) === -1) {
       // mode not possible (according to trip planner)
-      newTrip[modeDbLookup[mode.mode]] = {
+      newTrip[modeDbLookup[mode]] = {
         distance: 9999999,
         monetaryCost: 9999999,
         time: 9999999,
@@ -163,7 +191,7 @@ function calcNonTransitTrips ({ newTrip, option }) {
 }
 
 function calcTransitTrip ({ newTrip, option }) {
-  const fareCost = option.fares.reduce((prev, fare) => fare.peak + prev, 0)
+  const fareCost = option.fares.reduce((prev, fare) => (fare && fare.peak ? fare.peak : 0) + prev, 0)
 
   const segmentMetrics = [option.access[0], option.egress[0]].map(calcMetricsFromMode)
   option.transit.forEach((transitSegment) => {
