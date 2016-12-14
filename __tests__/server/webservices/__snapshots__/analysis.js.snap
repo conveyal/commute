@@ -4,6 +4,7 @@ Array [
     "__v": 0,
     "calculationStatus": "calculating",
     "name": "test-analysis",
+    "numCommuters": 1,
     "summary": Object {
       "avgDistance": 0,
       "avgTravelTime": 0,
@@ -22,6 +23,7 @@ Object {
   "__v": 0,
   "calculationStatus": "calculating",
   "name": "test-analysis",
+  "numCommuters": 1,
   "summary": Object {
     "avgDistance": 0,
     "avgTravelTime": 0,

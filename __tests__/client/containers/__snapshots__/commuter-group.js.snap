@@ -54,19 +54,29 @@ exports[`Container > CommuterGroup Commuter Group View loads 2`] = `
                   <!-- react-text: 23 -->Name<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+                <th class=\"\" title=\"Original Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"original_address\">
 
-                  <!-- react-text: 26 -->Address<!-- /react-text -->
+                  <!-- react-text: 26 -->Original Address<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Geocoded Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+
+                  <!-- react-text: 29 -->Geocoded Address<!-- /react-text -->
+                  <div></div>
+                </th>
+                <th class=\"\" title=\"Geocode Confidence\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+
+                  <!-- react-text: 32 -->Geocode Confidence<!-- /react-text -->
                   <div></div>
                 </th>
                 <th class=\"\" title=\"Email\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"email\">
 
-                  <!-- react-text: 29 -->Email<!-- /react-text -->
+                  <!-- react-text: 35 -->Email<!-- /react-text -->
                   <div></div>
                 </th>
                 <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                  <!-- react-text: 32 -->Tools<!-- /react-text -->
+                  <!-- react-text: 38 -->Tools<!-- /react-text -->
                   <div></div>
                 </th>
               </tr>
@@ -81,12 +91,18 @@ exports[`Container > CommuterGroup Commuter Group View loads 2`] = `
                   <col class=\"\">
                     <col class=\"\">
                       <col class=\"\">
+                        <col class=\"\">
+                          <col class=\"\">
             </colgroup>
             <tbody>
               <tr class=\"\">
                 <td class=\"\" style=\"text-align: left; display: none;\">commuter-2</td>
                 <td class=\"\" style=\"text-align: left;\">Luke Warm</td>
+                <td class=\"\" style=\"text-align: left;\"></td>
                 <td class=\"\" style=\"text-align: left;\">4321 XYZ Boulevard</td>
+                <td class=\"\" style=\"text-align: left;\">
+                  <div>77 %</div>
+                </td>
                 <td class=\"\" style=\"text-align: left;\">luke@warm.cold</td>
                 <td class=\"\" style=\"text-align: left;\">
                   <div>

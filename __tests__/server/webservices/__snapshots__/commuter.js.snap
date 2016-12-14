@@ -7,6 +7,7 @@ Array [
       "lat": 12,
       "lng": 34,
     },
+    "geocodeConfidence": -1,
     "name": "test-commuter",
     "original_address": "123 Main St",
   },
@@ -21,6 +22,7 @@ Object {
     "lat": 12,
     "lng": 34,
   },
+  "geocodeConfidence": -1,
   "name": "test-commuter",
   "original_address": "123 Main St",
 }
@@ -34,6 +36,7 @@ Object {
     "lat": 12,
     "lng": 34,
   },
+  "geocodeConfidence": -1,
   "name": "updated name",
   "original_address": "123 Main St",
 }

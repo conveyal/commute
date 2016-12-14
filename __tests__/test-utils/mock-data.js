@@ -46,6 +46,7 @@ export const mockCommuter = {
   country: 'Made up land',
   county: 'Made up county',
   email: 'luke@warm.cold',
+  geocodeConfidence: 0.77,
   groupId: 'group-2',
   name: 'Luke Warm',
   neighbourhood: undefined,
@@ -92,33 +93,33 @@ export const mockSite = {
 
 export const mockTrip = {
   bike: {
-    cost: 0.12,
+    monetaryCost: 0.12,
     distance: 23,
     time: 2345,
     polygon: 'encoded'
   },
   car: {
-    cost: 6.78,
+    monetaryCost: 6.78,
     distance: 18,
     time: 1234,
     polygon: 'encoded'
   },
   commuterId: 'commuter-2',
   mostLikely: {
-    cost: 3.45,
+    monetaryCost: 3.45,
     distance: 30,
     time: 3456,
     mode: 'transit',
     polygon: 'encoded'
   },
   transit: {
-    cost: 3.45,
+    monetaryCost: 3.45,
     distance: 30,
     time: 3456,
     polygon: 'encoded'
   },
   walk: {
-    cost: 0,
+    monetaryCost: 0,
     distance: 19,
     time: 6789,
     polygon: 'encoded'
@@ -127,9 +128,11 @@ export const mockTrip = {
 
 export const mockAnalysis = {
   _id: 'analysis-2',
+  calculationStatus: 'calculated',
   groupId: 'group-2',
   lastRunDateTime: 1477697490,
   name: 'An Analysis',
+  numCommuters: 1,
   organizationId: 'organization-2',
   siteId: 'site-2',
   summary: {
@@ -143,22 +146,22 @@ export const mockAnalysis = {
   trips: [mockTrip],
   tripVals: {
     bike: {
-      cost: [0.12],
+      monetaryCost: [0.12],
       distance: [23],
       time: [2345]
     },
     car: {
-      cost: [6.78],
+      monetaryCost: [6.78],
       distance: [18],
       time: [1234]
     },
     transit: {
-      cost: [3.45],
+      monetaryCost: [3.45],
       distance: [30],
       time: [3456]
     },
     walk: {
-      cost: [0],
+      monetaryCost: [0],
       distance: [19],
       time: [6789]
     }
@@ -295,6 +298,7 @@ export function genGeocodedEntity (additionalFields) {
     },
     country: 'United States',
     county: 'District of Columbia',
+    geocodeConfidence: 0.77,
     neighbourhood: undefined,
     state: 'District of Columbia'
   })

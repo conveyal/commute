@@ -2,9 +2,11 @@ exports[`client > reducers > analysis generic reducer tests should handle add an
 Object {
   "analysis-2": Object {
     "_id": "analysis-2",
+    "calculationStatus": "calculating",
     "groupId": "group-2",
     "lastRunDateTime": 1477697490,
     "name": "An Analysis",
+    "numCommuters": 1,
     "organizationId": "organization-2",
     "siteId": "site-2",
     "summary": Object {
@@ -15,88 +17,7 @@ Object {
       "savingsTotalPerDay": 1.23,
       "savingsTotalPerYear": 319.8,
     },
-    "tripVals": Object {
-      "bike": Object {
-        "cost": Array [
-          0.12,
-        ],
-        "distance": Array [
-          23,
-        ],
-        "time": Array [
-          2345,
-        ],
-      },
-      "car": Object {
-        "cost": Array [
-          6.78,
-        ],
-        "distance": Array [
-          18,
-        ],
-        "time": Array [
-          1234,
-        ],
-      },
-      "transit": Object {
-        "cost": Array [
-          3.45,
-        ],
-        "distance": Array [
-          30,
-        ],
-        "time": Array [
-          3456,
-        ],
-      },
-      "walk": Object {
-        "cost": Array [
-          0,
-        ],
-        "distance": Array [
-          19,
-        ],
-        "time": Array [
-          6789,
-        ],
-      },
-    },
-    "trips": Array [
-      Object {
-        "bike": Object {
-          "cost": 0.12,
-          "distance": 23,
-          "polygon": "encoded",
-          "time": 2345,
-        },
-        "car": Object {
-          "cost": 6.78,
-          "distance": 18,
-          "polygon": "encoded",
-          "time": 1234,
-        },
-        "commuterId": "commuter-2",
-        "mostLikely": Object {
-          "cost": 3.45,
-          "distance": 30,
-          "mode": "transit",
-          "polygon": "encoded",
-          "time": 3456,
-        },
-        "transit": Object {
-          "cost": 3.45,
-          "distance": 30,
-          "polygon": "encoded",
-          "time": 3456,
-        },
-        "walk": Object {
-          "cost": 0,
-          "distance": 19,
-          "polygon": "encoded",
-          "time": 6789,
-        },
-      },
-    ],
+    "trips": Array [],
   },
 }
 `;
@@ -107,9 +28,11 @@ exports[`client > reducers > analysis generic reducer tests should handle set an
 Object {
   "analysis-2": Object {
     "_id": "analysis-2",
+    "calculationStatus": "calculated",
     "groupId": "group-2",
     "lastRunDateTime": 1477697490,
     "name": "An Analysis",
+    "numCommuters": 1,
     "organizationId": "organization-2",
     "siteId": "site-2",
     "summary": Object {
@@ -122,44 +45,44 @@ Object {
     },
     "tripVals": Object {
       "bike": Object {
-        "cost": Array [
-          0.12,
-        ],
         "distance": Array [
           23,
+        ],
+        "monetaryCost": Array [
+          0.12,
         ],
         "time": Array [
           2345,
         ],
       },
       "car": Object {
-        "cost": Array [
-          6.78,
-        ],
         "distance": Array [
           18,
+        ],
+        "monetaryCost": Array [
+          6.78,
         ],
         "time": Array [
           1234,
         ],
       },
       "transit": Object {
-        "cost": Array [
-          3.45,
-        ],
         "distance": Array [
           30,
+        ],
+        "monetaryCost": Array [
+          3.45,
         ],
         "time": Array [
           3456,
         ],
       },
       "walk": Object {
-        "cost": Array [
-          0,
-        ],
         "distance": Array [
           19,
+        ],
+        "monetaryCost": Array [
+          0,
         ],
         "time": Array [
           6789,
@@ -169,39 +92,109 @@ Object {
     "trips": Array [
       Object {
         "bike": Object {
-          "cost": 0.12,
           "distance": 23,
+          "monetaryCost": 0.12,
           "polygon": "encoded",
           "time": 2345,
         },
         "car": Object {
-          "cost": 6.78,
           "distance": 18,
+          "monetaryCost": 6.78,
           "polygon": "encoded",
           "time": 1234,
         },
         "commuterId": "commuter-2",
         "mostLikely": Object {
-          "cost": 3.45,
           "distance": 30,
           "mode": "transit",
+          "monetaryCost": 3.45,
           "polygon": "encoded",
           "time": 3456,
         },
         "transit": Object {
-          "cost": 3.45,
           "distance": 30,
+          "monetaryCost": 3.45,
           "polygon": "encoded",
           "time": 3456,
         },
         "walk": Object {
-          "cost": 0,
           "distance": 19,
+          "monetaryCost": 0,
           "polygon": "encoded",
           "time": 6789,
         },
       },
     ],
+  },
+}
+`;
+
+exports[`client > reducers > analysis should handle set analysis with no trips calculated yet 1`] = `
+Object {
+  "analysis-2": Object {
+    "_id": "analysis-2",
+    "calculationStatus": "calculated",
+    "groupId": "group-2",
+    "lastRunDateTime": 1477697490,
+    "name": "An Analysis",
+    "numCommuters": 1,
+    "organizationId": "organization-2",
+    "siteId": "site-2",
+    "summary": Object {
+      "avgDistance": 12.34,
+      "avgTravelTime": 1234,
+      "savingsPerTrip": 1.23,
+      "savingsPerTripYear": 319.8,
+      "savingsTotalPerDay": 1.23,
+      "savingsTotalPerYear": 319.8,
+    },
+    "tripVals": Object {
+      "bike": Object {
+        "distance": Array [
+          23,
+        ],
+        "monetaryCost": Array [
+          0.12,
+        ],
+        "time": Array [
+          2345,
+        ],
+      },
+      "car": Object {
+        "distance": Array [
+          18,
+        ],
+        "monetaryCost": Array [
+          6.78,
+        ],
+        "time": Array [
+          1234,
+        ],
+      },
+      "transit": Object {
+        "distance": Array [
+          30,
+        ],
+        "monetaryCost": Array [
+          3.45,
+        ],
+        "time": Array [
+          3456,
+        ],
+      },
+      "walk": Object {
+        "distance": Array [
+          19,
+        ],
+        "monetaryCost": Array [
+          0,
+        ],
+        "time": Array [
+          6789,
+        ],
+      },
+    },
+    "trips": Array [],
   },
 }
 `;

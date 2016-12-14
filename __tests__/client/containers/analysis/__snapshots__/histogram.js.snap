@@ -123,16 +123,16 @@ exports[`Container > Analysis > Histogram Histogram View loads (base case) 2`] =
                 onChange={[Function]}
                 value="time">
                 <option
-                  value="cost">
-                  cost
+                  value="monetaryCost">
+                  Cost
                 </option>
                 <option
                   value="distance">
-                  distance
+                  Distance
                 </option>
                 <option
                   value="time">
-                  time
+                  Time
                 </option>
               </select>
             </FormControl>
