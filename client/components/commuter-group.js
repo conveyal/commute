@@ -3,10 +3,10 @@ import React, {Component, PropTypes} from 'react'
 import {Button, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Map as LeafletMap, TileLayer} from 'react-leaflet'
-import ClusterLayer from 'react-leaflet-cluster-layer'
 import {Link} from 'react-router'
 
 import Icon from './icon'
+import MarkerCluster from './marker-cluster'
 import ProgressManager from './progress-manager'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
@@ -81,9 +81,8 @@ export default class CommuterGroup extends Component {
                   : process.env.LEAFLET_TILE_URL}
                 attribution={process.env.LEAFLET_ATTRIBUTION}
                 />
-              <ClusterLayer
-                markers={markers}
-                clusterComponent={ClusterComponent}
+              <MarkerCluster
+                newMarkerData={markers}
                 />
             </LeafletMap>
           </Col>
@@ -117,29 +116,6 @@ export default class CommuterGroup extends Component {
   }
 }
 
-class ClusterComponent extends React.Component {
-  render () {
-    const style = {
-      border: 'solid 2px darkgrey',
-      borderRadius: '8px',
-      backgroundColor: 'white',
-      padding: '1em',
-      textAlign: 'center'
-    }
-    const cluster = this.props.cluster
-
-    if (cluster.markers.length === 1) {
-      return (
-        <div style={style} >{cluster.markers[0].name}</div>
-      )
-    }
-
-    return (
-      <div style={style}>{cluster.markers.length}</div>
-    )
-  }
-}
-
 function mapCommuters (commuters) {
   if (commuters.length === 0) {
     return {
@@ -148,11 +124,13 @@ function mapCommuters (commuters) {
       zoom: 8
     }
   } else if (commuters.length === 1) {
+    const firstCommuter = commuters[0]
+    const {lat, lng} = firstCommuter.coordinate
     return {
       markers: [{
-        id: commuters[0]._id,
-        name: commuters[0].name,
-        position: commuters[0].coordinate
+        id: firstCommuter._id,
+        caption: firstCommuter.name,
+        position: [lat, lng]
       }],
       position: settings.geocoder.focus,
       zoom: 8
@@ -163,13 +141,15 @@ function mapCommuters (commuters) {
   const bounds = latLngBounds([firstLL, firstLL])
   commuters.forEach((commuter) => {
     const {_id, coordinate, name} = commuter
+    const {lat, lng} = coordinate
+    const leafletLatLng = [lat, lng]
     if (commuter.coordinate.lat && commuter.coordinate.lng) {
       markers.push({
-        _id,
-        name,
-        position: coordinate
+        id: _id,
+        caption: name,
+        latLng: leafletLatLng
       })
-      bounds.extend([coordinate.lat, coordinate.lng])
+      bounds.extend(leafletLatLng)
     }
   })
   return {bounds, markers}

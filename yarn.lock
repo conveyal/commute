@@ -4494,6 +4494,10 @@ lcov-result-merger@^1.2.0:
     vinyl "^1.1.1"
     vinyl-fs "^2.4.3"
 
+leaflet.markercluster@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.0.0.tgz#1976c96c29b18b2d79d519dc24b2ab6a315a6b04"
+
 leaflet@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.2.tgz#fa4fbcb7844944fc2bfb0bcf9ca0dea13463ca21"
@@ -6354,10 +6358,6 @@ react-dropzone:
 react-input-autosize@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
-
-react-leaflet-cluster-layer:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-leaflet-cluster-layer/-/react-leaflet-cluster-layer-0.0.3.tgz#ee8030099e61aa549dd31151412eec1acebbc5aa"
 
 react-leaflet@^1.0.1:
   version "1.0.1"
