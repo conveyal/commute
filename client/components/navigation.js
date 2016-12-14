@@ -28,14 +28,14 @@ export default class Navigation extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <div>
+            {username &&
               <NavItem eventKey={1}>
                 {`${messages.authentication.username} ${username}`}
               </NavItem>
-              <NavItem eventKey={2}>
-                <Button onClick={logout}>{messages.authentication.logOut}</Button>
-              </NavItem>
-            </div>
+            }
+            <NavItem eventKey={2}>
+              <Button onClick={logout}>{messages.authentication.logOut}</Button>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
