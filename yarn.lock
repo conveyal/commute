@@ -4494,9 +4494,9 @@ lcov-result-merger@^1.2.0:
     vinyl "^1.1.1"
     vinyl-fs "^2.4.3"
 
-leaflet@^0.7.7:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-0.7.7.tgz#1e352ba54e63d076451fa363c900890cb2cf75ee"
+leaflet@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.0.2.tgz#fa4fbcb7844944fc2bfb0bcf9ca0dea13463ca21"
 
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
@@ -6355,16 +6355,16 @@ react-input-autosize@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
 
-react-leaflet:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-0.12.3.tgz#db37372e2f9bca7c45cc6d8c2e720bee7788845b"
-  dependencies:
-    lodash "^4.0.0"
-    warning "^3.0.0"
-
 react-leaflet-cluster-layer:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/react-leaflet-cluster-layer/-/react-leaflet-cluster-layer-0.0.3.tgz#ee8030099e61aa549dd31151412eec1acebbc5aa"
+
+react-leaflet@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-1.0.1.tgz#aac306d71b8d9aa24b63487801a2c2f8598885dc"
+  dependencies:
+    lodash "^4.0.0"
+    warning "^3.0.0"
 
 react-motion@^0.4.4:
   version "0.4.5"
