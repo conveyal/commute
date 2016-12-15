@@ -39,7 +39,7 @@ module.exports = function ({ analysisId, commuters, site }) {
     console.log('profile commuter', commuter._id)
     const requestCfg = {
       json: true,
-      uri: env.OTP_URL,
+      uri: `${env.OTP_URL}/otp`,
       qs: Object.assign(PROFILE_OPTIONS, {
         from: `${commuter.coordinate.lat},${commuter.coordinate.lng}`,
         to: sitePosition
