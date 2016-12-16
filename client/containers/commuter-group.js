@@ -12,7 +12,7 @@ function mapStateToProps (state, props) {
   const currentCommuters = entityIdArrayToEntityArray(currentGroup.commuters, commuter)
   const numCommutersGeocoded = currentCommuters.reduce((tally, commuter) => {
     if (!commuter.coordinate) return 0
-    return tally + ((commuter.coordinate.lat && commuter.coordinate.lng) ? 1 : 0)
+    return tally + ((commuter.coordinate.lat && commuter.coordinate.lon) ? 1 : 0)
   }, 0)
   return {
     numCommutersGeocoded,

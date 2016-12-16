@@ -36,7 +36,7 @@ module.exports = function (schema, options) {
     coordinate: {
       type: Schema.Types.Mixed,
       default: {
-        lng: 0,
+        lon: 0,
         lat: 0
       }
     },
@@ -64,7 +64,7 @@ module.exports = function (schema, options) {
         var self = this
         this.reverseGeocode(function (err) {
           if (err) {
-            self.original_address = self.address = self.coordinate.lng.toFixed(4) + ', ' + self.coordinate.lat.toFixed(4)
+            self.original_address = self.address = self.coordinate.lon.toFixed(4) + ', ' + self.coordinate.lat.toFixed(4)
             self.neighborhood = ''
             self.city = ''
             self.county = ''
@@ -119,7 +119,7 @@ module.exports = function (schema, options) {
             this.confidence = firstResult.properties.confidence
             this.coordinate = {
               lat: firstResult.geometry.coordinates[1],
-              lng: firstResult.geometry.coordinates[0]
+              lon: firstResult.geometry.coordinates[0]
             }
             this.country = firstResult.properties.country
             this.county = firstResult.properties.county
@@ -182,7 +182,7 @@ module.exports = function (schema, options) {
 
   schema.methods.validCoordinate = function () {
     var c = this.coordinate
-    return c && c.lat && c.lng
+    return c && c.lat && c.lon
   }
 
   /**

@@ -25,7 +25,7 @@ export const commuterSal = {
   city: 'Megalopolis',
   coordinate: {
     lat: 38.912314,
-    lng: -77.033994
+    lon: -77.033994
   },
   country: 'Made up land',
   county: 'Made up county',
@@ -41,7 +41,7 @@ export const mockCommuter = {
   city: 'Megalopolis',
   coordinate: {
     lat: 38.910822,
-    lng: -77.041094
+    lon: -77.041094
   },
   country: 'Made up land',
   county: 'Made up county',
@@ -81,7 +81,7 @@ export const mockSite = {
   city: 'Megalopolis',
   coordinate: {
     lat: 38.892767,
-    lng: -77.040740
+    lon: -77.040740
   },
   country: 'Made up land',
   county: 'Made up county',
@@ -294,7 +294,7 @@ export function genGeocodedEntity (additionalFields) {
     city: 'Washington',
     coordinate: {
       lat: 38.89011,
-      lng: -76.9897
+      lon: -76.9897
     },
     country: 'United States',
     county: 'District of Columbia',

@@ -31,7 +31,7 @@ const PROFILE_OPTIONS = {
 const maxAttempts = 5
 
 module.exports = function ({ analysisId, commuters, site }) {
-  const sitePosition = `${site.coordinate.lat},${site.coordinate.lng}`
+  const sitePosition = `${site.coordinate.lat},${site.coordinate.lon}`
   const allTrips = []
   const attemptsPerCommuter = {}
 
@@ -41,7 +41,7 @@ module.exports = function ({ analysisId, commuters, site }) {
       json: true,
       uri: env.OTP_URL,
       qs: Object.assign(PROFILE_OPTIONS, {
-        from: `${commuter.coordinate.lat},${commuter.coordinate.lng}`,
+        from: `${commuter.coordinate.lat},${commuter.coordinate.lon}`,
         to: sitePosition
       })
     }

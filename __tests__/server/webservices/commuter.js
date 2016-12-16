@@ -15,7 +15,7 @@ describe('commuter', () => {
     address: '123 Main St',
     coordinate: {
       lat: 12,
-      lng: 34
+      lon: 34
     },
     name: 'test-commuter',
     groupId: mongoose.Types.ObjectId()

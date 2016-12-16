@@ -5,7 +5,7 @@ Array [
     "address": "123 Main St",
     "coordinate": Object {
       "lat": 12,
-      "lng": 34,
+      "lon": 34,
     },
     "geocodeConfidence": -1,
     "name": "test-commuter",
@@ -20,7 +20,7 @@ Object {
   "address": "123 Main St",
   "coordinate": Object {
     "lat": 12,
-    "lng": 34,
+    "lon": 34,
   },
   "geocodeConfidence": -1,
   "name": "test-commuter",
@@ -34,7 +34,7 @@ Object {
   "address": "123 Main St",
   "coordinate": Object {
     "lat": 12,
-    "lng": 34,
+    "lon": 34,
   },
   "geocodeConfidence": -1,
   "name": "updated name",

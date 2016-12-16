@@ -27,7 +27,7 @@ const creationData = {
   city: 'Fake City',
   coordinate: {
     lat: 12,
-    lng: 34
+    lon: 34
   },
   country: 'Fake Country',
   county: 'Fake County',

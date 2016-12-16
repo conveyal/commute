@@ -36,7 +36,7 @@ export function geocodeResultToState (result) {
     country: result.properties.country,
     coordinate: {
       lat: result.geometry.coordinates[1],
-      lng: result.geometry.coordinates[0]
+      lon: result.geometry.coordinates[0]
     }
   }
 }

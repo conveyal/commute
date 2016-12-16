@@ -15,7 +15,7 @@ describe('site', () => {
     address: '123 Main St',
     coordinate: {
       lat: 12,
-      lng: 34
+      lon: 34
     },
     name: 'test-site',
     organizationId: mongoose.Types.ObjectId()

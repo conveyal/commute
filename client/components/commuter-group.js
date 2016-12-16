@@ -159,17 +159,17 @@ function mapCommuters (commuters) {
     }
   }
   const markers = []
-  const firstLL = [commuters[0].coordinate.lat, commuters[0].coordinate.lng]
+  const firstLL = [commuters[0].coordinate.lat, commuters[0].coordinate.lon]
   const bounds = latLngBounds([firstLL, firstLL])
   commuters.forEach((commuter) => {
     const {_id, coordinate, name} = commuter
-    if (commuter.coordinate.lat && commuter.coordinate.lng) {
+    if (commuter.coordinate.lat && commuter.coordinate.lon) {
       markers.push({
         _id,
         name,
         position: coordinate
       })
-      bounds.extend([coordinate.lat, coordinate.lng])
+      bounds.extend([coordinate.lat, coordinate.lon])
     }
   })
   return {bounds, markers}
