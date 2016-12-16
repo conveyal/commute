@@ -47,7 +47,7 @@ describe('site', () => {
         }
       }
     },
-    foreignKeys: ['organizationId'],
+    snapshotOmitions: ['organizationId'],
     geocodePlugin: true,
     model: Site,
     name: 'site'

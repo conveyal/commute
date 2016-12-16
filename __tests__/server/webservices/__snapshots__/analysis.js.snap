@@ -13,7 +13,6 @@ Array [
       "savingsTotalPerDay": 0,
       "savingsTotalPerYear": 0,
     },
-    "trips": Array [],
   },
 ]
 `;
@@ -32,6 +31,5 @@ Object {
     "savingsTotalPerDay": 0,
     "savingsTotalPerYear": 0,
   },
-  "trips": Array [],
 }
 `;

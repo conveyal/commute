@@ -42,7 +42,7 @@ describe('organization', () => {
         }
       }
     },
-    foreignKeys: ['agencyId'],
+    snapshotOmitions: ['agencyId'],
     model: Organization,
     name: 'organization'
   })

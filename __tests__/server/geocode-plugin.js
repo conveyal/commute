@@ -44,7 +44,7 @@ describe('geocoder plugin', () => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  it.only('should geocode model upon save if address provided, but no coordinates provided', async () => {
+  it.skip('should geocode model upon save if address provided, but no coordinates provided', async () => {
     prepareGeocodeNock()
 
     // create model

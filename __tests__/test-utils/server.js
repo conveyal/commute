@@ -47,12 +47,12 @@ export const makeRemoveModelsFn = (model) => async () => await model.remove({}).
  * Make a rest endpoint tests with the specified routes
  *
  * @param {Object} cfg   A configuration object with the following data:
- *   - {Object} endpoints    Keys representing endpoints to make and their corresponding options
- *   - {Array} foreignKeys   An array of strings representing foreign keys in the model
- *   - {bool} geocodePlugin  whether or not the model has a geocodePlugin
- *   - {Object} model        The mongo model to use
- *   - {String} name         The endpoint name
- *   - {Object} parentModel  An object describing a parent relationship in this model.
+ *   - {Object} endpoints       Keys representing endpoints to make and their corresponding options
+ *   - {Array} snapshotOmitions An array of strings representing foreign keys in the model
+ *   - {bool} geocodePlugin     whether or not the model has a geocodePlugin
+ *   - {Object} model           The mongo model to use
+ *   - {String} name            The endpoint name
+ *   - {Object} parentModel     An object describing a parent relationship in this model.
  *     Has the following keys
  *     - {String} childrenField  children field in the paret model
  *     - {String} foreignKey     foreign key field name
@@ -63,7 +63,7 @@ export const makeRestEndpointTests = (cfg) => {
   const geocodePlugin = cfg.geocodePlugin
   const model = cfg.model
   const name = cfg.name
-  const snapshotOmitions = ['_id'].concat(cfg.foreignKeys || [])
+  const snapshotOmitions = ['_id'].concat(cfg.snapshotOmitions || [])
   describe('rest endpoint', () => {
     beforeEach(makeRemoveModelsFn(model))
     afterEach(makeRemoveModelsFn(model))

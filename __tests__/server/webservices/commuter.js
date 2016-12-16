@@ -47,7 +47,7 @@ describe('commuter', () => {
         }
       }
     },
-    foreignKeys: ['groupId'],
+    snapshotOmitions: ['groupId'],
     geocodePlugin: true,
     model: Commuter,
     name: 'commuter'

@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 import {Analysis, Commuter, Group, Site} from '../../../server/models'
 
-import {makeRestEndpointTests} from '../../test-utils/server'
+import {makeRestEndpointTests, prepareOtpNock} from '../../test-utils/server'
 
 describe('analysis', () => {
   afterAll(() => {
@@ -13,6 +13,7 @@ describe('analysis', () => {
 
   const makeDependentData = () => {
     // create nock for trip planning
+    prepareOtpNock()
 
     const organizationId = mongoose.Types.ObjectId()
     return Promise.all([
@@ -48,7 +49,9 @@ describe('analysis', () => {
         initData: makeDependentData
       }
     },
-    foreignKeys: ['groupId', 'organizationId', 'siteId'],
+    // omit trips also because it is calculated after saving and
+    // can appear depending on how fast calculation happens
+    snapshotOmitions: ['groupId', 'organizationId', 'siteId', 'trips'],
     model: Analysis,
     name: 'analysis'
   })

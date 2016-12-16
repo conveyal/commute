@@ -2,7 +2,6 @@
 
 import mongoose from 'mongoose'
 
-import {timeoutPromise} from '../test-utils/common'
 import {mockCommuter, mockSite} from '../test-utils/mock-data'
 import {makeRemoveModelsFn, prepareOtpNock} from '../test-utils/server'
 
@@ -32,10 +31,7 @@ describe('profiler', () => {
     })
 
     // profile some mock commuters
-    profiler({ analysisId: analysis._id, commuters: [madeUpCommuter], site: mockSite })
-
-    // wait a little bit
-    await timeoutPromise(2000)
+    await profiler({ analysisId: analysis._id, commuters: [madeUpCommuter], site: mockSite })
 
     // expect summary stats to be calculated in analysis
     const allAnalyses = await Analysis.find().exec()

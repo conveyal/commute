@@ -41,7 +41,7 @@ describe('group', () => {
         }
       }
     },
-    foreignKeys: ['organizationId'],
+    snapshotOmitions: ['organizationId'],
     model: Group,
     name: 'group'
   })
