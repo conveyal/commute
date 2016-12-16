@@ -19,7 +19,7 @@
     "test-all": "mastarm test -c ./configurations/test -e test",
     "test-client": "mastarm test -c ./configurations/test -e test /__tests__/client",
     "test-lint": "mastarm lint",
-    "test-server": "../mastarm/bin/mastarm test -e test /__tests__/server --test-environment node",
+    "test-server": "mastarm test -e test /__tests__/server --test-environment node",
     "watch": "npm-run-all --parallel watch:client watch:server",
     "watch:client": "mastarm build --watch",
     "watch:server": "nodemon --watch server server/development.js"
@@ -71,7 +71,7 @@
     "lodash.pick": "^4.4.0",
     "lodash.uniqueid": "^4.0.1",
     "lonlng": "^0.2.0",
-    "mastarm": "^3.1.0",
+    "mastarm": "^3.2.1",
     "moment": "^2.15.2",
     "mongoose": "^4.6.4",
     "normalize.css": "^5.0.0",
