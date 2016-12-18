@@ -83,6 +83,7 @@ export function entityArrayToEntityMap (arr) {
  */
 export function entityIdArrayToEntityArray (entityIdArray, entityMap) {
   const entities = []
+  entityIdArray = entityIdArray || []
   for (let i = 0; i < entityIdArray.length; i++) {
     const curId = entityIdArray[i]
     if (entityMap[curId]) {

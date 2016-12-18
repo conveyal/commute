@@ -1,11 +1,16 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, Col, ControlLabel, FormGroup, Grid, Row} from 'react-bootstrap'
+import Form from 'react-formal'
 import {Link} from 'react-router'
+import yup from 'yup'
 
-import FieldGroup from './fieldgroup'
 import Icon from './icon'
 import {messages} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
+
+const agencySchema = yup.object({
+  name: yup.string().required()
+})
 
 export default class EditAgency extends Component {
   static propTypes = {
@@ -19,30 +24,30 @@ export default class EditAgency extends Component {
     agency: PropTypes.object
   }
 
+  state = { errors: {} }
+
   componentWillMount () {
     if (this.props.editMode) {
-      this.setState({...this.props.agency})
-    } else {
-      this.state = {}
+      this.setState({ model: this.props.agency })
     }
   }
 
-  handleChange = (name, event) => {
-    this.setState({ [name]: event.target.value })
-  }
-
-  handleDelete = () => {
+  _handleDelete = () => {
     const doDelete = () => this.props.delete(this.props.agency)
     actUponConfirmation(messages.agency.deleteConfirmation, doDelete)
   }
 
-  handleSubmit = () => {
+  _handleSubmit = () => {
     if (this.props.editMode) {
-      this.props.update(this.state)
+      this.props.update(this.state.model)
     } else {
-      this.props.create(this.state)
+      this.props.create(this.state.model)
     }
   }
+
+  _setErrors = errors => this.setState({ errors })
+
+  _setModel = model => this.setState({ model })
 
   render () {
     return (
@@ -58,33 +63,53 @@ export default class EditAgency extends Component {
                 </Link>
               </Button>
             </h3>
-            <form>
-              <FieldGroup
-                label='Name'
+            <Form
+              schema={agencySchema}
+              value={this.state.model}
+              onChange={this._setModel}
+              onError={this._setErrors}
+              onSubmit={this._handleSubmit}
+              >
+              <FormalFieldGroup
                 name='name'
-                onChange={this.handleChange}
                 placeholder='Enter name'
-                type='text'
-                value={this.state.name}
+                validationState={this.state.errors.name ? 'error' : undefined}
                 />
-              <Button
-                bsStyle={this.props.editMode ? 'warning' : 'success'}
-                onClick={this.handleSubmit}
+              <Form.Button
+                type='submit'
+                className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
                 >
                 {this.props.editMode ? 'Update' : 'Create'}
-              </Button>
+              </Form.Button>
               {this.props.editMode &&
                 <Button
                   bsStyle='danger'
-                  onClick={this.handleDelete}
+                  onClick={this._handleDelete}
                   >
                   Delete
                 </Button>
               }
-            </form>
+            </Form>
           </Col>
         </Row>
       </Grid>
     )
   }
+}
+
+function FormalFieldGroup ({ label, name, validationState, ...props }) {
+  return (
+    <FormGroup
+      controlId={`group-item-${name}`}
+      validationState={validationState}
+      >
+      <ControlLabel>{label}</ControlLabel>
+      <Form.Field
+        className='form-control'
+        {...props}
+        name={name}
+        />
+      <Form.Message className='help-block' for={name} />
+    </FormGroup>
+  )
 }

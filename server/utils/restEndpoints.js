@@ -15,8 +15,9 @@ function makeGenericModelResponseFn (res) {
 }
 
 function makeGetModelResponseFn (childModels, res, isCollection, returnChildrenAsEntities) {
+  const genericResponder = makeGenericModelResponseFn(res)
   return (err, data) => {
-    const genericResponder = makeGenericModelResponseFn(res)
+    if (err) return genericResponder(err)
     if (!Array.isArray(data)) {
       data = [data]
     }
