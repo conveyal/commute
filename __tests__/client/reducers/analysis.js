@@ -1,26 +1,34 @@
 /* globals describe, expect, it */
 
+import omit from 'lodash.omit'
 import {handleActions} from 'redux-actions'
 
-import {mockAnalysis, mockStores, mockTrip} from '../../test-utils/mock-data'
+import {mockAnalysis, mockStores} from '../../test-utils/mock-data'
 import {makeGenericReducerTestCases} from '../../test-utils/reducers'
 
 import * as analysis from '../../../client/reducers/analysis'
 
 describe('client > reducers > analysis', () => {
+  const mockAnalysisFromServer = omit(mockAnalysis, 'tripVals')
   makeGenericReducerTestCases({
     handlers: {
       add: {
         initialState: analysis.initialState,
-        payload: mockAnalysis
+        payload: Object.assign({},
+          mockAnalysisFromServer,
+          {
+            calculationStatus: 'calculating',
+            trips: []
+          }
+        )
       },
       delete: {
         initialState: mockStores.withAnalysisRun.analysis,
-        payload: mockAnalysis
+        payload: mockAnalysisFromServer
       },
       'set many': {
         initialState: analysis.initialState,
-        payload: [mockAnalysis]
+        payload: [mockAnalysisFromServer]
       }
     },
     initialState: analysis.initialState,
@@ -31,29 +39,12 @@ describe('client > reducers > analysis', () => {
     reducers: analysis.reducers
   })
 
-  it('should handle receive mock calculated trips', () => {
+  it('should handle set analysis with no trips calculated yet', () => {
     const reducer = handleActions(analysis.reducers, analysis.initialState)
-
-    const calculatedTrip = Object.assign({}, mockTrip, {
-      mostLikely: {
-        cost: 4.56,
-        distance: 22,
-        time: 2321,
-        mode: 'transit',
-        polygon: 'encoded'
-      }
-    })
-    const action = {
-      type: 'receive mock calculated trips',
-      payload: {
-        analysisId: 'analysis-2',
-        trips: [calculatedTrip]
-      }
-    }
-    const result = reducer(mockStores.withAnalysisRun.analysis, action)
-    const affectedAnalysis = result['analysis-2']
-    expect(affectedAnalysis.trips.length).toBe(1)
-    expect(affectedAnalysis.tripVals.bike.cost.length).toBe(1)
-    expect(affectedAnalysis).toMatchSnapshot()
+    const entity = Object.assign({}, mockAnalysisFromServer, { trips: [] })
+    const action = { payload: entity, type: 'set analysis' }
+    const result = reducer(analysis.initialState, action)
+    expect(result[entity._id]).toEqual(entity)
+    expect(result).toMatchSnapshot()
   })
 })

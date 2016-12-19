@@ -90,63 +90,41 @@ exports[`Container > Navigation renders correctly 1`] = `
                         <ul
                           className="nav navbar-nav navbar-right"
                           role={null}>
-                          <div
+                          <NavItem
+                            active={false}
+                            disabled={false}
+                            eventKey={2}
                             onSelect={null}>
-                            <NavItem
-                              active={false}
-                              disabled={false}
-                              eventKey={1}>
-                              <li
-                                className=""
-                                role="presentation">
-                                <SafeAnchor
-                                  componentClass="a"
-                                  disabled={false}
-                                  onClick={[Function]}>
-                                  <a
-                                    href=""
-                                    onClick={[Function]}
-                                    role="button">
-                                    Logged in as undefined
-                                  </a>
-                                </SafeAnchor>
-                              </li>
-                            </NavItem>
-                            <NavItem
-                              active={false}
-                              disabled={false}
-                              eventKey={2}>
-                              <li
-                                className=""
-                                role="presentation">
-                                <SafeAnchor
-                                  componentClass="a"
-                                  disabled={false}
-                                  onClick={[Function]}>
-                                  <a
-                                    href=""
-                                    onClick={[Function]}
-                                    role="button">
-                                    <Button
-                                      active={false}
-                                      block={false}
-                                      bsClass="btn"
-                                      bsStyle="default"
+                            <li
+                              className=""
+                              role="presentation">
+                              <SafeAnchor
+                                componentClass="a"
+                                disabled={false}
+                                onClick={[Function]}>
+                                <a
+                                  href=""
+                                  onClick={[Function]}
+                                  role="button">
+                                  <Button
+                                    active={false}
+                                    block={false}
+                                    bsClass="btn"
+                                    bsStyle="default"
+                                    disabled={false}
+                                    onClick={[Function]}>
+                                    <button
+                                      className="btn btn-default"
                                       disabled={false}
-                                      onClick={[Function]}>
-                                      <button
-                                        className="btn btn-default"
-                                        disabled={false}
-                                        onClick={[Function]}
-                                        type="button">
-                                        Log out
-                                      </button>
-                                    </Button>
-                                  </a>
-                                </SafeAnchor>
-                              </li>
-                            </NavItem>
-                          </div>
+                                      onClick={[Function]}
+                                      type="button">
+                                      Log out
+                                    </button>
+                                  </Button>
+                                </a>
+                              </SafeAnchor>
+                            </li>
+                          </NavItem>
                         </ul>
                       </Nav>
                     </div>

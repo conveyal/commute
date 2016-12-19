@@ -1,9 +1,11 @@
 const {Schema} = require('mongoose')
 
-const Analysis = require('./analysis')
-const Group = require('./group')
+const db = require('../db')
+const Analysis = db.model('Analysis', require('./analysis'))
+const Group = db.model('Group', require('./group'))
 const trashPlugin = require('./plugins/trash')
-const Site = require('./site')
+const Site = db.model('Site', require('./site'))
+const dbUtils = require('../utils/db')
 
 const schema = new Schema({
   agencyId: {
@@ -18,16 +20,8 @@ const schema = new Schema({
   owner: String
 })
 
-schema.pre('save', function (next) {
-  // CASCADE DELETE if needed
-  if (this.isModified('trashed') && this.trashed) {
-    Analysis.update({ organizationId: this._id }, { trashed: new Date() }).exec()
-    Group.update({ organizationId: this._id }, { trashed: new Date() }).exec()
-    Site.update({ organizationId: this._id }, { trashed: new Date() }).exec()
-  }
-  next()
-})
-
 schema.plugin(trashPlugin)
+
+schema.pre('save', dbUtils.makeCascadeDeleteModelsFn('organizationId', [Analysis, Group, Site]))
 
 module.exports = schema

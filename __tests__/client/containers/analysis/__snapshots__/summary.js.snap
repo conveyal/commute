@@ -9,9 +9,11 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
     analysis={
       Object {
         "_id": "analysis-2",
+        "calculationStatus": "calculated",
         "groupId": "group-2",
         "lastRunDateTime": 1477697490,
         "name": "An Analysis",
+        "numCommuters": 1,
         "organizationId": "organization-2",
         "siteId": "site-2",
         "summary": Object {
@@ -24,44 +26,44 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
         },
         "tripVals": Object {
           "bike": Object {
-            "cost": Array [
-              0.12,
-            ],
             "distance": Array [
               23,
+            ],
+            "monetaryCost": Array [
+              0.12,
             ],
             "time": Array [
               2345,
             ],
           },
           "car": Object {
-            "cost": Array [
-              6.78,
-            ],
             "distance": Array [
               18,
+            ],
+            "monetaryCost": Array [
+              6.78,
             ],
             "time": Array [
               1234,
             ],
           },
           "transit": Object {
-            "cost": Array [
-              3.45,
-            ],
             "distance": Array [
               30,
+            ],
+            "monetaryCost": Array [
+              3.45,
             ],
             "time": Array [
               3456,
             ],
           },
           "walk": Object {
-            "cost": Array [
-              0,
-            ],
             "distance": Array [
               19,
+            ],
+            "monetaryCost": Array [
+              0,
             ],
             "time": Array [
               6789,
@@ -71,34 +73,34 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
         "trips": Array [
           Object {
             "bike": Object {
-              "cost": 0.12,
               "distance": 23,
+              "monetaryCost": 0.12,
               "polygon": "encoded",
               "time": 2345,
             },
             "car": Object {
-              "cost": 6.78,
               "distance": 18,
+              "monetaryCost": 6.78,
               "polygon": "encoded",
               "time": 1234,
             },
             "commuterId": "commuter-2",
             "mostLikely": Object {
-              "cost": 3.45,
               "distance": 30,
               "mode": "transit",
+              "monetaryCost": 3.45,
               "polygon": "encoded",
               "time": 3456,
             },
             "transit": Object {
-              "cost": 3.45,
               "distance": 30,
+              "monetaryCost": 3.45,
               "polygon": "encoded",
               "time": 3456,
             },
             "walk": Object {
-              "cost": 0,
               "distance": 19,
+              "monetaryCost": 0,
               "polygon": "encoded",
               "time": 6789,
             },
@@ -111,16 +113,25 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
         "commuter-2": Object {
           "_id": "commuter-2",
           "address": "4321 XYZ Boulevard",
+          "city": "Megalopolis",
+          "coordinate": Object {
+            "lat": 38.910822,
+            "lon": -77.041094,
+          },
+          "country": "Made up land",
+          "county": "Made up county",
           "email": "luke@warm.cold",
+          "geocodeConfidence": 0.77,
           "groupId": "group-2",
-          "lat": 38.916089,
-          "lng": -76.970221,
           "name": "Luke Warm",
+          "neighbourhood": undefined,
+          "state": "Made up state",
         },
       }
     }
     deleteAnalysis={[Function]}
     groupName="Mock Group"
+    loadAnalysis={[Function]}
     params={
       Object {
         "analysisId": "analysis-2",
@@ -212,22 +223,13 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                 </h4>
               </div>
             </Col>
-            <Col
-              bsClass="col"
-              componentClass="div"
-              xs={12}>
-              <div
-                className="col-xs-12">
-                <h4>
-                  <strong>
-                    Progress:
-                  </strong>
-                  <span>
-                    100%
-                  </span>
-                </h4>
-              </div>
-            </Col>
+          </div>
+        </Row>
+        <Row
+          bsClass="row"
+          componentClass="div">
+          <div
+            className="row">
             <Col
               bsClass="col"
               componentClass="div"
@@ -254,7 +256,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                   <tbody>
                     <tr>
                       <td>
-                        Total Costs Per Day
+                        Savings Per Day
                       </td>
                       <td>
                         $1.23
@@ -262,15 +264,15 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                     </tr>
                     <tr>
                       <td>
-                        Total Costs Per Year
+                        Savings Per Year
                       </td>
                       <td>
-                        $319.8
+                        $319.80
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        Cost Per Trip Per Day
+                        Savings Per Trip Per Day
                       </td>
                       <td>
                         $1.23
@@ -278,10 +280,10 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                     </tr>
                     <tr>
                       <td>
-                        Cost Per Trip Per Year
+                        Savings Per Trip Per Year
                       </td>
                       <td>
-                        $319.8
+                        $319.80
                       </td>
                     </tr>
                   </tbody>
@@ -325,7 +327,7 @@ exports[`Container > Analysis > Summary Analysis Summary View loads (base case) 
                         Average Distance
                       </td>
                       <td>
-                        12.34 miles
+                        0 miles
                       </td>
                     </tr>
                   </tbody>

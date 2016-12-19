@@ -4,11 +4,6 @@ const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
 
 const schema = new Schema({
-  address: String,
-  location: {
-    lat: Number,
-    lon: Number
-  },
   name: {
     required: true,
     type: String

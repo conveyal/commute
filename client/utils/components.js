@@ -1,4 +1,5 @@
 import analysisDefaults from './analysisDefaults'
+import {fixedRound} from './common'
 
 /**
  * Calculate number of elements in array less than or equal to target values
@@ -25,6 +26,21 @@ export function calcNumLessThan (arr, target) {
   return left
 }
 
+export function geocodeResultToState (result) {
+  return {
+    address: result.properties.label,
+    neighborhood: result.properties.neighborhood,
+    city: result.properties.locality,
+    county: result.properties.county,
+    state: result.properties.region,
+    country: result.properties.country,
+    coordinate: {
+      lat: result.geometry.coordinates[1],
+      lon: result.geometry.coordinates[0]
+    }
+  }
+}
+
 /**
  * Helper function to get initial series data for drawing graphs
  *
@@ -49,5 +65,5 @@ export function getInitialSeries () {
  * @return {string} humanized distance
  */
 export function humanizeDistance (d) {
-  return `${d} miles`
+  return `${fixedRound(d, 1)} miles`
 }

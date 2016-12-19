@@ -1,4 +1,3 @@
-// import humanizeDuration from 'humanize-duration'
 import React, {Component, PropTypes} from 'react'
 import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
@@ -52,6 +51,13 @@ export default class Histogram extends Component {
     const multiplier = metricData.multiplier || 1
 
     // reset series data
+    newState.series = getInitialSeries()
+
+    // disallow transit distance metric
+    if (newState.metric === 'distance') {
+      newState.series = newState.series.filter((seriesMode) => seriesMode.mode !== 'transit')
+    }
+
     newState.series = newState.series.map((seriesMode) => {
       seriesMode.data = []
       seriesMode.numInPreviousBins = 0
@@ -247,7 +253,7 @@ export default class Histogram extends Component {
                   value={selectedMetric}
                   >
                   {metricsVals.map((metric) => {
-                    return <option value={metric}>{metric}</option>
+                    return <option value={metric}>{metrics[metric].label}</option>
                   })}
                 </FormControl>
               </FormGroup>

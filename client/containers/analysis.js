@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import {deleteAnalysis} from '../actions/analysis'
+import analysisActions from '../actions/analysis'
 import _histogram from '../components/analysis/histogram'
 import _individuals from '../components/analysis/individuals'
 import _possibilities from '../components/analysis/possibilities'
@@ -19,7 +19,8 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    deleteAnalysis: (opts) => dispatch(deleteAnalysis(opts))
+    deleteAnalysis: (opts) => dispatch(analysisActions.delete(opts)),
+    loadAnalysis: (opts) => dispatch(analysisActions.loadOne(opts))
   }
 }
 

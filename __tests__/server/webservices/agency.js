@@ -2,37 +2,36 @@
 
 import mongoose from 'mongoose'
 
-import {Organization} from '../../server/models'
+import {Agency} from '../../../server/models'
 
-import {makeRestEndpointTests} from '../test-utils/server'
+import {makeRestEndpointTests} from '../../test-utils/server'
 
-describe('organization', () => {
+describe('agency', () => {
   afterAll(() => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  const initOrganizationData = {
-    agencyId: mongoose.Types.ObjectId(),
-    name: 'test-org'
+  const initAgencyData = {
+    name: 'test-agency'
   }
 
   makeRestEndpointTests({
     endpoints: {
       'Collection GET': {},
       'Collection POST': {
-        creationData: initOrganizationData,
+        creationData: initAgencyData,
         customAssertions: (json) => {
-          expect(json[0].name).toBe('test-org')
+          expect(json[0].name).toBe('test-agency')
         }
       },
       'DELETE': {
-        initData: initOrganizationData
+        initData: initAgencyData
       },
       'GET': {
-        initData: initOrganizationData
+        initData: initAgencyData
       },
       'PUT': {
-        initData: initOrganizationData,
+        initData: initAgencyData,
         updateData: {
           name: 'updated name'
         },
@@ -42,8 +41,7 @@ describe('organization', () => {
         }
       }
     },
-    foreignKeys: ['agencyId'],
-    model: Organization,
-    name: 'organization'
+    model: Agency,
+    name: 'agency'
   })
 })

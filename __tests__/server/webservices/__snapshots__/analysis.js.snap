@@ -2,7 +2,9 @@ exports[`analysis rest endpoint should add model 1`] = `
 Array [
   Object {
     "__v": 0,
+    "calculationStatus": "calculating",
     "name": "test-analysis",
+    "numCommuters": 1,
     "summary": Object {
       "avgDistance": 0,
       "avgTravelTime": 0,
@@ -11,7 +13,6 @@ Array [
       "savingsTotalPerDay": 0,
       "savingsTotalPerYear": 0,
     },
-    "trips": Array [],
   },
 ]
 `;
@@ -19,7 +20,9 @@ Array [
 exports[`analysis rest endpoint should get model 1`] = `
 Object {
   "__v": 0,
+  "calculationStatus": "calculating",
   "name": "test-analysis",
+  "numCommuters": 1,
   "summary": Object {
     "avgDistance": 0,
     "avgTravelTime": 0,
@@ -28,6 +31,5 @@ Object {
     "savingsTotalPerDay": 0,
     "savingsTotalPerYear": 0,
   },
-  "trips": Array [],
 }
 `;

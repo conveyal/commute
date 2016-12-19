@@ -104,7 +104,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           "data": Array [
             Object {
               "x": 1,
-              "y": "0.0",
+              "y": 0,
             },
           ],
           "disabled": false,
@@ -116,7 +116,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           "data": Array [
             Object {
               "x": 1,
-              "y": "100.0",
+              "y": 100,
             },
           ],
           "disabled": false,
@@ -128,7 +128,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           "data": Array [
             Object {
               "x": 1,
-              "y": "0.0",
+              "y": 0,
             },
           ],
           "disabled": false,
@@ -140,7 +140,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           "data": Array [
             Object {
               "x": 1,
-              "y": "0.0",
+              "y": 0,
             },
           ],
           "disabled": false,
@@ -314,7 +314,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           } />
         <span
           className="rv-discrete-color-legend-item__title">
-          Bike - 0.0%
+          Bike - 0%
         </span>
       </td>
       <td>
@@ -327,7 +327,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           } />
         <span
           className="rv-discrete-color-legend-item__title">
-          Car - 100.0%
+          Car - 100%
         </span>
       </td>
       <td>
@@ -340,7 +340,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           } />
         <span
           className="rv-discrete-color-legend-item__title">
-          Transit - 0.0%
+          Transit - 0%
         </span>
       </td>
       <td>
@@ -353,7 +353,7 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
           } />
         <span
           className="rv-discrete-color-legend-item__title">
-          Walk - 0.0%
+          Walk - 0%
         </span>
       </td>
     </tr>

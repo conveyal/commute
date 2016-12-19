@@ -2,42 +2,37 @@
 
 import mongoose from 'mongoose'
 
-import {Site} from '../../server/models'
+import {Organization} from '../../../server/models'
 
-import {makeRestEndpointTests} from '../test-utils/server'
+import {makeRestEndpointTests} from '../../test-utils/server'
 
-describe('site', () => {
+describe('organization', () => {
   afterAll(() => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  const initSiteData = {
-    address: '123 Main St',
-    location: {
-      lat: 12,
-      lon: 34
-    },
-    name: 'test-site',
-    organizationId: mongoose.Types.ObjectId()
+  const initOrganizationData = {
+    agencyId: mongoose.Types.ObjectId(),
+    name: 'test-org'
   }
 
   makeRestEndpointTests({
     endpoints: {
       'Collection GET': {},
       'Collection POST': {
-        creationData: initSiteData,
+        creationData: initOrganizationData,
         customAssertions: (json) => {
-          expect(json[0].name).toBe('test-site')
+          expect(json[0].name).toBe('test-org')
         }
       },
       'DELETE': {
-        initData: initSiteData
+        initData: initOrganizationData
       },
       'GET': {
-        initData: initSiteData
+        initData: initOrganizationData
       },
       'PUT': {
-        initData: initSiteData,
+        initData: initOrganizationData,
         updateData: {
           name: 'updated name'
         },
@@ -47,9 +42,8 @@ describe('site', () => {
         }
       }
     },
-    foreignKeys: ['organizationId'],
-    geocodePlugin: true,
-    model: Site,
-    name: 'site'
+    snapshotOmitions: ['agencyId'],
+    model: Organization,
+    name: 'organization'
   })
 })

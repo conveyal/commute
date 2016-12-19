@@ -12,7 +12,6 @@ export default class CreateAnalysis extends Component {
     create: PropTypes.func.isRequired,
 
     // props
-    commutersById: PropTypes.object.isRequired,
     groups: PropTypes.array.isRequired,
     organizationId: PropTypes.string.isRequired,
     sites: PropTypes.array.isRequired
@@ -29,9 +28,10 @@ export default class CreateAnalysis extends Component {
   }
 
   _handleGroupChange = (event) => {
-    const groupId = event.value
+    const {numCommuters, value: groupId} = event
     this.setState({
-      groupId
+      groupId,
+      numCommuters
     })
   }
 
@@ -83,6 +83,7 @@ export default class CreateAnalysis extends Component {
                   options={groups.map((group) => {
                     return {
                       label: group.name,
+                      numCommuters: group.commuters.length,
                       value: group._id
                     }
                   })}

@@ -6,7 +6,13 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
-import {makeMockStore, mockSite, mockStores} from '../../test-utils/mock-data'
+import {
+  genGeocodedEntity,
+  makeMockStore,
+  mockGeocodeResponse,
+  mockSite,
+  mockStores
+} from '../../test-utils/mock-data'
 import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditSite from '../../../client/containers/edit-site'
@@ -95,19 +101,7 @@ describe('Container > EditSite', () => {
     // name
     tree.find('input').first().simulate('change', {target: {value: 'Mock Site'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          -76.9897,
-          38.89011
-        ]
-      },
-      properties: {
-        label: 'Abraham Lincoln/Emancipation Monument, Washington, USA'
-      }
-    })
+    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
     // radius
     tree.find('input').last().simulate('change', {target: {value: 0.5}})
 
@@ -117,14 +111,11 @@ describe('Container > EditSite', () => {
     // expect create action
     siteExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
-      newEntity: {
-        address: 'Abraham Lincoln/Emancipation Monument, Washington, USA',
-        lat: 38.89011,
-        lng: -76.9897,
+      newEntity: genGeocodedEntity({
         name: 'Mock Site',
         organizationId: 'organization-1',
         radius: 0.5
-      }
+      })
     })
   })
 
@@ -146,19 +137,7 @@ describe('Container > EditSite', () => {
     // name
     tree.find('input').first().simulate('change', {target: {value: 'Different Name'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          -123.45,
-          67.89
-        ]
-      },
-      properties: {
-        label: 'A fake place'
-      }
-    })
+    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
     // radius
     tree.find('input').last().simulate('change', {target: {value: 1.5}})
 
@@ -167,15 +146,12 @@ describe('Container > EditSite', () => {
 
     siteExpectations.expectUpdateAction({
       action: mockStore.getActions()[0],
-      entity: {
+      entity: genGeocodedEntity({
         _id: 'site-2',
-        address: 'A fake place',
-        lat: 67.89,
-        lng: -123.45,
         name: 'Different Name',
         organizationId: 'organization-2',
         radius: 1.5
-      }
+      })
     })
   })
 

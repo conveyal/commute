@@ -3,8 +3,8 @@
 const mongoose = require('mongoose')
 import request from 'supertest-as-promised'
 
-import app from '../../server/app'
-import db from '../../server/db'
+import app from '../../../server/app'
+import db from '../../../server/db'
 
 describe('app', () => {
   beforeAll((done) => {

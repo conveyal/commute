@@ -1,9 +1,14 @@
 const models = require('../models')
-const makeRestEndpoints = require('./').makeRestEndpoints
+const makeRestEndpoints = require('../utils/restEndpoints')
 
 module.exports = function makeRoutes (app) {
   makeRestEndpoints(app,
     {
+      childModels: [{
+        foreignKey: 'analysisId',
+        key: 'trips',
+        model: models.Trip
+      }],
       commands: {
         'Collection GET': {},
         'Collection POST': {},
@@ -11,7 +16,8 @@ module.exports = function makeRoutes (app) {
         'DELETE': {}
       },
       model: models.Analysis,
-      name: 'analysis'
+      name: 'analysis',
+      returnChildrenAsEntities: true
     }
   )
 }

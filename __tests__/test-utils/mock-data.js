@@ -6,36 +6,51 @@ import promise from 'redux-promise'
 export const makeMockStore = configureStore([multi, promise])
 
 // mock agencies
-export const blankAgency = {
-  _id: 'agency-1',
-  name: 'Mock Agency',
-  organizations: []
-}
-
 export const agencyWithAnOrganization = {
   _id: 'agency-2',
   name: 'Mock Agency',
   organizations: ['organization-2']
 }
 
+export const blankAgency = {
+  _id: 'agency-1',
+  name: 'Mock Agency',
+  organizations: []
+}
+
 // mock entities
 export const commuterSal = {
-  address: '9876 ABC Ct',
-  email: 'sal@a.mander',
   _id: 'commuter-3',
-  lat: 38.915,
-  lng: -76.971,
-  name: 'Sal A. Mander'
+  address: '9876 ABC Ct',
+  city: 'Megalopolis',
+  coordinate: {
+    lat: 38.912314,
+    lon: -77.033994
+  },
+  country: 'Made up land',
+  county: 'Made up county',
+  email: 'sal@a.mander',
+  name: 'Sal A. Mander',
+  neighbourhood: undefined,
+  state: 'Made up state'
 }
 
 export const mockCommuter = {
-  address: '4321 XYZ Boulevard',
-  email: 'luke@warm.cold',
-  groupId: 'group-2',
   _id: 'commuter-2',
-  lat: 38.916089,
-  lng: -76.970221,
-  name: 'Luke Warm'
+  address: '4321 XYZ Boulevard',
+  city: 'Megalopolis',
+  coordinate: {
+    lat: 38.910822,
+    lon: -77.041094
+  },
+  country: 'Made up land',
+  county: 'Made up county',
+  email: 'luke@warm.cold',
+  geocodeConfidence: 0.77,
+  groupId: 'group-2',
+  name: 'Luke Warm',
+  neighbourhood: undefined,
+  state: 'Made up state'
 }
 
 export const mockGroup = {
@@ -63,41 +78,48 @@ export const mockSite = {
   _id: 'site-2',
   name: 'Acme Corp',
   address: '123 ABC St',
-  lat: 38.8886,
-  lng: -77.0430,
+  city: 'Megalopolis',
+  coordinate: {
+    lat: 38.892767,
+    lon: -77.040740
+  },
+  country: 'Made up land',
+  county: 'Made up county',
+  neighbourhood: undefined,
   organizationId: 'organization-2',
-  radius: 1
+  radius: 1,
+  state: 'Made up state'
 }
 
 export const mockTrip = {
   bike: {
-    cost: 0.12,
+    monetaryCost: 0.12,
     distance: 23,
     time: 2345,
     polygon: 'encoded'
   },
   car: {
-    cost: 6.78,
+    monetaryCost: 6.78,
     distance: 18,
     time: 1234,
     polygon: 'encoded'
   },
   commuterId: 'commuter-2',
   mostLikely: {
-    cost: 3.45,
+    monetaryCost: 3.45,
     distance: 30,
     time: 3456,
     mode: 'transit',
     polygon: 'encoded'
   },
   transit: {
-    cost: 3.45,
+    monetaryCost: 3.45,
     distance: 30,
     time: 3456,
     polygon: 'encoded'
   },
   walk: {
-    cost: 0,
+    monetaryCost: 0,
     distance: 19,
     time: 6789,
     polygon: 'encoded'
@@ -106,9 +128,11 @@ export const mockTrip = {
 
 export const mockAnalysis = {
   _id: 'analysis-2',
+  calculationStatus: 'calculated',
   groupId: 'group-2',
   lastRunDateTime: 1477697490,
   name: 'An Analysis',
+  numCommuters: 1,
   organizationId: 'organization-2',
   siteId: 'site-2',
   summary: {
@@ -122,22 +146,22 @@ export const mockAnalysis = {
   trips: [mockTrip],
   tripVals: {
     bike: {
-      cost: [0.12],
+      monetaryCost: [0.12],
       distance: [23],
       time: [2345]
     },
     car: {
-      cost: [6.78],
+      monetaryCost: [6.78],
       distance: [18],
       time: [1234]
     },
     transit: {
-      cost: [3.45],
+      monetaryCost: [3.45],
       distance: [30],
       time: [3456]
     },
     walk: {
-      cost: [0],
+      monetaryCost: [0],
       distance: [19],
       time: [6789]
     }
@@ -231,4 +255,51 @@ export const mockStores = {
     site: {},
     user: {}
   }
+}
+
+// utilities
+export const mockGeocodeResponse = {
+  type: 'Feature',
+  geometry: {
+    type: 'Point',
+    coordinates: [-76.9897, 38.89011]
+  },
+  properties: {
+    id: '4137449',
+    gid: 'geonames:venue:4137449',
+    layer: 'venue',
+    source: 'geonames',
+    source_id: '4137449',
+    name: 'Abraham Lincoln/Emancipation Monument',
+    confidence: 0.904,
+    accuracy: 'point',
+    country: 'United States',
+    country_gid: 'whosonfirst:country:85633793',
+    country_a: 'USA',
+    region: 'District of Columbia',
+    region_gid: 'whosonfirst:region:85688741',
+    county: 'District of Columbia',
+    county_gid: 'whosonfirst:county:102084889',
+    locality: 'Washington',
+    locality_gid: 'whosonfirst:locality:85931779',
+    neighbourhood: 'Capitol Hill',
+    neighbourhood_gid: 'whosonfirst:neighbourhood:85809405',
+    label: 'Abraham Lincoln/Emancipation Monument, Washington, USA'
+  }
+}
+
+export function genGeocodedEntity (additionalFields) {
+  return Object.assign(additionalFields, {
+    address: 'Abraham Lincoln/Emancipation Monument, Washington, USA',
+    city: 'Washington',
+    coordinate: {
+      lat: 38.89011,
+      lon: -76.9897
+    },
+    country: 'United States',
+    county: 'District of Columbia',
+    geocodeConfidence: 0.77,
+    neighbourhood: undefined,
+    state: 'District of Columbia'
+  })
 }
