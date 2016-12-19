@@ -1,15 +1,16 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, ControlLabel, FormGroup, Grid, Row} from 'react-bootstrap'
+import {Button, Col, Grid, Row} from 'react-bootstrap'
 import Form from 'react-formal'
 import {Link} from 'react-router'
 import yup from 'yup'
 
+import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
 import {messages} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
 
 const agencySchema = yup.object({
-  name: yup.string().required()
+  name: yup.string().label('Agency Name').required()
 })
 
 export default class EditAgency extends Component {
@@ -71,6 +72,7 @@ export default class EditAgency extends Component {
               onSubmit={this._handleSubmit}
               >
               <FormalFieldGroup
+                label='Agency Name'
                 name='name'
                 placeholder='Enter name'
                 validationState={this.state.errors.name ? 'error' : undefined}
@@ -95,21 +97,4 @@ export default class EditAgency extends Component {
       </Grid>
     )
   }
-}
-
-function FormalFieldGroup ({ label, name, validationState, ...props }) {
-  return (
-    <FormGroup
-      controlId={`group-item-${name}`}
-      validationState={validationState}
-      >
-      <ControlLabel>{label}</ControlLabel>
-      <Form.Field
-        className='form-control'
-        {...props}
-        name={name}
-        />
-      <Form.Message className='help-block' for={name} />
-    </FormGroup>
-  )
 }

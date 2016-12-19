@@ -1,11 +1,21 @@
 import React, {Component, PropTypes} from 'react'
 import {Button, Col, Grid, Row} from 'react-bootstrap'
+import Form from 'react-formal'
 import {Link} from 'react-router'
+import yup from 'yup'
 
-import FieldGroup from './fieldgroup'
+import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
 import {messages} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
+
+const organizationSchema = yup.object({
+  name: yup.string().label('Organization Name').required(),
+  main_url: yup.string().label('Main URL').url(),
+  logo_url: yup.string().label('Logo URL').url(),
+  contact: yup.string().label('Contact'),
+  email: yup.string().label('Email').email()
+})
 
 export default class EditOrganization extends Component {
   static propTypes = {
@@ -20,32 +30,32 @@ export default class EditOrganization extends Component {
     organization: PropTypes.object
   }
 
+  state = { errors: {} }
+
   componentWillMount () {
     if (this.props.editMode) {
-      this.setState({...this.props.organization})
+      this.setState({ model: this.props.organization })
     } else {
-      this.state = {
-        agencyId: this.props.agencyId
-      }
+      this.setState({ model: { agencyId: this.props.agencyId } })
     }
   }
 
-  handleChange = (name, event) => {
-    this.setState({ [name]: event.target.value })
-  }
-
-  handleDelete = () => {
-    const doDelete = () => this.props.delete(this.state)
+  _handleDelete = () => {
+    const doDelete = () => this.props.delete(this.state.model)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
-  handleSubmit = () => {
+  _handleSubmit = () => {
     if (this.props.editMode) {
-      this.props.update(this.state)
+      this.props.update(this.state.model)
     } else {
-      this.props.create(this.state)
+      this.props.create(this.state.model)
     }
   }
+
+  _setErrors = errors => this.setState({ errors })
+
+  _setModel = model => this.setState({ model })
 
   render () {
     const {agencyId} = this.props
@@ -62,62 +72,58 @@ export default class EditOrganization extends Component {
                 </Link>
               </Button>
             </h3>
-            <form>
-              <FieldGroup
-                label='Name'
+            <Form
+              schema={organizationSchema}
+              value={this.state.model}
+              onChange={this._setModel}
+              onError={this._setErrors}
+              onSubmit={this._handleSubmit}
+              >
+              <FormalFieldGroup
+                label='Organization Name'
                 name='name'
-                onChange={this.handleChange}
                 placeholder='Enter name'
-                type='text'
-                value={this.state.name}
+                validationState={this.state.errors.name ? 'error' : undefined}
                 />
-              <FieldGroup
+              <FormalFieldGroup
                 label='Main URL'
                 name='main_url'
-                onChange={this.handleChange}
                 placeholder='Enter url'
-                type='text'
-                value={this.state.main_url}
+                validationState={this.state.errors.main_url ? 'error' : undefined}
                 />
-              <FieldGroup
+              <FormalFieldGroup
                 label='Logo URL'
                 name='logo_url'
-                onChange={this.handleChange}
-                placeholder='Enter logo url'
-                type='text'
-                value={this.state.logo_url}
+                placeholder='Enter url'
+                validationState={this.state.errors.logo_url ? 'error' : undefined}
                 />
-              <FieldGroup
+              <FormalFieldGroup
                 label='Contact'
                 name='contact'
-                onChange={this.handleChange}
                 placeholder='Enter contact'
-                type='text'
-                value={this.state.contact}
+                validationState={this.state.errors.contact ? 'error' : undefined}
                 />
-              <FieldGroup
+              <FormalFieldGroup
                 label='Email'
                 name='email'
-                onChange={this.handleChange}
                 placeholder='Enter email'
-                type='text'
-                value={this.state.email}
+                validationState={this.state.errors.email ? 'error' : undefined}
                 />
-              <Button
-                bsStyle={this.props.editMode ? 'warning' : 'success'}
-                onClick={this.handleSubmit}
+              <Form.Button
+                type='submit'
+                className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
                 >
                 {this.props.editMode ? 'Update' : 'Create'}
-              </Button>
+              </Form.Button>
               {this.props.editMode &&
                 <Button
                   bsStyle='danger'
-                  onClick={this.handleDelete}
+                  onClick={this._handleDelete}
                   >
                   Delete
                 </Button>
               }
-            </form>
+            </Form>
           </Col>
         </Row>
       </Grid>
