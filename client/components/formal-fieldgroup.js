@@ -1,6 +1,9 @@
 import React from 'react'
 import {ControlLabel, FormGroup} from 'react-bootstrap'
 import Form from 'react-formal'
+import FormalInputs from 'react-formal-inputs'
+
+Form.addInputTypes(FormalInputs)
 
 export default function FormalFieldGroup ({ label, name, validationState, ...props }) {
   return (
@@ -10,7 +13,7 @@ export default function FormalFieldGroup ({ label, name, validationState, ...pro
       >
       <ControlLabel>{label}</ControlLabel>
       <Form.Field
-        className='form-control'
+        className={props.type ? '' : 'form-control'}
         {...props}
         name={name}
         />

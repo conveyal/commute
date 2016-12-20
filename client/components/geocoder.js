@@ -1,5 +1,6 @@
 import React from 'react'
 import {ControlLabel, FormGroup} from 'react-bootstrap'
+import Form from 'react-formal'
 import SelectGeocoder from 'react-select-geocoder'
 
 import {settings} from '../utils/env'
@@ -20,6 +21,7 @@ export default function Geocoder ({ label, ...props }) {
         boundary={boundary}
         {...props}
         />
+      <Form.Message className='help-block' for={props.name} />
     </FormGroup>
   )
 }

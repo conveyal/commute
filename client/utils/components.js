@@ -26,19 +26,20 @@ export function calcNumLessThan (arr, target) {
   return left
 }
 
-export function geocodeResultToState (result) {
-  return {
-    address: result.properties.label,
-    neighborhood: result.properties.neighborhood,
-    city: result.properties.locality,
-    county: result.properties.county,
-    state: result.properties.region,
-    country: result.properties.country,
-    coordinate: {
+export const geocodeResultToState = {
+  address: result => result.properties.label,
+  city: result => result.properties.locality,
+  coordinate: result => {
+    return {
       lat: result.geometry.coordinates[1],
       lon: result.geometry.coordinates[0]
     }
-  }
+  },
+  country: result => result.properties.country,
+  county: result => result.properties.county,
+  geocodeConfidence: result => result.properties.confidence,
+  neighborhood: result => result.properties.neighborhood,
+  state: result => result.properties.region
 }
 
 /**

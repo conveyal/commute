@@ -116,7 +116,6 @@ module.exports = function (schema, options) {
             const firstResult = geojson.features[0]
             this.address = firstResult.properties.label
             this.city = firstResult.properties.locality
-            this.confidence = firstResult.properties.confidence
             this.coordinate = {
               lat: firstResult.geometry.coordinates[1],
               lon: firstResult.geometry.coordinates[0]

@@ -1,10 +1,17 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, ControlLabel, FormGroup, Grid, Row} from 'react-bootstrap'
+import {Button, Col, Grid, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
-import Select from 'react-select'
+import Form from 'react-formal'
+import yup from 'yup'
 
-import FieldGroup from './fieldgroup'
+import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
+
+const analysisSchema = yup.object({
+  name: yup.string().label('Analysis Name').required(),
+  groupId: yup.string().label('Group').required(),
+  siteId: yup.string().label('Site').required()
+})
 
 export default class CreateAnalysis extends Component {
   static propTypes = {
@@ -13,35 +20,27 @@ export default class CreateAnalysis extends Component {
 
     // props
     groups: PropTypes.array.isRequired,
+    groupsById: PropTypes.object.isRequired,
     organizationId: PropTypes.string.isRequired,
     sites: PropTypes.array.isRequired
   }
 
   componentWillMount () {
     this.state = {
-      organizationId: this.props.organizationId
+      errors: {},
+      model: { organizationId: this.props.organizationId }
     }
   }
 
-  _handleChange = (name, event) => {
-    this.setState({ [name]: event.target.value })
-  }
-
-  _handleGroupChange = (event) => {
-    const {numCommuters, value: groupId} = event
-    this.setState({
-      groupId,
-      numCommuters
-    })
-  }
-
-  _handleSiteChange = (event) => {
-    this.setState({ siteId: event.value })
-  }
-
   _handleSubmit = () => {
+    const {model} = this.state
+    model.numCommuters = this.props.groupsById[model.groupId].commuters.length
     this.props.create(this.state)
   }
+
+  _setErrors = errors => this.setState({ errors })
+
+  _setModel = model => this.setState({ model })
 
   render () {
     const {groups, organizationId, sites} = this.props
@@ -58,46 +57,46 @@ export default class CreateAnalysis extends Component {
                 </Link>
               </Button>
             </h3>
-            <form>
-              <FieldGroup
-                label='Name'
+            <Form
+              schema={analysisSchema}
+              value={this.state.model}
+              onChange={this._setModel}
+              onError={this._setErrors}
+              onSubmit={this._handleSubmit}
+              >
+              <FormalFieldGroup
+                label='Analysis Name'
                 name='name'
-                onChange={this._handleChange}
                 placeholder='Enter name'
-                type='text'
-                value={this.state.name}
+                validationState={this.state.errors.name ? 'error' : undefined}
                 />
-              <FormGroup controlId='site-control'>
-                <ControlLabel>Site</ControlLabel>
-                <Select
-                  onChange={this._handleSiteChange}
-                  options={sites.map((site) => { return {label: site.name, value: site._id} })}
-                  placeholder='Select a Site...'
-                  value={this.state.siteId}
-                  />
-              </FormGroup>
-              <FormGroup controlId='group-control'>
-                <ControlLabel>Group</ControlLabel>
-                <Select
-                  onChange={this._handleGroupChange}
-                  options={groups.map((group) => {
-                    return {
-                      label: group.name,
-                      numCommuters: group.commuters.length,
-                      value: group._id
-                    }
-                  })}
-                  placeholder='Select a Commuter Group...'
-                  value={this.state.groupId}
-                  />
-              </FormGroup>
-              <Button
-                bsStyle='success'
-                onClick={this._handleSubmit}
+              <FormalFieldGroup
+                data={sites}
+                filter='contains'
+                label='Site'
+                name='siteId'
+                textField='name'
+                type='dropdownlist'
+                validationState={this.state.errors.siteId ? 'error' : undefined}
+                valueField='_id'
+                />
+              <FormalFieldGroup
+                data={groups}
+                filter='contains'
+                label='Group'
+                name='groupId'
+                textField='name'
+                type='dropdownlist'
+                validationState={this.state.errors.groupId ? 'error' : undefined}
+                valueField='_id'
+                />
+              <Form.Button
+                type='submit'
+                className='btn btn-success'
                 >
                 Create
-              </Button>
-            </form>
+              </Form.Button>
+            </Form>
           </Col>
         </Row>
       </Grid>
