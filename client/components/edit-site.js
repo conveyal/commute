@@ -11,26 +11,14 @@ import yup from 'yup'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
 import Icon from './icon'
-import {geocodeResultToState} from '../utils/components'
+import {geocodeResultToState, geocodeYupSchema} from '../utils/components'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
 
-const siteSchema = yup.object({
-  address: yup.string().required(),
-  city: yup.string(),
-  coordinate: yup.object({
-    lon: yup.number().required(),
-    lat: yup.number().required()
-  }),
-  country: yup.string(),
-  county: yup.string(),
-  geocodeConfidence: yup.number(),
+const siteSchema = yup.object(Object.assign({
   name: yup.string().label('Site Name').required(),
-  neighborhood: yup.string(),
-  original_address: yup.string(),
-  radius: yup.string().label('Ridematch Radius'),
-  state: yup.object().label('Address').required()
-})
+  radius: yup.string().label('Ridematch Radius')
+}, geocodeYupSchema))
 
 export default class EditSite extends Component {
   static propTypes = {
@@ -115,6 +103,7 @@ export default class EditSite extends Component {
                 mapToValue={model => model.address ? { label: model.address } : undefined}
                 name='address'
                 type={Geocoder}
+                validationState={this.state.errors.address ? 'error' : undefined}
                 />
               <FormalFieldGroup
                 label='Ridematch Radius (mi)'
@@ -122,6 +111,20 @@ export default class EditSite extends Component {
                 placeholder='Enter radius'
                 validationState={this.state.errors.radius ? 'error' : undefined}
                 />
+              <Form.Button
+                type='submit'
+                className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
+                >
+                {this.props.editMode ? 'Update' : 'Create'}
+              </Form.Button>
+              {editMode &&
+                <Button
+                  bsStyle='danger'
+                  onClick={this._handleDelete}
+                  >
+                  Delete
+                </Button>
+              }
             </Form>
           </Col>
           <Col xs={12} md={7} style={{height: '400px'}}>
@@ -135,24 +138,6 @@ export default class EditSite extends Component {
                 />
               {hasCoordinates && <Marker position={position} /> }
             </LeafletMap>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} className='site-submit-buttons'>
-            <Button
-              bsStyle={editMode ? 'warning' : 'success'}
-              onClick={this._handleSubmit}
-              >
-              {editMode ? 'Update' : 'Create'}
-            </Button>
-            {editMode &&
-              <Button
-                bsStyle='danger'
-                onClick={this._handleDelete}
-                >
-                Delete
-              </Button>
-            }
           </Col>
         </Row>
       </Grid>

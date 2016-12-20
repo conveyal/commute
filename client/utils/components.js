@@ -1,3 +1,5 @@
+import yup from 'yup'
+
 import analysisDefaults from './analysisDefaults'
 import {fixedRound} from './common'
 
@@ -27,19 +29,34 @@ export function calcNumLessThan (arr, target) {
 }
 
 export const geocodeResultToState = {
-  address: result => result.properties.label,
-  city: result => result.properties.locality,
+  address: result => result ? result.properties.label : undefined,
+  city: result => result ? result.properties.locality : undefined,
   coordinate: result => {
-    return {
+    return result ? {
       lat: result.geometry.coordinates[1],
       lon: result.geometry.coordinates[0]
-    }
+    } : undefined
   },
-  country: result => result.properties.country,
-  county: result => result.properties.county,
-  geocodeConfidence: result => result.properties.confidence,
-  neighborhood: result => result.properties.neighborhood,
-  state: result => result.properties.region
+  country: result => result ? result.properties.country : undefined,
+  county: result => result ? result.properties.county : undefined,
+  geocodeConfidence: result => result ? result.properties.confidence : undefined,
+  neighborhood: result => result ? result.properties.neighborhood : undefined,
+  state: result => result ? result.properties.region : undefined
+}
+
+export const geocodeYupSchema = {
+  address: yup.string().label('Address').required(),
+  city: yup.string(),
+  coordinate: yup.object({
+    lon: yup.number().required(),
+    lat: yup.number().required()
+  }),
+  country: yup.string(),
+  county: yup.string(),
+  geocodeConfidence: yup.number(),
+  neighborhood: yup.string(),
+  original_address: yup.string(),
+  state: yup.string().required()
 }
 
 /**

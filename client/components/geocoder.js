@@ -12,9 +12,12 @@ const boundary = {
   }
 }
 
-export default function Geocoder ({ label, ...props }) {
+export default function Geocoder ({ label, validationState, ...props }) {
   return (
-    <FormGroup controlId='geocode-control'>
+    <FormGroup
+      controlId={`geocode-control-${props.name}`}
+      validationState={validationState}
+      >
       <ControlLabel>{label}</ControlLabel>
       <SelectGeocoder
         apiKey={process.env.MAPZEN_SEARCH_KEY}
