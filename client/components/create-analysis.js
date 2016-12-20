@@ -35,7 +35,7 @@ export default class CreateAnalysis extends Component {
   _handleSubmit = () => {
     const {model} = this.state
     model.numCommuters = this.props.groupsById[model.groupId].commuters.length
-    this.props.create(this.state)
+    this.props.create(model)
   }
 
   _setErrors = errors => this.setState({ errors })

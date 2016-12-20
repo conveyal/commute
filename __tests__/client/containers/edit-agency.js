@@ -6,6 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {timeoutPromise} from '../../test-utils/common'
 import {blankAgency, makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import EditAgency from '../../../client/containers/edit-agency'
@@ -44,7 +45,7 @@ describe('Container > EditAgency', () => {
     expect(mountToJson(tree.find(EditAgency))).toMatchSnapshot()
   })
 
-  it('Create agency', () => {
+  it('Create agency', async () => {
     const mockStore = makeMockStore(mockStores.init)
 
     // mount component
@@ -62,6 +63,9 @@ describe('Container > EditAgency', () => {
     // submit form
     tree.find('form').find('button').simulate('click')
 
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
+
     // expect create action
     agencyExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
@@ -71,7 +75,7 @@ describe('Container > EditAgency', () => {
     })
   })
 
-  it('Update agency', () => {
+  it('Update agency', async () => {
     const mockStore = makeMockStore(mockStores.withBlankAgency)
 
     // mount component
@@ -88,6 +92,9 @@ describe('Container > EditAgency', () => {
 
     // submit form
     tree.find('form').find('button').first().simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
 
     // expect update action
     agencyExpectations.expectUpdateAction({

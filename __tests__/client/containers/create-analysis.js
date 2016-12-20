@@ -6,6 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {timeoutPromise} from '../../test-utils/common'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import CreateAnalysis from '../../../client/containers/create-analysis'
@@ -30,7 +31,7 @@ describe('Container > CreateAnalysis', () => {
     expect(mountToJson(tree.find(CreateAnalysis))).toMatchSnapshot()
   })
 
-  it('Create analysis', () => {
+  it('Create analysis', async () => {
     // Given a logged-in user is viewing the Create Analysis View
     mockStores.withAnalysisRun.analysis = {}
     const mockStore = makeMockStore(mockStores.withAnalysisRun)
@@ -44,20 +45,29 @@ describe('Container > CreateAnalysis', () => {
       </Provider>
     )
 
-    // When the user fills out all of the required fields (Site, commuter group)
+    // When the user fills out all of the required fields (Name, Site, commuter group)
+    // Name
+    tree.find('input').first().simulate('change', {target: {value: 'My new analysis'}})
+
     // site
-    tree.find('Select').first().props().onChange({ value: 'site-2' })
+    tree.find('DropdownList').first().props().onChange('site-2')
+
     // group
-    tree.find('Select').last().props().onChange({ value: 'group-2' })
+    tree.find('DropdownList').last().props().onChange('group-2')
 
     // And the user submits the form
     tree.find('button').last().simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
 
     analysisExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
       newEntity: {
         groupId: 'group-2',
+        name: 'My new analysis',
         organizationId: 'organization-2',
+        numCommuters: 1,
         siteId: 'site-2'
       }
     })

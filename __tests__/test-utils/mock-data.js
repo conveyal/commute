@@ -298,7 +298,7 @@ export function genGeocodedEntity (additionalFields) {
     },
     country: 'United States',
     county: 'District of Columbia',
-    geocodeConfidence: 0.77,
+    geocodeConfidence: 0.904,
     neighbourhood: undefined,
     state: 'District of Columbia'
   })

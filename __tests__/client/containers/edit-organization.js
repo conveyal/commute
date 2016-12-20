@@ -6,6 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {timeoutPromise} from '../../test-utils/common'
 import {blankOrganization, makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import EditOrganization from '../../../client/containers/edit-organization'
@@ -44,7 +45,7 @@ describe('Container > EditOrganization', () => {
     expect(mountToJson(tree.find(EditOrganization))).toMatchSnapshot()
   })
 
-  it('Create organization', () => {
+  it('Create organization', async () => {
     const mockStore = makeMockStore(mockStores.withBlankAgency)
 
     // mount component
@@ -57,26 +58,33 @@ describe('Container > EditOrganization', () => {
     )
 
     // give each text field some input
-    tree.find('input').map((input) => input.simulate('change', {target: {value: 'My new value'}}))
+    tree.find('input[name="name"]').simulate('change', {target: {value: 'Conveyal'}})
+    tree.find('input[name="main_url"]').simulate('change', {target: {value: 'http://www.conveyal.com'}})
+    tree.find('input[name="logo_url"]').simulate('change', {target: {value: 'http://www.conveyal.com/logo.jpg'}})
+    tree.find('input[name="contact"]').simulate('change', {target: {value: 'Kanye West'}})
+    tree.find('input[name="email"]').simulate('change', {target: {value: 'kwest@conveyal.com'}})
 
     // submit form
     tree.find('form').find('button').simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
 
     // expect create action
     organizationExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
       newEntity: {
         agencyId: 'agency-1',
-        contact: 'My new value',
-        email: 'My new value',
-        logo_url: 'My new value',
-        main_url: 'My new value',
-        name: 'My new value'
+        contact: 'Kanye West',
+        email: 'kwest@conveyal.com',
+        logo_url: 'http://www.conveyal.com/logo.jpg',
+        main_url: 'http://www.conveyal.com',
+        name: 'Conveyal'
       }
     })
   })
 
-  it('Update organization', () => {
+  it('Update organization', async () => {
     const mockStore = makeMockStore(mockStores.withBlankOrganization)
 
     // mount component
@@ -89,10 +97,17 @@ describe('Container > EditOrganization', () => {
     )
 
     // give each text field some input
-    tree.find('input').map((input) => input.simulate('change', {target: {value: 'My new value'}}))
+    tree.find('input[name="name"]').simulate('change', {target: {value: 'Conveyal'}})
+    tree.find('input[name="main_url"]').simulate('change', {target: {value: 'http://www.conveyal.com'}})
+    tree.find('input[name="logo_url"]').simulate('change', {target: {value: 'http://www.conveyal.com/logo.jpg'}})
+    tree.find('input[name="contact"]').simulate('change', {target: {value: 'Kanye West'}})
+    tree.find('input[name="email"]').simulate('change', {target: {value: 'kwest@conveyal.com'}})
 
     // submit form
     tree.find('form').find('button').first().simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
 
     // expect update action
     organizationExpectations.expectUpdateAction({
@@ -100,11 +115,11 @@ describe('Container > EditOrganization', () => {
       entity: {
         _id: 'organization-1',
         agencyId: 'agency-3',
-        contact: 'My new value',
-        email: 'My new value',
-        logo_url: 'My new value',
-        main_url: 'My new value',
-        name: 'My new value'
+        contact: 'Kanye West',
+        email: 'kwest@conveyal.com',
+        logo_url: 'http://www.conveyal.com/logo.jpg',
+        main_url: 'http://www.conveyal.com',
+        name: 'Conveyal'
       }
     })
   })
