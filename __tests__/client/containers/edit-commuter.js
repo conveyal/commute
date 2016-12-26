@@ -147,7 +147,7 @@ describe('Container > EditCommuter', () => {
     tree.find('form').find('button').first().simulate('click')
 
     // react-formal submit is asyncrhonous, so wait a bit
-    await timeoutPromise(100)
+    await timeoutPromise(1000)
 
     commuterExpectations.expectUpdateAction({
       action: mockStore.getActions()[0],
