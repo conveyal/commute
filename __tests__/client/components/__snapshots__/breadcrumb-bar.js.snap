@@ -847,18 +847,6 @@ exports[`Container > BreadcrumbBar renders correctly for "/site/site-2/edit" 1`]
     </Link>
   </li>
   <li>
-    <Link
-      onlyActiveOnIndex={false}
-      style={Object {}}
-      to="/site/site-2">
-      <a
-        onClick={[Function]}
-        style={Object {}}>
-        Acme Corp
-      </a>
-    </Link>
-  </li>
-  <li>
     Edit Site
   </li>
 </ol>
