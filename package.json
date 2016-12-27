@@ -63,6 +63,7 @@
     "express-jwt": "^5.1.0",
     "font-awesome": "^4.6.3",
     "humanize-duration": "^3.9.1",
+    "invariant": "^2.2.2",
     "isomorphic-mapzen-search": "^0.0.4",
     "leaflet": "^0.7.7",
     "lodash.isequal": "^4.4.0",

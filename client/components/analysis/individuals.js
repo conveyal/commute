@@ -1,11 +1,11 @@
 import humanizeDuration from 'humanize-duration'
 import {Browser} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Map as LeafletMap, TileLayer} from 'react-leaflet'
-import {Link} from 'react-router'
 
+import ButtonLink from '../button-link'
 import Icon from '../icon'
 import {humanizeDistance} from '../../utils/components'
 import {settings} from '../../utils/env'
@@ -47,12 +47,13 @@ export default class Individuals extends Component {
           <Col xs={12}>
             <h3>
               <span>{name}</span>
-              <Button className='pull-right'>
-                <Link to={`/analysis/${analysisId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/analysis/${analysisId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <h3>Individual Commutes</h3>
           </Col>

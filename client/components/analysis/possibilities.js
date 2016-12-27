@@ -1,10 +1,10 @@
 import humanizeDuration from 'humanize-duration'
 import Slider from 'rc-slider'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
-import {Link} from 'react-router'
+import {Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, YAxis} from 'react-vis'
 
+import ButtonLink from '../button-link'
 import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
 import analysisDefaults from '../../utils/analysisDefaults'
@@ -111,12 +111,13 @@ export default class Possibilities extends Component {
           <Col xs={12}>
             <h3>
               <span>{name}</span>
-              <Button className='pull-right'>
-                <Link to={`/analysis/${analysisId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/analysis/${analysisId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <h3>Possibilities Analysis</h3>
           </Col>

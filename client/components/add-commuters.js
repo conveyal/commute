@@ -3,14 +3,14 @@
 import {csvParse} from 'd3-dsv'
 import omit from 'lodash.omit'
 import React, {Component, PropTypes} from 'react'
-import {Accordion, Button, Col, Grid, Panel, Row} from 'react-bootstrap'
+import {Accordion, Col, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Dropzone from 'react-dropzone'
 import Form from 'react-formal'
-import {Link} from 'react-router'
 import uuid from 'uuid'
 import yup from 'yup'
 
+import ButtonLink from './button-link'
 import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
 
@@ -98,12 +98,13 @@ export default class AddCommuters extends Component {
           <Col xs={12}>
             <h3>
               <span>{appendMode ? 'Add Commuters to Group' : 'Create Commuter Group'}</span>
-              <Button className='pull-right'>
-                <Link to={appendMode ? `/group/${group._id}` : `/organization/${organizationId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={appendMode ? `/group/${group._id}` : `/organization/${organizationId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <Form
               schema={groupSchema}

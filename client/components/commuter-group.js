@@ -5,9 +5,9 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Form from 'react-formal'
 import {Map as LeafletMap, TileLayer} from 'react-leaflet'
 import ClusterLayer from 'react-leaflet-cluster-layer'
-import {Link} from 'react-router'
 import yup from 'yup'
 
+import ButtonLink from './button-link'
 import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
 import ProgressManager from './progress-manager'
@@ -43,9 +43,11 @@ export default class CommuterGroup extends Component {
 
   _commuterToolsRenderer = (cell, row) => {
     return <ButtonGroup>
-      <Button bsStyle='warning'>
-        <Link to={`/commuter/${row._id}/edit`}>Edit</Link>
-      </Button>
+      <ButtonLink
+        bsStyle='warning'
+        to={`/commuter/${row._id}/edit`}>
+        Edit
+      </ButtonLink>
       <Button bsStyle='danger' onClick={this._onDeleteCommuterClick.bind(this, row)}>Delete</Button>
     </ButtonGroup>
   }
@@ -122,12 +124,13 @@ export default class CommuterGroup extends Component {
               {!editingName &&
                 <span>{groupName}</span>
               }
-              <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/organization/${organizationId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <ButtonGroup>
               {!editingName &&
@@ -173,15 +176,19 @@ export default class CommuterGroup extends Component {
           <Col xs={12}>
             <h3>Commuters</h3>
             <ButtonGroup>
-              <Button bsStyle='info'>
-                <Link to={`/group/${groupId}/commuter/create`}>
-                  <Icon type='plus' />
-                  <span>Create New Commuter</span>
-                </Link>
-              </Button>
-              <Button bsStyle='warning'>
-                <Link to={`/group/${groupId}/add`}>Add Commuters in Bulk</Link>
-              </Button>
+              <ButtonLink
+                bsStyle='info'
+                to={`/group/${groupId}/commuter/create`}
+                >
+                <Icon type='plus' />
+                <span>Create New Commuter</span>
+              </ButtonLink>
+              <ButtonLink
+                bsStyle='warning'
+                to={`/group/${groupId}/add`}
+                >
+                Add Commuters in Bulk
+              </ButtonLink>
             </ButtonGroup>
             <BootstrapTable data={commuters}>
               <TableHeaderColumn dataField='_id' isKey hidden />

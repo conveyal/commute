@@ -3,6 +3,7 @@ import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
+import ButtonLink from './button-link'
 import Icon from './icon'
 import {messages} from '../utils/env'
 import {arrayCountRenderer} from '../utils/table'
@@ -35,12 +36,15 @@ export default class Organizations extends Component {
   }
 
   _toolsRenderer = (cell, row) => {
-    return <div>
-      <Button bsStyle='warning'>
-        <Link to={`/organization/${row._id}/edit`}>Edit</Link>
-      </Button>
+    return <ButtonGroup>
+      <ButtonLink
+        bsStyle='warning'
+        to={`/organization/${row._id}/edit`}
+        >
+        Edit
+      </ButtonLink>
       <Button bsStyle='danger' onClick={this._onDeleteOrganizationClick.bind(this, row)}>Delete</Button>
-    </div>
+    </ButtonGroup>
   }
 
   render () {
@@ -55,18 +59,22 @@ export default class Organizations extends Component {
               <span>{name}</span>
             </h2>
             <ButtonGroup>
-              <Button bsStyle='warning'>
-                <Link to={`/agency/${agencyId}/edit`}>Edit</Link>
-              </Button>
+              <ButtonLink
+                bsStyle='warning'
+                to={`/agency/${agencyId}/edit`}
+                >
+                Edit
+              </ButtonLink>
               <Button bsStyle='danger' onClick={this._handleDelete}>Delete</Button>
             </ButtonGroup>
             <h3>Organizations
-              <Button className='pull-right'>
-                <Link to={`/agency/${agencyId}/organization/create`}>
-                  <span>Create a new organization</span>
-                  <Icon type='shield' />
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/agency/${agencyId}/organization/create`}
+                >
+                <span>Create a new organization</span>
+                <Icon type='shield' />
+              </ButtonLink>
             </h3>
             <p>An organization is a collection of sites <Icon type='building' /> and commuters <Icon type='users' />.</p>
             <BootstrapTable data={organizations}>
