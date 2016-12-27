@@ -111,7 +111,7 @@ module.exports = function makeRestEndpoints (app, cfg) {
       model.findOne({ _id: req.params.id, trashed: undefined }, (err, doc) => {
         if (err) return serverError(res, err)
         doc.set(req.body)
-        doc.save(makeGenericModelResponseFn(res))
+        doc.save(makeGetModelResponseFn(cfg.childModels, res, false, returnChildrenAsEntities))
       })
     })
   }
