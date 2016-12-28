@@ -69,7 +69,13 @@ module.exports = function ({ analysisId, commuters, site }) {
       }
 
       request(requestCfg, (err, res, json) => {
-        if (err) return retryCommuterCalc(err)
+        if (err || !json) {
+          tripPlanCallback()
+          if (!err && !json) {
+            err = 'invalid json response received'
+          }
+          return retryCommuterCalc(err)
+        }
 
         // parse results
         const newTrip = {
@@ -77,14 +83,27 @@ module.exports = function ({ analysisId, commuters, site }) {
           commuterId
         }
 
-        json.options.forEach((option) => {
-          // should only ever be two options
-          if (option.summary === 'Non-transit options') {
-            calcNonTransitTrips({ newTrip, option })
-          } else {
-            calcTransitTrip({ newTrip, option })
-          }
-        })
+        if (!json.options) {
+          Object.keys(modeDbLookup).forEach((mode) => {
+            newTrip[modeDbLookup[mode]] = {
+              distance: 9999999,
+              monetaryCost: 9999999,
+              time: 9999999,
+              virtualCost: 9999999,
+              polyline: '',
+              possible: false
+            }
+          })
+        } else {
+          json.options.forEach((option) => {
+            // should only ever be two options
+            if (option.summary === 'Non-transit options') {
+              calcNonTransitTrips({ newTrip, option })
+            } else {
+              calcTransitTrip({ newTrip, option })
+            }
+          })
+        }
 
         // calculate most likely trip
         let bestMode

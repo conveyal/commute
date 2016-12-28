@@ -12,7 +12,6 @@ export default class ProgressManager extends Component {
   state = {}
 
   componentWillMount () {
-    console.log('ProgressManager will mount', this.props)
     const {intervalLengthMs, refreshFn} = this.props
     const pctComplete = this._calculatePctComplete(this.props)
     if (!this.state.interval && pctComplete < 100) {
@@ -23,8 +22,6 @@ export default class ProgressManager extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('ProgressManager will receive props', nextProps)
-
     const pctComplete = this._calculatePctComplete(nextProps)
 
     if (pctComplete === 100) {

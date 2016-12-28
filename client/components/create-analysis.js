@@ -75,6 +75,7 @@ export default class CreateAnalysis extends Component {
                 data={sites}
                 filter='contains'
                 label='Site'
+                mapFromValue={site => site._id}
                 name='siteId'
                 textField='name'
                 type='dropdownlist'
@@ -85,6 +86,7 @@ export default class CreateAnalysis extends Component {
                 data={groups}
                 filter='contains'
                 label='Group'
+                mapFromValue={group => group._id}
                 name='groupId'
                 textField='name'
                 type='dropdownlist'
