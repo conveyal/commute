@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
 import {timeoutPromise} from '../../test-utils/common'
-import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
+import {makeMockStore, mockGroup, mockSite, mockStores} from '../../test-utils/mock-data.js'
 
 import CreateAnalysis from '../../../client/containers/create-analysis'
 
@@ -50,16 +50,16 @@ describe('Container > CreateAnalysis', () => {
     tree.find('input').first().simulate('change', {target: {value: 'My new analysis'}})
 
     // site
-    tree.find('DropdownList').first().props().onChange('site-2')
+    tree.find('DropdownList').first().props().onChange(mockSite)
 
     // group
-    tree.find('DropdownList').last().props().onChange('group-2')
+    tree.find('DropdownList').last().props().onChange(mockGroup)
 
     // And the user submits the form
     tree.find('button').last().simulate('click')
 
     // react-formal submit is asyncrhonous, so wait a bit
-    await timeoutPromise(100)
+    await timeoutPromise(1000)
 
     analysisExpectations.expectCreateAction({
       action: mockStore.getActions()[0],

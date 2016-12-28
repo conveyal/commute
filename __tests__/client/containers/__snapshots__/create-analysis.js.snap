@@ -80,36 +80,35 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                   <span>
                     Create Analysis
                   </span>
-                  <Button
-                    active={false}
-                    block={false}
-                    bsClass="btn"
-                    bsStyle="default"
+                  <ButtonLink
                     className="pull-right"
-                    disabled={false}>
-                    <button
-                      className="pull-right btn btn-default"
+                    to="/organization/organization-2">
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="default"
+                      className="pull-right"
                       disabled={false}
-                      type="button">
-                      <Link
-                        onlyActiveOnIndex={false}
-                        style={Object {}}
-                        to="/organization/organization-2">
-                        <a
-                          onClick={[Function]}
-                          style={Object {}}>
-                          <Icon
-                            type="arrow-left">
-                            <i
-                              className="fa fa-arrow-left fa-fw " />
-                          </Icon>
-                          <span>
-                            Back
-                          </span>
-                        </a>
-                      </Link>
-                    </button>
-                  </Button>
+                      onClick={[Function]}
+                      to="/organization/organization-2">
+                      <button
+                        className="pull-right btn btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        to="/organization/organization-2"
+                        type="button">
+                        <Icon
+                          type="arrow-left">
+                          <i
+                            className="fa fa-arrow-left fa-fw " />
+                        </Icon>
+                        <span>
+                          Back
+                        </span>
+                      </button>
+                    </Button>
+                  </ButtonLink>
                 </h3>
                 <Uncontrolled(Form)
                   onChange={[Function]}
@@ -628,6 +627,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                               }
                               filter="contains"
                               label="Site"
+                              mapFromValue={[Function]}
                               name="siteId"
                               textField="name"
                               type="dropdownlist"
@@ -670,6 +670,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                     }
                                     exclusive={false}
                                     filter="contains"
+                                    mapFromValue={[Function]}
                                     name="siteId"
                                     textField="name"
                                     type="dropdownlist"
@@ -679,7 +680,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                       changeProp="onChange"
                                       mapValue={
                                         Object {
-                                          "siteId": undefined,
+                                          "siteId": [Function],
                                         }
                                       }
                                       updateAfterChild={false}
@@ -1066,6 +1067,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                               }
                               filter="contains"
                               label="Group"
+                              mapFromValue={[Function]}
                               name="groupId"
                               textField="name"
                               type="dropdownlist"
@@ -1101,6 +1103,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                     }
                                     exclusive={false}
                                     filter="contains"
+                                    mapFromValue={[Function]}
                                     name="groupId"
                                     textField="name"
                                     type="dropdownlist"
@@ -1110,7 +1113,7 @@ exports[`Container > CreateAnalysis Create Analysis View loads 1`] = `
                                       changeProp="onChange"
                                       mapValue={
                                         Object {
-                                          "groupId": undefined,
+                                          "groupId": [Function],
                                         }
                                       }
                                       updateAfterChild={false}

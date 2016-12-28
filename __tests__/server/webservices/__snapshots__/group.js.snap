@@ -18,6 +18,7 @@ Object {
 exports[`group rest endpoint should update model 1`] = `
 Object {
   "__v": 0,
+  "commuters": Array [],
   "name": "updated name",
 }
 `;

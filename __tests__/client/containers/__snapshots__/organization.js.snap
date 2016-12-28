@@ -56,21 +56,15 @@ exports[`Container > Organization Organization View loads 1`] = `
         <!-- react-text: 6 -->Mock Organization<!-- /react-text -->
       </h2>
       <div class=\"btn-group\">
-        <button type=\"button\" class=\"btn btn-warning\">
-          <a>Edit</a> 
-        </button>
+        <button to=\"/organization/organization-2/edit\" type=\"button\" class=\"btn btn-warning\">Edit</button>
         <button type=\"button\" class=\"btn btn-danger\">Delete</button>
       </div>
       <p>Below are this organization\'s sites, commuter groups and analyses.</p>
       <h3>
 
-        <!-- react-text: 13 -->Sites<!-- /react-text -->
-        <button type=\"button\" class=\"pull-right btn btn-default\">
-          <a>
-
-            <!-- react-text: 16 -->Create a new site<!-- /react-text -->
-            <i class=\"fa fa-building fa-fw \"></i>
-          </a> 
+        <!-- react-text: 12 -->Sites<!-- /react-text -->
+        <button to=\"/organization/organization-2/site/create\" type=\"button\" class=\"pull-right btn btn-default\"><span>Create a new site</span> 
+          <i class=\"fa fa-building fa-fw \"></i>
         </button>
       </h3>
       <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
@@ -85,17 +79,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 28 -->Name<!-- /react-text -->
+                    <!-- react-text: 26 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
 
-                    <!-- react-text: 31 -->Address<!-- /react-text -->
+                    <!-- react-text: 29 -->Address<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 34 -->Tools<!-- /react-text -->
+                    <!-- react-text: 32 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>
@@ -118,10 +112,8 @@ exports[`Container > Organization Organization View loads 1`] = `
                   </td>
                   <td class=\"\" style=\"text-align: left;\">123 ABC St</td>
                   <td class=\"\" style=\"text-align: left;\">
-                    <div>
-                      <button type=\"button\" class=\"btn btn-warning\">
-                        <a>Edit</a> 
-                      </button>
+                    <div class=\"btn-group\">
+                      <button to=\"/site/site-2/edit\" type=\"button\" class=\"btn btn-warning\">Edit</button>
                       <button type=\"button\" class=\"btn btn-danger\">Delete</button>
                     </div>
                   </td>
@@ -133,13 +125,9 @@ exports[`Container > Organization Organization View loads 1`] = `
       </div>
       <h3>
 
-        <!-- react-text: 55 -->Commuter Groups<!-- /react-text -->
-        <button type=\"button\" class=\"pull-right btn btn-default\">
-          <a>
-
-            <!-- react-text: 58 -->Create a new group<!-- /react-text -->
-            <i class=\"fa fa-users fa-fw \"></i>
-          </a> 
+        <!-- react-text: 52 -->Commuter Groups<!-- /react-text -->
+        <button to=\"/organization/organization-2/group/create\" type=\"button\" class=\"pull-right btn btn-default\"><span>Create a new group</span> 
+          <i class=\"fa fa-users fa-fw \"></i>
         </button>
       </h3>
       <p>A commuter group is a list of commuters that can commute to a particular site.</p>
@@ -154,17 +142,17 @@ exports[`Container > Organization Organization View loads 1`] = `
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 70 -->Name<!-- /react-text -->
+                    <!-- react-text: 66 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Commuters\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"commuters\">
 
-                    <!-- react-text: 73 -->Commuters<!-- /react-text -->
+                    <!-- react-text: 69 -->Commuters<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 76 -->Tools<!-- /react-text -->
+                    <!-- react-text: 72 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>
@@ -199,13 +187,9 @@ exports[`Container > Organization Organization View loads 1`] = `
       </div>
       <h3>
 
-        <!-- react-text: 95 -->Analyses<!-- /react-text -->
-        <button type=\"button\" class=\"pull-right btn btn-default\">
-          <a>
-
-            <!-- react-text: 98 -->Create a new analysis<!-- /react-text -->
-            <i class=\"fa fa-bar-chart fa-fw \"></i>
-          </a> 
+        <!-- react-text: 91 -->Analyses<!-- /react-text -->
+        <button to=\"/organization/organization-2/analysis/create\" type=\"button\" class=\"pull-right btn btn-default\"><span>Create a new analysis</span> 
+          <i class=\"fa fa-bar-chart fa-fw \"></i>
         </button>
       </h3>
       <p>An analysis calculates commuting statistics for a pairing of a commuter group and site.</p>
@@ -220,12 +204,12 @@ exports[`Container > Organization Organization View loads 1`] = `
                   </th>
                   <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 110 -->Name<!-- /react-text -->
+                    <!-- react-text: 105 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
                   <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
 
-                    <!-- react-text: 113 -->Tools<!-- /react-text -->
+                    <!-- react-text: 108 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>

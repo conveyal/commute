@@ -11,36 +11,35 @@ exports[`Container > Analysis > Possibilities Analysis Possibilities View loads 
         <span>
           An Analysis
         </span>
-        <Button
-          active={false}
-          block={false}
-          bsClass="btn"
-          bsStyle="default"
+        <ButtonLink
           className="pull-right"
-          disabled={false}>
-          <button
-            className="pull-right btn btn-default"
+          to="/analysis/analysis-2">
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="default"
+            className="pull-right"
             disabled={false}
-            type="button">
-            <Link
-              onlyActiveOnIndex={false}
-              style={Object {}}
-              to="/analysis/analysis-2">
-              <a
-                onClick={[Function]}
-                style={Object {}}>
-                <Icon
-                  type="arrow-left">
-                  <i
-                    className="fa fa-arrow-left fa-fw " />
-                </Icon>
-                <span>
-                  Back
-                </span>
-              </a>
-            </Link>
-          </button>
-        </Button>
+            onClick={[Function]}
+            to="/analysis/analysis-2">
+            <button
+              className="pull-right btn btn-default"
+              disabled={false}
+              onClick={[Function]}
+              to="/analysis/analysis-2"
+              type="button">
+              <Icon
+                type="arrow-left">
+                <i
+                  className="fa fa-arrow-left fa-fw " />
+              </Icon>
+              <span>
+                Back
+              </span>
+            </button>
+          </Button>
+        </ButtonLink>
       </h3>
       <h3>
         Possibilities Analysis
