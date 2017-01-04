@@ -1214,7 +1214,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                       "circle": Object {
                                         "latlng": Object {
                                           "lat": 38.8886,
-                                          "lng": -77.043,
+                                          "lon": -77.043,
                                           "radius": 275,
                                         },
                                         "radius": 275,
@@ -1278,7 +1278,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                         "circle": Object {
                                           "latlng": Object {
                                             "lat": 38.8886,
-                                            "lng": -77.043,
+                                            "lon": -77.043,
                                             "radius": 275,
                                           },
                                           "radius": 275,
@@ -1357,7 +1357,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                           "circle": Object {
                                             "latlng": Object {
                                               "lat": 38.8886,
-                                              "lng": -77.043,
+                                              "lon": -77.043,
                                               "radius": 275,
                                             },
                                             "radius": 275,
@@ -3029,7 +3029,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                       "circle": Object {
                                         "latlng": Object {
                                           "lat": 38.8886,
-                                          "lng": -77.043,
+                                          "lon": -77.043,
                                           "radius": 275,
                                         },
                                         "radius": 275,
@@ -3097,7 +3097,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                         "circle": Object {
                                           "latlng": Object {
                                             "lat": 38.8886,
-                                            "lng": -77.043,
+                                            "lon": -77.043,
                                             "radius": 275,
                                           },
                                           "radius": 275,
@@ -3180,7 +3180,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                           "circle": Object {
                                             "latlng": Object {
                                               "lat": 38.8886,
-                                              "lng": -77.043,
+                                              "lon": -77.043,
                                               "radius": 275,
                                             },
                                             "radius": 275,

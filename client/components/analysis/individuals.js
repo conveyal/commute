@@ -85,12 +85,12 @@ export default class Individuals extends Component {
         console.log(json)
         const from = {
           lat: commuter.coordinate.lat,
-          lon: commuter.coordinate.lng,
+          lon: commuter.coordinate.lon,
           name: commuter.name
         }
         const to = {
           lat: site.coordinate.lat,
-          lon: site.coordinate.lng,
+          lon: site.coordinate.lon,
           name: site.name
         }
         this.setState({
@@ -207,5 +207,5 @@ function ridematchesRenderer (cell, row) {
 }
 
 function coordinatesToArray (coords) {
-  return `${coords.lat},${coords.lng}`
+  return `${coords.lat},${coords.lon}`
 }

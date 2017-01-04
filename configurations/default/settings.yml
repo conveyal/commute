@@ -4,6 +4,6 @@ entries:
 geocoder:
   focus:
     lat: 38.8886
-    lng: -77.0430
+    lon: -77.0430
     radius: 275
 s3bucket: commute-staging

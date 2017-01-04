@@ -15,7 +15,6 @@ export default class MarkerCluster extends MapLayer {
   }
 
   static defaultProps = {
-    markers: {},
     newMarkerData: [],
     focusMarker: {}
   }
@@ -23,36 +22,55 @@ export default class MarkerCluster extends MapLayer {
   componentWillMount () {
     super.componentWillMount()
 
+    this.state = { markers: {} }
     this.leafletElement = Leaflet.markerClusterGroup()
   }
 
   componentWillReceiveProps (nextProps) {
     super.componentWillReceiveProps(nextProps)
 
+    const markers = this.state.markers
+
     // add markers to cluster layer
     if (nextProps.newMarkerData.length > 0) {
-      let markers = Object.assign({}, this.props.markers)
-      let newMarkers = []
+      const markersToAdd = []
 
       nextProps.newMarkerData.forEach((obj) => {
-        let markerPopupHtml = `<div>
-            <p>${obj.caption}</p>
-          </div>`
+        let marker
+        let shouldBindPopup = true
 
-        let leafletMarker = Leaflet.marker(obj.latLng)
-          .bindPopup(markerPopupHtml, {maxHeight: 350, maxWidth: 250, minWidth: 250})
-          .on('click', () => this.props.map.panTo(obj.latLng))
+        if (markers[obj.id]) {
+          // update popup if needed
+          marker = this.state.markers[obj.id]
+          if (marker.caption !== obj.caption) {
+            marker.unbindPopup()
+          } else {
+            shouldBindPopup = false
+          }
+        } else {
+          marker = Leaflet.marker(obj.latLng)
+          markers[obj.id] = marker
+          markersToAdd.push(marker)
+        }
 
-        markers[obj.id] = leafletMarker
-        newMarkers.push(leafletMarker)
+        if (shouldBindPopup) {
+          const markerPopupHtml = `<div>
+              <p>${obj.caption}</p>
+            </div>`
+
+          marker.bindPopup(markerPopupHtml, {maxHeight: 350, maxWidth: 250, minWidth: 250})
+            .on('click', () => this.props.map.panTo(obj.latLng))
+        }
       })
 
-      this.leafletElement.addLayers(newMarkers)
+      this.leafletElement.addLayers(markersToAdd)
+
+      this.setState({ markers })
     }
 
     // zoom to particular marker
     if (Object.keys(nextProps.focusMarker).length > 0) {
-      let marker = this.props.markers[nextProps.focusMarker.id]
+      const marker = markers[nextProps.focusMarker.id]
 
       this.leafletElement.zoomToShowLayer(marker, () => {
         this.props.map.panTo(nextProps.focusMarker.latLng)

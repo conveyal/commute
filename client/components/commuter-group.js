@@ -214,12 +214,12 @@ function mapCommuters (commuters) {
     }
   } else if (commuters.length === 1) {
     const firstCommuter = commuters[0]
-    const {lat, lng} = firstCommuter.coordinate
+    const {lat, lon} = firstCommuter.coordinate
     return {
       markers: [{
         id: firstCommuter._id,
         caption: firstCommuter.name,
-        position: [lat, lng]
+        position: [lat, lon]
       }],
       position: settings.geocoder.focus,
       zoom: 8
@@ -230,9 +230,9 @@ function mapCommuters (commuters) {
   const bounds = latLngBounds([firstLL, firstLL])
   commuters.forEach((commuter) => {
     const {_id, coordinate, name} = commuter
-    const {lat, lng} = coordinate
-    const leafletLatLng = [lat, lng]
-    if (commuter.coordinate.lat && commuter.coordinate.lng) {
+    const {lat, lon} = coordinate
+    const leafletLatLng = [lat, lon]
+    if (commuter.coordinate.lat && commuter.coordinate.lon) {
       markers.push({
         id: _id,
         caption: name,
