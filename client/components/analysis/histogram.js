@@ -26,7 +26,7 @@ export default class Histogram extends Component {
     // props
     analysis: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
-    siteName: PropTypes.string.isRequired
+    site: PropTypes.object.isRequired
   }
 
   state = {
@@ -171,7 +171,7 @@ export default class Histogram extends Component {
 
   render () {
     const {_id: analysisId, name} = this.props.analysis
-    const {groupName, siteName} = this.props
+    const {groupName, site} = this.props
     const {crosshairValues, metric: selectedMetric, series} = this.state
     return (
       <Grid>
@@ -192,7 +192,7 @@ export default class Histogram extends Component {
           <Col xs={12} md={6}>
             <h4>
               <strong>Site:</strong>
-              <span>{siteName}</span>
+              <span>{site.name}</span>
             </h4>
           </Col>
           <Col xs={12} md={6}>

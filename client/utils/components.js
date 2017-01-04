@@ -1,3 +1,4 @@
+import currencyFormatter from 'currency-formatter'
 import yup from 'yup'
 
 import analysisDefaults from './analysisDefaults'
@@ -84,4 +85,8 @@ export function getInitialSeries () {
  */
 export function humanizeDistance (d) {
   return `${fixedRound(d, 1)} miles`
+}
+
+export function formatCurrency (n) {
+  return currencyFormatter.format(n, { code: 'USD' })
 }
