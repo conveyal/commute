@@ -97,39 +97,48 @@ exports[`Container > CommuterGroup Commuter Group View loads 2`] = `
       <div class=\"react-bs-table\" style=\"height: 100%;\">
         <div class=\"react-bs-container-header table-header-wrapper\">
           <table class=\"table table-hover table-bordered\">
+            <colgroup>
+              <col class=\"\" style=\"display: none; min-width: NaNpx;\">
+                <col class=\"\" style=\"min-width: NaNpx;\">
+                  <col class=\"\" style=\"min-width: NaNpx;\">
+                    <col class=\"\" style=\"min-width: NaNpx;\">
+                      <col class=\"\" style=\"min-width: NaNpx;\">
+                        <col class=\"\" style=\"min-width: NaNpx;\">
+                          <col class=\"\" style=\"min-width: NaNpx;\">
+            </colgroup>
             <thead>
               <tr>
-                <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
+                <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
 
-                  <!-- react-text: 33 -->Name<!-- /react-text -->
+                  <!-- react-text: 41 -->Name<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Original Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"original_address\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Original Address\" style=\"text-align: left;\" data-field=\"original_address\">
 
-                  <!-- react-text: 36 -->Original Address<!-- /react-text -->
+                  <!-- react-text: 44 -->Original Address<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Geocoded Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Geocoded Address\" style=\"text-align: left;\" data-field=\"address\">
 
-                  <!-- react-text: 39 -->Geocoded Address<!-- /react-text -->
+                  <!-- react-text: 47 -->Geocoded Address<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Geocode Confidence\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Geocode Confidence\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 42 -->Geocode Confidence<!-- /react-text -->
+                  <!-- react-text: 50 -->Geocode Confidence<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Email\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"email\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Email\" style=\"text-align: left;\" data-field=\"email\">
 
-                  <!-- react-text: 45 -->Email<!-- /react-text -->
+                  <!-- react-text: 53 -->Email<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Tools\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 48 -->Tools<!-- /react-text -->
+                  <!-- react-text: 56 -->Tools<!-- /react-text -->
                   <div></div>
                 </th>
               </tr>

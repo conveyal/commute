@@ -20,24 +20,30 @@ exports[`Container > Agencies Agencies View loads 1`] = `
         <div class=\"react-bs-table\" style=\"height: 100%;\">
           <div class=\"react-bs-container-header table-header-wrapper\">
             <table class=\"table table-hover table-bordered\">
+              <colgroup>
+                <col class=\"\" style=\"display: none;\">
+                  <col class=\"\">
+                    <col class=\"\">
+                      <col class=\"\">
+              </colgroup>
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none;\" data-field=\"_id\">
+                  <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
+                  <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
 
-                    <!-- react-text: 22 -->Name<!-- /react-text -->
+                    <!-- react-text: 27 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Organizations\" style=\"text-align: left;\" data-field=\"organizations\">
+                  <th class=\"\" data-is-only-head=\"false\" title=\"Organizations\" style=\"text-align: left;\" data-field=\"organizations\">
 
-                    <!-- react-text: 25 -->Organizations<!-- /react-text -->
+                    <!-- react-text: 30 -->Organizations<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Tools\" style=\"text-align: left;\" data-field=\"undefined\">
+                  <th class=\"\" data-is-only-head=\"false\" title=\"Tools\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                    <!-- react-text: 28 -->Tools<!-- /react-text -->
+                    <!-- react-text: 33 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>
@@ -54,7 +60,7 @@ exports[`Container > Agencies Agencies View loads 1`] = `
               </colgroup>
               <tbody>
                 <tr class=\"\">
-                  <td colspan=\"4\" class=\"react-bs-table-no-data\">There is no data to display</td>
+                  <td data-toggle=\"collapse\" colspan=\"4\" class=\"react-bs-table-no-data\">There is no data to display</td>
                 </tr>
               </tbody>
             </table>
@@ -88,24 +94,30 @@ exports[`Container > Agencies Agencies View loads with one agency 1`] = `
         <div class=\"react-bs-table\" style=\"height: 100%;\">
           <div class=\"react-bs-container-header table-header-wrapper\">
             <table class=\"table table-hover table-bordered\">
+              <colgroup>
+                <col class=\"\" style=\"display: none; min-width: NaNpx;\">
+                  <col class=\"\" style=\"min-width: NaNpx;\">
+                    <col class=\"\" style=\"min-width: NaNpx;\">
+                      <col class=\"\" style=\"min-width: NaNpx;\">
+              </colgroup>
               <thead>
                 <tr>
-                  <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
+                  <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
+                  <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
 
-                    <!-- react-text: 22 -->Name<!-- /react-text -->
+                    <!-- react-text: 27 -->Name<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Organizations\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"organizations\">
+                  <th class=\"\" data-is-only-head=\"false\" title=\"Organizations\" style=\"text-align: left;\" data-field=\"organizations\">
 
-                    <!-- react-text: 25 -->Organizations<!-- /react-text -->
+                    <!-- react-text: 30 -->Organizations<!-- /react-text -->
                     <div></div>
                   </th>
-                  <th class=\"\" title=\"Tools\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                  <th class=\"\" data-is-only-head=\"false\" title=\"Tools\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                    <!-- react-text: 28 -->Tools<!-- /react-text -->
+                    <!-- react-text: 33 -->Tools<!-- /react-text -->
                     <div></div>
                   </th>
                 </tr>

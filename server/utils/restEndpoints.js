@@ -93,7 +93,10 @@ module.exports = function makeRestEndpoints (app, cfg) {
       // don't use findByIdAndUpdate because it doesn't trigger pre('save') hook
       model.findById(req.params.id, (err, doc) => {
         if (err) return serverError(res, err)
-        doc.trash(makeGenericModelResponseFn(res))
+        const modelResponder = makeGenericModelResponseFn(res)
+        doc.trash((err) => {
+          modelResponder(err, doc)
+        })
       })
     })
   }

@@ -91,40 +91,50 @@ exports[`Container > Analysis > Individuals Individuals View loads (base case) 2
       <div class=\"react-bs-table\" style=\"height: 100%;\">
         <div class=\"react-bs-container-header table-header-wrapper\">
           <table class=\"table table-hover table-bordered\">
+            <colgroup>
+              <col style=\"width: 30px; min-width: NaNpx;\">
+                <col class=\"\" style=\"display: none; min-width: NaNpx;\">
+                  <col class=\"\" style=\"min-width: NaNpx;\">
+                    <col class=\"\" style=\"min-width: NaNpx;\">
+                      <col class=\"\" style=\"min-width: NaNpx;\">
+                        <col class=\"\" style=\"min-width: NaNpx;\">
+                          <col class=\"\" style=\"min-width: NaNpx;\">
+                            <col class=\"\" style=\"min-width: NaNpx;\">
+            </colgroup>
             <thead>
               <tr>
-                <th style=\"text-align: center; min-width: NaNpx;\"></th>
-                <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"commuterId\">
+                <th rowspan=\"1\" data-is-only-head=\"false\" style=\"text-align: center;\"></th>
+                <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"commuterId\">
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 34 -->Name<!-- /react-text -->
+                  <!-- react-text: 43 -->Name<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Mode\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Mode\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 37 -->Mode<!-- /react-text -->
+                  <!-- react-text: 46 -->Mode<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Duration\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Duration\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 40 -->Duration<!-- /react-text -->
+                  <!-- react-text: 49 -->Duration<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Distance\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Distance\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 43 -->Distance<!-- /react-text -->
+                  <!-- react-text: 52 -->Distance<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Cost\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Cost\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 46 -->Cost<!-- /react-text -->
+                  <!-- react-text: 55 -->Cost<!-- /react-text -->
                   <div></div>
                 </th>
-                <th class=\"\" title=\"Ridematches\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"undefined\">
+                <th class=\"\" data-is-only-head=\"false\" title=\"Ridematches\" style=\"text-align: left;\" data-field=\"undefined\">
 
-                  <!-- react-text: 49 -->Ridematches<!-- /react-text -->
+                  <!-- react-text: 58 -->Ridematches<!-- /react-text -->
                   <div></div>
                 </th>
               </tr>
@@ -156,10 +166,10 @@ exports[`Container > Analysis > Individuals Individuals View loads (base case) 2
                   <div>transit</div>
                 </td>
                 <td class=\"\" style=\"text-align: left;\">
-                  <div>2 days, 9 hours, 36 minutes</div>
+                  <div>57 minutes, 36 seconds</div>
                 </td>
                 <td class=\"\" style=\"text-align: left;\">
-                  <div>30 miles</div>
+                  <div>0 miles</div>
                 </td>
                 <td class=\"\" style=\"text-align: left;\">
                   <div>$3.45</div>

@@ -47,7 +47,7 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
           <div class=\"panel panel-info\">
             <div class=\"panel-heading\">
               <h4 role=\"presentation\" class=\"panel-title\">
-                <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\">1 Existing Commuters</a> 
+                <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\" class=\"collapsed\">1 Existing Commuters</a> 
               </h4>
             </div>
             <div role=\"tabpanel\" class=\"panel-collapse collapse\" aria-hidden=\"true\">
@@ -56,24 +56,30 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
                   <div class=\"react-bs-table\" style=\"height: 100%;\">
                     <div class=\"react-bs-container-header table-header-wrapper\">
                       <table class=\"table table-hover table-bordered\">
+                        <colgroup>
+                          <col class=\"\" style=\"display: none; min-width: NaNpx;\">
+                            <col class=\"\" style=\"min-width: NaNpx;\">
+                              <col class=\"\" style=\"min-width: NaNpx;\">
+                                <col class=\"\" style=\"min-width: NaNpx;\">
+                        </colgroup>
                         <thead>
                           <tr>
-                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
+                            <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
                               <div></div>
                             </th>
-                            <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
+                            <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
 
-                              <!-- react-text: 33 -->Name<!-- /react-text -->
+                              <!-- react-text: 38 -->Name<!-- /react-text -->
                               <div></div>
                             </th>
-                            <th class=\"\" title=\"Email\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"email\">
+                            <th class=\"\" data-is-only-head=\"false\" title=\"Email\" style=\"text-align: left;\" data-field=\"email\">
 
-                              <!-- react-text: 36 -->Email<!-- /react-text -->
+                              <!-- react-text: 41 -->Email<!-- /react-text -->
                               <div></div>
                             </th>
-                            <th class=\"\" title=\"Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+                            <th class=\"\" data-is-only-head=\"false\" title=\"Address\" style=\"text-align: left;\" data-field=\"address\">
 
-                              <!-- react-text: 39 -->Address<!-- /react-text -->
+                              <!-- react-text: 44 -->Address<!-- /react-text -->
                               <div></div>
                             </th>
                           </tr>
@@ -158,7 +164,7 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
           <div class=\"panel panel-success\">
             <div class=\"panel-heading\">
               <h4 role=\"presentation\" class=\"panel-title\">
-                <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\">1 New Commuters</a> 
+                <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\" class=\"collapsed\">1 New Commuters</a> 
               </h4>
             </div>
             <div role=\"tabpanel\" class=\"panel-collapse collapse\" aria-hidden=\"true\">
@@ -167,24 +173,30 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
                   <div class=\"react-bs-table\" style=\"height: 100%;\">
                     <div class=\"react-bs-container-header table-header-wrapper\">
                       <table class=\"table table-hover table-bordered\">
+                        <colgroup>
+                          <col class=\"\" style=\"display: none; min-width: NaNpx;\">
+                            <col class=\"\" style=\"min-width: NaNpx;\">
+                              <col class=\"\" style=\"min-width: NaNpx;\">
+                                <col class=\"\" style=\"min-width: NaNpx;\">
+                        </colgroup>
                         <thead>
                           <tr>
-                            <th class=\"\" style=\"text-align: left; display: none; min-width: NaNpx;\" data-field=\"_id\">
+                            <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
                               <div></div>
                             </th>
-                            <th class=\"\" title=\"Name\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"name\">
+                            <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
 
-                              <!-- react-text: 34 -->Name<!-- /react-text -->
+                              <!-- react-text: 39 -->Name<!-- /react-text -->
                               <div></div>
                             </th>
-                            <th class=\"\" title=\"Email\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"email\">
+                            <th class=\"\" data-is-only-head=\"false\" title=\"Email\" style=\"text-align: left;\" data-field=\"email\">
 
-                              <!-- react-text: 37 -->Email<!-- /react-text -->
+                              <!-- react-text: 42 -->Email<!-- /react-text -->
                               <div></div>
                             </th>
-                            <th class=\"\" title=\"Address\" style=\"text-align: left; min-width: NaNpx;\" data-field=\"address\">
+                            <th class=\"\" data-is-only-head=\"false\" title=\"Address\" style=\"text-align: left;\" data-field=\"address\">
 
-                              <!-- react-text: 40 -->Address<!-- /react-text -->
+                              <!-- react-text: 45 -->Address<!-- /react-text -->
                               <div></div>
                             </th>
                           </tr>

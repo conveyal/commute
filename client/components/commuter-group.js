@@ -4,7 +4,6 @@ import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Form from 'react-formal'
 import {Map as LeafletMap, TileLayer} from 'react-leaflet'
-import ClusterLayer from 'react-leaflet-cluster-layer'
 import yup from 'yup'
 
 import ButtonLink from './button-link'
