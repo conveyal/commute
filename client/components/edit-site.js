@@ -3,15 +3,22 @@ import isNumber from 'lodash.isnumber'
 import lonlng from 'lonlng'
 import React, {Component, PropTypes} from 'react'
 import {Button, Col, Grid, Row} from 'react-bootstrap'
+import Form from 'react-formal'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import {Link} from 'react-router'
+import yup from 'yup'
 
-import FieldGroup from './fieldgroup'
+import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
 import Icon from './icon'
-import {geocodeResultToState} from '../utils/components'
+import {geocodeResultToState, geocodeYupSchema} from '../utils/components'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
+
+const siteSchema = yup.object(Object.assign({
+  name: yup.string().label('Site Name').required(),
+  radius: yup.string().label('Ridematch Radius')
+}, geocodeYupSchema))
 
 export default class EditSite extends Component {
   static propTypes = {
@@ -28,49 +35,40 @@ export default class EditSite extends Component {
 
   componentWillMount () {
     if (this.props.editMode) {
-      this.setState({...this.props.site})
+      this.state = {
+        errors: {},
+        model: {...this.props.site}
+      }
     } else {
       this.state = {
-        organizationId: this.props.organizationId
+        errors: {},
+        model: { organizationId: this.props.organizationId }
       }
     }
   }
 
-  _handleChange = (name, event) => {
-    this.setState({ [name]: event.target.value })
-  }
-
-  _handleGeocoderChange = (value) => {
-    if (value && value.geometry) {
-      // received valid geocode result
-      this.setState(geocodeResultToState(value))
-    } else {
-      // cleared geocode
-      this.setState({
-        address: '',
-        coordinate: {}
-      })
-    }
-  }
-
   _handleDelete = () => {
-    const doDelete = () => this.props.delete(this.state)
+    const doDelete = () => this.props.delete(this.state.model)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
     const {create, editMode, update} = this.props
     if (editMode) {
-      update(this.state)
+      update(this.state.model)
     } else {
-      create(this.state)
+      create(this.state.model)
     }
   }
 
+  _setErrors = errors => this.setState({ errors })
+
+  _setModel = model => this.setState({ model })
+
   render () {
     const {editMode, organizationId} = this.props
-    const hasCoordinates = this.state.coordinate && isNumber(this.state.coordinate.lat)
-    const position = hasCoordinates ? lonlng(this.state.coordinate) : lonlng(settings.geocoder.focus)
+    const hasCoordinates = this.state.model.coordinate && isNumber(this.state.model.coordinate.lat)
+    const position = hasCoordinates ? lonlng(this.state.model.coordinate) : lonlng(settings.geocoder.focus)
     const zoom = hasCoordinates ? 13 : 8
     return (
       <Grid>
@@ -86,29 +84,48 @@ export default class EditSite extends Component {
         </Row>
         <Row>
           <Col xs={12} md={5} className='site-form'>
-            <form>
-              <FieldGroup
-                label='Name'
+            <Form
+              schema={siteSchema}
+              value={this.state.model}
+              onChange={this._setModel}
+              onError={this._setErrors}
+              onSubmit={this._handleSubmit}
+              >
+              <FormalFieldGroup
+                label='Site Name'
                 name='name'
-                onChange={this._handleChange}
                 placeholder='Enter name'
-                type='text'
-                value={this.state.name}
+                validationState={this.state.errors.name ? 'error' : undefined}
                 />
-              <Geocoder
+              <Form.Field
                 label='Address'
-                onChange={this._handleGeocoderChange}
-                value={this.state.address && { label: this.state.address }}
+                mapFromValue={geocodeResultToState}
+                mapToValue={model => model.address ? { label: model.address } : undefined}
+                name='address'
+                type={Geocoder}
+                validationState={this.state.errors.address ? 'error' : undefined}
                 />
-              <FieldGroup
+              <FormalFieldGroup
                 label='Ridematch Radius (mi)'
                 name='radius'
-                onChange={this._handleChange}
                 placeholder='Enter radius'
-                type='text'
-                value={this.state.radius}
+                validationState={this.state.errors.radius ? 'error' : undefined}
                 />
-            </form>
+              <Form.Button
+                type='submit'
+                className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
+                >
+                {this.props.editMode ? 'Update' : 'Create'}
+              </Form.Button>
+              {editMode &&
+                <Button
+                  bsStyle='danger'
+                  onClick={this._handleDelete}
+                  >
+                  Delete
+                </Button>
+              }
+            </Form>
           </Col>
           <Col xs={12} md={7} style={{height: '400px'}}>
             <LeafletMap center={position} zoom={zoom}>
@@ -121,24 +138,6 @@ export default class EditSite extends Component {
                 />
               {hasCoordinates && <Marker position={position} /> }
             </LeafletMap>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} className='site-submit-buttons'>
-            <Button
-              bsStyle={editMode ? 'warning' : 'success'}
-              onClick={this._handleSubmit}
-              >
-              {editMode ? 'Update' : 'Create'}
-            </Button>
-            {editMode &&
-              <Button
-                bsStyle='danger'
-                onClick={this._handleDelete}
-                >
-                Delete
-              </Button>
-            }
           </Col>
         </Row>
       </Grid>

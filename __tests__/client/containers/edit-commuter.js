@@ -6,6 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {timeoutPromise} from '../../test-utils/common'
 import {
   genGeocodedEntity,
   makeMockStore,
@@ -54,7 +55,6 @@ describe('Container > EditCommuter', () => {
 
     expect(mountToJson(tree.find('.commuter-header'))).toMatchSnapshot()
     expect(mountToJson(tree.find('.commuter-form'))).toMatchSnapshot()
-    expect(mountToJson(tree.find('.commuter-submit-buttons'))).toMatchSnapshot()
 
     // no marker should be added initially in create mode
     expect(Leaflet.marker).not.toBeCalled()
@@ -76,14 +76,13 @@ describe('Container > EditCommuter', () => {
 
     expect(mountToJson(tree.find('.commuter-header'))).toMatchSnapshot()
     expect(mountToJson(tree.find('.commuter-form'))).toMatchSnapshot()
-    expect(mountToJson(tree.find('.commuter-submit-buttons'))).toMatchSnapshot()
 
     // marker should be added initially in edit mode
     expect(Leaflet.marker).toBeCalled()
     expect(Leaflet.marker.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  it('Create commuter', () => {
+  it('Create commuter', async () => {
     const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
@@ -106,7 +105,10 @@ describe('Container > EditCommuter', () => {
     tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
 
     // submit form
-    tree.find('.commuter-submit-buttons').find('button').first().simulate('click')
+    tree.find('form').find('button').first().simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
 
     // expect create action
     commuterExpectations.expectCreateAction({
@@ -119,7 +121,7 @@ describe('Container > EditCommuter', () => {
     })
   })
 
-  it('Update commuter', () => {
+  it('Update commuter', async () => {
     const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
@@ -142,7 +144,10 @@ describe('Container > EditCommuter', () => {
     tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
 
     // submit form
-    tree.find('.commuter-submit-buttons').find('button').first().simulate('click')
+    tree.find('form').find('button').first().simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(1000)
 
     commuterExpectations.expectUpdateAction({
       action: mockStore.getActions()[0],
@@ -176,7 +181,7 @@ describe('Container > EditCommuter', () => {
 
     // When the user clicks the delete button
     // And the user confirms the Confirm Deletion dialog
-    tree.find('.commuter-submit-buttons').find('button').last().simulate('click')
+    tree.find('button').last().simulate('click')
 
     commuterExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],

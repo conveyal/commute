@@ -5,12 +5,12 @@ import CreateAnalysis from '../components/create-analysis'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
-  const {commuter, group, organization, site} = state
+  const {group, organization, site} = state
   const organizationId = props.params.organizationId
   const currentOrganization = organization[organizationId]
   return {
-    commutersById: commuter,
     groups: entityIdArrayToEntityArray(currentOrganization.groups, group),
+    groupsById: group,
     organizationId,
     sites: entityIdArrayToEntityArray(currentOrganization.sites, site)
   }

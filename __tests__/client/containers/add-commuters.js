@@ -6,6 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {timeoutPromise} from '../../test-utils/common'
 import {makeMockStore, mockStores} from '../../test-utils/mock-data.js'
 
 import AddCommuters from '../../../client/containers/add-commuters'
@@ -81,7 +82,7 @@ describe('Container > AddCommuters', () => {
     }, 1000)
   })
 
-  it('Create Commuter Group', () => {
+  it('Create Commuter Group', async () => {
     // Given a logged-in user is viewing the Add Commuters View
     const mockStore = makeMockStore(mockStores.withBlankOrganization)
     const tree = mount(
@@ -97,6 +98,9 @@ describe('Container > AddCommuters', () => {
 
     // And the user submits the form
     tree.find('form').find('button').simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
 
     groupExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
@@ -123,9 +127,12 @@ describe('Container > AddCommuters', () => {
     tree.find('Dropzone').props().onDrop([mockCsvFile])
 
     // jsdom's filereader is asyncrhonous, so wait til it finishes
-    setTimeout(() => {
+    setTimeout(async () => {
       // And the user submits the form
       tree.find('form').find('button').simulate('click')
+
+      // react-formal submit is asyncrhonous, so wait a bit
+      await timeoutPromise(100)
 
       try {
         commuterExpectations.expectCreateAction({

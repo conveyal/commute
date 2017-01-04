@@ -6,11 +6,17 @@ import React, {Component, PropTypes} from 'react'
 import {Accordion, Button, Col, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Dropzone from 'react-dropzone'
+import Form from 'react-formal'
 import {Link} from 'react-router'
 import uuid from 'uuid'
+import yup from 'yup'
 
-import FieldGroup from './fieldgroup'
+import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
+
+const groupSchema = yup.object({
+  name: yup.string().label('Group Name').required()
+})
 
 export default class AddCommuters extends Component {
   static propTypes = {
@@ -27,22 +33,20 @@ export default class AddCommuters extends Component {
 
   componentWillMount () {
     if (this.props.appendMode) {
-      this.setState({
-        name: this.props.group.name,
-        existingCommuters: this.props.existingCommuters
-      })
+      this.state = {
+        errors: {},
+        existingCommuters: this.props.existingCommuters,
+        groupModel: this.props.group
+      }
     } else {
       this.state = {
-        organizationId: this.props.organizationId
+        errors: {},
+        groupModel: { organizationId: this.props.organizationId }
       }
     }
   }
 
-  handleChange = (name, event) => {
-    this.setState({ [name]: event.target.value })
-  }
-
-  handleSubmit = () => {
+  _handleSubmit = () => {
     const {appendMode, createCommuter, createGroup} = this.props
     const commutersToCreate = this.state.newCommuters
       ? this.state.newCommuters.map((commuter) => omit(commuter, '_id'))
@@ -51,14 +55,14 @@ export default class AddCommuters extends Component {
     if (appendMode) {
       createCommuter(commutersToCreate)
     } else {
-      const newGroup = {...this.state}
+      const newGroup = {...this.state.groupModel}
       newGroup.commuters = commutersToCreate
       delete newGroup.newCommuters
       createGroup(newGroup)
     }
   }
 
-  onDrop = (files) => {
+  _onDrop = (files) => {
     const {appendMode, group} = this.props
     const r = new FileReader()
 
@@ -81,9 +85,12 @@ export default class AddCommuters extends Component {
     r.readAsText(files[0])
   }
 
+  _setErrors = errors => this.setState({ errors })
+
+  _setModel = groupModel => this.setState({ groupModel })
+
   render () {
     const {appendMode, group, organizationId} = this.props
-    const groupName = this.state.name
     const showAccordion = !!(this.state.existingCommuters || this.state.newCommuters)
     return (
       <Grid>
@@ -98,20 +105,25 @@ export default class AddCommuters extends Component {
                 </Link>
               </Button>
             </h3>
-            <form>
-              <FieldGroup
-                label='Name'
+            <Form
+              schema={groupSchema}
+              value={this.state.groupModel}
+              onChange={this._setModel}
+              onError={this._setErrors}
+              onSubmit={this._handleSubmit}
+              >
+              <FormalFieldGroup
+                disabled={appendMode}
+                label='Group Name'
                 name='name'
-                onChange={this.handleChange}
                 placeholder='Enter name'
-                type='text'
-                value={groupName}
+                validationState={this.state.errors.name ? 'error' : undefined}
                 />
               <Dropzone
                 accept='text/csv'
                 className='dropzone'
                 multiple={false}
-                onDrop={this.onDrop}
+                onDrop={this._onDrop}
                 >
                 <div>Try dropping a csv file here, or click to select files to upload.  Make sure the csv file contains the headers: name, email and address.</div>
               </Dropzone>
@@ -141,13 +153,13 @@ export default class AddCommuters extends Component {
                   }
                 </Accordion>
               }
-              <Button
-                bsStyle='success'
-                onClick={this.handleSubmit}
+              <Form.Button
+                type='submit'
+                className={'btn btn-success'}
                 >
                 {appendMode ? 'Append' : 'Create'}
-              </Button>
-            </form>
+              </Form.Button>
+            </Form>
           </Col>
         </Row>
       </Grid>

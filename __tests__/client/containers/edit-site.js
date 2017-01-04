@@ -6,6 +6,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 
 import {makeGenericModelActionsExpectations} from '../../test-utils/actions'
+import {timeoutPromise} from '../../test-utils/common'
 import {
   genGeocodedEntity,
   makeMockStore,
@@ -54,7 +55,6 @@ describe('Container > EditSite', () => {
 
     expect(mountToJson(tree.find('.site-header'))).toMatchSnapshot()
     expect(mountToJson(tree.find('.site-form'))).toMatchSnapshot()
-    expect(mountToJson(tree.find('.site-submit-buttons'))).toMatchSnapshot()
 
     // no marker should be added initially in create mode
     expect(Leaflet.marker).not.toBeCalled()
@@ -76,14 +76,13 @@ describe('Container > EditSite', () => {
 
     expect(mountToJson(tree.find('.site-header'))).toMatchSnapshot()
     expect(mountToJson(tree.find('.site-form'))).toMatchSnapshot()
-    expect(mountToJson(tree.find('.site-submit-buttons'))).toMatchSnapshot()
 
     // marker should be added initially in edit mode
     expect(Leaflet.marker).toBeCalled()
     expect(Leaflet.marker.mock.calls[0][0]).toMatchSnapshot()
   })
 
-  it('Create site', () => {
+  it('Create site', async () => {
     const mockStore = makeMockStore(mockStores.withBlankOrganization)
 
     // mount component
@@ -106,7 +105,10 @@ describe('Container > EditSite', () => {
     tree.find('input').last().simulate('change', {target: {value: 0.5}})
 
     // submit form
-    tree.find('.site-submit-buttons').find('button').first().simulate('click')
+    tree.find('form').find('button').first().simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(100)
 
     // expect create action
     siteExpectations.expectCreateAction({
@@ -119,7 +121,7 @@ describe('Container > EditSite', () => {
     })
   })
 
-  it('Update site', () => {
+  it('Update site', async () => {
     const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
     // mount component
@@ -142,7 +144,10 @@ describe('Container > EditSite', () => {
     tree.find('input').last().simulate('change', {target: {value: 1.5}})
 
     // submit form
-    tree.find('.site-submit-buttons').find('button').first().simulate('click')
+    tree.find('form').find('button').first().simulate('click')
+
+    // react-formal submit is asyncrhonous, so wait a bit
+    await timeoutPromise(1000)
 
     siteExpectations.expectUpdateAction({
       action: mockStore.getActions()[0],
@@ -176,7 +181,7 @@ describe('Container > EditSite', () => {
 
     // When the user clicks the delete button
     // And the user confirms the Confirm Deletion dialog
-    tree.find('.site-submit-buttons').find('button').last().simulate('click')
+    tree.find('form').find('button').last().simulate('click')
 
     siteExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],
