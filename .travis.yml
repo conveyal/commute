@@ -15,9 +15,7 @@ install:
   - yarn
 script:
   - npm run test-lint
-  - npm run cover-server
-  - npm run cover-client -- --setup-files __tests__/test-utils/super-long-travis-timeout.js
-  - npm run merge-coverage
+  - npm run cover
   - codecov
   - npm run build
 after_success:
