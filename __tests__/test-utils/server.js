@@ -4,7 +4,7 @@ import omit from 'lodash.omit'
 import nock from 'nock'
 import request from 'supertest-as-promised'
 
-import {requireKeys} from './common'
+import {requireKeys, timeoutPromise} from './common'
 const mockGeocodeResult = require('./mock-geocode-result.json')
 const mockTripPlanResult = require('./mock-trip-plan-result.json')
 
@@ -129,6 +129,10 @@ export const makeRestEndpointTests = (cfg) => {
         // handle response
         const json = parseServerResponse(res)
         expect(json.trashed).toBeTruthy()
+
+        // wait for mongo to save data???
+        await timeoutPromise(1000)
+
         const entity = await model.findById(modelId).exec()
         expect(entity.trashed).toBeTruthy()
 

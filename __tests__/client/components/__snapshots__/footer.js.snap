@@ -9,6 +9,7 @@ exports[`Container > Footer renders correctly 1`] = `
         className="container">
         <p
           className="text-center text-muted">
+          © 
           <a
             href="http://conveyal.com">
             Conveyal

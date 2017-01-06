@@ -2,12 +2,12 @@ import {Browser} from 'leaflet'
 import isNumber from 'lodash.isnumber'
 import lonlng from 'lonlng'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import Form from 'react-formal'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
-import {Link} from 'react-router'
 import yup from 'yup'
 
+import ButtonLink from './button-link'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
 import Icon from './icon'
@@ -76,12 +76,13 @@ export default class EditCommuter extends Component {
           <Col xs={12} className='commuter-header'>
             <h3>
               <span>{`${editMode ? 'Edit' : 'Create'} Commuter`}</span>
-              <Button className='pull-right'>
-                <Link to={`/group/${groupId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/group/${groupId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
           </Col>
         </Row>
@@ -114,20 +115,22 @@ export default class EditCommuter extends Component {
                 type={Geocoder}
                 validationState={this.state.errors.address ? 'error' : undefined}
                 />
-              <Form.Button
-                type='submit'
-                className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
-                >
-                {this.props.editMode ? 'Update' : 'Create'}
-              </Form.Button>
-              {editMode &&
-                <Button
-                  bsStyle='danger'
-                  onClick={this._handleDelete}
+              <ButtonGroup>
+                <Form.Button
+                  type='submit'
+                  className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
                   >
-                  Delete
-                </Button>
-              }
+                  {this.props.editMode ? 'Update' : 'Create'}
+                </Form.Button>
+                {editMode &&
+                  <Button
+                    bsStyle='danger'
+                    onClick={this._handleDelete}
+                    >
+                    Delete
+                  </Button>
+                }
+              </ButtonGroup>
             </Form>
           </Col>
           <Col xs={12} md={7} style={{height: '400px'}}>

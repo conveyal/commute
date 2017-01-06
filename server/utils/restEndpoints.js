@@ -93,7 +93,10 @@ module.exports = function makeRestEndpoints (app, cfg) {
       // don't use findByIdAndUpdate because it doesn't trigger pre('save') hook
       model.findById(req.params.id, (err, doc) => {
         if (err) return serverError(res, err)
-        doc.trash(makeGenericModelResponseFn(res))
+        const modelResponder = makeGenericModelResponseFn(res)
+        doc.trash((err) => {
+          modelResponder(err, doc)
+        })
       })
     })
   }
@@ -111,7 +114,7 @@ module.exports = function makeRestEndpoints (app, cfg) {
       model.findOne({ _id: req.params.id, trashed: undefined }, (err, doc) => {
         if (err) return serverError(res, err)
         doc.set(req.body)
-        doc.save(makeGenericModelResponseFn(res))
+        doc.save(makeGetModelResponseFn(cfg.childModels, res, false, returnChildrenAsEntities))
       })
     })
   }

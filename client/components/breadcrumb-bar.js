@@ -61,7 +61,6 @@ export default class BreadcrumbBar extends Component {
     const appendSite = (siteId, isActive) => {
       const site = this.props.site[siteId]
       appendOrganization(site ? site.organizationId : 'none')
-      appendEntity(siteId, site ? site.name : '?', '/site/', isActive)
     }
 
     if (path === '/') {

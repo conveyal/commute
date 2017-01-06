@@ -1,15 +1,22 @@
 import {Browser, latLngBounds} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+import Form from 'react-formal'
 import {Map as LeafletMap, TileLayer} from 'react-leaflet'
-import ClusterLayer from 'react-leaflet-cluster-layer'
-import {Link} from 'react-router'
+import yup from 'yup'
 
+import ButtonLink from './button-link'
+import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
+import MarkerCluster from './marker-cluster'
 import ProgressManager from './progress-manager'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
+
+const groupSchema = yup.object({
+  name: yup.string().label('Group Name').required()
+})
 
 export default class CommuterGroup extends Component {
   static propTypes = {
@@ -27,21 +34,41 @@ export default class CommuterGroup extends Component {
 
   componentWillMount () {
     this._loadCommuters()
+    this.state = {
+      editingName: false,
+      errors: {},
+      model: this.props.group
+    }
   }
 
   _commuterToolsRenderer = (cell, row) => {
-    return <div>
-      <Button bsStyle='warning'>
-        <Link to={`/commuter/${row._id}/edit`}>Edit</Link>
-      </Button>
+    return <ButtonGroup>
+      <ButtonLink
+        bsStyle='warning'
+        to={`/commuter/${row._id}/edit`}>
+        Edit
+      </ButtonLink>
       <Button bsStyle='danger' onClick={this._onDeleteCommuterClick.bind(this, row)}>Delete</Button>
-    </div>
+    </ButtonGroup>
+  }
+
+  _handleCancelEdit = () => {
+    this.setState({ editingName: false })
   }
 
   _handleDelete = () => {
     const {_id: groupId, organizationId} = this.props.group
     const doDelete = () => this.props.deleteGroup(groupId, organizationId)
     actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+  }
+
+  _handleEditName = () => {
+    this.setState({ editingName: true })
+  }
+
+  _handleSaveName = () => {
+    this.props.update(this.state.model)
+    this.setState({ editingName: false })
   }
 
   _loadCommuters () {
@@ -53,26 +80,72 @@ export default class CommuterGroup extends Component {
     actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
   }
 
+  _setErrors = errors => this.setState({ errors })
+
+  _setModel = model => this.setState({ model })
+
   render () {
     const {commuters, group, numCommutersGeocoded} = this.props
     const allAddressesGeocoded = commuters.length === numCommutersGeocoded
-    const {groupName, organizationId} = group
+    const {editingName} = this.state
+    const {_id: groupId, name: groupName, organizationId} = group
     const {bounds, markers, position, zoom} = mapCommuters(commuters)
     return (
       <Grid>
         <Row>
           <Col xs={12} className='group-header'>
             <h3>
-              <span>{groupName}</span>
-              <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              {editingName &&
+                <Form
+                  schema={groupSchema}
+                  value={this.state.model}
+                  onChange={this._setModel}
+                  onError={this._setErrors}
+                  onSubmit={this._handleSaveName}
+                  >
+                  <FormalFieldGroup
+                    name='name'
+                    placeholder='Enter name'
+                    validationState={this.state.errors.name ? 'error' : undefined}
+                    />
+                  <Form.Button
+                    type='submit'
+                    className='btn btn-default'
+                    >
+                    <Icon type='floppy-o' />
+                  </Form.Button>
+                  <Button
+                    onClick={this._handleCancelEdit}
+                    >
+                    <Icon type='close' />
+                  </Button>
+                </Form>
+              }
+              {!editingName &&
+                <span>{groupName}</span>
+              }
+              <ButtonLink
+                className='pull-right'
+                to={`/organization/${organizationId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
+            <ButtonGroup>
+              {!editingName &&
+                <Button
+                  bsStyle='warning'
+                  onClick={this._handleEditName}
+                  >
+                  <Icon type='pencil' />
+                  <span>Edit Name</span>
+                </Button>
+              }
+              <Button bsStyle='danger' onClick={this._handleDelete}>Delete Group</Button>
+            </ButtonGroup>
           </Col>
-          <Col xs={12} style={{height: '400px'}}>
+          <Col xs={12} style={{height: '400px', marginTop: '1em'}}>
             <LeafletMap center={position} bounds={bounds} zoom={zoom}>
               <TileLayer
                 url={Browser.retina &&
@@ -81,9 +154,8 @@ export default class CommuterGroup extends Component {
                   : process.env.LEAFLET_TILE_URL}
                 attribution={process.env.LEAFLET_ATTRIBUTION}
                 />
-              <ClusterLayer
-                markers={markers}
-                clusterComponent={ClusterComponent}
+              <MarkerCluster
+                newMarkerData={markers}
                 />
             </LeafletMap>
           </Col>
@@ -101,6 +173,22 @@ export default class CommuterGroup extends Component {
         </Row>
         <Row className='group-content'>
           <Col xs={12}>
+            <h3>Commuters</h3>
+            <ButtonGroup>
+              <ButtonLink
+                bsStyle='info'
+                to={`/group/${groupId}/commuter/create`}
+                >
+                <Icon type='plus' />
+                <span>Create New Commuter</span>
+              </ButtonLink>
+              <ButtonLink
+                bsStyle='warning'
+                to={`/group/${groupId}/add`}
+                >
+                Add Commuters in Bulk
+              </ButtonLink>
+            </ButtonGroup>
             <BootstrapTable data={commuters}>
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
@@ -117,29 +205,6 @@ export default class CommuterGroup extends Component {
   }
 }
 
-class ClusterComponent extends React.Component {
-  render () {
-    const style = {
-      border: 'solid 2px darkgrey',
-      borderRadius: '8px',
-      backgroundColor: 'white',
-      padding: '1em',
-      textAlign: 'center'
-    }
-    const cluster = this.props.cluster
-
-    if (cluster.markers.length === 1) {
-      return (
-        <div style={style} >{cluster.markers[0].name}</div>
-      )
-    }
-
-    return (
-      <div style={style}>{cluster.markers.length}</div>
-    )
-  }
-}
-
 function mapCommuters (commuters) {
   if (commuters.length === 0) {
     return {
@@ -148,11 +213,13 @@ function mapCommuters (commuters) {
       zoom: 8
     }
   } else if (commuters.length === 1) {
+    const firstCommuter = commuters[0]
+    const {lat, lon} = firstCommuter.coordinate
     return {
       markers: [{
-        id: commuters[0]._id,
-        name: commuters[0].name,
-        position: commuters[0].coordinate
+        id: firstCommuter._id,
+        caption: firstCommuter.name,
+        position: [lat, lon]
       }],
       position: settings.geocoder.focus,
       zoom: 8
@@ -163,13 +230,15 @@ function mapCommuters (commuters) {
   const bounds = latLngBounds([firstLL, firstLL])
   commuters.forEach((commuter) => {
     const {_id, coordinate, name} = commuter
+    const {lat, lon} = coordinate
+    const leafletLatLng = [lat, lon]
     if (commuter.coordinate.lat && commuter.coordinate.lon) {
       markers.push({
-        _id,
-        name,
-        position: coordinate
+        id: _id,
+        caption: name,
+        latLng: leafletLatLng
       })
-      bounds.extend([coordinate.lat, coordinate.lon])
+      bounds.extend(leafletLatLng)
     }
   })
   return {bounds, markers}

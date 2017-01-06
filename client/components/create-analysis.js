@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
-import {Link} from 'react-router'
+import {Col, Grid, Row} from 'react-bootstrap'
 import Form from 'react-formal'
 import yup from 'yup'
 
+import ButtonLink from './button-link'
 import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
 
@@ -50,12 +50,13 @@ export default class CreateAnalysis extends Component {
           <Col xs={12}>
             <h3>
               <span>Create Analysis</span>
-              <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/organization/${organizationId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <Form
               schema={analysisSchema}
@@ -74,6 +75,7 @@ export default class CreateAnalysis extends Component {
                 data={sites}
                 filter='contains'
                 label='Site'
+                mapFromValue={site => site._id}
                 name='siteId'
                 textField='name'
                 type='dropdownlist'
@@ -84,6 +86,7 @@ export default class CreateAnalysis extends Component {
                 data={groups}
                 filter='contains'
                 label='Group'
+                mapFromValue={group => group._id}
                 name='groupId'
                 textField='name'
                 type='dropdownlist'

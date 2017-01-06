@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import Form from 'react-formal'
-import {Link} from 'react-router'
 import yup from 'yup'
 
+import ButtonLink from './button-link'
 import FormalFieldGroup from './formal-fieldgroup'
 import Icon from './icon'
 import {messages} from '../utils/env'
@@ -57,12 +57,13 @@ export default class EditAgency extends Component {
           <Col xs={12}>
             <h3>
               <span>{`${this.props.editMode ? 'Edit' : 'Create'} Agency`}</span>
-              <Button className='pull-right'>
-                <Link to='/'>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to='/'
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <Form
               schema={agencySchema}
@@ -77,20 +78,22 @@ export default class EditAgency extends Component {
                 placeholder='Enter name'
                 validationState={this.state.errors.name ? 'error' : undefined}
                 />
-              <Form.Button
-                type='submit'
-                className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
-                >
-                {this.props.editMode ? 'Update' : 'Create'}
-              </Form.Button>
-              {this.props.editMode &&
-                <Button
-                  bsStyle='danger'
-                  onClick={this._handleDelete}
+              <ButtonGroup>
+                <Form.Button
+                  type='submit'
+                  className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
                   >
-                  Delete
-                </Button>
-              }
+                  {this.props.editMode ? 'Update' : 'Create'}
+                </Form.Button>
+                {this.props.editMode &&
+                  <Button
+                    bsStyle='danger'
+                    onClick={this._handleDelete}
+                    >
+                    Delete
+                  </Button>
+                }
+              </ButtonGroup>
             </Form>
           </Col>
         </Row>

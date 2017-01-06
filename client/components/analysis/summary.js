@@ -1,13 +1,13 @@
-import currencyFormatter from 'currency-formatter'
 import humanizeDuration from 'humanize-duration'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Col, Grid, Row} from 'react-bootstrap'
 import {Link} from 'react-router'
 
+import ButtonLink from '../button-link'
 import Icon from '../icon'
 import ProgressManager from '../progress-manager'
 import analysisDefaults from '../../utils/analysisDefaults'
-import {humanizeDistance} from '../../utils/components'
+import {formatCurrency, humanizeDistance} from '../../utils/components'
 import {messages} from '../../utils/env'
 import {actUponConfirmation} from '../../utils/ui'
 
@@ -20,7 +20,7 @@ export default class Summary extends Component {
     // props
     analysis: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
-    siteName: PropTypes.string.isRequired
+    site: PropTypes.object.isRequired
   }
 
   _handleDelete () {
@@ -37,7 +37,7 @@ export default class Summary extends Component {
 
   render () {
     const {_id: analysisId, name, numCommuters, summary} = this.props.analysis
-    const {analysis, groupName, siteName} = this.props
+    const {analysis, groupName, site} = this.props
     const numTrips = analysis.trips.length
     const analysisCalculated = numCommuters === numTrips
     return (
@@ -46,15 +46,19 @@ export default class Summary extends Component {
           <Col xs={12}>
             <h3>
               <span>{name}</span>
-              <Button className='pull-right'>
-                <Link to={`/organization/${analysis.organizationId}`}><Icon type='arrow-left' />Back</Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/organization/${analysis.organizationId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
           </Col>
           <Col xs={12} md={6}>
             <h4>
               <strong>Site:</strong>
-              <span>{siteName}</span>
+              <span>{site.name}</span>
             </h4>
           </Col>
           <Col xs={12} md={6}>
@@ -147,8 +151,4 @@ export default class Summary extends Component {
       </Grid>
     )
   }
-}
-
-function formatCurrency (n) {
-  return currencyFormatter.format(n, { code: 'USD' })
 }

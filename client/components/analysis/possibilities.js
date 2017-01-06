@@ -1,15 +1,15 @@
 import humanizeDuration from 'humanize-duration'
 import Slider from 'rc-slider'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
-import {Link} from 'react-router'
+import {Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {DiscreteColorLegend, HorizontalGridLines, VerticalBarSeries, YAxis} from 'react-vis'
 
+import ButtonLink from '../button-link'
 import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
 import analysisDefaults from '../../utils/analysisDefaults'
 import {fixedRound} from '../../utils/common'
-import {calcNumLessThan, getInitialSeries, humanizeDistance} from '../../utils/components'
+import {calcNumLessThan, formatCurrency, getInitialSeries, humanizeDistance} from '../../utils/components'
 
 const {metrics} = analysisDefaults
 const metricsVals = Object.keys(metrics)
@@ -22,7 +22,7 @@ export default class Possibilities extends Component {
     // props
     analysis: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
-    siteName: PropTypes.string.isRequired
+    site: PropTypes.object.isRequired
   }
 
   state = {
@@ -102,7 +102,7 @@ export default class Possibilities extends Component {
 
   render () {
     const {_id: analysisId, name} = this.props.analysis
-    const {groupName, siteName} = this.props
+    const {groupName, site} = this.props
     const {series, yAxisUnit} = this.state
     const activeSeries = series.filter((s) => !s.disabled)
     return (
@@ -111,19 +111,20 @@ export default class Possibilities extends Component {
           <Col xs={12}>
             <h3>
               <span>{name}</span>
-              <Button className='pull-right'>
-                <Link to={`/analysis/${analysisId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/analysis/${analysisId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <h3>Possibilities Analysis</h3>
           </Col>
           <Col xs={12} md={6}>
             <h4>
               <strong>Site:</strong>
-              <span>{siteName}</span>
+              <span>{site.name}</span>
             </h4>
           </Col>
           <Col xs={12} md={6}>
@@ -231,7 +232,7 @@ export default class Possibilities extends Component {
                 defaultValue={metrics.monetaryCost.default}
                 handle={
                   <CustomHandle
-                    formatter={(v) => `$${v}`}
+                    formatter={formatCurrency}
                     />}
                 max={metrics.monetaryCost.max}
                 min={metrics.monetaryCost.min}

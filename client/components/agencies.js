@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
+import ButtonLink from './button-link'
 import Icon from './icon'
 import {messages} from '../utils/env'
 import {arrayCountRenderer} from '../utils/table'
@@ -28,12 +29,15 @@ export default class Agencies extends Component {
   }
 
   _toolsRenderer = (cell, row) => {
-    return <div>
-      <Button bsStyle='warning'>
-        <Link to={`/agency/${row._id}/edit`}>Edit</Link>
-      </Button>
+    return <ButtonGroup>
+      <ButtonLink
+        bsStyle='warning'
+        to={`/agency/${row._id}/edit`}
+        >
+        Edit
+      </ButtonLink>
       <Button bsStyle='danger' onClick={this._onDeleteAgencyClick.bind(this, row)}>Delete</Button>
-    </div>
+    </ButtonGroup>
   }
 
   render () {
@@ -43,9 +47,13 @@ export default class Agencies extends Component {
         <Row>
           <Col xs={12}>
             <h2>Agencies
-              <Button className='pull-right'>
-                <Link to='/agency/create'>Create a new agency <Icon type='flag' /></Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to='/agency/create'
+                >
+                <span>Create a new agency</span>
+                <Icon type='flag' />
+              </ButtonLink>
             </h2>
             <p>An agency is a collection of organizations <Icon type='shield' />.</p>
             <BootstrapTable data={agencies}>

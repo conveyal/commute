@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
-import {Link} from 'react-router'
+import {Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {
   Crosshair,
   DiscreteColorLegend,
@@ -10,6 +9,7 @@ import {
   YAxis
 } from 'react-vis'
 
+import ButtonLink from '../button-link'
 import FlexiblePlot from '../flexible-plot'
 import Icon from '../icon'
 import analysisDefaults from '../../utils/analysisDefaults'
@@ -26,7 +26,7 @@ export default class Histogram extends Component {
     // props
     analysis: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
-    siteName: PropTypes.string.isRequired
+    site: PropTypes.object.isRequired
   }
 
   state = {
@@ -171,7 +171,7 @@ export default class Histogram extends Component {
 
   render () {
     const {_id: analysisId, name} = this.props.analysis
-    const {groupName, siteName} = this.props
+    const {groupName, site} = this.props
     const {crosshairValues, metric: selectedMetric, series} = this.state
     return (
       <Grid>
@@ -179,19 +179,20 @@ export default class Histogram extends Component {
           <Col xs={12}>
             <h3>
               <span>{name}</span>
-              <Button className='pull-right'>
-                <Link to={`/analysis/${analysisId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/analysis/${analysisId}`}
+                >
+                <Icon type='arrow-left' />
+                <span>Back</span>
+              </ButtonLink>
             </h3>
             <h3>Commute Metrics Histogram</h3>
           </Col>
           <Col xs={12} md={6}>
             <h4>
               <strong>Site:</strong>
-              <span>{siteName}</span>
+              <span>{site.name}</span>
             </h4>
           </Col>
           <Col xs={12} md={6}>

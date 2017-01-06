@@ -40,36 +40,35 @@ exports[`Container > EditAgency Create/Edit Agency View loads (create mode) 1`] 
                   <span>
                     Create Agency
                   </span>
-                  <Button
-                    active={false}
-                    block={false}
-                    bsClass="btn"
-                    bsStyle="default"
+                  <ButtonLink
                     className="pull-right"
-                    disabled={false}>
-                    <button
-                      className="pull-right btn btn-default"
+                    to="/">
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="default"
+                      className="pull-right"
                       disabled={false}
-                      type="button">
-                      <Link
-                        onlyActiveOnIndex={false}
-                        style={Object {}}
-                        to="/">
-                        <a
-                          onClick={[Function]}
-                          style={Object {}}>
-                          <Icon
-                            type="arrow-left">
-                            <i
-                              className="fa fa-arrow-left fa-fw " />
-                          </Icon>
-                          <span>
-                            Back
-                          </span>
-                        </a>
-                      </Link>
-                    </button>
-                  </Button>
+                      onClick={[Function]}
+                      to="/">
+                      <button
+                        className="pull-right btn btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        to="/"
+                        type="button">
+                        <Icon
+                          type="arrow-left">
+                          <i
+                            className="fa fa-arrow-left fa-fw " />
+                        </Icon>
+                        <span>
+                          Back
+                        </span>
+                      </button>
+                    </Button>
+                  </ButtonLink>
                 </h3>
                 <Uncontrolled(Form)
                   onChange={[Function]}
@@ -426,21 +425,30 @@ exports[`Container > EditAgency Create/Edit Agency View loads (create mode) 1`] 
                                 </div>
                               </FormGroup>
                             </FormalFieldGroup>
-                            <Button
-                              className="btn btn-success"
-                              component="button"
-                              events={
-                                Array [
-                                  "onClick",
-                                ]
-                              }
-                              type="submit">
-                              <button
-                                className="btn btn-success"
-                                onClick={[Function]}>
-                                Create
-                              </button>
-                            </Button>
+                            <ButtonGroup
+                              block={false}
+                              bsClass="btn-group"
+                              justified={false}
+                              vertical={false}>
+                              <div
+                                className="btn-group">
+                                <Button
+                                  className="btn btn-success"
+                                  component="button"
+                                  events={
+                                    Array [
+                                      "onClick",
+                                    ]
+                                  }
+                                  type="submit">
+                                  <button
+                                    className="btn btn-success"
+                                    onClick={[Function]}>
+                                    Create
+                                  </button>
+                                </Button>
+                              </div>
+                            </ButtonGroup>
                           </form>
                         </MessageContainer>
                       </MessageListener>
@@ -502,36 +510,35 @@ exports[`Container > EditAgency Create/Edit Agency View loads in edit mode 1`] =
                   <span>
                     Edit Agency
                   </span>
-                  <Button
-                    active={false}
-                    block={false}
-                    bsClass="btn"
-                    bsStyle="default"
+                  <ButtonLink
                     className="pull-right"
-                    disabled={false}>
-                    <button
-                      className="pull-right btn btn-default"
+                    to="/">
+                    <Button
+                      active={false}
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="default"
+                      className="pull-right"
                       disabled={false}
-                      type="button">
-                      <Link
-                        onlyActiveOnIndex={false}
-                        style={Object {}}
-                        to="/">
-                        <a
-                          onClick={[Function]}
-                          style={Object {}}>
-                          <Icon
-                            type="arrow-left">
-                            <i
-                              className="fa fa-arrow-left fa-fw " />
-                          </Icon>
-                          <span>
-                            Back
-                          </span>
-                        </a>
-                      </Link>
-                    </button>
-                  </Button>
+                      onClick={[Function]}
+                      to="/">
+                      <button
+                        className="pull-right btn btn-default"
+                        disabled={false}
+                        onClick={[Function]}
+                        to="/"
+                        type="button">
+                        <Icon
+                          type="arrow-left">
+                          <i
+                            className="fa fa-arrow-left fa-fw " />
+                        </Icon>
+                        <span>
+                          Back
+                        </span>
+                      </button>
+                    </Button>
+                  </ButtonLink>
                 </h3>
                 <Uncontrolled(Form)
                   onChange={[Function]}
@@ -909,36 +916,45 @@ exports[`Container > EditAgency Create/Edit Agency View loads in edit mode 1`] =
                                 </div>
                               </FormGroup>
                             </FormalFieldGroup>
-                            <Button
-                              className="btn btn-warning"
-                              component="button"
-                              events={
-                                Array [
-                                  "onClick",
-                                ]
-                              }
-                              type="submit">
-                              <button
-                                className="btn btn-warning"
-                                onClick={[Function]}>
-                                Update
-                              </button>
-                            </Button>
-                            <Button
-                              active={false}
+                            <ButtonGroup
                               block={false}
-                              bsClass="btn"
-                              bsStyle="danger"
-                              disabled={false}
-                              onClick={[Function]}>
-                              <button
-                                className="btn btn-danger"
-                                disabled={false}
-                                onClick={[Function]}
-                                type="button">
-                                Delete
-                              </button>
-                            </Button>
+                              bsClass="btn-group"
+                              justified={false}
+                              vertical={false}>
+                              <div
+                                className="btn-group">
+                                <Button
+                                  className="btn btn-warning"
+                                  component="button"
+                                  events={
+                                    Array [
+                                      "onClick",
+                                    ]
+                                  }
+                                  type="submit">
+                                  <button
+                                    className="btn btn-warning"
+                                    onClick={[Function]}>
+                                    Update
+                                  </button>
+                                </Button>
+                                <Button
+                                  active={false}
+                                  block={false}
+                                  bsClass="btn"
+                                  bsStyle="danger"
+                                  disabled={false}
+                                  onClick={[Function]}>
+                                  <button
+                                    className="btn btn-danger"
+                                    disabled={false}
+                                    onClick={[Function]}
+                                    type="button">
+                                    Delete
+                                  </button>
+                                </Button>
+                              </div>
+                            </ButtonGroup>
                           </form>
                         </MessageContainer>
                       </MessageListener>

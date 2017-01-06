@@ -3,6 +3,7 @@ import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
+import ButtonLink from './button-link'
 import Icon from './icon'
 import {messages} from '../utils/env'
 import {arrayCountRenderer} from '../utils/table'
@@ -74,12 +75,15 @@ export default class Organization extends Component {
   }
 
   _siteToolsRenderer = (cell, row) => {
-    return <div>
-      <Button bsStyle='warning'>
-        <Link to={`/site/${row._id}/edit`}>Edit</Link>
-      </Button>
+    return <ButtonGroup>
+      <ButtonLink
+        bsStyle='warning'
+        to={`/site/${row._id}/edit`}
+        >
+        Edit
+      </ButtonLink>
       <Button bsStyle='danger' onClick={this._onSiteDeleteClick.bind(this, row)}>Delete</Button>
-    </div>
+    </ButtonGroup>
   }
 
   render () {
@@ -92,16 +96,23 @@ export default class Organization extends Component {
           <Col xs={12}>
             <h2><Icon type='shield' />{name}</h2>
             <ButtonGroup>
-              <Button bsStyle='warning'>
-                <Link to={`/organization/${organizationId}/edit`}>Edit</Link>
-              </Button>
+              <ButtonLink
+                bsStyle='warning'
+                to={`/organization/${organizationId}/edit`}
+                >
+                Edit
+              </ButtonLink>
               <Button bsStyle='danger' onClick={this._handleDelete}>Delete</Button>
             </ButtonGroup>
             <p>Below are this organization's sites, commuter groups and analyses.</p>
             <h3>Sites
-              <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}/site/create`}>Create a new site <Icon type='building' /></Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/organization/${organizationId}/site/create`}
+                >
+                <span>Create a new site</span>
+                <Icon type='building' />
+              </ButtonLink>
             </h3>
             <p>A site is a location of a building or new address that you want to use as the centerpoint of your commutes.</p>
             <BootstrapTable data={sites}>
@@ -111,9 +122,13 @@ export default class Organization extends Component {
               <TableHeaderColumn dataFormat={this._siteToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
             <h3>Commuter Groups
-              <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}/group/create`}>Create a new group <Icon type='users' /></Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/organization/${organizationId}/group/create`}
+                >
+                <span>Create a new group</span>
+                <Icon type='users' />
+              </ButtonLink>
             </h3>
             <p>A commuter group is a list of commuters that can commute to a particular site.</p>
             <BootstrapTable data={groups}>
@@ -123,9 +138,13 @@ export default class Organization extends Component {
               <TableHeaderColumn dataFormat={this._groupToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
             <h3>Analyses
-              <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}/analysis/create`}>Create a new analysis <Icon type='bar-chart' /></Link>
-              </Button>
+              <ButtonLink
+                className='pull-right'
+                to={`/organization/${organizationId}/analysis/create`}
+                >
+                <span>Create a new analysis</span>
+                <Icon type='bar-chart' />
+              </ButtonLink>
             </h3>
             <p>An analysis calculates commuting statistics for a pairing of a commuter group and site.</p>
             <BootstrapTable data={analyses}>
