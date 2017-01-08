@@ -1,23 +1,25 @@
 const Schema = require('mongoose').Schema
 
+const queue = require('async/queue')
 const geocoder = require('isomorphic-mapzen-search')
 
 const settings = require('../../utils/env').settings
 const later = require('../../utils/later')
-const timedQueue = require('../../utils/timedQueue')
 
-const geocodeRequestQueue = timedQueue([{
-  timePeriodLength: 1100,
-  maxRequestsPerTimePeriod: 4  // max queries allowed should be 6, but limit to 4 to be safe
-} /* , {
-  // it's not documented but I was seeing error messages that say:
-  // 6 max request per minute
-  // I tried halving the amount and eventually it seems like this wasn't needed
-  timePeriodLength: 3700,
-  maxRequestsPerTimePeriod: 6
-} */])
+function now () {
+  return (new Date()).getTime()
+}
 
-const maxRetries = 5
+let lastRequestTime = 0
+const geocodeRequestQueue = queue((task, callback) => {
+  setTimeout(() => {
+    console.log('do a new reqeust')
+    lastRequestTime = now()
+    task(callback)
+  }, Math.max(0, 1100 - (now() - lastRequestTime))) // wait at least 1 second between requests
+})
+
+const maxRetries = 10
 
 const geocodeSearchOptions = {
   circle: {
@@ -103,42 +105,48 @@ module.exports = function (schema, options) {
       return
     }
 
-    let numTries = 0
-    const doGeocodeUntilSuccess = () => {
-      numTries++
-      const addressToGeocode = this.fullAddress()
-      geocodeRequestQueue.push(() => {
-        console.log(`try geocode for ${addressToGeocode}`)
-        geocoder.search(process.env.MAPZEN_SEARCH_KEY, this.fullAddress(), geocodeSearchOptions)
-          .then((geojson) => {
-            if (!geojson.features) throw geojson
-            console.log(`successful geocode for ${addressToGeocode}`)
-            const firstResult = geojson.features[0]
-            this.address = firstResult.properties.label
-            this.city = firstResult.properties.locality
-            this.coordinate = {
-              lat: firstResult.geometry.coordinates[1],
-              lon: firstResult.geometry.coordinates[0]
-            }
-            this.country = firstResult.properties.country
-            this.county = firstResult.properties.county
-            this.geocodeConfidence = firstResult.properties.confidence
-            this.neighborhood = firstResult.properties.neighborhood
-            this.state = firstResult.properties.region
-            this.save()
-          })
-          .catch((err) => {
-            console.error(err)
-            if (numTries < maxRetries) {
-              doGeocodeUntilSuccess()
-            } else {
-              console.error(`Geocoding failed for ${addressToGeocode} after 5 tries!`)
-            }
-          })
-      })
-    }
+    const addressToGeocode = this.fullAddress()
 
-    later(doGeocodeUntilSuccess)
+    later(() => {
+      geocodeRequestQueue.push((queueCallback) => {
+        let numTries = 0
+        const doGeocodeUntilSuccess = () => {
+          numTries++
+          console.log(`try geocode for ${addressToGeocode}`)
+          geocoder.search(process.env.MAPZEN_SEARCH_KEY, this.fullAddress(), geocodeSearchOptions)
+            .then((geojson) => {
+              if (!geojson.features) throw geojson
+              console.log(`successful geocode for ${addressToGeocode}`)
+              const firstResult = geojson.features[0]
+              this.address = firstResult.properties.label
+              this.city = firstResult.properties.locality
+              this.coordinate = {
+                lat: firstResult.geometry.coordinates[1],
+                lon: firstResult.geometry.coordinates[0]
+              }
+              this.country = firstResult.properties.country
+              this.county = firstResult.properties.county
+              this.geocodeConfidence = firstResult.properties.confidence
+              this.neighborhood = firstResult.properties.neighborhood
+              this.state = firstResult.properties.region
+              this.save()
+              queueCallback()
+            })
+            .catch((err) => {
+              console.error(err)
+              if (numTries < maxRetries) {
+                const secondsToWait = Math.pow(2, numTries)
+                console.log(`wait ${secondsToWait} seconds before retrying ${addressToGeocode}`)
+                setTimeout(doGeocodeUntilSuccess, secondsToWait * 1000)
+              } else {
+                console.error(`Geocoding failed for ${addressToGeocode} after 5 tries!`)
+                queueCallback(err)
+              }
+            })
+        }
+        doGeocodeUntilSuccess()
+      })
+    })
   }
 
   /**
