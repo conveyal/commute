@@ -27,9 +27,9 @@ export default class Possibilities extends Component {
 
   state = {
     monetaryCost: metrics.monetaryCost.default,
-    distance: metrics.distance.default,
+    distance: metrics.distance.default * (metrics.distance.multiplier || 1),
     series: getInitialSeries(),
-    time: metrics.time.default * 60,
+    time: metrics.time.default * (metrics.time.multiplier || 1),
     yAxisUnit: 'percent'
   }
 

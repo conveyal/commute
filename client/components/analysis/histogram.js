@@ -87,7 +87,7 @@ export default class Histogram extends Component {
     newState.series.forEach((seriesMode) => {
       // add bin with remnant
       seriesMode.data.push({
-        x: `> ${metricData.max}`,
+        x: 'Not possible',
         y: arrayVals[seriesMode.mode][newState.metric].length - seriesMode.numInPreviousBins
       })
     })
