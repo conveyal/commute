@@ -57,9 +57,8 @@ export default class CommuterGroup extends Component {
   }
 
   _handleDelete = () => {
-    const {_id: groupId, organizationId} = this.props.group
-    const doDelete = () => this.props.deleteGroup(groupId, organizationId)
-    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+    const doDelete = () => this.props.deleteGroup(this.props.group)
+    actUponConfirmation(messages.group.deleteConfirmation, doDelete)
   }
 
   _handleEditName = () => {
