@@ -17,7 +17,7 @@ import {actUponConfirmation} from '../utils/ui'
 
 const siteSchema = yup.object(Object.assign({
   name: yup.string().label('Site Name').required(),
-  radius: yup.string().label('Ridematch Radius')
+  radius: yup.string().label('Ridematch Radius').required()
 }, geocodeYupSchema))
 
 export default class EditSite extends Component {

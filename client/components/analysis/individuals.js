@@ -164,6 +164,7 @@ export default class Individuals extends Component {
             <h3>Individual Trips</h3>
             <BootstrapTable
               data={analysis.trips}
+              pagination
               selectRow={{
                 mode: 'radio',
                 clickToSelect: true,
@@ -172,12 +173,12 @@ export default class Individuals extends Component {
               }}
               >
               <TableHeaderColumn dataField='commuterId' isKey hidden />
-              <TableHeaderColumn dataFormat={this._nameRenderer}>Name</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={modeRenderer}>Mode</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={durationRenderer}>Duration</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={distanceRenderer}>Distance</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={costRenderer}>Cost</TableHeaderColumn>
-              <TableHeaderColumn dataFormat={ridematchesRenderer}>Ridematches</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={this._nameRenderer} dataSort>Name</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={modeRenderer} dataSort>Mode</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={durationRenderer} dataSort>Duration</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={distanceRenderer} dataSort>Distance</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={costRenderer} dataSort>Cost</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={ridematchesRenderer} dataSort>Ridematches</TableHeaderColumn>
             </BootstrapTable>
           </Col>
         </Row>
@@ -203,7 +204,7 @@ function modeRenderer (cell, row) {
 }
 
 function ridematchesRenderer (cell, row) {
-  return row.mostLikely.ridematches
+  return row.ridematches.length
 }
 
 function coordinatesToArray (coords) {

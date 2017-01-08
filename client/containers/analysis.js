@@ -10,16 +10,19 @@ import _summary from '../components/analysis/summary'
 function mapStateToProps (state, props) {
   const {analysis, commuter, group, site} = state
   const currentAnalysis = analysis[props.params.analysisId]
+  const currentGroup = group[currentAnalysis.groupId]
   return {
     analysis: currentAnalysis,
     commuterStore: commuter,
-    groupName: group[currentAnalysis.groupId].name,
+    currentGroup,
+    groupName: currentGroup.name,
     site: site[currentAnalysis.siteId]
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
+    calculateRideshares: (opts) => dispatch(analysisActions.calculateRideshares(opts)),
     deleteAnalysis: (opts) => dispatch(analysisActions.delete(opts)),
     loadAnalysis: (opts) => dispatch(analysisActions.loadOne(opts)),
     loadCommuters: (opts) => dispatch(commuterActions.loadMany(opts))

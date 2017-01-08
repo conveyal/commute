@@ -1,3 +1,5 @@
+import update from 'react-addons-update'
+
 import analysisDefaults from '../utils/analysisDefaults'
 import {addEntitiesToEntityMap, addToEntityMap} from '../utils/entities'
 import {makeGenericReducerHandlers} from '../utils/reducers'
@@ -53,6 +55,32 @@ function parseAnalysis (analysis) {
   }
 
   return analysis
+}
+
+reducers['set ridematches'] = function (state, action) {
+  const {analysis, ridematches} = action.payload
+
+  // precalculate indices of commuters in analysis trips
+  const commuterIdIndexes = {}
+  analysis.trips.forEach((trip, idx) => {
+    commuterIdIndexes[trip.commuterId] = idx
+  })
+
+  // add ridematch data to each trip
+  let updatedAnalysis = analysis
+  Object.keys(ridematches).forEach((commuterId) => {
+    const affectedTripIdx = commuterIdIndexes[commuterId]
+    updatedAnalysis = update(updatedAnalysis, {
+      trips: { [affectedTripIdx]: { ridematches: { $set: ridematches[commuterId] } } }
+    })
+  })
+
+  // update data
+  updatedAnalysis = update(updatedAnalysis, {
+    rideshareCalculated: { $set: true }
+  })
+
+  return addToEntityMap(state, updatedAnalysis)
 }
 
 export const initialState = {}

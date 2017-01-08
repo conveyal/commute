@@ -14,20 +14,45 @@ import {actUponConfirmation} from '../../utils/ui'
 export default class Summary extends Component {
   static propTypes = {
     // dispatch
+    calculateRideshares: PropTypes.func.isRequired,
     deleteAnalysis: PropTypes.func.isRequired,
     loadAnalysis: PropTypes.func.isRequired,
+    loadCommuters: PropTypes.func.isRequired,
 
     // props
     analysis: PropTypes.object.isRequired,
+    currentGroup: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
     site: PropTypes.object.isRequired
   }
 
-  _handleDelete () {
-    const {analysis, deleteAnalysis, organizationId} = this.props
-    const doDelete = () => {
-      deleteAnalysis(analysis._id, organizationId)
+  componentWillMount () {
+    const {analysis, loadCommuters} = this.props
+    loadCommuters({ groupId: analysis.groupId })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const {
+      analysis,
+      calculateRideshares,
+      commuterStore,
+      currentGroup: group,
+      site
+    } = nextProps
+    if (analysis.numCommuters === analysis.trips.length &&
+      Object.keys(commuterStore).length > 0 &&
+      !analysis.rideshareCalculated) {
+      // wait for
+      // - analysis to be calculated,
+      // - commuter store to be populated
+      // - but don't recalculate if it's already been calculated
+      calculateRideshares({analysis, commuterStore, group, site})
     }
+  }
+
+  _handleDelete () {
+    const {analysis, deleteAnalysis} = this.props
+    const doDelete = () => { deleteAnalysis(analysis) }
     actUponConfirmation(messages.analysis.deleteConfirmation, doDelete)
   }
 
@@ -36,10 +61,11 @@ export default class Summary extends Component {
   }
 
   render () {
-    const {_id: analysisId, name, numCommuters, summary} = this.props.analysis
+    const {_id: analysisId, name, numCommuters, rideshareCalculated, summary} = this.props.analysis
     const {analysis, groupName, site} = this.props
     const numTrips = analysis.trips.length
     const analysisCalculated = numCommuters === numTrips
+    const everythingCalculated = analysisCalculated && rideshareCalculated
     return (
       <Grid>
         <Row>
@@ -81,7 +107,15 @@ export default class Summary extends Component {
             </Col>
           </Row>
         }
-        {analysisCalculated &&
+        {analysisCalculated && !rideshareCalculated &&
+          <Row>
+            <Col xs={12}>
+              <h4>Progress</h4>
+              <p>Calculating Rideshares...</p>
+            </Col>
+          </Row>
+        }
+        {everythingCalculated &&
           <Row>
             <Col xs={12} md={4}>
               <h4>

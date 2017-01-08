@@ -1066,6 +1066,12 @@ babel-runtime@6.x, babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
+babel-runtime@^5.6.15:
+  version "5.8.38"
+  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-5.8.38.tgz#1c0b02eb63312f5f087ff20450827b425c9d4c19"
+  dependencies:
+    core-js "^1.0.0"
+
 babel-template@^6.14.0, babel-template@^6.15.0, babel-template@^6.16.0, babel-template@^6.8.0:
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.16.0.tgz#e149dd1a9f03a35f817ddbc4d0481988e7ebc8ca"
@@ -5944,6 +5950,10 @@ raw-body@~2.1.5, raw-body@~2.1.7:
     iconv-lite "0.4.13"
     unpipe "1.0.0"
 
+rbush@^1.4.0:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/rbush/-/rbush-1.4.3.tgz#7874e2d38911d2719ea27731d32445da5ec4394c"
+
 rc-align@2.x:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/rc-align/-/rc-align-2.3.3.tgz#15e2fd329fde9c2dec16e4a0e0ec20fba2ffdbc0"
@@ -6255,7 +6265,7 @@ read-pkg@^1.0.0, read-pkg@^1.1.0:
     normalize-package-data "^2.3.2"
     path-type "^1.0.0"
 
-readable-stream@2.1.5, readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.5, readable-stream@~2.1.4:
+readable-stream@2.1.5, readable-stream@^2.0.2, readable-stream@~2.1.4:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
   dependencies:
@@ -6276,7 +6286,7 @@ readable-stream@2.1.5, readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.1
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2.1.0, readable-stream@^2.2.2:
+readable-stream@^2.0.0, "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.1.0, readable-stream@^2.1.5, readable-stream@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
   dependencies:
@@ -6574,6 +6584,16 @@ rgb-hex@^1.0.0:
 rgb@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/rgb/-/rgb-0.1.0.tgz#be27b291e8feffeac1bd99729721bfa40fc037b5"
+
+ridematcher@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ridematcher/-/ridematcher-0.2.0.tgz#c2cb79c5e33e46ce48c9f85ee1b95a4887fc7b67"
+  dependencies:
+    babel-runtime "^5.6.15"
+    rbush "^1.4.0"
+    turf-destination "^1.2.1"
+    turf-distance "^1.0.1"
+    turf-point "^2.0.1"
 
 right-align@^0.1.1:
   version "0.1.3"
@@ -7358,6 +7378,28 @@ tty-browserify@~0.0.0:
 tunnel-agent@~0.4.1:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/tunnel-agent/-/tunnel-agent-0.4.3.tgz#6373db76909fe570e08d73583365ed828a74eeeb"
+
+turf-destination@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/turf-destination/-/turf-destination-1.2.1.tgz#51ac97ebf03b93179158628d4e1a1e99f7df6ece"
+  dependencies:
+    turf-point "^2.0.0"
+
+turf-distance@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/turf-distance/-/turf-distance-1.1.0.tgz#b0a17be0a48769a83d260cd3da12f07c77b6a758"
+  dependencies:
+    turf-invariant "^1.0.2"
+
+turf-invariant@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/turf-invariant/-/turf-invariant-1.0.3.tgz#555b47b8864f78339310c8e0270cae87594fc8b0"
+
+turf-point@^2.0.0, turf-point@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/turf-point/-/turf-point-2.0.1.tgz#a2dcc30a2d20f44cf5c6271df7bae2c0e2146069"
+  dependencies:
+    minimist "^1.1.0"
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
