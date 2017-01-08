@@ -1,5 +1,7 @@
 const queue = require('async/queue')
+const moment = require('moment')
 const request = require('request')
+const qs = require('qs')
 
 const models = require('../models')
 const env = require('../utils/env').env
@@ -14,6 +16,7 @@ const modeDbLookup = {
 const PROFILE_OPTIONS = {
   accessModes: 'WALK', // BICYCLE,BICYCLE_RENT
   bikeSpeed: 4.1,
+  date: moment().format('YYYY-MM-DD'), // TODO: choose date to avoid holiday schedule
   directModes: 'CAR,WALK,BICYCLE', // ,BICYCLE,BICYCLE_RENT',
   egressModes: 'WALK', // ,BICYCLE_RENT',
   endTime: '9:00',
@@ -39,9 +42,13 @@ module.exports = function ({ analysisId, commuters, site }) {
     // create queue for trip plan calculations
     const tripPlannerQueue = queue((commuter, tripPlanCallback) => {
       console.log('profile commuter', commuter._id)
+      console.log(`${env.OTP_URL}/plan` + qs.stringify(Object.assign(PROFILE_OPTIONS, {
+        from: `${commuter.coordinate.lat},${commuter.coordinate.lon}`,
+        to: sitePosition
+      })))
       const requestCfg = {
         json: true,
-        uri: env.OTP_URL,
+        uri: `${env.OTP_URL}/plan`,
         qs: Object.assign(PROFILE_OPTIONS, {
           from: `${commuter.coordinate.lat},${commuter.coordinate.lon}`,
           to: sitePosition
@@ -83,7 +90,7 @@ module.exports = function ({ analysisId, commuters, site }) {
           commuterId
         }
 
-        if (!json.options) {
+        if (!json.profile) {
           Object.keys(modeDbLookup).forEach((mode) => {
             newTrip[modeDbLookup[mode]] = {
               distance: 9999999,
@@ -95,7 +102,7 @@ module.exports = function ({ analysisId, commuters, site }) {
             }
           })
         } else {
-          json.options.forEach((option) => {
+          json.profile.forEach((option) => {
             // should only ever be two options
             if (option.summary === 'Non-transit options') {
               calcNonTransitTrips({ newTrip, option })
