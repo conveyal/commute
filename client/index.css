@@ -41,6 +41,11 @@ h4 strong {
 	width: 100%;
 }
 
+/* Marker-clusterer fix */
+.leaflet-marker-pane img {
+  z-index: 1 !important;
+}
+
 /* Tranistive */
 
 .Transitive {

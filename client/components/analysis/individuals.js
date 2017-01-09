@@ -1,16 +1,16 @@
 import fetch from 'isomorphic-fetch'
 import humanizeDuration from 'humanize-duration'
-import {Browser} from 'leaflet'
+// import {Browser} from 'leaflet'
 import otpProfileToTransitive from 'otp-profile-to-transitive'
 import qs from 'qs'
 import React, {Component, PropTypes} from 'react'
 import {Col, Grid, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import {Map as LeafletMap, TileLayer} from 'react-leaflet'
+// import {Map as LeafletMap, TileLayer} from 'react-leaflet'
 
 import ButtonLink from '../button-link'
 import Icon from '../icon'
-import TransitiveLayer from '../transitive-layer'
+// import TransitiveLayer from '../transitive-layer'
 import analysisDefaults from '../../utils/analysisDefaults'
 import {formatCurrency, humanizeDistance} from '../../utils/components'
 import {settings} from '../../utils/env'
@@ -25,6 +25,7 @@ export default class Individuals extends Component {
 
     // props
     analysis: PropTypes.object.isRequired,
+    currentGroup: PropTypes.object.isRequired,
     commuterStore: PropTypes.object.isRequired,
     groupName: PropTypes.string.isRequired,
     site: PropTypes.object.isRequired
@@ -39,6 +40,26 @@ export default class Individuals extends Component {
   componentWillMount () {
     // load commuter store
     this.props.loadCommuters({ groupId: this.props.analysis.groupId })
+  }
+
+  _CFAZRenderer = (cell, row) => {
+    const commuter = this.props.commuterStore[row.commuterId]
+    const query = qs.stringify({
+      from: commuter.address,
+      to: this.props.site.address,
+      modes: 'BICYCLE,BICYCLE_RENT,BUS,TRAINISH,WALK',
+      start_time: 7,
+      end_time: 9,
+      days: 'M—F'
+    })
+    return (
+      <a
+        href={`http://www.carfreeatoz.com/planner?${query}`}
+        target='_blank'
+        >
+        View on CFAZ
+      </a>
+    )
   }
 
   _nameRenderer = (cell, row) => {
@@ -113,7 +134,7 @@ export default class Individuals extends Component {
   render () {
     const {_id: analysisId, name} = this.props.analysis
     const {analysis, groupName, site} = this.props
-    const {position, transitiveData, zoom} = this.state
+    // const {position, transitiveData, zoom} = this.state
     return (
       <Grid>
         <Row className='individuals-header'>
@@ -143,22 +164,6 @@ export default class Individuals extends Component {
             </h4>
           </Col>
         </Row>
-        <Row>
-          <Col xs={8} style={{height: '400px'}}>
-            <LeafletMap center={position} zoom={zoom}>
-              <TileLayer
-                url={Browser.retina &&
-                  process.env.LEAFLET_RETINA_URL
-                  ? process.env.LEAFLET_RETINA_URL
-                  : process.env.LEAFLET_TILE_URL}
-                attribution={process.env.LEAFLET_ATTRIBUTION}
-                />
-              <TransitiveLayer
-                transitiveData={transitiveData}
-                />
-            </LeafletMap>
-          </Col>
-        </Row>
         <Row className='individuals-content'>
           <Col xs={12}>
             <h3>Individual Trips</h3>
@@ -179,6 +184,7 @@ export default class Individuals extends Component {
               <TableHeaderColumn dataFormat={distanceRenderer} dataSort>Distance</TableHeaderColumn>
               <TableHeaderColumn dataFormat={costRenderer} dataSort>Cost</TableHeaderColumn>
               <TableHeaderColumn dataFormat={ridematchesRenderer} dataSort>Ridematches</TableHeaderColumn>
+              <TableHeaderColumn dataFormat={this._CFAZRenderer} dataSort>CFAZ</TableHeaderColumn>
             </BootstrapTable>
           </Col>
         </Row>
