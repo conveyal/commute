@@ -42,7 +42,7 @@ module.exports = function ({ analysisId, commuters, site }) {
     // create queue for trip plan calculations
     const tripPlannerQueue = queue((commuter, tripPlanCallback) => {
       console.log('profile commuter', commuter._id)
-      console.log(`${env.OTP_URL}/plan` + qs.stringify(Object.assign(PROFILE_OPTIONS, {
+      console.log(`${env.OTP_URL}/plan?` + qs.stringify(Object.assign(PROFILE_OPTIONS, {
         from: `${commuter.coordinate.lat},${commuter.coordinate.lon}`,
         to: sitePosition
       })))
@@ -90,7 +90,15 @@ module.exports = function ({ analysisId, commuters, site }) {
           commuterId
         }
 
-        if (!json.profile) {
+        // sometimes it's profile, other times it's
+        let profileOptionsKey
+        if (json.profile) {
+          profileOptionsKey = 'profile'
+        } else if (json.options) {
+          profileOptionsKey = 'options'
+        }
+
+        if (!json[profileOptionsKey]) {
           Object.keys(modeDbLookup).forEach((mode) => {
             newTrip[modeDbLookup[mode]] = {
               distance: 9999999,
@@ -102,7 +110,7 @@ module.exports = function ({ analysisId, commuters, site }) {
             }
           })
         } else {
-          json.profile.forEach((option) => {
+          json[profileOptionsKey].forEach((option) => {
             // should only ever be two options
             if (option.summary === 'Non-transit options') {
               calcNonTransitTrips({ newTrip, option })
