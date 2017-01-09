@@ -98,18 +98,19 @@ module.exports = function ({ analysisId, commuters, site }) {
           profileOptionsKey = 'options'
         }
 
-        if (!json[profileOptionsKey]) {
-          Object.keys(modeDbLookup).forEach((mode) => {
-            newTrip[modeDbLookup[mode]] = {
-              distance: 9999999,
-              monetaryCost: 9999999,
-              time: 9999999,
-              virtualCost: 9999999,
-              polyline: '',
-              possible: false
-            }
-          })
-        } else {
+        // set everything to impossible at first to avoid later errors
+        Object.keys(modeDbLookup).forEach((mode) => {
+          newTrip[modeDbLookup[mode]] = {
+            distance: 9999999,
+            monetaryCost: 9999999,
+            time: 9999999,
+            virtualCost: 9999999,
+            polyline: '',
+            possible: false
+          }
+        })
+
+        if (json[profileOptionsKey]) {
           json[profileOptionsKey].forEach((option) => {
             // should only ever be two options
             if (option.summary === 'Non-transit options') {
@@ -152,19 +153,27 @@ module.exports = function ({ analysisId, commuters, site }) {
       let distanceSum = 0 // calculated with only driving
       let savingsTotalPerDay = 0
       const numTrips = allTrips.length
+      let numPossibleTrips = 0
 
       allTrips.forEach((trip) => {
         const {mostLikely} = trip
-        travelTimeSum += mostLikely.time
-        distanceSum += trip.car.distance
-        savingsTotalPerDay += trip.car.monetaryCost - mostLikely.monetaryCost
+        if (mostLikely.time < 9999999) {
+          travelTimeSum += mostLikely.time
+          distanceSum += trip.car.distance
+          numPossibleTrips++
+        }
+        savingsTotalPerDay += (
+          trip.car.monetaryCost === 9999999
+          ? mostLikely.monetaryCost
+          : trip.car.monetaryCost
+        ) - mostLikely.monetaryCost
       })
 
       models.Analysis.findByIdAndUpdate(analysisId, {
         calculationStatus: 'calculated',
         summary: {
-          avgTravelTime: travelTimeSum / numTrips,
-          avgDistance: distanceSum / numTrips,
+          avgTravelTime: travelTimeSum / numPossibleTrips,
+          avgDistance: distanceSum / numPossibleTrips,
           savingsPerTrip: savingsTotalPerDay / numTrips,
           savingsPerTripYear: savingsTotalPerDay / numTrips * 365.2422,
           savingsTotalPerDay: savingsTotalPerDay,
