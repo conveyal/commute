@@ -16,7 +16,7 @@ const geocodeRequestQueue = queue((task, callback) => {
     console.log('do a new reqeust')
     lastRequestTime = now()
     task(callback)
-  }, Math.max(0, 1100 - (now() - lastRequestTime))) // wait at least 1 second between requests
+  }, Math.max(0, 600 - (now() - lastRequestTime))) // wait at least 0.5 second between requests
 })
 
 const maxRetries = 10
@@ -49,7 +49,8 @@ module.exports = function (schema, options) {
       type: Number
     },
     neighborhood: String,
-    original_address: String,
+    originalAddress: String,
+    positionLastUpdated: Date,
     state: String
   })
 
@@ -61,8 +62,9 @@ module.exports = function (schema, options) {
 
     // Save the original address
     if (this.isNew) {
-      this.original_address = this.address
       if (!this.address && this.validCoordinate()) {
+        // coordinates provided, but address is blank
+        // perform reverse geocode
         var self = this
         this.reverseGeocode(function (err) {
           if (err) {
@@ -73,12 +75,19 @@ module.exports = function (schema, options) {
             self.state = ''
             self.country = ''
             self.geocodeConfidence = 0
+            self.positionLastUpdated = new Date()
           }
         })
       } else if (this.address && !this.validCoordinate()) {
+        // address provided, but coordinates are blank
+        // perform geocode
+        this.original_address = this.address
         this.geocode()
+      } else {
+        // address and coordinates provided
+        // assume geocode happened elsewhere and only update positionLastUpdated
+        this.positionLastUpdated = new Date()
       }
-      // otherwise assume geocode happened elsewhere and do no operation
     } else {
       if (this.isModified('coordinate')) {
         this.reverseGeocode()
@@ -129,6 +138,7 @@ module.exports = function (schema, options) {
               this.geocodeConfidence = firstResult.properties.confidence
               this.neighborhood = firstResult.properties.neighborhood
               this.state = firstResult.properties.region
+              this.positionLastUpdated = new Date()
               this.save()
               queueCallback()
             })
@@ -167,7 +177,7 @@ module.exports = function (schema, options) {
             self.county = address.county
             self.state = address.state
             self.country = address.country
-
+            self.positionLastUpdated = new Date()
             self.save()
           }
         })

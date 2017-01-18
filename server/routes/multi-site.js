@@ -4,20 +4,15 @@ const makeRestEndpoints = require('../utils/restEndpoints')
 module.exports = function makeRoutes (app) {
   makeRestEndpoints(app,
     {
-      childModels: [{
-        foreignKey: 'analysisId',
-        key: 'trips',
-        model: models.Trip
-      }],
       commands: {
         'Collection GET': {},
         'Collection POST': {},
         'GET': {},
-        'DELETE': {}
+        'DELETE': {},
+        'PUT': {}
       },
-      model: models.Analysis,
-      name: 'analysis',
-      returnChildrenAsEntities: true
+      model: models.MultiSite,
+      name: 'multi-site'
     }
   )
 }

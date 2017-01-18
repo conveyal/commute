@@ -24,7 +24,7 @@ routes(app)
 
 let htmlString
 const title = 'Commute'
-if (process.env.MONGODB_URI) {
+if (process.env.STATIC_HOST) {
   // In heroku environment, get js and css from s3
   const host = process.env.STATIC_HOST
   htmlString = `<!DOCTYPE html>

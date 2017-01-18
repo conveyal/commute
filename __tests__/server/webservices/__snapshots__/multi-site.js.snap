@@ -1,0 +1,28 @@
+exports[`multi-site rest endpoint should add model 1`] = `
+Array [
+  Object {
+    "Sites": Array [],
+    "__v": 0,
+    "name": "test-multi-site",
+    "rideshares": Array [],
+  },
+]
+`;
+
+exports[`multi-site rest endpoint should get model 1`] = `
+Object {
+  "Sites": Array [],
+  "__v": 0,
+  "name": "test-multi-site",
+  "rideshares": Array [],
+}
+`;
+
+exports[`multi-site rest endpoint should update model 1`] = `
+Object {
+  "Sites": Array [],
+  "__v": 0,
+  "name": "updated name",
+  "rideshares": Array [],
+}
+`;

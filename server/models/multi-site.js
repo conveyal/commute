@@ -1,6 +1,5 @@
 const Schema = require('mongoose').Schema
 
-const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
 
 const modeTravelTimeTable = [{
@@ -9,7 +8,6 @@ const modeTravelTimeTable = [{
 }]
 
 const schema = new Schema({
-  travelTimeIsochrones: Schema.Types.Mixed,
   modeSummaries: {
     bicycle: modeTravelTimeTable,
     car: modeTravelTimeTable,
@@ -25,10 +23,10 @@ const schema = new Schema({
     commuter1: Schema.Types.ObjectId,
     commuter2: Schema.Types.ObjectId,
     distance: Number
-  }]
+  }],
+  Sites: [Schema.Types.ObjectId]
 })
 
-schema.plugin(geocodingPlugin)
 schema.plugin(trashPlugin)
 
 module.exports = schema

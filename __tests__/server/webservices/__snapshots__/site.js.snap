@@ -3,13 +3,14 @@ Array [
   Object {
     "__v": 0,
     "address": "123 Main St",
+    "commuters": Array [],
     "coordinate": Object {
       "lat": 12,
       "lon": 34,
     },
     "geocodeConfidence": -1,
     "name": "test-site",
-    "original_address": "123 Main St",
+    "rideshares": Array [],
   },
 ]
 `;
@@ -18,13 +19,14 @@ exports[`site rest endpoint should get model 1`] = `
 Object {
   "__v": 0,
   "address": "123 Main St",
+  "commuters": Array [],
   "coordinate": Object {
     "lat": 12,
     "lon": 34,
   },
   "geocodeConfidence": -1,
   "name": "test-site",
-  "original_address": "123 Main St",
+  "rideshares": Array [],
 }
 `;
 
@@ -32,12 +34,13 @@ exports[`site rest endpoint should update model 1`] = `
 Object {
   "__v": 0,
   "address": "123 Main St",
+  "commuters": Array [],
   "coordinate": Object {
     "lat": 12,
     "lon": 34,
   },
   "geocodeConfidence": -1,
   "name": "updated name",
-  "original_address": "123 Main St",
+  "rideshares": Array [],
 }
 `;

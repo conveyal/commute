@@ -2,37 +2,36 @@
 
 import mongoose from 'mongoose'
 
-import {Organization} from '../../../server/models'
+import {MultiSite} from '../../../server/models'
 
 import {makeRestEndpointTests} from '../../test-utils/server'
 
-describe('organization', () => {
+describe('multi-site', () => {
   afterAll(() => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  const initOrganizationData = {
-    agencyId: mongoose.Types.ObjectId(),
-    name: 'test-org'
+  const initMultiSiteData = {
+    name: 'test-multi-site'
   }
 
   makeRestEndpointTests({
     endpoints: {
       'Collection GET': {},
       'Collection POST': {
-        creationData: initOrganizationData,
+        creationData: initMultiSiteData,
         customAssertions: (json) => {
-          expect(json[0].name).toBe('test-org')
+          expect(json[0].name).toBe('test-multi-site')
         }
       },
       'DELETE': {
-        initData: initOrganizationData
+        initData: initMultiSiteData
       },
       'GET': {
-        initData: initOrganizationData
+        initData: initMultiSiteData
       },
       'PUT': {
-        initData: initOrganizationData,
+        initData: initMultiSiteData,
         updateData: {
           name: 'updated name'
         },
@@ -42,8 +41,7 @@ describe('organization', () => {
         }
       }
     },
-    snapshotOmitions: ['agencyId'],
-    model: Organization,
-    name: 'organization'
+    model: MultiSite,
+    name: 'multi-site'
   })
 })

@@ -64,6 +64,9 @@ export const makeRestEndpointTests = (cfg) => {
   const model = cfg.model
   const name = cfg.name
   const snapshotOmitions = ['_id'].concat(cfg.snapshotOmitions || [])
+  if (geocodePlugin) {
+    snapshotOmitions.push('positionLastUpdated')
+  }
   describe('rest endpoint', () => {
     beforeEach(makeRemoveModelsFn(model))
     afterEach(makeRemoveModelsFn(model))

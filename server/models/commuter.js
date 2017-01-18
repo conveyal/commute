@@ -3,15 +3,26 @@ const Schema = require('mongoose').Schema
 const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
 
+const modeType = {
+  travelTime: Number
+}
+
 const schema = new Schema({
-  groupId: {
-    ref: 'Group',
-    required: true,
-    type: Schema.Types.ObjectId
+  modeStats: {
+    bicycle: modeType,
+    car: modeType,
+    transit: modeType,
+    walk: modeType,
+    type: Schema.Types.Mixed
   },
   name: {
     required: true,
     type: String
+  },
+  siteId: {
+    ref: 'Site',
+    required: true,
+    type: Schema.Types.ObjectId
   }
 })
 

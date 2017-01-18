@@ -3,8 +3,14 @@ const uuid = require('uuid')
 
 mongoose.Promise = global.Promise // default is mpromise...ugh
 
-const URI = process.env.MONGODB_URI ||
-  `mongodb://localhost:27017/commute${process.env.NODE_ENV === 'test' ? '-test-' + uuid.v4() : ''}`
+let URI = process.env.MONGODB_URI
+
+if (!URI) {
+  const baseConnectionString = 'mongodb://localhost:27017/'
+  const dbName = `commute${process.env.NODE_ENV === 'test' ? '-test-' + uuid.v4() : ''}`
+  URI = `${baseConnectionString}${dbName}`
+}
+
 const db = module.exports = mongoose.createConnection(URI)
 
 function dropDbIfTesting (callback) {

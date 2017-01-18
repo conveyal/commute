@@ -18,7 +18,7 @@ describe('commuter', () => {
       lon: 34
     },
     name: 'test-commuter',
-    groupId: mongoose.Types.ObjectId()
+    siteId: mongoose.Types.ObjectId()
   }
 
   makeRestEndpointTests({
@@ -47,7 +47,7 @@ describe('commuter', () => {
         }
       }
     },
-    snapshotOmitions: ['groupId'],
+    snapshotOmitions: ['siteId'],
     geocodePlugin: true,
     model: Commuter,
     name: 'commuter'
