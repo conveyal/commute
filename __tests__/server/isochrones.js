@@ -6,7 +6,6 @@ import {timeoutPromise} from '../test-utils/common'
 import {makeRemoveModelsFn, prepareIsochroneNock} from '../test-utils/server'
 
 import models from '../../server/models'
-import isochroneUtils from '../../server/utils/isochrones'
 
 function cleanData () {
   return Promise.all([makeRemoveModelsFn(models.Site), makeRemoveModelsFn(models.Commuter)])

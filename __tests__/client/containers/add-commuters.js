@@ -15,30 +15,12 @@ const commuterExpectations = makeGenericModelActionsExpectations({
   pluralName: 'commuters',
   singularName: 'commuter'
 })
-const groupExpectations = makeGenericModelActionsExpectations({
-  pluralName: 'groups',
-  singularName: 'group'
-})
 
 // include id field in csv file for consistent testing results, normally it should be omitted
 const mockCsvFile = new File(['_id,name,email,address\n1,Bob,a@b.c,"123 Main St"'], 'mockFile.csv')
 
 describe('Container > AddCommuters', () => {
-  it('Add Commuters View loads (create mode)', () => {
-    const mockStore = makeMockStore(mockStores.withBlankOrganization)
-
-    // mount component
-    const tree = mount(
-      <Provider store={mockStore}>
-        <AddCommuters
-          params={{organizationId: 'organization-1'}}
-          />
-      </Provider>
-    )
-    expect(pretty(tree.find(AddCommuters).html())).toMatchSnapshot()
-  })
-
-  it('Add Commuters View loads (with existing commuter group)', () => {
+  it('Add Commuters View loads', () => {
     // Given a logged-in user
     const mockStore = makeMockStore(mockStores.withAnalysisRun)
 
@@ -82,36 +64,7 @@ describe('Container > AddCommuters', () => {
     }, 1000)
   })
 
-  it('Create Commuter Group', async () => {
-    // Given a logged-in user is viewing the Add Commuters View
-    const mockStore = makeMockStore(mockStores.withBlankOrganization)
-    const tree = mount(
-      <Provider store={mockStore}>
-        <AddCommuters
-          params={{organizationId: 'organization-1'}}
-          />
-      </Provider>
-    )
-
-    // When the user fills out all of the required fields (Name)
-    tree.find('input').first().simulate('change', {target: {value: 'Mock Name'}})
-
-    // And the user submits the form
-    tree.find('form').find('button').simulate('click')
-
-    // react-formal submit is asyncrhonous, so wait a bit
-    await timeoutPromise(100)
-
-    groupExpectations.expectCreateAction({
-      action: mockStore.getActions()[0],
-      newEntity: {
-        name: 'Mock Name',
-        organizationId: 'organization-1'
-      }
-    })
-  })
-
-  it('Append Commuters to existing commuter group', (done) => {
+  it('Append Commuters to existing site', (done) => {
     // Given a logged-in user is viewing the Add Commuters View
     // And the user is adding commuters to an existing group
     const mockStore = makeMockStore(mockStores.withAnalysisRun)

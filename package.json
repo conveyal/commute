@@ -16,7 +16,7 @@
     "merge-coverage": "./node_modules/.bin/lcov-result-merger \"coverage-*/lcov.info\" \"coverage/lcov.info\"",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "start": "npm run build && node server/development.js",
-    "test": "npm run test-lint && npm run test-client && npm run test-server",
+    "test": "npm run lint && npm run test-client && npm run test-server",
     "test-all": "mastarm test -c ./configurations/test -e test",
     "test-client": "mastarm test -c ./configurations/test -e test /__tests__/client",
     "test-server": "mastarm test -e test /__tests__/server --test-environment node",

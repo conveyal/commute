@@ -1,30 +1,4 @@
-exports[`Container > AddCommuters Add Commuters View loads (create mode) 1`] = `
-"<div class=\"container\">
-  <div class=\"row\">
-    <div class=\"col-xs-12\">
-      <h3><span>Create Commuter Group</span> 
-        <button to=\"/organization/organization-1\" type=\"button\" class=\"pull-right btn btn-default\">
-          <i class=\"fa fa-arrow-left fa-fw \"></i><span>Back</span> </button>
-      </h3>
-      <form novalidate=\"\">
-        <div class=\"form-group\">
-          <label for=\"group-item-name\" class=\"control-label\">Group Name</label>
-          <input type=\"text\" name=\"name\" class=\"form-control\" placeholder=\"Enter name\" value=\"\">
-
-          <!-- react-empty: 13 -->
-        </div>
-        <div class=\"dropzone\">
-          <div>Try dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: name, email and address.</div>
-          <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
-        </div>
-        <button class=\"btn btn-success\">Create</button>
-      </form>
-    </div>
-  </div>
-</div>"
-`;
-
-exports[`Container > AddCommuters Add Commuters View loads (with existing commuter group) 1`] = `
+exports[`Container > AddCommuters Add Commuters View loads 1`] = `
 "<div class=\"container\">
   <div class=\"row\">
     <div class=\"col-xs-12\">
@@ -117,23 +91,11 @@ exports[`Container > AddCommuters Add Commuters View loads (with existing commut
 </div>"
 `;
 
-exports[`Container > AddCommuters Append Commuters to existing commuter group 1`] = `
+exports[`Container > AddCommuters Append Commuters to existing site 1`] = `
 Object {
   "payload": Object {
     "args": Array [
       "/group/group-2",
-    ],
-    "method": "push",
-  },
-  "type": "@@router/CALL_HISTORY_METHOD",
-}
-`;
-
-exports[`Container > AddCommuters Create Commuter Group 1`] = `
-Object {
-  "payload": Object {
-    "args": Array [
-      "/group/new-entity-id",
     ],
     "method": "push",
   },

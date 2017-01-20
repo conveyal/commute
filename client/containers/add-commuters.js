@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 
 import {create as createCommuter} from '../actions/commuter'
-import {create as createGroup} from '../actions/group'
 import AddCommuters from '../components/add-commuters'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
@@ -25,8 +24,7 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    createCommuter: (opts) => dispatch(createCommuter(opts)),
-    createGroup: (opts) => dispatch(createGroup(opts))
+    createCommuter: (opts) => dispatch(createCommuter(opts))
   }
 }
 

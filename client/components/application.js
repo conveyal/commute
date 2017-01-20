@@ -13,11 +13,13 @@ export default class Application extends Component {
   }
 
   componentWillMount () {
-    /* try {
-      this.props.refreshUserToken()
-    } catch (e) {
-      console.error(e)
-    } */
+    if (process.env.NODE_ENV !== 'test') {
+      // try {
+      //   this.props.refreshUserToken()
+      // } catch (e) {
+      //   console.error(e)
+      // }
+    }
   }
 
   render () {
