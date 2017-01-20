@@ -10,8 +10,8 @@ const actions = makeGenericModelActions({
     'GET': {},
     'PUT': {}
   },
-  pluralName: 'sites',
-  singularName: 'site'
+  pluralName: 'multi-sites',
+  singularName: 'multi-site'
 })
 
 export default actions

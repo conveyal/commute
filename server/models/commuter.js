@@ -29,23 +29,33 @@ const schema = new Schema({
 schema.plugin(geocodingPlugin)
 schema.plugin(trashPlugin)
 
-schema.pre('save', true, async function (next, done) {
+schema.pre('save', true, function (next, done) {
   next()
 
   if (this.isModified('coordinates') || this.isNew) {
     // detected change in location, initiate polygon calculation
+    const self = this
 
     // import here to resolve circular import
     const models = require('./')
     const isochroneUtils = require('../utils/isochrones')
 
-    const site = await models.Site.findOne({ _id: this.siteId, trashed: undefined }).exec()
-    const siteIsochrones = site.travelTimeIsochrones
+    models.Site.findOne({ _id: this.siteId, trashed: undefined })
+      .exec()
+      .then((site) => {
+        const siteIsochrones = site.travelTimeIsochrones
 
-    isochroneUtils.calculateIsochroneStatsForCommuter(this, siteIsochrones)
+        isochroneUtils.calculateIsochroneStatsForCommuter(self, siteIsochrones)
+
+        done()
+      })
+      .catch((err) => {
+        console.error('error calculating commuter stats:', err)
+        done()
+      })
+  } else {
+    done()
   }
-
-  done()
 })
 
 module.exports = schema
