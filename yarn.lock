@@ -65,6 +65,20 @@
     conventional-changelog "0.0.17"
     github-url-from-git "^1.4.0"
 
+"@turf/helpers@^3.7.3":
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-3.7.3.tgz#b28004ae72b282bcd3dccadd5855e8641b56858a"
+
+"@turf/inside@^3.7.3":
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/@turf/inside/-/inside-3.7.3.tgz#2bdc9786791ba1e46c6aba511a9ebfcaccf5db3c"
+  dependencies:
+    "@turf/invariant" "^3.7.3"
+
+"@turf/invariant@^3.7.3":
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-3.7.3.tgz#4a3b5d34ce38e94ab0ec3eb9c6ea6fc154cb7100"
+
 Base64@~0.1.3:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/Base64/-/Base64-0.1.4.tgz#e9f6c6bef567fd635ea4162ab14dd329e74aa6de"

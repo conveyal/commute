@@ -6,7 +6,7 @@ import request from 'supertest-as-promised'
 
 import {requireKeys, timeoutPromise} from './common'
 const mockGeocodeResult = require('./mock-geocode-result.json')
-const mockTripPlanResult = require('./mock-trip-plan-result.json')
+const mockIsochroneResult = require('./mock-isochrone-result.json')
 
 import app from '../../server/app'
 
@@ -35,11 +35,11 @@ export const prepareGeocodeNock = () => nock(
   .get(/v1\/search/)
   .reply(200, mockGeocodeResult)
 
-export const prepareOtpNock = () => nock(
-  'http://mock-otp.com/'
+export const prepareIsochroneNock = () => nock(
+  'http://mock-r5.com/'
 )
-  .get(/api\/otp/)
-  .reply(200, mockTripPlanResult)
+  .get(/calculateIsochrones/)
+  .reply(200, mockIsochroneResult)
 
 export const makeRemoveModelsFn = (model) => async () => await model.remove({}).exec()
 
@@ -48,7 +48,7 @@ export const makeRemoveModelsFn = (model) => async () => await model.remove({}).
  *
  * @param {Object} cfg   A configuration object with the following data:
  *   - {Object} endpoints       Keys representing endpoints to make and their corresponding options
- *   - {Array} snapshotOmitions An array of strings representing foreign keys in the model
+ *   - {Array} snapshotOmitions An array of strings representing keys that shouldn't be snapshotted
  *   - {bool} geocodePlugin     whether or not the model has a geocodePlugin
  *   - {Object} model           The mongo model to use
  *   - {String} name            The endpoint name

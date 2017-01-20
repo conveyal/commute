@@ -4,40 +4,46 @@ import mongoose from 'mongoose'
 
 import {Site} from '../../../server/models'
 
-import {makeRestEndpointTests} from '../../test-utils/server'
+import {makeRestEndpointTests, prepareIsochroneNock} from '../../test-utils/server'
 
 describe('site', () => {
   afterAll(() => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  const initSiteData = {
-    address: '123 Main St',
-    coordinate: {
-      lat: 12,
-      lon: 34
-    },
-    name: 'test-site',
-    organizationId: mongoose.Types.ObjectId()
+  const creationData = () => {
+    prepareIsochroneNock()
+
+    return new Promise((resolve, reject) => {
+      resolve({
+        address: '123 Main St',
+        coordinate: {
+          lat: 12,
+          lon: 34
+        },
+        name: 'test-site',
+        organizationId: mongoose.Types.ObjectId()
+      })
+    })
   }
 
   makeRestEndpointTests({
     endpoints: {
       'Collection GET': {},
       'Collection POST': {
-        creationData: initSiteData,
+        creationData: creationData,
         customAssertions: (json) => {
           expect(json[0].name).toBe('test-site')
         }
       },
       'DELETE': {
-        initData: initSiteData
+        initData: creationData
       },
       'GET': {
-        initData: initSiteData
+        initData: creationData
       },
       'PUT': {
-        initData: initSiteData,
+        initData: creationData,
         updateData: {
           name: 'updated name'
         },
@@ -47,7 +53,7 @@ describe('site', () => {
         }
       }
     },
-    snapshotOmitions: ['organizationId'],
+    snapshotOmitions: ['organizationId', 'travelTimeIsochrones'],
     geocodePlugin: true,
     model: Site,
     name: 'site'
