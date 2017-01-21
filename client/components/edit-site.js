@@ -16,8 +16,7 @@ import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
 
 const siteSchema = yup.object(Object.assign({
-  name: yup.string().label('Site Name').required(),
-  radius: yup.string().label('Ridematch Radius').required()
+  name: yup.string().label('Site Name').required()
 }, geocodeYupSchema))
 
 export default class EditSite extends Component {
@@ -108,12 +107,6 @@ export default class EditSite extends Component {
                 name='address'
                 type={Geocoder}
                 validationState={this.state.errors.address ? 'error' : undefined}
-                />
-              <FormalFieldGroup
-                label='Ridematch Radius (mi)'
-                name='radius'
-                placeholder='Enter radius'
-                validationState={this.state.errors.radius ? 'error' : undefined}
                 />
               <ButtonGroup>
                 <Form.Button

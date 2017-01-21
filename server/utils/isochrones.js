@@ -11,12 +11,18 @@ isochroneUtils.calculateSiteIsochrones = function (site) {
   // prepare request for server
   const requestCfg = {
     json: true,
-    uri: `${env.R5_URL}/calculateIsochrones`,
-    qs: site.coordinate
+    qs: {
+      fromLat: site.coordinate.lat,
+      fromLon: site.coordinate.lon
+    },
+    uri: `${env.R5_URL}/calculateIsochrones`
   }
 
+  console.log('initiating calculateIsochrones request with params:')
+  console.log(requestCfg)
+
   // make request
-  request(requestCfg, async (err, res, json) => {
+  request(requestCfg, (err, res, json) => {
     // handle response
     if (err || !json) {
       console.error('error calculating isochrones: ', err)
@@ -31,16 +37,21 @@ isochroneUtils.calculateSiteIsochrones = function (site) {
     site.save()
 
     // update site's commuters
-    const commuters = await models.Commuter.find({ siteId: site._id, trashed: undefined }).exec()
-
-    commuters.forEach((commuter) => {
-      isochroneUtils.calculateIsochroneStatsForCommuter(commuter, json.data)
-      commuter.save()
-    })
+    models.Commuter.find({ siteId: site._id, trashed: undefined })
+      .exec()
+      .then((commuters) => {
+        commuters.forEach((commuter) => {
+          isochroneUtils.calculateIsochroneStatsForCommuter(commuter, json.data)
+          commuter.save()
+        })
+      })
+      .catch((err) => {
+        console.error('error finding commuters: ', err)
+      })
   })
 }
 
-isochroneUtils.calculateIsochroneStatsForCommuter = async function (commuter, siteIsochrones) {
+isochroneUtils.calculateIsochroneStatsForCommuter = function (commuter, siteIsochrones) {
   const commuterPoint = point([commuter.coordinate.lon, commuter.coordinate.lat])
 
   if (!commuter.modeStats) {
