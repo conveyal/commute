@@ -54,6 +54,7 @@
     "supertest-as-promised": "^4.0.2"
   },
   "dependencies": {
+    "@conveyal/lonlat": "^1.1.0",
     "@conveyal/woonerf": "^0.4.0",
     "@turf/helpers": "^3.7.3",
     "@turf/inside": "^3.7.3",
@@ -75,7 +76,6 @@
     "lodash.omit": "^4.5.0",
     "lodash.pick": "^4.4.0",
     "lodash.uniqueid": "^4.0.1",
-    "lonlng": "^0.2.0",
     "mastarm": "^3.3.0",
     "moment": "^2.15.2",
     "mongoose": "^4.6.4",

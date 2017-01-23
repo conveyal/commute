@@ -32,6 +32,8 @@ isochroneUtils.calculateSiteIsochrones = function (site) {
       return
     }
 
+    console.log('successfully calculated isochrones')
+
     // save isochrones to model
     site.travelTimeIsochrones = json.data
     site.save()

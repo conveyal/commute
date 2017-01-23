@@ -1,16 +1,15 @@
+import {toLeaflet} from '@conveyal/lonlat'
 import {Browser} from 'leaflet'
 import isNumber from 'lodash.isnumber'
-import lonlng from 'lonlng'
 import React, {Component, PropTypes} from 'react'
 import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import Form from 'react-formal'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import yup from 'yup'
 
-import ButtonLink from './button-link'
+import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
-import Icon from './icon'
 import {geocodeResultToState, geocodeYupSchema} from '../utils/components'
 import {messages, settings} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
@@ -28,7 +27,6 @@ export default class EditSite extends Component {
 
     // props
     editMode: PropTypes.bool.isRequired,
-    organizationId: PropTypes.string.isRequired,
     site: PropTypes.object
   }
 
@@ -41,14 +39,14 @@ export default class EditSite extends Component {
     } else {
       this.state = {
         errors: {},
-        model: { organizationId: this.props.organizationId }
+        model: {}
       }
     }
   }
 
   _handleDelete = () => {
     const doDelete = () => this.props.delete(this.state.model)
-    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+    actUponConfirmation(messages.site.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
@@ -65,23 +63,19 @@ export default class EditSite extends Component {
   _setModel = model => this.setState({ model })
 
   render () {
-    const {editMode, organizationId} = this.props
+    const {editMode} = this.props
     const hasCoordinates = this.state.model.coordinate && isNumber(this.state.model.coordinate.lat)
-    const position = hasCoordinates ? lonlng(this.state.model.coordinate) : lonlng(settings.geocoder.focus)
+    const position = hasCoordinates
+      ? toLeaflet(this.state.model.coordinate) 
+      : toLeaflet(settings.geocoder.focus)
     const zoom = hasCoordinates ? 13 : 8
     return (
       <Grid>
         <Row>
           <Col xs={12} className='site-header'>
             <h3>
-              <span>{`${editMode ? 'Edit' : 'Create'} Site`}</span>
-              <ButtonLink
-                className='pull-right'
-                to={`/organization/${organizationId}`}
-                >
-                <Icon type='arrow-left' />
-                <span>Back</span>
-              </ButtonLink>
+              <span>{editMode ? `Edit Site` : 'Create New Site'}</span>
+              <BackButton />
             </h3>
           </Col>
         </Row>
