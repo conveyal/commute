@@ -68,6 +68,13 @@ export default class BreadcrumbBar extends Component {
         active: true,
         name: 'Edit Commuter'
       })
+    } else if (path.match(/\/site\/[\w-]+\/bulk-add-commuters$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Bulk Add Commuters'
+      })
     } else {
       console.error(`Path not matched for breadcrumb generation: ${path}`)
     }

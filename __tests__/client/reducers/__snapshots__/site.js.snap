@@ -4,6 +4,9 @@ Object {
     "_id": "site-2",
     "address": "123 ABC St",
     "city": "Megalopolis",
+    "commuters": Array [
+      "commuter-2",
+    ],
     "coordinate": Object {
       "lat": 38.892767,
       "lon": -77.04074,
@@ -12,8 +15,6 @@ Object {
     "county": "Made up county",
     "name": "Acme Corp",
     "neighbourhood": undefined,
-    "organizationId": "organization-2",
-    "radius": 1,
     "state": "Made up state",
   },
 }
@@ -27,6 +28,9 @@ Object {
     "_id": "site-2",
     "address": "123 ABC St",
     "city": "Megalopolis",
+    "commuters": Array [
+      "commuter-2",
+    ],
     "coordinate": Object {
       "lat": 38.892767,
       "lon": -77.04074,
@@ -35,8 +39,6 @@ Object {
     "county": "Made up county",
     "name": "Acme Corp",
     "neighbourhood": undefined,
-    "organizationId": "organization-2",
-    "radius": 1,
     "state": "Made up state",
   },
 }
@@ -48,6 +50,9 @@ Object {
     "_id": "site-2",
     "address": "123 ABC St",
     "city": "Megalopolis",
+    "commuters": Array [
+      "commuter-2",
+    ],
     "coordinate": Object {
       "lat": 38.892767,
       "lon": -77.04074,
@@ -56,8 +61,6 @@ Object {
     "county": "Made up county",
     "name": "Acme Corp",
     "neighbourhood": undefined,
-    "organizationId": "organization-2",
-    "radius": 1,
     "state": "Made up state",
   },
 }

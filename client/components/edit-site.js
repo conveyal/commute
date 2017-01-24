@@ -66,7 +66,7 @@ export default class EditSite extends Component {
     const {editMode} = this.props
     const hasCoordinates = this.state.model.coordinate && isNumber(this.state.model.coordinate.lat)
     const position = hasCoordinates
-      ? toLeaflet(this.state.model.coordinate) 
+      ? toLeaflet(this.state.model.coordinate)
       : toLeaflet(settings.geocoder.focus)
     const zoom = hasCoordinates ? 13 : 8
     return (

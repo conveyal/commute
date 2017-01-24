@@ -20,7 +20,7 @@ describe('Container > BreadcrumbBar', () => {
       // mount component
       const tree = mount(
         <BreadcrumbBar
-          {...mockStores.withAnalysisRun}
+          {...mockStores.withSite}
           />
       )
       expect(mountToJson(tree.find('ol'))).toMatchSnapshot()

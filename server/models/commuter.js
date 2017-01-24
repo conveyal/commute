@@ -32,8 +32,9 @@ schema.plugin(trashPlugin)
 schema.pre('save', true, function (next, done) {
   next()
 
-  if (this.isModified('coordinates') || this.isNew) {
+  if (this.isModified('coordinates') || this.isNew && this.coordinate.lat !== 0) {
     // detected change in location, initiate polygon calculation
+    console.log('commuter added or location changed, initiating polygon calculation')
     const self = this
 
     // import here to resolve circular import
@@ -46,6 +47,8 @@ schema.pre('save', true, function (next, done) {
         const siteIsochrones = site.travelTimeIsochrones
 
         isochroneUtils.calculateIsochroneStatsForCommuter(self, siteIsochrones)
+
+        console.log('commuter stats calculated')
 
         done()
       })

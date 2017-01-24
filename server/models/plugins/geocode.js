@@ -65,6 +65,7 @@ module.exports = function (schema, options) {
       if (!this.address && this.validCoordinate()) {
         // coordinates provided, but address is blank
         // perform reverse geocode
+        console.log('initiating reverse geodcode')
         var self = this
         this.reverseGeocode(function (err) {
           if (err) {
@@ -81,11 +82,13 @@ module.exports = function (schema, options) {
       } else if (this.address && !this.validCoordinate()) {
         // address provided, but coordinates are blank
         // perform geocode
+        console.log('initiating geodcode')
         this.original_address = this.address
         this.geocode()
       } else {
         // address and coordinates provided
         // assume geocode happened elsewhere and only update positionLastUpdated
+        console.log('geodcode not needed')
         this.positionLastUpdated = new Date()
       }
     } else {
@@ -110,11 +113,13 @@ module.exports = function (schema, options) {
    * Geocode
    */
   schema.methods.geocode = function () {
-    if (!this.fullAddress() || this.fullAddress().length < 3) {
+    const addressToGeocode = this.fullAddress()
+
+    console.log('addressToGeocode:', addressToGeocode)
+
+    if (!addressToGeocode || addressToGeocode.length < 3) {
       return
     }
-
-    const addressToGeocode = this.fullAddress()
 
     later(() => {
       geocodeRequestQueue.push((queueCallback) => {

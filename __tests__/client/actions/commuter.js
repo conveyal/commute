@@ -12,7 +12,7 @@ describe('actions > commuter', () => {
       'Collection GET': {},
       'Collection POST': {
         args: {
-          groupId: 'group-id',
+          siteId: 'site-id',
           name: 'New Commuter'
         }
       },

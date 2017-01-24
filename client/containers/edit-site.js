@@ -5,12 +5,11 @@ import EditSite from '../components/edit-site'
 
 function mapStateToProps (state, props) {
   const {site: siteStore} = state
-  const {siteId} = props.params
+  const {siteId} = props.params ? props.params : {}
   if (siteId) {
     const site = siteStore[siteId]
     return {
       editMode: true,
-      organizationId: site.organizationId,
       site
     }
   } else {

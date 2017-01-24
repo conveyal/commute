@@ -22,31 +22,31 @@ const mockCsvFile = new File(['_id,name,email,address\n1,Bob,a@b.c,"123 Main St"
 describe('Container > AddCommuters', () => {
   it('Add Commuters View loads', () => {
     // Given a logged-in user
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // When the Add Commuters View is to be loaded
     // And the previous view was the Commuter Group View
     const tree = mount(
       <Provider store={mockStore}>
         <AddCommuters
-          params={{groupId: 'group-2'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     )
 
     // Then the Add Commuters View should load
-    // And the commuter group name field should be populated and disabled
+    // And the commuter site name field should be populated and disabled
     // And there should be a button to go back to the Commuter Group
     expect(pretty(tree.find(AddCommuters).html())).toMatchSnapshot()
   })
 
   it('Preview Add Commuters', (done) => {
     // Given a logged-in user is viewing the Add Commuters View
-    const mockStore = makeMockStore(mockStores.withBlankOrganization)
+    const mockStore = makeMockStore(mockStores.withSite)
     const tree = mount(
       <Provider store={mockStore}>
         <AddCommuters
-          params={{organizationId: 'organization-1'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     )
@@ -66,12 +66,12 @@ describe('Container > AddCommuters', () => {
 
   it('Append Commuters to existing site', (done) => {
     // Given a logged-in user is viewing the Add Commuters View
-    // And the user is adding commuters to an existing group
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    // And the user is adding commuters to an existing site
+    const mockStore = makeMockStore(mockStores.withSite)
     const tree = mount(
       <Provider store={mockStore}>
         <AddCommuters
-          params={{groupId: 'group-2'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     )
@@ -82,7 +82,7 @@ describe('Container > AddCommuters', () => {
     // jsdom's filereader is asyncrhonous, so wait til it finishes
     setTimeout(async () => {
       // And the user submits the form
-      tree.find('form').find('button').simulate('click')
+      tree.find('button').last().simulate('click')
 
       // react-formal submit is asyncrhonous, so wait a bit
       await timeoutPromise(100)
@@ -93,8 +93,7 @@ describe('Container > AddCommuters', () => {
           newEntity: {
             _id: '1',
             address: '123 Main St',
-            email: 'a@b.c',
-            groupId: 'group-2',
+            siteId: 'site-2',
             name: 'Bob'
           }
         })

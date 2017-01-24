@@ -1,30 +1,22 @@
 import {connect} from 'react-redux'
 
-import {create as createCommuter} from '../actions/commuter'
+import {create as createCommuters} from '../actions/commuter'
 import AddCommuters from '../components/add-commuters'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
-  const {commuter, group} = state
+  const {commuter: commuterStore, site: siteStore} = state
   const {params} = props
-  if (params.organizationId) {
-    return {
-      appendMode: false,
-      organizationId: params.organizationId
-    }
-  } else if (params.groupId) {
-    const affectedGroup = group[params.groupId]
-    return {
-      appendMode: true,
-      existingCommuters: entityIdArrayToEntityArray(affectedGroup.commuters, commuter),
-      group: affectedGroup
-    }
+  const site = siteStore[params.siteId]
+  return {
+    existingCommuters: entityIdArrayToEntityArray(site.commuters, commuterStore),
+    site
   }
 }
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    createCommuter: (opts) => dispatch(createCommuter(opts))
+    createCommuters: (opts) => dispatch(createCommuters(opts))
   }
 }
 

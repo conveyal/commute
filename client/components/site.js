@@ -7,7 +7,6 @@ import {CircleMarker, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 
 import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
-import {entityIdArrayToEntityArray} from '../utils/entities'
 import {messages} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
 
@@ -15,7 +14,7 @@ export default class Site extends Component {
   static propTypes = {
     // props
     site: PropTypes.object.isRequired,
-    commuterStore: PropTypes.object.isRequired,
+    commuters: PropTypes.array.isRequired,
 
     // dispatch
     deleteCommuter: PropTypes.func.isRequired,
@@ -25,13 +24,14 @@ export default class Site extends Component {
   }
 
   componentWillMount () {
-    const {loadCommuters, site} = this.props
-    if (site.commuters.length > 0) {
-      loadCommuters({ siteId: site._id })
-    }
     this.state = {
       activeTab: 'commuters'
     }
+    this._loadCommutersIfNeeded(this.props)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this._loadCommutersIfNeeded(nextProps)
   }
 
   _commuterToolsRenderer = (cell, row) => {
@@ -55,8 +55,35 @@ export default class Site extends Component {
     this.setState({ activeTab: selectedTab })
   }
 
+  _loadCommutersIfNeeded (props) {
+    const {commuters, loadCommuters, site} = props
+    let shouldLoad = false
+
+    // check if all commuters have been loaded
+    if (site.commuters.length > commuters.length) {
+      // not all commuters loaded in store
+      shouldLoad = true
+    }
+
+    // check if all commuters have been geocoded
+    for (let i = 0; i < commuters.length; i++) {
+      if (commuters[i].geocodeConfidence === -1) {
+        shouldLoad = true
+        break
+      }
+    }
+
+    if (shouldLoad && !this.loadCommutersInterval) {
+      this.loadCommutersInterval = setInterval(function () {
+        loadCommuters({ siteId: site._id })
+      }, 1111)
+    } else if (!shouldLoad && this.loadCommutersInterval) {
+      clearInterval(this.loadCommutersInterval)
+    }
+  }
+
   _mapCommuters = () => {
-    const {commuterStore, site} = this.props
+    const {commuters, site} = this.props
     const sitePosition = toLeaflet(site.coordinate)
 
     // add site marker
@@ -70,9 +97,8 @@ export default class Site extends Component {
     // add all commuters to site
     const bounds = latLngBounds([sitePosition, sitePosition])
 
-    site.commuters.forEach((commuterId) => {
-      const commuter = commuterStore[commuterId]
-      if (!commuter) return
+    commuters.forEach((commuter) => {
+      if (commuter.coordinate.lat === 0) return  // don't include commuters not geocoded yet
       const commuterPosition = toLeaflet(commuter.coordinate)
       markers.push(
         <CircleMarker
@@ -84,7 +110,7 @@ export default class Site extends Component {
     })
 
     // return only site marker if no commuters or commuters haven't loaded yet
-    if (site.commuters.length === 0 || markers.length === 1) {
+    if (markers.length === 1) {
       return {
         markers,
         position: sitePosition,
@@ -104,9 +130,11 @@ export default class Site extends Component {
   }
 
   render () {
-    const {commuterStore, site} = this.props
+    const {commuters, site} = this.props
     const siteHasCommuters = site.commuters.length > 0
-    const siteCommuters = entityIdArrayToEntityArray(site.commuters, commuterStore)
+    const pctGeocoded = Math.round(100 * commuters.reduce((accumulator, commuter) => {
+      return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
+    }, 0) / site.commuters.length)
     const {bounds, markers, position, zoom} = this._mapCommuters()
     const createCommuterButtons = (
       <ButtonGroup>
@@ -182,10 +210,14 @@ export default class Site extends Component {
               onSelect={this._handleTabSelect}
               >
               <Tab eventKey='commuters' title='Commuters'>
+                {/***************************
+                  Commuters Tab
+                ***************************/}
                 <Row>
                   <Col xs={12}>
                     {createCommuterButtons}
-                    <BootstrapTable data={siteCommuters}>
+                    <span className='pull-right'>{pctGeocoded}% of commuters geocoded</span>
+                    <BootstrapTable data={commuters}>
                       <TableHeaderColumn dataField='_id' isKey hidden />
                       <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                       <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
@@ -196,9 +228,15 @@ export default class Site extends Component {
                 </Row>
               </Tab>
               <Tab eventKey='analysis' title='Analysis'>
+                {/***************************
+                  Analysis Tab
+                ***************************/}
                 Analysis
               </Tab>
               <Tab eventKey='ridematches' title='Ridematches'>
+                {/***************************
+                  Ridematches Tab
+                ***************************/}
                 Ridematches
               </Tab>
             </Tabs>
