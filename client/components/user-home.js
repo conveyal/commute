@@ -68,7 +68,7 @@ export default class UserHome extends Component {
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={siteNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-              <TableHeaderColumn dataField='organizations' dataFormat={arrayCountRenderer}># of Commuters</TableHeaderColumn>
+              <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}># of Commuters</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._siteToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
             <h2>Multi-site Analyses
