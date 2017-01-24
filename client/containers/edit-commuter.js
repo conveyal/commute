@@ -4,19 +4,19 @@ import commuterActions from '../actions/commuter'
 import EditCommuter from '../components/edit-commuter'
 
 function mapStateToProps (state, props) {
-  const {commuter} = state
-  const {commuterId, groupId} = props.params
+  const {commuter: commuterStore} = state
+  const {commuterId, siteId} = props.params
   if (commuterId) {
-    const currentCommuter = commuter[commuterId]
+    const currentCommuter = commuterStore[commuterId]
     return {
       editMode: true,
-      groupId: currentCommuter.groupId,
+      siteId: currentCommuter.siteId,
       commuter: currentCommuter
     }
-  } else if (groupId) {
+  } else if (siteId) {
     return {
       editMode: false,
-      groupId
+      siteId
     }
   }
 }

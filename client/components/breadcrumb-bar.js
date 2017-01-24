@@ -54,6 +54,20 @@ export default class BreadcrumbBar extends Component {
     } else if (path.match(/\/site\/[\w-]+$/)) {
       // Edit Site View
       appendSite(path.match(/\/site\/([\w-]+)/)[1], true)
+    } else if (path.match(/\/site\/[\w-]+\/commuter\/create$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Create New Commuter'
+      })
+    } else if (path.match(/\/site\/[\w-]+\/commuter\/[\w-]+\/edit$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Edit Commuter'
+      })
     } else {
       console.error(`Path not matched for breadcrumb generation: ${path}`)
     }
