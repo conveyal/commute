@@ -23,25 +23,16 @@ const schema = new Schema({
   }]
 })
 
-schema.plugin(geocodingPlugin)
-schema.plugin(trashPlugin)
-
-schema.pre('save', true, function (next, done) {
-  next()
-
+function postGeocodeHook (site) {
   // import here to resolve circular import
   const isochroneUtils = require('../utils/isochrones')
 
-  if (this.isModified('coordinates') || this.isNew) {
-    const self = this
+  later(() => {
+    isochroneUtils.calculateSiteIsochrones(site)
+  })
+}
 
-    // detected change in location, initiate polygon calculation
-    later(() => {
-      isochroneUtils.calculateSiteIsochrones(self)
-    })
-  }
-
-  done()
-})
+schema.plugin(geocodingPlugin(postGeocodeHook))
+schema.plugin(trashPlugin)
 
 module.exports = schema

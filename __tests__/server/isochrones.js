@@ -38,7 +38,7 @@ describe('isochrone utils', () => {
     expect(testSite.travelTimeIsochrones).toBeTruthy()
 
     // add commuter to site
-    const createdCommuter = await models.Commuter.create({
+    await models.Commuter.create({
       address: '123 main st',
       coordinate: {
         lat: 12,
@@ -49,6 +49,9 @@ describe('isochrone utils', () => {
     })
 
     // verify commuter has travel time stats
+    // wait a little bit and then refetch model
+    await timeoutPromise(1000)
+    const createdCommuter = await models.Commuter.findOne().exec()
     expect(createdCommuter.modeStats).toBeTruthy()
   })
 })

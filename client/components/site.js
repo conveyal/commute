@@ -1,12 +1,14 @@
 import {toLeaflet} from '@conveyal/lonlat'
-import {Browser, latLngBounds} from 'leaflet'
+import hslToHex from 'colorvert/hsl/hex'
+import {Browser, icon, latLngBounds} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
-import {Button, ButtonGroup, Col, Grid, Row, Tab, Tabs} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import {CircleMarker, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
+import {GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 
 import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
+import FieldGroup from './fieldgroup'
 import {messages} from '../utils/env'
 import {actUponConfirmation} from '../utils/ui'
 
@@ -25,7 +27,9 @@ export default class Site extends Component {
 
   componentWillMount () {
     this.state = {
-      activeTab: 'commuters'
+      activeTab: 'commuters',
+      analysisMode: 'TRANSIT',
+      isochroneColoring: 'multi-color'
     }
     this._loadCommutersIfNeeded(this.props)
   }
@@ -44,6 +48,10 @@ export default class Site extends Component {
       </ButtonLink>
       <Button bsStyle='danger' onClick={this._onDeleteCommuterClick.bind(this, row)}>Delete</Button>
     </ButtonGroup>
+  }
+
+  _handleAnalysisModeChange = (name, event) => {
+    this.setState({ analysisMode: event.target.value })
   }
 
   _handleDelete = () => {
@@ -65,9 +73,12 @@ export default class Site extends Component {
       shouldLoad = true
     }
 
-    // check if all commuters have been geocoded
+    // check if all commuters have been geocoded and have stats calculated
     for (let i = 0; i < commuters.length; i++) {
-      if (commuters[i].geocodeConfidence === -1) {
+      const curCommuter = commuters[i]
+      const isGeocoded = curCommuter.geocodeConfidence !== -1
+      const hasStats = curCommuter.modeStats
+      if (!isGeocoded || !hasStats) {
         shouldLoad = true
         break
       }
@@ -91,6 +102,7 @@ export default class Site extends Component {
       <Marker
         key='site-marker'
         position={sitePosition}
+        zIndexOffset={9000}
       />
     ]
 
@@ -101,9 +113,11 @@ export default class Site extends Component {
       if (commuter.coordinate.lat === 0) return  // don't include commuters not geocoded yet
       const commuterPosition = toLeaflet(commuter.coordinate)
       markers.push(
-        <CircleMarker
+        <Marker
+          icon={homeIcon}
           key={`commuter-marker-${commuter._id}`}
-          center={commuterPosition}
+          position={commuterPosition}
+          zIndexOffset={1234}
           />
       )
       bounds.extend(commuterPosition)
@@ -131,11 +145,40 @@ export default class Site extends Component {
 
   render () {
     const {commuters, site} = this.props
+    const {activeTab, analysisMode, isochroneColoring} = this.state
+
+    // map stuff
+    const {bounds, markers, position, zoom} = this._mapCommuters()
+    const isochrones = []
+    if (activeTab === 'analysis') {
+      const curIsochrones = site.travelTimeIsochrones[analysisMode]
+      curIsochrones.features.forEach((isochrone) => {
+        const geojsonProps = {
+          data: isochrone,
+          key: `isochrone-${analysisMode}-${isochrone.properties.time}`,
+          onEachFeature,
+          stroke: false,
+          fillOpacity: 0.4
+        }
+
+        if (isochroneColoring) {
+          geojsonProps.style = styleIsochrone
+        }
+
+        isochrones.push(
+          <GeoJSON {...geojsonProps} />
+        )
+      })
+    }
+
+    // stuff for commuter tab
     const siteHasCommuters = site.commuters.length > 0
     const pctGeocoded = Math.round(100 * commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
     }, 0) / site.commuters.length)
-    const {bounds, markers, position, zoom} = this._mapCommuters()
+    const pctStatsCalculated = Math.round(100 * commuters.reduce((accumulator, commuter) => {
+      return accumulator + (commuter.modeStats ? 1 : 0)
+    }, 0) / site.commuters.length)
     const createCommuterButtons = (
       <ButtonGroup>
         <ButtonLink
@@ -152,6 +195,40 @@ export default class Site extends Component {
         </ButtonLink>
       </ButtonGroup>
     )
+
+    // stuff for analysis Tab
+    const analysisModeStatsLookup = {}
+    commuters.forEach((commuter) => {
+      let travelTime
+      if (commuter.modeStats) {
+        travelTime = commuter.modeStats[analysisMode].travelTime
+      } else {
+        travelTime = -1
+      }
+      // convert unreachable to high value for sorting purposes
+      if (travelTime === -1) {
+        travelTime = 9999
+      }
+      if (!analysisModeStatsLookup[travelTime]) {
+        analysisModeStatsLookup[travelTime] = 0
+      }
+      analysisModeStatsLookup[travelTime]++
+    })
+
+    let cumulative = 0
+    const analysisModeStats = Object.keys(analysisModeStatsLookup)
+      .sort((a, b) => a - b)
+      .map((range) => {
+        const minutes = range / 60
+        const num = analysisModeStatsLookup[range]
+        cumulative += num
+        return {
+          bin: range < 9999 ? `${minutes - 5} - ${minutes}` : 'N/A',
+          num,
+          cumulative: cumulative + 0
+        }
+      })
+
     return (
       <Grid>
         <Row>
@@ -192,6 +269,7 @@ export default class Site extends Component {
                 attribution={process.env.LEAFLET_ATTRIBUTION}
                 />
               {markers}
+              {isochrones}
             </LeafletMap>
           </Col>
           {/***************************
@@ -205,7 +283,7 @@ export default class Site extends Component {
           }
           {siteHasCommuters &&
             <Tabs
-              activeKey={this.state.activeTab}
+              activeKey={activeTab}
               id='site-tabs'
               onSelect={this._handleTabSelect}
               >
@@ -216,14 +294,29 @@ export default class Site extends Component {
                 <Row>
                   <Col xs={12}>
                     {createCommuterButtons}
-                    <span className='pull-right'>{pctGeocoded}% of commuters geocoded</span>
-                    <BootstrapTable data={commuters}>
-                      <TableHeaderColumn dataField='_id' isKey hidden />
-                      <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                      <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-                      <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Confidence</TableHeaderColumn>
-                      <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
-                    </BootstrapTable>
+                    <span className='pull-right'>
+                      <Table condensed bordered>
+                        <tbody>
+                          <tr>
+                            <td>% of commuters geocoded:</td>
+                            <td>{pctGeocoded}</td>
+                          </tr>
+                          <tr>
+                            <td>% of commutes calculated:</td>
+                            <td>{pctStatsCalculated}</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </span>
+                    <div style={{ clear: 'both' }}>
+                      <BootstrapTable data={commuters}>
+                        <TableHeaderColumn dataField='_id' isKey hidden />
+                        <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+                        <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Confidence</TableHeaderColumn>
+                        <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
+                      </BootstrapTable>
+                    </div>
                   </Col>
                 </Row>
               </Tab>
@@ -231,7 +324,23 @@ export default class Site extends Component {
                 {/***************************
                   Analysis Tab
                 ***************************/}
-                Analysis
+                <FieldGroup
+                  label='Mode'
+                  name='mode'
+                  onChange={this._handleAnalysisModeChange}
+                  componentClass='select'
+                  value={analysisMode}
+                  >
+                  <option value='TRANSIT'>Transit</option>
+                  <option value='BICYCLE'>Bicycle</option>
+                  <option value='WALK'>Walk</option>
+                  <option value='CAR'>Car</option>
+                </FieldGroup>
+                <BootstrapTable data={analysisModeStats}>
+                  <TableHeaderColumn dataField='bin' isKey>Time in Minutes</TableHeaderColumn>
+                  <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
+                  <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
+                </BootstrapTable>
               </Tab>
               <Tab eventKey='ridematches' title='Ridematches'>
                 {/***************************
@@ -255,5 +364,31 @@ function geocodeConfidenceRenderer (cell, row) {
     return 'Good'
   } else {
     return 'Not exact'
+  }
+}
+
+const homeIcon = icon({
+  iconUrl: '../assets/home-2.png',
+  iconSize: [32, 37],
+  iconAnchor: [22, 37]
+})
+
+function onEachFeature (feature, layer) {
+  if (feature.properties) {
+    let pop = '<p>'
+    Object.keys(feature.properties).forEach((name) => {
+      pop += name.toUpperCase()
+      pop += ': '
+      pop += feature.properties[name]
+      pop += '<br />'
+    })
+    pop += '</p>'
+    layer.bindPopup(pop)
+  }
+}
+
+function styleIsochrone (feature) {
+  return {
+    fillColor: hslToHex(feature.properties.time * -0.017391304347826 + 125.217391304348, 100, 50)
   }
 }
