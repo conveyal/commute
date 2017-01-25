@@ -1,10 +1,11 @@
-import {toLeaflet} from '@conveyal/lonlat'
 import hslToHex from 'colorvert/hsl/hex'
+import {toCoordinates, toLeaflet} from '@conveyal/lonlat'
 import {Browser, icon, latLngBounds} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
-import {Button, ButtonGroup, Col, Grid, Row, Tab, Table, Tabs} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
+import distance from '@turf/distance'
 
 import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
@@ -147,7 +148,9 @@ export default class Site extends Component {
     const {commuters, site} = this.props
     const {activeTab, analysisMode, isochroneColoring} = this.state
 
-    // map stuff
+    /************************************************************************
+     map stuff
+    ************************************************************************/
     const {bounds, markers, position, zoom} = this._mapCommuters()
     const isochrones = []
     if (activeTab === 'analysis') {
@@ -171,7 +174,9 @@ export default class Site extends Component {
       })
     }
 
-    // stuff for commuter tab
+    /************************************************************************
+     commuter tab stuff
+    ************************************************************************/
     const siteHasCommuters = site.commuters.length > 0
     const pctGeocoded = Math.round(100 * commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
@@ -179,6 +184,7 @@ export default class Site extends Component {
     const pctStatsCalculated = Math.round(100 * commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.modeStats ? 1 : 0)
     }, 0) / site.commuters.length)
+    const allCommutersGeocoded = pctGeocoded === 100
     const createCommuterButtons = (
       <ButtonGroup>
         <ButtonLink
@@ -196,7 +202,9 @@ export default class Site extends Component {
       </ButtonGroup>
     )
 
-    // stuff for analysis Tab
+    /************************************************************************
+     analysis tab stuff
+    ************************************************************************/
     const analysisModeStatsLookup = {}
     commuters.forEach((commuter) => {
       let travelTime
@@ -228,6 +236,122 @@ export default class Site extends Component {
           cumulative: cumulative + 0
         }
       })
+
+    /************************************************************************
+     ridematches tab stuff
+    ************************************************************************/
+    // TODO: should probably move this computation to a reducer to avoid recalculating on each render
+    // only do this if all commuters are geocoded
+    let ridematchingAggregateTable = []
+    if (allCommutersGeocoded) {
+      const matches = []
+      for (let i = 0; i < commuters.length; i++) {
+        const commuterA = commuters[i]
+        const commuterAcoordinates = toCoordinates(commuterA.coordinate)
+        for (let j = i + 1; j < commuters.length; j++) {
+          const commuterB = commuters[j]
+          const commuterBcoordinates = toCoordinates(commuterB.coordinate)
+          const distanceBetweenCommuters = distance(commuterAcoordinates, commuterBcoordinates, 'miles')
+          if (distanceBetweenCommuters <= 5) {
+            matches.push({
+              commuterA,
+              commuterB,
+              distanceBetweenCommuters
+            })
+          }
+        }
+      }
+
+      const ridematchingBins = {
+        '0 - 0.25': {
+          cumulative: 0,
+          maxDistance: 0.25,
+          num: 0
+        },
+        '0.25 - 0.5': {
+          cumulative: 0,
+          maxDistance: 0.5,
+          num: 0
+        },
+        '0.5 - 1': {
+          cumulative: 0,
+          maxDistance: 1,
+          num: 0
+        },
+        '1 - 2': {
+          cumulative: 0,
+          maxDistance: 2,
+          num: 0
+        },
+        '2 - 5': {
+          cumulative: 0,
+          maxDistance: 5,
+          num: 0
+        },
+        'N/A': {}
+      }
+      const ridematchingBinsArray = Object.keys(ridematchingBins)
+      let curBinIdx = 0
+      const commutersWithRidematches = {}
+      let commutersInCurrentBin = {}
+      matches.sort((a, b) => a.distanceBetweenCommuters - b.distanceBetweenCommuters)
+        .forEach((match) => {
+          // determine current bin
+          while (match.distanceBetweenCommuters > (
+            ridematchingBins[ridematchingBinsArray[curBinIdx]].maxDistance
+          )) {
+            curBinIdx++
+            ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulative = (
+              ridematchingBins[ridematchingBinsArray[curBinIdx - 1]].cumulative
+            )
+            commutersInCurrentBin = {}
+          }
+
+          const binData = ridematchingBins[ridematchingBinsArray[curBinIdx]]
+
+          if (!commutersInCurrentBin[match.commuterA._id]) {
+            // first time seeing commuterA in this range, add to total for bin
+            binData.num += 1
+            commutersInCurrentBin[match.commuterA._id] = true
+          }
+
+          if (!commutersInCurrentBin[match.commuterB._id]) {
+            // first time seeing commuterB in this range, add to total for bin
+            binData.num += 1
+            commutersInCurrentBin[match.commuterB._id] = true
+          }
+
+          if (!commutersWithRidematches[match.commuterA._id]) {
+            // first time seeing commuterA in all matches, add to cumulative total
+            binData.cumulative += 1
+            commutersWithRidematches[match.commuterA._id] = true
+          }
+
+          if (!commutersWithRidematches[match.commuterB._id]) {
+            // first time seeing commuterB in all matches, add to cumulative total
+            binData.cumulative += 1
+            commutersWithRidematches[match.commuterB._id] = true
+          }
+        })
+
+      // set cumulative of remaining bins (except last)
+      while (curBinIdx < ridematchingBinsArray.length - 1) {
+        curBinIdx++
+        ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulative = (
+          ridematchingBins[ridematchingBinsArray[curBinIdx - 1]].cumulative
+        )
+      }
+
+      // calculate num commuters without ridematch options
+      ridematchingBins['N/A'].num = (
+        commuters.length - ridematchingBins[ridematchingBinsArray[ridematchingBinsArray.length - 2]].cumulative
+      )
+      ridematchingBins['N/A'].cumulative = commuters.length
+
+      ridematchingAggregateTable = ridematchingBinsArray.map((bin) => (
+        Object.assign({ bin }, ridematchingBins[bin])
+      ))
+    }
 
     return (
       <Grid>
@@ -346,7 +470,22 @@ export default class Site extends Component {
                 {/***************************
                   Ridematches Tab
                 ***************************/}
-                Ridematches
+                {!allCommutersGeocoded &&
+                  <ProgressBar
+                    striped
+                    now={pctGeocoded}
+                    label='Geocoding Commuters'
+                    />
+                }
+                {allCommutersGeocoded &&
+                  <div>
+                    <BootstrapTable data={ridematchingAggregateTable}>
+                      <TableHeaderColumn dataField='bin' isKey>Ridematch radius in miles</TableHeaderColumn>
+                      <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
+                      <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
+                    </BootstrapTable>
+                  </div>
+                }
               </Tab>
             </Tabs>
           }

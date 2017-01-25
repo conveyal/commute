@@ -56,6 +56,7 @@
   "dependencies": {
     "@conveyal/lonlat": "^1.1.0",
     "@conveyal/woonerf": "^0.4.0",
+    "@turf/distance": "^3.7.5",
     "@turf/helpers": "^3.7.3",
     "@turf/inside": "^3.7.3",
     "async": "^2.1.4",
