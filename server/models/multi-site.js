@@ -12,7 +12,7 @@ const schema = new Schema({
     commuter2: Schema.Types.ObjectId,
     distance: Number
   }],
-  Sites: [Schema.Types.ObjectId]
+  sites: [Schema.Types.ObjectId]
 })
 
 schema.plugin(trashPlugin)

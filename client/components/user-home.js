@@ -76,7 +76,7 @@ export default class UserHome extends Component {
                 className='pull-right'
                 to='/multi-site/create'
                 >
-                <span>Create a new Multi-site analysis</span>
+                <span>Create a new Multi-Site Analysis</span>
                 <Icon type='clone' />
               </ButtonLink>
             </h2>
