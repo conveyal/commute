@@ -76,6 +76,7 @@ module.exports = function makeRestEndpoints (app, cfg) {
   const returnChildrenAsEntities = cfg.returnChildrenAsEntities
   if (commands['Collection GET']) {
     app.get(`/api/${name}`, (req, res) => {
+      // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query
       const findQuery = Object.assign({ trashed: undefined }, pick(req.query, modelFields))
       model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
     })

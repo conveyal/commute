@@ -11,24 +11,28 @@ import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
 import FieldGroup from './fieldgroup'
 import {messages} from '../utils/env'
+import {arrayCountRenderer} from '../utils/table'
 import {actUponConfirmation} from '../utils/ui'
 
 export default class Site extends Component {
   static propTypes = {
     // props
-    site: PropTypes.object.isRequired,
+    isMultiSite: PropTypes.bool.isRequired,
+    multiSite: PropTypes.object,
+    site: PropTypes.object,
+    sites: PropTypes.array,
+    siteStore: PropTypes.object,
     commuters: PropTypes.array.isRequired,
 
     // dispatch
-    deleteCommuter: PropTypes.func.isRequired,
-    deleteSite: PropTypes.func.isRequired,
-    loadCommuters: PropTypes.func.isRequired,
-    loadSite: PropTypes.func.isRequired
+    deleteCommuter: PropTypes.func,
+    deleteMainEntity: PropTypes.func.isRequired,
+    loadCommuters: PropTypes.func.isRequired
   }
 
   componentWillMount () {
     this.state = {
-      activeTab: 'commuters',
+      activeTab: this.props.isMultiSite ? 'sites' : 'commuters',
       analysisMode: 'TRANSIT',
       isochroneColoring: 'multi-color'
     }
@@ -37,6 +41,11 @@ export default class Site extends Component {
 
   componentWillReceiveProps (nextProps) {
     this._loadCommutersIfNeeded(nextProps)
+  }
+
+  _commuterSiteNameRenderer = (cell, row) => {
+    const {siteStore} = this.props
+    return siteStore[row.siteId].name
   }
 
   _commuterToolsRenderer = (cell, row) => {
@@ -56,8 +65,10 @@ export default class Site extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.deleteSite(this.props.site)
-    actUponConfirmation(messages.site.deleteConfirmation, doDelete)
+    const {deleteMainEntity, isMultiSite, multiSite, site} = this.props
+    const doDelete = () => deleteMainEntity(isMultiSite ? multiSite : site)
+    const messageType = isMultiSite ? 'multiSite' : 'site'
+    actUponConfirmation(messages[messageType].deleteConfirmation, doDelete)
   }
 
   _handleTabSelect = (selectedTab) => {
@@ -65,51 +76,86 @@ export default class Site extends Component {
   }
 
   _loadCommutersIfNeeded (props) {
-    const {commuters, loadCommuters, site} = props
+    const {commuters, isMultiSite, loadCommuters, multiSite, site, sites} = props
     let shouldLoad = false
 
-    // check if all commuters have been loaded
-    if (site.commuters.length > commuters.length) {
-      // not all commuters loaded in store
-      shouldLoad = true
+    const allCommutersLoadedFromAllSites = () => {
+      let numCommutersInSites = sites.reduce((accumulator, currentSite) => {
+        return accumulator + currentSite.commuters.length
+      }, 0)
+      return numCommutersInSites === commuters.length
     }
 
-    // check if all commuters have been geocoded and have stats calculated
-    for (let i = 0; i < commuters.length; i++) {
-      const curCommuter = commuters[i]
-      const isGeocoded = curCommuter.geocodeConfidence !== -1
-      const hasStats = curCommuter.modeStats
-      if (!isGeocoded || !hasStats) {
-        shouldLoad = true
-        break
+    // check if all commuters have been loaded
+    if ((!isMultiSite && (site.commuters.length > commuters.length)) ||
+      (isMultiSite && !allCommutersLoadedFromAllSites())) {
+      // not all commuters loaded in store
+      shouldLoad = true
+    } else {
+      // check if all commuters have been geocoded and have stats calculated
+      for (let i = 0; i < commuters.length; i++) {
+        const curCommuter = commuters[i]
+        const isGeocoded = curCommuter.geocodeConfidence !== -1
+        const hasStats = curCommuter.modeStats
+        if (!isGeocoded || !hasStats) {
+          shouldLoad = true
+          break
+        }
       }
     }
 
     if (shouldLoad && !this.loadCommutersInterval) {
-      this.loadCommutersInterval = setInterval(function () {
-        loadCommuters({ siteId: site._id })
+      // load commuters if not already doing so
+      let loadCommutersQuery
+      if (isMultiSite) {
+        // query for commuters at all siteIds
+        loadCommutersQuery = {
+          siteId: {
+            $in: multiSite.sites
+          }
+        }
+      } else {
+        // load commuters only from specific site
+        loadCommutersQuery = { siteId: site._id }
+      }
+      this.loadCommutersInterval = setTimeout(function () {
+        loadCommuters(loadCommutersQuery)
       }, 1111)
     } else if (!shouldLoad && this.loadCommutersInterval) {
       clearInterval(this.loadCommutersInterval)
     }
   }
 
-  _mapCommuters = () => {
-    const {commuters, site} = this.props
-    const sitePosition = toLeaflet(site.coordinate)
+  _mapSitesAndCommuters = () => {
+    const {commuters, isMultiSite, site, sites} = this.props
+    const markers = []
+    let sitesToMakeMarkersFor
 
-    // add site marker
-    const markers = [
-      <Marker
-        key='site-marker'
-        position={sitePosition}
-        zIndexOffset={9000}
-      />
-    ]
+    if (isMultiSite) {
+      sitesToMakeMarkersFor = sites
+    } else {
+      sitesToMakeMarkersFor = [site]
+    }
+
+    const firstSiteCoordinates = toLeaflet(sitesToMakeMarkersFor[0].coordinate)
+    const bounds = latLngBounds([firstSiteCoordinates, firstSiteCoordinates])
+
+    sitesToMakeMarkersFor.forEach((siteToMakeMarkerFor) => {
+      const sitePosition = toLeaflet(siteToMakeMarkerFor.coordinate)
+
+      // add site marker
+      markers.push(
+        <Marker
+          key={`site-marker-${siteToMakeMarkerFor._id}`}
+          position={sitePosition}
+          zIndexOffset={9000}
+        />
+      )
+
+      bounds.extend(sitePosition)
+    })
 
     // add all commuters to site
-    const bounds = latLngBounds([sitePosition, sitePosition])
-
     commuters.forEach((commuter) => {
       if (commuter.coordinate.lat === 0) return  // don't include commuters not geocoded yet
       const commuterPosition = toLeaflet(commuter.coordinate)
@@ -128,7 +174,7 @@ export default class Site extends Component {
     if (markers.length === 1) {
       return {
         markers,
-        position: sitePosition,
+        position: firstSiteCoordinates,
         zoom: 11
       }
     }
@@ -145,15 +191,15 @@ export default class Site extends Component {
   }
 
   render () {
-    const {commuters, site} = this.props
+    const {commuters, isMultiSite, multiSite, site, sites} = this.props
     const {activeTab, analysisMode, isochroneColoring} = this.state
 
     /************************************************************************
      map stuff
     ************************************************************************/
-    const {bounds, markers, position, zoom} = this._mapCommuters()
+    const {bounds, markers, position, zoom} = this._mapSitesAndCommuters()
     const isochrones = []
-    if (activeTab === 'analysis') {
+    if (!isMultiSite && activeTab === 'analysis') {
       const curIsochrones = site.travelTimeIsochrones[analysisMode]
       curIsochrones.features.forEach((isochrone) => {
         const geojsonProps = {
@@ -177,30 +223,33 @@ export default class Site extends Component {
     /************************************************************************
      commuter tab stuff
     ************************************************************************/
-    const siteHasCommuters = site.commuters.length > 0
+    const hasCommuters = commuters.length > 0
     const pctGeocoded = Math.round(100 * commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
-    }, 0) / site.commuters.length)
+    }, 0) / commuters.length)
     const pctStatsCalculated = Math.round(100 * commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.modeStats ? 1 : 0)
-    }, 0) / site.commuters.length)
+    }, 0) / commuters.length)
     const allCommutersGeocoded = pctGeocoded === 100
-    const createCommuterButtons = (
-      <ButtonGroup>
-        <ButtonLink
-          bsStyle='info'
-          to={`/site/${site._id}/commuter/create`}
-          >
-          Create New Commuter
-        </ButtonLink>
-        <ButtonLink
-          bsStyle='success'
-          to={`/site/${site._id}/bulk-add-commuters`}
-          >
-          Bulk Add Commuters
-        </ButtonLink>
-      </ButtonGroup>
-    )
+    let createCommuterButtons
+    if (!isMultiSite) {
+      createCommuterButtons = (
+        <ButtonGroup>
+          <ButtonLink
+            bsStyle='info'
+            to={`/site/${site._id}/commuter/create`}
+            >
+            Create New Commuter
+          </ButtonLink>
+          <ButtonLink
+            bsStyle='success'
+            to={`/site/${site._id}/bulk-add-commuters`}
+            >
+            Bulk Add Commuters
+          </ButtonLink>
+        </ButtonGroup>
+      )
+    }
 
     /************************************************************************
      analysis tab stuff
@@ -361,14 +410,16 @@ export default class Site extends Component {
           ***************************/}
           <Col xs={12}>
             <h3>
-              <span>{site.name}</span>
+              <span>{isMultiSite ? multiSite.name : site.name}</span>
               <BackButton />
             </h3>
-            <p>{site.address}</p>
+            {!isMultiSite &&
+              <p>{site.address}</p>
+            }
             <ButtonGroup>
               <ButtonLink
                 bsStyle='warning'
-                to={`/site/${site._id}/edit`}
+                to={`/${isMultiSite ? 'multi-site' : 'site'}/${isMultiSite ? multiSite._id : site._id}/edit`}
                 >
                 Edit
               </ButtonLink>
@@ -399,47 +450,102 @@ export default class Site extends Component {
           {/***************************
             Content
           ***************************/}
-          {!siteHasCommuters &&
+          {!hasCommuters &&
             <Col xs={12}>
-              <p>This site doesn't have any commuters yet!  Add some using one of the options below:</p>
-              {createCommuterButtons}
+              {isMultiSite &&
+                <p>None of the sites in this Multi-Site Analysis have any commuters!  Add commuters to individual sites.</p>
+              }
+              {!isMultiSite &&
+                <div>
+                  <p>This site doesn't have any commuters yet!  Add some using one of the options below:</p>,
+                  {createCommuterButtons}
+                </div>
+              }
             </Col>
           }
-          {siteHasCommuters &&
+          {hasCommuters &&
             <Tabs
               activeKey={activeTab}
               id='site-tabs'
               onSelect={this._handleTabSelect}
               >
+              {isMultiSite &&
+                <Tab eventKey='sites' title='Sites'>
+                  {/***************************
+                    Sites Tab
+                  ***************************/}
+                  <Row>
+                    <Col xs={12}>
+                      <BootstrapTable data={sites}>
+                        <TableHeaderColumn dataField='_id' isKey hidden />
+                        <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+                        <TableHeaderColumn
+                          dataField='commuters'
+                          dataFormat={arrayCountRenderer}
+                          >
+                          # of Commuters
+                        </TableHeaderColumn>
+                      </BootstrapTable>
+                    </Col>
+                  </Row>
+                </Tab>
+              }
               <Tab eventKey='commuters' title='Commuters'>
                 {/***************************
                   Commuters Tab
                 ***************************/}
                 <Row>
                   <Col xs={12}>
-                    {createCommuterButtons}
-                    <span className='pull-right'>
-                      <Table condensed bordered>
-                        <tbody>
-                          <tr>
-                            <td>% of commuters geocoded:</td>
-                            <td>{pctGeocoded}</td>
-                          </tr>
-                          <tr>
-                            <td>% of commutes calculated:</td>
-                            <td>{pctStatsCalculated}</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </span>
+                    {!isMultiSite && createCommuterButtons}
+                    {!isMultiSite &&
+                      <span className='pull-right'>
+                        <Table condensed bordered>
+                          <tbody>
+                            <tr>
+                              <td>% of commuters geocoded:</td>
+                              <td>{pctGeocoded}</td>
+                            </tr>
+                            <tr>
+                              <td>% of commutes calculated:</td>
+                              <td>{pctStatsCalculated}</td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                      </span>
+                    }
+                    {isMultiSite &&
+                      <span className='pull-right'>
+                        <Table condensed bordered>
+                          <tbody>
+                            <tr>
+                              <td>% of commuters geocoded:</td>
+                              <td>{pctGeocoded}</td>
+                              <td>% of commutes calculated:</td>
+                              <td>{pctStatsCalculated}</td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                      </span>
+                    }
                     <div style={{ clear: 'both' }}>
-                      <BootstrapTable data={commuters}>
-                        <TableHeaderColumn dataField='_id' isKey hidden />
-                        <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-                        <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Confidence</TableHeaderColumn>
-                        <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
-                      </BootstrapTable>
+                      {isMultiSite &&
+                        <BootstrapTable data={commuters}>
+                          <TableHeaderColumn dataField='_id' isKey hidden />
+                          <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                          <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+                          <TableHeaderColumn dataFormat={this._commuterSiteNameRenderer}>Site</TableHeaderColumn>
+                        </BootstrapTable>
+                      }
+                      {!isMultiSite &&
+                        <BootstrapTable data={commuters}>
+                          <TableHeaderColumn dataField='_id' isKey hidden />
+                          <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                          <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+                          <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Confidence</TableHeaderColumn>
+                          <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
+                        </BootstrapTable>
+                      }
                     </div>
                   </Col>
                 </Row>
