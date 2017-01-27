@@ -9,6 +9,7 @@ Array [
     },
     "geocodeConfidence": -1,
     "name": "test-commuter",
+    "user": "test-user",
   },
 ]
 `;
@@ -23,6 +24,7 @@ Object {
   },
   "geocodeConfidence": -1,
   "name": "test-commuter",
+  "user": "test-user",
 }
 `;
 
@@ -36,5 +38,6 @@ Object {
   },
   "geocodeConfidence": -1,
   "name": "updated name",
+  "user": "test-user",
 }
 `;

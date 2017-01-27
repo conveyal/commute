@@ -11,9 +11,10 @@ describe('multi-site', () => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  const initMultiSiteData = {
-    name: 'test-multi-site'
-  }
+  const initMultiSiteData = [{
+    name: 'test-multi-site',
+    user: 'test-user'
+  }]
 
   makeRestEndpointTests({
     endpoints: {

@@ -2,6 +2,7 @@ const Schema = require('mongoose').Schema
 
 const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
+const userPlugin = require('./plugins/user')
 const later = require('../utils/later')
 
 const schema = new Schema({
@@ -15,12 +16,7 @@ const schema = new Schema({
   name: {
     required: true,
     type: String
-  },
-  rideshares: [{
-    commuter1: Schema.Types.ObjectId,
-    commuter2: Schema.Types.ObjectId,
-    distance: Number
-  }]
+  }
 })
 
 function postGeocodeHook (site) {
@@ -34,5 +30,6 @@ function postGeocodeHook (site) {
 
 schema.plugin(geocodingPlugin(postGeocodeHook))
 schema.plugin(trashPlugin)
+schema.plugin(userPlugin)
 
 module.exports = schema

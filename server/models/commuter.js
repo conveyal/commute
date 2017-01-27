@@ -2,6 +2,7 @@ const Schema = require('mongoose').Schema
 
 const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
+const userPlugin = require('./plugins/user')
 
 const modeType = {
   travelTime: Number
@@ -51,5 +52,6 @@ function postGeocodeHook (commuter) {
 
 schema.plugin(geocodingPlugin(postGeocodeHook))
 schema.plugin(trashPlugin)
+schema.plugin(userPlugin)
 
 module.exports = schema

@@ -28,7 +28,8 @@ describe('isochrone utils', () => {
         lat: 12,
         lon: 34
       },
-      name: 'Mock Site'
+      name: 'Mock Site',
+      user: 'test-user'
     })
 
     // verify existence of isochrones
@@ -45,7 +46,8 @@ describe('isochrone utils', () => {
         lon: 34
       },
       name: 'Mock Commuter',
-      siteId: testSite._id
+      siteId: testSite._id,
+      user: 'test-user'
     })
 
     // verify commuter has travel time stats

@@ -457,7 +457,7 @@ export default class Site extends Component {
               }
               {!isMultiSite &&
                 <div>
-                  <p>This site doesn't have any commuters yet!  Add some using one of the options below:</p>,
+                  <p>This site doesn't have any commuters yet!  Add some using one of the options below:</p>
                   {createCommuterButtons}
                 </div>
               }

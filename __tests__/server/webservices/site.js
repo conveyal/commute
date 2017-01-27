@@ -15,15 +15,15 @@ describe('site', () => {
     prepareIsochroneNock()
 
     return new Promise((resolve, reject) => {
-      resolve({
+      resolve([{
         address: '123 Main St',
         coordinate: {
           lat: 12,
           lon: 34
         },
         name: 'test-site',
-        organizationId: mongoose.Types.ObjectId()
-      })
+        user: 'test-user'
+      }])
     })
   }
 

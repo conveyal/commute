@@ -13,12 +13,13 @@ export default class Application extends Component {
   }
 
   componentWillMount () {
-    if (process.env.NODE_ENV !== 'test') {
-      // try {
-      //   this.props.refreshUserToken()
-      // } catch (e) {
-      //   console.error(e)
-      // }
+    const {refreshUserToken, userIsLoggedIn} = this.props
+    if (process.env.NODE_ENV !== 'test' && !userIsLoggedIn) {
+      try {
+        refreshUserToken()
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 

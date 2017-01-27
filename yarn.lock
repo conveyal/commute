@@ -17,9 +17,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@conveyal/lonlat/-/lonlat-1.1.0.tgz#01c41dbf7e9d8c926e3753d3423890d8fa95a187"
 
-"@conveyal/woonerf@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@conveyal/woonerf/-/woonerf-0.4.0.tgz#6d249189c5e87fe5d969910e79d1becc45fdcd5b"
+"@conveyal/woonerf@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@conveyal/woonerf/-/woonerf-1.0.0.tgz#eeaf71decbd8ed9b4bb184723ccd441fae721815"
   dependencies:
     auth0-js "^7.3.0"
     auth0-lock "^10.5.1"
@@ -30,11 +30,11 @@
     react "^15.3.2"
     react-addons-perf "^15.3.2"
     react-dom "^15.3.2"
-    react-redux "^4.4.5"
+    react-redux "^5.0.1"
     react-router "^3.0.0"
     react-router-redux "^4.0.6"
     redux "^3.6.0"
-    redux-actions "^0.13.0"
+    redux-actions "^1.2.0"
     redux-logger "^2.7.4"
 
 "@semantic-release/commit-analyzer@^2.0.0":
@@ -90,11 +90,7 @@
   dependencies:
     "@turf/invariant" "^3.7.3"
 
-"@turf/invariant@^3.7.3":
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-3.7.3.tgz#4a3b5d34ce38e94ab0ec3eb9c6ea6fc154cb7100"
-
-"@turf/invariant@^3.7.5":
+"@turf/invariant@^3.7.3", "@turf/invariant@^3.7.5":
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-3.7.5.tgz#cbbe287051480f1d78440711ba4b0bc27fa7e9fc"
 
@@ -4275,7 +4271,7 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-lodash-es@^4.2.1:
+lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
 
@@ -6083,6 +6079,16 @@ react-redux@^4.4.5:
     lodash "^4.2.0"
     loose-envify "^1.1.0"
 
+react-redux@^5.0.1:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.2.tgz#3d9878f5f71c6fafcd45de1fbb162ea31f389814"
+  dependencies:
+    hoist-non-react-statics "^1.0.3"
+    invariant "^2.0.0"
+    lodash "^4.2.0"
+    lodash-es "^4.2.0"
+    loose-envify "^1.1.0"
+
 react-router-redux@^4.0.6:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/react-router-redux/-/react-router-redux-4.0.7.tgz#9b1fde4e70106c50f47214e12bdd888cfb96e2a6"
@@ -6283,10 +6289,11 @@ redux-actions@^0.12.0:
     lodash "^4.13.1"
     reduce-reducers "^0.1.0"
 
-redux-actions@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-0.13.0.tgz#34bf77c5698e86d86b0edb533ea23a1c0658f4fe"
+redux-actions@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-1.2.1.tgz#649711d88f49f1dde5bc5a1cea8ceec5b54d9181"
   dependencies:
+    invariant "^2.2.1"
     lodash "^4.13.1"
     reduce-reducers "^0.1.0"
 
