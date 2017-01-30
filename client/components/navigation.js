@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import {Button, Nav, Navbar, NavItem} from 'react-bootstrap'
 
-import {messages} from '../utils/env'
+import messages from '../utils/messages'
 
 export default class Navigation extends Component {
   static propTypes = {

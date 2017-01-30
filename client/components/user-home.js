@@ -5,7 +5,7 @@ import {Link} from 'react-router'
 
 import ButtonLink from './button-link'
 import Icon from './icon'
-import {messages} from '../utils/env'
+import messages from '../utils/messages'
 import {arrayCountRenderer} from '../utils/table'
 import {actUponConfirmation} from '../utils/ui'
 

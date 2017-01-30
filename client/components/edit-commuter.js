@@ -11,7 +11,8 @@ import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
 import {geocodeResultToState, geocodeYupSchema} from '../utils/components'
-import {messages, settings} from '../utils/env'
+import messages from '../utils/messages'
+import settings from '../utils/settings'
 import {actUponConfirmation} from '../utils/ui'
 
 const commuterSchema = yup.object(Object.assign({

@@ -10,7 +10,7 @@ import distance from '@turf/distance'
 import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
 import FieldGroup from './fieldgroup'
-import {messages} from '../utils/env'
+import messages from '../utils/messages'
 import {arrayCountRenderer} from '../utils/table'
 import {actUponConfirmation} from '../utils/ui'
 

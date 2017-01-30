@@ -7,7 +7,7 @@ import yup from 'yup'
 import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import {entityIdArrayToEntityArray} from '../utils/entities'
-import {messages} from '../utils/env'
+import messages from '../utils/messages'
 import {actUponConfirmation} from '../utils/ui'
 
 const multiSiteSchema = yup.object({
