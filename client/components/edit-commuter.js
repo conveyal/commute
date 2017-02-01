@@ -48,7 +48,7 @@ export default class EditCommuter extends Component {
 
   _handleDelete = () => {
     const doDelete = () => this.props.delete(this.state.model)
-    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+    actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {refreshUser} from '@conveyal/woonerf/auth0'
+import {push} from 'react-router-redux'
 
 import Application from '../components/application'
 
@@ -12,7 +12,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    refreshUserToken: () => refreshUser(dispatch)
+    navigateToLogin: () => dispatch(push('/login'))
   }
 }
 

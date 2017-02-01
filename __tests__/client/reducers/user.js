@@ -2,9 +2,13 @@
 
 import {handleActions} from 'redux-actions'
 
-import * as user from '../../../client/reducers/user'
-
 describe('client > reducers > user', () => {
+  window.localStorage = {
+    getItem: () => JSON.stringify({})
+  }
+
+  const user = require('../../../client/reducers/user')
+
   const reducer = handleActions(user.reducers, user.initialState)
 
   // Default State Test

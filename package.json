@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@conveyal/lonlat": "^1.1.0",
-    "@conveyal/woonerf": "^1.0.0",
+    "@conveyal/woonerf": "^1.1.1",
     "@turf/distance": "^3.7.5",
     "@turf/helpers": "^3.7.3",
     "@turf/inside": "^3.7.3",
@@ -83,7 +83,6 @@
     "otp-profile-to-transitive": "^0.1.1",
     "qs": "^6.3.0",
     "rc-slider": "^5.2.1",
-    "react": "^15.3.2",
     "react-addons-shallow-compare": "^15.3.2",
     "react-addons-update": "^15.3.2",
     "react-bootstrap": "^0.30.5",

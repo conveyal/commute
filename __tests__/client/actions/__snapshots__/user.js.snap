@@ -1,11 +1,16 @@
-exports[`actions > user login should work 1`] = `
-Object {
-  "type": "log in",
-}
-`;
-
 exports[`actions > user logout should work 1`] = `
-Object {
-  "type": "log out",
-}
+Array [
+  Object {
+    "type": "log out",
+  },
+  Object {
+    "payload": Object {
+      "args": Array [
+        "/login",
+      ],
+      "method": "push",
+    },
+    "type": "@@router/CALL_HISTORY_METHOD",
+  },
+]
 `;
