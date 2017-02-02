@@ -17,11 +17,10 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@conveyal/lonlat/-/lonlat-1.1.0.tgz#01c41dbf7e9d8c926e3753d3423890d8fa95a187"
 
-"@conveyal/woonerf@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@conveyal/woonerf/-/woonerf-1.1.1.tgz#56253a1acedfbad203402677a46674399d6c84d7"
+"@conveyal/woonerf@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@conveyal/woonerf/-/woonerf-2.0.0.tgz#ba9ab8a79f544b9bcfe054902c643a60bb755668"
   dependencies:
-    auth0-js "^8.2.0"
     auth0-lock "^10.10.2"
     isomorphic-fetch "^2.2.1"
     lodash.isequal "^4.5.0"
@@ -378,16 +377,6 @@ augment@4.3.0:
 auth0-js@8.1.3:
   version "8.1.3"
   resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-8.1.3.tgz#452a961fe44b51ffdc1cc765c763a8847325e572"
-  dependencies:
-    base64-js "^1.2.0"
-    idtoken-verifier "^1.0.1"
-    superagent "^3.3.1"
-    url-join "^1.1.0"
-    winchan "^0.1.4"
-
-auth0-js@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-8.2.0.tgz#0fc7e916a3785da84090d5eed4ae08db75535fbe"
   dependencies:
     base64-js "^1.2.0"
     idtoken-verifier "^1.0.1"
@@ -1395,6 +1384,58 @@ browserify@^13.0.0, browserify@^13.0.1:
     vm-browserify "~0.0.1"
     xtend "^4.0.0"
 
+browserify@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/browserify/-/browserify-14.0.0.tgz#67e6cfe7acb2fb1a1908e8a763452306de0bcf38"
+  dependencies:
+    JSONStream "^1.0.3"
+    assert "^1.4.0"
+    browser-pack "^6.0.1"
+    browser-resolve "^1.11.0"
+    browserify-zlib "~0.1.2"
+    buffer "^5.0.2"
+    cached-path-relative "^1.0.0"
+    concat-stream "~1.5.1"
+    console-browserify "^1.1.0"
+    constants-browserify "~1.0.0"
+    crypto-browserify "^3.0.0"
+    defined "^1.0.0"
+    deps-sort "^2.0.0"
+    domain-browser "~1.1.0"
+    duplexer2 "~0.1.2"
+    events "~1.1.0"
+    glob "^7.1.0"
+    has "^1.0.0"
+    htmlescape "^1.1.0"
+    https-browserify "~0.0.0"
+    inherits "~2.0.1"
+    insert-module-globals "^7.0.0"
+    labeled-stream-splicer "^2.0.0"
+    module-deps "^4.0.8"
+    os-browserify "~0.1.1"
+    parents "^1.0.1"
+    path-browserify "~0.0.0"
+    process "~0.11.0"
+    punycode "^1.3.2"
+    querystring-es3 "~0.2.0"
+    read-only-stream "^2.0.0"
+    readable-stream "^2.0.2"
+    resolve "^1.1.4"
+    shasum "^1.0.0"
+    shell-quote "^1.6.1"
+    stream-browserify "^2.0.0"
+    stream-http "^2.0.0"
+    string_decoder "~0.10.0"
+    subarg "^1.0.0"
+    syntax-error "^1.1.1"
+    through2 "^2.0.0"
+    timers-browserify "^1.0.1"
+    tty-browserify "~0.0.0"
+    url "~0.11.0"
+    util "~0.10.1"
+    vm-browserify "~0.0.1"
+    xtend "^4.0.0"
+
 browserslist@^1.0.0, browserslist@^1.0.1, browserslist@^1.4.0, browserslist@~1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-1.5.1.tgz#67c3f2a1a6ad174cd01d25d2362e6e6083b26986"
@@ -1463,6 +1504,13 @@ buffer@4.9.1, buffer@^4.1.0:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
     isarray "^1.0.0"
+
+buffer@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.0.2.tgz#41d0407ff76782e9ec19f52f88e237ce6bb0de6d"
+  dependencies:
+    base64-js "^1.0.2"
+    ieee754 "^1.1.4"
 
 builtin-modules@^1.0.0:
   version "1.1.1"
@@ -4400,13 +4448,13 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
-lodash.isequal@^4.0.0, lodash.isequal@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
-
-lodash.isequal@^4.4.0:
+lodash.isequal@^4.0.0, lodash.isequal@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.4.0.tgz#6295768e98e14dc15ce8d362ef6340db82852031"
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
 
 lodash.isnumber@^3.0.3:
   version "3.0.3"
@@ -4605,9 +4653,9 @@ marked@^0.3.6:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
-mastarm@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/mastarm/-/mastarm-3.3.0.tgz#51918979fe1f3434fc6acf673628c81bc869925a"
+mastarm@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/mastarm/-/mastarm-3.4.0.tgz#14e16b5939fc038303ad4dac74bd48196214795b"
   dependencies:
     aws-sdk "^2.4.2"
     babel-core "^6.10.4"
@@ -4620,7 +4668,7 @@ mastarm@^3.3.0:
     babel-preset-react "^6.5.0"
     babel-preset-stage-2 "^6.17.0"
     babelify "^7.3.0"
-    browserify "^13.0.1"
+    browserify "^14.0.0"
     browserify-markdown "1.0.0"
     budo "^9.0.0"
     chokidar "^1.6.0"
@@ -4631,10 +4679,10 @@ mastarm@^3.3.0:
     envify "^4.0.0"
     errorify "^0.3.1"
     exorcist "^0.4.0"
-    http-proxy "^1.14.0"
     isomorphic-fetch "^2.2.1"
     jest "^18.1.0"
     lodash.uniq "^4.5.0"
+    middleware-proxy "^2.0.2"
     mime "^1.3.4"
     mkdirp "^0.5.1"
     postcss "^5.0.21"
@@ -4711,6 +4759,12 @@ micromatch@^2.1.5, micromatch@^2.2.0, micromatch@^2.3.11, micromatch@^2.3.7:
     object.omit "^2.0.0"
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
+
+middleware-proxy@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/middleware-proxy/-/middleware-proxy-2.0.2.tgz#5e19657eb02e1625d6a2122aecced353f91c8c1b"
+  dependencies:
+    request "^2.72.0"
 
 miller-rabin@^4.0.0:
   version "4.0.0"
@@ -6392,7 +6446,7 @@ replace-ext@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-0.0.1.tgz#29bbd92078a739f0bcce2b4ee41e837953522924"
 
-request@^2.55.0, request@^2.74.0, request@^2.79.0:
+request@^2.55.0, request@^2.72.0, request@^2.74.0, request@^2.79.0:
   version "2.79.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:
