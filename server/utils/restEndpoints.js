@@ -99,7 +99,6 @@ module.exports = function makeRestEndpoints (app, jwt, cfg) {
   if (commands['DELETE']) {
     app.delete(`/api/${name}/:id`, jwt, (req, res) => {
       // don't use findByIdAndUpdate because it doesn't trigger pre('save') hook
-      console.log(makeFindQuery(req, { _id: req.params.id }))
       model.findOne(makeFindQuery(req, { _id: req.params.id }), (err, doc) => {
         if (err) return serverError(res, err)
         const modelResponder = makeGenericModelResponseFn(res)

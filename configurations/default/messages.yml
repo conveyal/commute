@@ -7,10 +7,7 @@ commuter:
 multiSite:
   deleteConfirmation: Are you sure you want to delete this Multi-Site Analysis?
 network:
-  error: Network error. Check your connection and reload the page?
-  serverError: Server error, please reload the page and try again in a few minutes.
-  timeout: Request timed out.
-  checkConnection: Check your connection and reload the page?
-  saving: Saving . . .
+  fetchingError: An error occurred while fetching the data.  Reload the page and try again?
+  savingError: An error occurred while saving the data.  Reload the page and try again?
 site:
   deleteConfirmation: Are you sure you want to delete this site?
