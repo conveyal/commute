@@ -20,14 +20,16 @@ function fetchErrorHandler (alertMsg, err, res) {
   if (err.status === 401) {
     return push('/login')
   } else {
-    debounce(() => {
-      alert(alertMsg)
-      // TODO: replace w/ modal?  alert halts js thread
-      // so other failures will still get funnelled here
-      // once execution resumes
-    }, 5000, true)
+    debouncedErrorDisplay(alertMsg)
   }
 }
+
+const debouncedErrorDisplay = debounce((alertMsg) => {
+  alert(alertMsg)
+  // TODO: replace w/ modal?  alert halts js thread
+  // so other failures will still get funnelled here
+  // once execution resumes
+}, 5000, true)
 
 /**
  * Make generic model actions that communicate with a rest server
