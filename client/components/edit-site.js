@@ -51,7 +51,17 @@ export default class EditSite extends Component {
   }
 
   _handleSubmit = () => {
-    const {create, editMode, update} = this.props
+    const {create, editMode, site, update} = this.props
+    const {model} = this.state
+
+    // reset calculation status if new or if location of site changed
+    if (!editMode || (
+      (site.address !== model.address) ||
+      (site.coordinate.lat !== model.coordinate.lat) ||
+      (site.coordinate.lon !== model.coordinate.lon))) {
+      model.travelTimeIsochrones = {}
+      model.calculationStatus = 'calculating'
+    }
     if (editMode) {
       update(this.state.model)
     } else {

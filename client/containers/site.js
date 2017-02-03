@@ -20,7 +20,8 @@ function mapDispatchToProps (dispatch, props) {
   return {
     deleteCommuter: (opts) => dispatch(commuterActions.delete(opts)),
     deleteMainEntity: (opts) => dispatch(siteActions.delete(opts)),
-    loadCommuters: (opts) => dispatch(commuterActions.loadMany(opts))
+    loadCommuters: (opts) => dispatch(commuterActions.loadMany(opts)),
+    loadSite: (opts) => dispatch(siteActions.loadOne(opts))
   }
 }
 

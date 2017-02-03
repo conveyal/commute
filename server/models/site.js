@@ -6,16 +6,20 @@ const userPlugin = require('./plugins/user')
 const later = require('../utils/later')
 
 const schema = new Schema({
+  calculationStatus: {
+    default: 'calculating',
+    type: String
+  },
+  name: {
+    required: true,
+    type: String
+  },
   travelTimeIsochrones: {
     bicycle: Schema.Types.Mixed,
     car: Schema.Types.Mixed,
     transit: Schema.Types.Mixed,
     walk: Schema.Types.Mixed,
     type: Schema.Types.Mixed
-  },
-  name: {
-    required: true,
-    type: String
   }
 })
 

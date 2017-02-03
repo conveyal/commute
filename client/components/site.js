@@ -27,7 +27,8 @@ export default class Site extends Component {
     // dispatch
     deleteCommuter: PropTypes.func,
     deleteMainEntity: PropTypes.func.isRequired,
-    loadCommuters: PropTypes.func.isRequired
+    loadCommuters: PropTypes.func.isRequired,
+    loadSite: PropTypes.func.isRequired
   }
 
   componentWillMount () {
@@ -36,11 +37,11 @@ export default class Site extends Component {
       analysisMode: 'TRANSIT',
       isochroneColoring: 'multi-color'
     }
-    this._loadCommutersIfNeeded(this.props)
+    this._loadDataIfNeeded(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
-    this._loadCommutersIfNeeded(nextProps)
+    this._loadDataIfNeeded(nextProps)
   }
 
   _commuterSiteNameRenderer = (cell, row) => {
@@ -75,9 +76,13 @@ export default class Site extends Component {
     this.setState({ activeTab: selectedTab })
   }
 
-  _loadCommutersIfNeeded (props) {
-    const {commuters, isMultiSite, loadCommuters, multiSite, site, sites} = props
-    let shouldLoad = false
+  _loadDataIfNeeded (props) {
+    const {commuters, isMultiSite, loadCommuters, loadSite, multiSite, site, sites} = props
+
+    /***************************************************************
+     determine if commuters should be loaded
+    ***************************************************************/
+    let shouldLoadCommuters = false
 
     const allCommutersLoadedFromAllSites = () => {
       let numCommutersInSites = sites.reduce((accumulator, currentSite) => {
@@ -90,7 +95,7 @@ export default class Site extends Component {
     if ((!isMultiSite && (site.commuters.length > commuters.length)) ||
       (isMultiSite && !allCommutersLoadedFromAllSites())) {
       // not all commuters loaded in store
-      shouldLoad = true
+      shouldLoadCommuters = true
     } else {
       // check if all commuters have been geocoded and have stats calculated
       for (let i = 0; i < commuters.length; i++) {
@@ -98,13 +103,13 @@ export default class Site extends Component {
         const isGeocoded = curCommuter.geocodeConfidence !== -1
         const hasStats = curCommuter.modeStats
         if (!isGeocoded || !hasStats) {
-          shouldLoad = true
+          shouldLoadCommuters = true
           break
         }
       }
     }
 
-    if (shouldLoad && !this.loadCommutersInterval) {
+    if (shouldLoadCommuters && !this.loadCommutersInterval) {
       // load commuters if not already doing so
       let loadCommutersQuery
       if (isMultiSite) {
@@ -118,11 +123,30 @@ export default class Site extends Component {
         // load commuters only from specific site
         loadCommutersQuery = { siteId: site._id }
       }
-      this.loadCommutersInterval = setTimeout(function () {
+      this.loadCommutersInterval = setTimeout(() => {
         loadCommuters(loadCommutersQuery)
       }, 1111)
-    } else if (!shouldLoad && this.loadCommutersInterval) {
+    } else if (!shouldLoadCommuters && this.loadCommutersInterval) {
       clearInterval(this.loadCommutersInterval)
+    }
+
+    /***************************************************************
+     determine if site should be loaded
+    ***************************************************************/
+    if (site &&
+      site.travelTimeIsochrones &&
+      site.calculationStatus === 'calculating') {
+      // should load site
+      if (!this.loadSiteInterval) {
+        this.loadSiteInterval = setTimeout(() => {
+          loadSite(site._id)
+        }, 1111)
+      }
+    } else {
+      // site doens't need to load
+      if (this.loadSiteInterval) {
+        clearInterval(this.loadSiteInterval)
+      }
     }
   }
 
@@ -199,7 +223,10 @@ export default class Site extends Component {
     ************************************************************************/
     const {bounds, markers, position, zoom} = this._mapSitesAndCommuters()
     const isochrones = []
-    if (!isMultiSite && activeTab === 'analysis') {
+    if (!isMultiSite &&
+      activeTab === 'analysis' &&
+      site.calculationStatus === 'successfully') {
+      // travel times calculated successfully
       const curIsochrones = site.travelTimeIsochrones[analysisMode]
       curIsochrones.features.forEach((isochrone) => {
         const geojsonProps = {
@@ -260,7 +287,7 @@ export default class Site extends Component {
       if (commuter.modeStats) {
         travelTime = commuter.modeStats[analysisMode].travelTime
       } else {
-        travelTime = -1
+        travelTime = 'calculating...'
       }
       // convert unreachable to high value for sorting purposes
       if (travelTime === -1) {
@@ -280,7 +307,10 @@ export default class Site extends Component {
         const num = analysisModeStatsLookup[range]
         cumulative += num
         return {
-          bin: range < 9999 ? `${minutes - 5} - ${minutes}` : 'N/A',
+          bin: (range < 9999
+            ? `${minutes - 5} - ${minutes}`
+            : (range === 'calculating...' ? range : 'N/A')
+          ),
           num,
           cumulative: cumulative + 0
         }

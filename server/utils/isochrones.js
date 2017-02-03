@@ -21,27 +21,41 @@ isochroneUtils.calculateSiteIsochrones = function (site) {
   console.log('initiating calculateIsochrones request with params:')
   console.log(requestCfg)
 
+  const siteError = () => {
+    site.travelTimeIsochrones = undefined
+    site.calculationStatus = 'error'
+    site.save()
+  }
+
   // make request
   request(requestCfg, (err, res, json) => {
     // handle response
-    if (err || !json) {
+    if (err || !json || !json.data) {
       console.error('error calculating isochrones: ', err)
-      return
+      return siteError()
     } else if (json.error) {
       console.error('error calculating isochrones: ', json.error)
-      return
+      return siteError()
     }
 
     console.log('successfully calculated isochrones')
 
     // save isochrones to model
     site.travelTimeIsochrones = json.data
-    site.save()
+    site.calculationStatus = 'successfully'
+    site.save((err) => {
+      if (err) {
+        console.error('error saving isochrones')
+        console.error(err)
+        siteError()
+      }
+    })
 
     // update site's commuters
     models.Commuter.find({ siteId: site._id, trashed: undefined })
       .exec()
       .then((commuters) => {
+        console.log(`updating commuter stats for ${commuters.length} commuters`)
         commuters.forEach((commuter) => {
           isochroneUtils.calculateIsochroneStatsForCommuter(commuter, json.data)
           commuter.save()
@@ -67,6 +81,7 @@ isochroneUtils.calculateIsochroneStatsForCommuter = function (commuter, siteIsoc
     }
 
     const modeIsochrones = siteIsochrones[mode]
+
     // make sure isochrones are sorted by travel times
     modeIsochrones.features.sort((a, b) => a.properties.time - b.properties.time)
 

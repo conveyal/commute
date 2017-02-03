@@ -39,11 +39,13 @@ function postGeocodeHook (commuter) {
     .then((site) => {
       const siteIsochrones = site.travelTimeIsochrones
 
-      isochroneUtils.calculateIsochroneStatsForCommuter(commuter, siteIsochrones)
+      if (siteIsochrones.calculationStatus === 'successfully') {
+        isochroneUtils.calculateIsochroneStatsForCommuter(commuter, siteIsochrones)
 
-      console.log('commuter stats calculated')
+        console.log('commuter stats calculated')
 
-      commuter.save()
+        commuter.save()
+      }
     })
     .catch((err) => {
       console.error('error calculating commuter stats:', err)
