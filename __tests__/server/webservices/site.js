@@ -53,7 +53,7 @@ describe('site', () => {
         }
       }
     },
-    snapshotOmitions: ['organizationId', 'travelTimeIsochrones'],
+    snapshotOmitions: ['calculationStatus', 'travelTimeIsochrones'],
     geocodePlugin: true,
     model: Site,
     name: 'site'

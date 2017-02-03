@@ -3,7 +3,7 @@ const Schema = require('mongoose').Schema
 const queue = require('async/queue')
 const geocoder = require('isomorphic-mapzen-search')
 
-const settings = require('../../utils/env').settings
+const env = require('../../utils/env')
 const later = require('../../utils/later')
 
 function now () {
@@ -22,9 +22,11 @@ const geocodeRequestQueue = queue((task, callback) => {
 const maxRetries = 10
 
 const geocodeSearchOptions = {
-  circle: {
-    latlng: settings.geocoder.focus,
-    radius: settings.geocoder.focus.radius
+  boundary: {
+    circle: {
+      centerPoint: env.settings.geocoder.focus,
+      radius: env.settings.geocoder.focus.radius
+    }
   }
 }
 
@@ -91,6 +93,12 @@ module.exports = function (postGeocodeHook) {
           this.reverseGeocode()
         } else if (addressChanged && !coordinateModified) {
           this.geocode()
+        } else if (addressChanged && coordinateModified) {
+          // address and coordinates provided
+          // assume geocode happened elsewhere and only update positionLastUpdated
+          console.log('geodcode not needed')
+          this.positionLastUpdated = new Date()
+          postGeocodeHook(this)
         }
       }
       done()
@@ -122,7 +130,10 @@ module.exports = function (postGeocodeHook) {
           const doGeocodeUntilSuccess = () => {
             numTries++
             console.log(`try geocode for ${addressToGeocode}`)
-            geocoder.search(process.env.MAPZEN_SEARCH_KEY, this.fullAddress(), geocodeSearchOptions)
+            geocoder.search(Object.assign(geocodeSearchOptions, {
+              apiKey: env.env.MAPZEN_SEARCH_KEY,
+              text: this.fullAddress()
+            }))
               .then((geojson) => {
                 if (!geojson.features) throw geojson
                 console.log(`successful geocode for ${addressToGeocode}`)
@@ -168,10 +179,11 @@ module.exports = function (postGeocodeHook) {
       var self = this
       later(() => {
         geocodeRequestQueue.push(() => {
-          geocoder.reverse(this.coordinate, function (err, address) {
-            if (err) {
-              console.error(err)
-            } else {
+          geocoder.reverse({
+            apiKey: env.env.MAPZEN_SEARCH_KEY,
+            point: this.coordinate
+          })
+            .then((address) => {
               self.address = address.address
               self.neighborhood = address.neighborhood
               self.city = address.city
@@ -181,8 +193,11 @@ module.exports = function (postGeocodeHook) {
               self.positionLastUpdated = new Date()
               self.save()
               postGeocodeHook(self)
-            }
-          })
+            })
+            .catch((err) => {
+              console.error('reverse geocode error')
+              console.error(err)
+            })
         })
       })
     }

@@ -106,7 +106,9 @@ describe('Container > EditSite', () => {
     siteExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
       newEntity: genGeocodedEntity({
-        name: 'Mock Site'
+        calculationStatus: 'calculating',
+        name: 'Mock Site',
+        travelTimeIsochrones: {}
       })
     })
   })
@@ -141,8 +143,10 @@ describe('Container > EditSite', () => {
       action: mockStore.getActions()[0],
       entity: genGeocodedEntity({
         _id: 'site-2',
+        calculationStatus: 'calculating',
         commuters: ['commuter-2'],
-        name: 'Different Name'
+        name: 'Different Name',
+        travelTimeIsochrones: {}
       })
     })
   })

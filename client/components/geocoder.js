@@ -7,7 +7,7 @@ import settings from '../utils/settings'
 
 const boundary = {
   circle: {
-    latlng: settings.geocoder.focus,
+    centerPoint: settings.geocoder.focus,
     radius: settings.geocoder.focus.radius
   }
 }
