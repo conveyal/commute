@@ -123,7 +123,7 @@ export default class Site extends Component {
         // load commuters only from specific site
         loadCommutersQuery = { siteId: site._id }
       }
-      this.loadCommutersInterval = setTimeout(() => {
+      this.loadCommutersInterval = setInterval(() => {
         loadCommuters(loadCommutersQuery)
       }, 1111)
     } else if (!shouldLoadCommuters && this.loadCommutersInterval) {
@@ -138,7 +138,7 @@ export default class Site extends Component {
       site.calculationStatus === 'calculating') {
       // should load site
       if (!this.loadSiteInterval) {
-        this.loadSiteInterval = setTimeout(() => {
+        this.loadSiteInterval = setInterval(() => {
           loadSite(site._id)
         }, 1111)
       }
