@@ -1,3 +1,4 @@
+const createGrid = require('browsochrones').createGrid
 const request = require('request')
 
 const env = require('./server/utils/env').env
@@ -18,5 +19,5 @@ request(requestCfg, (err, res, data) => {
     return
   }
 
-  console.log(Buffer.from(data).toString())
+  console.log(createGrid(data))
 })

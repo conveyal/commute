@@ -59,6 +59,7 @@
     "@turf/inside": "^3.7.3",
     "async": "^2.1.4",
     "body-parser": "^1.15.2",
+    "browsochrones": "^0.11.0",
     "currency-formatter": "^1.0.8",
     "d3-dsv": "^1.0.3",
     "express": "^4.14.0",
