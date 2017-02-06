@@ -1,23 +1,24 @@
 const createGrid = require('browsochrones').createGrid
-const request = require('request')
+const fetch = require('node-fetch')
+const qs = require('qs')
 
 const env = require('./server/utils/env').env
 
-const requestCfg = {
-  qs: {
-    fromLat: 39.46614955717522,
-    fromLon: -87.41134643554688,
-    mode: 'WALK'
-  },
-  uri: `${env.R5_URL}/grid`
+const query = {
+  fromLat: 39.46614955717522,
+  fromLon: -87.41134643554688,
+  mode: 'WALK'
 }
 
-request(requestCfg, (err, res, data) => {
-  // handle response
-  if (err) {
-    console.error('error calculating grid: ', err)
-    return
-  }
-
-  console.log(createGrid(data))
-})
+fetch(`${env.R5_URL}/grid?${qs.stringify(query)}`)
+  .then(res => {
+    console.log('parse as arrayBuffer')
+    return res.arrayBuffer()
+  })
+  .then(data => {
+    console.log('create grid')
+    console.log(createGrid(data))
+  })
+  .catch((err) => {
+    console.error(err)
+  })

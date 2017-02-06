@@ -81,6 +81,7 @@
     "mastarm": "^3.4.0",
     "moment": "^2.15.2",
     "mongoose": "^4.6.4",
+    "node-fetch": "2.0.0-alpha.3",
     "normalize.css": "^5.0.0",
     "otp-profile-to-transitive": "^0.1.1",
     "qs": "^6.3.0",
