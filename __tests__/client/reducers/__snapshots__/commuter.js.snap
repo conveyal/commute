@@ -10,11 +10,10 @@ Object {
     },
     "country": "Made up land",
     "county": "Made up county",
-    "email": "luke@warm.cold",
     "geocodeConfidence": 0.77,
-    "groupId": "group-2",
     "name": "Luke Warm",
     "neighbourhood": undefined,
+    "siteId": "site-2",
     "state": "Made up state",
   },
 }
@@ -34,11 +33,10 @@ Object {
     },
     "country": "Made up land",
     "county": "Made up county",
-    "email": "luke@warm.cold",
     "geocodeConfidence": 0.77,
-    "groupId": "group-2",
     "name": "Luke Warm",
     "neighbourhood": undefined,
+    "siteId": "site-2",
     "state": "Made up state",
   },
   "commuter-3": Object {
@@ -51,7 +49,6 @@ Object {
     },
     "country": "Made up land",
     "county": "Made up county",
-    "email": "sal@a.mander",
     "name": "Sal A. Mander",
     "neighbourhood": undefined,
     "state": "Made up state",
@@ -71,60 +68,10 @@ Object {
     },
     "country": "Made up land",
     "county": "Made up county",
-    "email": "luke@warm.cold",
     "geocodeConfidence": 0.77,
-    "groupId": "group-2",
     "name": "Luke Warm",
     "neighbourhood": undefined,
-    "state": "Made up state",
-  },
-}
-`;
-
-exports[`client > reducers > commuter should handle add group 1`] = `
-Object {
-  "new-commuter": Object {
-    "_id": "new-commuter",
-    "address": "4321 XYZ Boulevard",
-    "email": "luke@warm.cold",
-    "groupId": "new-group",
-    "name": "Fake Commuter",
-  },
-}
-`;
-
-exports[`client > reducers > commuter should handle append commuters 1`] = `
-Object {
-  "commuter-2": Object {
-    "_id": "commuter-2",
-    "address": "4321 XYZ Boulevard",
-    "city": "Megalopolis",
-    "coordinate": Object {
-      "lat": 38.910822,
-      "lon": -77.041094,
-    },
-    "country": "Made up land",
-    "county": "Made up county",
-    "email": "luke@warm.cold",
-    "geocodeConfidence": 0.77,
-    "groupId": "group-2",
-    "name": "Luke Warm",
-    "neighbourhood": undefined,
-    "state": "Made up state",
-  },
-  "commuter-3": Object {
-    "_id": "commuter-3",
-    "address": "9876 ABC Ct",
-    "city": "Megalopolis",
-    "coordinate": Object {
-      "lat": 38.912314,
-      "lon": -77.033994,
-    },
-    "country": "Made up land",
-    "county": "Made up county",
-    "email": "sal@a.mander",
-    "name": "Sal A. Mander",
-    "neighbourhood": undefined,
+    "siteId": "site-2",
     "state": "Made up state",
   },
 }

@@ -1,0 +1,9 @@
+entries:
+  - client/index.js:assets/index.js
+  - client/index.css:assets/index.css
+geocoder:
+  focus:
+    lat: 39.467803
+    lon: -87.397648
+    radius: 20
+s3bucket: commute-staging

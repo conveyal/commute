@@ -1,3 +1,3 @@
 export function arrayCountRenderer (cell, row) {
-  if (cell && cell.length) return cell.length
+  if (Array.isArray(cell)) return cell.length
 }

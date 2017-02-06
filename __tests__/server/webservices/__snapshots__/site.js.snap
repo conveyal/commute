@@ -10,7 +10,7 @@ Array [
     },
     "geocodeConfidence": -1,
     "name": "test-site",
-    "rideshares": Array [],
+    "user": "test-user",
   },
 ]
 `;
@@ -26,7 +26,7 @@ Object {
   },
   "geocodeConfidence": -1,
   "name": "test-site",
-  "rideshares": Array [],
+  "user": "test-user",
 }
 `;
 
@@ -41,6 +41,6 @@ Object {
   },
   "geocodeConfidence": -1,
   "name": "updated name",
-  "rideshares": Array [],
+  "user": "test-user",
 }
 `;

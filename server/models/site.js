@@ -2,46 +2,38 @@ const Schema = require('mongoose').Schema
 
 const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
+const userPlugin = require('./plugins/user')
 const later = require('../utils/later')
 
 const schema = new Schema({
+  calculationStatus: {
+    default: 'calculating',
+    type: String
+  },
+  name: {
+    required: true,
+    type: String
+  },
   travelTimeIsochrones: {
     bicycle: Schema.Types.Mixed,
     car: Schema.Types.Mixed,
     transit: Schema.Types.Mixed,
     walk: Schema.Types.Mixed,
     type: Schema.Types.Mixed
-  },
-  name: {
-    required: true,
-    type: String
-  },
-  rideshares: [{
-    commuter1: Schema.Types.ObjectId,
-    commuter2: Schema.Types.ObjectId,
-    distance: Number
-  }]
+  }
 })
 
-schema.plugin(geocodingPlugin)
-schema.plugin(trashPlugin)
-
-schema.pre('save', true, function (next, done) {
-  next()
-
+function postGeocodeHook (site) {
   // import here to resolve circular import
   const isochroneUtils = require('../utils/isochrones')
 
-  if (this.isModified('coordinates') || this.isNew) {
-    const self = this
+  later(() => {
+    isochroneUtils.calculateSiteIsochrones(site)
+  })
+}
 
-    // detected change in location, initiate polygon calculation
-    later(() => {
-      isochroneUtils.calculateSiteIsochrones(self)
-    })
-  }
-
-  done()
-})
+schema.plugin(geocodingPlugin(postGeocodeHook))
+schema.plugin(trashPlugin)
+schema.plugin(userPlugin)
 
 module.exports = schema

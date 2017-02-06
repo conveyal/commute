@@ -7,18 +7,15 @@ import Navigation from '../containers/navigation'
 export default class Application extends Component {
   static propTypes = {
     // actions
-    refreshUserToken: PropTypes.func.isRequired,
+    navigateToLogin: PropTypes.func.isRequired,
     // props
     userIsLoggedIn: PropTypes.bool.isRequired
   }
 
   componentWillMount () {
-    if (process.env.NODE_ENV !== 'test') {
-      // try {
-      //   this.props.refreshUserToken()
-      // } catch (e) {
-      //   console.error(e)
-      // }
+    const {navigateToLogin, userIsLoggedIn} = this.props
+    if (process.env.NODE_ENV !== 'test' && !userIsLoggedIn) {
+      navigateToLogin()
     }
   }
 

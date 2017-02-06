@@ -122,8 +122,8 @@ export const makeRestEndpointTests = (cfg) => {
         }
 
         // create model
-        const createdModel = await model.create(initData)
-        const modelId = createdModel._id
+        const createdModels = await model.create(initData)
+        const modelId = createdModels[0]._id
         const customAssertions = cfg.customAssertions || (() => 'no-op')
 
         // make request
@@ -156,8 +156,8 @@ export const makeRestEndpointTests = (cfg) => {
         }
 
         // create model
-        const createdModel = await model.create(initData)
-        const modelId = createdModel._id
+        const createdModels = await model.create(initData)
+        const modelId = createdModels[0]._id
         const customAssertions = cfg.customAssertions || (() => 'no-op')
 
         // make request
@@ -185,8 +185,8 @@ export const makeRestEndpointTests = (cfg) => {
         }
 
         // create model
-        const createdModel = await model.create(initData)
-        const modelId = createdModel._id
+        const createdModels = await model.create(initData)
+        const modelId = createdModels[0]._id
 
         // make request
         const res = await request(app).put(`/api/${name}/${modelId}`).send(updateData)

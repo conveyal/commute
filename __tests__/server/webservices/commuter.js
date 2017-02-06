@@ -21,18 +21,20 @@ describe('commuter', () => {
         lat: 12,
         lon: 34
       },
-      name: 'Mock Site'
+      name: 'Mock Site',
+      user: 'test-user'
     })
       .then((newSite) => {
-        return {
+        return [{
           address: '123 Main St',
           coordinate: {
             lat: 12,
             lon: 34
           },
           name: 'test-commuter',
-          siteId: newSite._id
-        }
+          siteId: newSite._id,
+          user: 'test-user'
+        }]
       })
   }
 

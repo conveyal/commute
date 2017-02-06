@@ -1,22 +1,21 @@
+import {toLeaflet} from '@conveyal/lonlat'
 import {Browser} from 'leaflet'
 import isNumber from 'lodash.isnumber'
-import lonlng from 'lonlng'
 import React, {Component, PropTypes} from 'react'
 import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import Form from 'react-formal'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import yup from 'yup'
 
-import ButtonLink from './button-link'
+import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
-import Icon from './icon'
 import {geocodeResultToState, geocodeYupSchema} from '../utils/components'
-import {messages, settings} from '../utils/env'
+import messages from '../utils/messages'
+import settings from '../utils/settings'
 import {actUponConfirmation} from '../utils/ui'
 
 const commuterSchema = yup.object(Object.assign({
-  email: yup.string().label('Email'),
   name: yup.string().label('Site Name').required()
 }, geocodeYupSchema))
 
@@ -29,7 +28,7 @@ export default class EditCommuter extends Component {
 
     // props
     editMode: PropTypes.bool,
-    groupId: PropTypes.string.isRequired,
+    siteId: PropTypes.string.isRequired,
     commuter: PropTypes.object
   }
 
@@ -42,14 +41,14 @@ export default class EditCommuter extends Component {
     } else {
       this.state = {
         errors: {},
-        model: { groupId: this.props.groupId }
+        model: { siteId: this.props.siteId }
       }
     }
   }
 
   _handleDelete = () => {
     const doDelete = () => this.props.delete(this.state.model)
-    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+    actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
@@ -66,23 +65,19 @@ export default class EditCommuter extends Component {
   _setModel = model => this.setState({ model })
 
   render () {
-    const {editMode, groupId} = this.props
+    const {editMode} = this.props
     const hasCoordinates = this.state.model.coordinate && isNumber(this.state.model.coordinate.lat)
-    const position = hasCoordinates ? lonlng(this.state.model.coordinate) : lonlng(settings.geocoder.focus)
-    const zoom = hasCoordinates ? 13 : 8
+    const position = hasCoordinates
+      ? toLeaflet(this.state.model.coordinate)
+      : toLeaflet(settings.geocoder.focus)
+    const zoom = hasCoordinates ? 13 : 9
     return (
       <Grid>
         <Row>
           <Col xs={12} className='commuter-header'>
             <h3>
               <span>{`${editMode ? 'Edit' : 'Create'} Commuter`}</span>
-              <ButtonLink
-                className='pull-right'
-                to={`/group/${groupId}`}
-                >
-                <Icon type='arrow-left' />
-                <span>Back</span>
-              </ButtonLink>
+              <BackButton />
             </h3>
           </Col>
         </Row>
@@ -100,12 +95,6 @@ export default class EditCommuter extends Component {
                 name='name'
                 placeholder='Enter name'
                 validationState={this.state.errors.name ? 'error' : undefined}
-                />
-              <FormalFieldGroup
-                label='Commuter Email'
-                name='email'
-                placeholder='Enter email'
-                validationState={this.state.errors.email ? 'error' : undefined}
                 />
               <Form.Field
                 label='Address'

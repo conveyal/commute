@@ -25,13 +25,13 @@ const commuterExpectations = makeGenericModelActionsExpectations({
 
 describe('Container > EditCommuter', () => {
   it('Create/Edit Commuter View loads (create or edit mode)', () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // mount component
     mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{groupId: 'group-2'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     , {
@@ -40,13 +40,13 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Create/Edit Commuter View loads in create mode', () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{groupId: 'group-2'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     , {
@@ -61,7 +61,7 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Create/Edit Commuter View loads in edit mode', () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // mount component
     const tree = mount(
@@ -83,13 +83,13 @@ describe('Container > EditCommuter', () => {
   })
 
   it('Create commuter', async () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
         <EditCommuter
-          params={{groupId: 'group-2'}}
+          params={{siteId: 'site-2'}}
           />
       </Provider>
     , {
@@ -102,7 +102,7 @@ describe('Container > EditCommuter', () => {
     // email
     tree.find('input').at(1).simulate('change', {target: {value: 'mock@email.fake'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
+    tree.find('.commuter-form').find('Geocoder').at(1).props().onChange(mockGeocodeResponse)
 
     // submit form
     tree.find('form').find('button').first().simulate('click')
@@ -115,14 +115,14 @@ describe('Container > EditCommuter', () => {
       action: mockStore.getActions()[0],
       newEntity: genGeocodedEntity({
         email: 'mock@email.fake',
-        groupId: 'group-2',
+        siteId: 'site-2',
         name: 'Mock Commuter'
       })
     })
   })
 
   it('Update commuter', async () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // mount component
     const tree = mount(
@@ -141,7 +141,7 @@ describe('Container > EditCommuter', () => {
     // email
     tree.find('input').at(1).simulate('change', {target: {value: 'different@email.fake'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
+    tree.find('.commuter-form').find('Geocoder').at(1).props().onChange(mockGeocodeResponse)
 
     // submit form
     tree.find('form').find('button').first().simulate('click')
@@ -155,13 +155,13 @@ describe('Container > EditCommuter', () => {
         _id: 'commuter-2',
         email: 'different@email.fake',
         name: 'Different Name',
-        groupId: 'group-2'
+        siteId: 'site-2'
       })
     })
   })
 
   it('Delete Commuter', () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the Create/Edit Commuter View

@@ -1,7 +1,35 @@
+/* globals alert */
+
 import fetchAction from '@conveyal/woonerf/fetch'
+import debounce from 'debounce'
 import qs from 'qs'
 import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
+
+import {network} from '../utils/messages'
+
+/**
+ * Handle fetching errors.  Redirect to login if any response is a 401.
+ *
+ * @param  {String} alertMsg  The message to display in an alert
+ * @param  {Mixed} err        the error from woonerf fetchAction
+ * @param  {Mixed} res        the res from woonerf fetchAction
+ * @return {Mixed}            return varies
+ */
+function fetchErrorHandler (alertMsg, err, res) {
+  if (err.status === 401) {
+    return push('/login')
+  } else {
+    debouncedErrorDisplay(alertMsg)
+  }
+}
+
+const debouncedErrorDisplay = debounce((alertMsg) => {
+  alert(alertMsg)
+  // TODO: replace w/ modal?  alert halts js thread
+  // so other failures will still get funnelled here
+  // once execution resumes
+}, 5000, true)
 
 /**
  * Make generic model actions that communicate with a rest server
@@ -82,10 +110,11 @@ export default function makeGenericModelActions (cfg) {
       // make request
       return fetchAction({
         next: (err, res) => {
-          if (!err) {
+          if (err) {
+            return fetchErrorHandler(network.fetchingError, err, res)
+          } else {
             return setAllLocally(res.value)
           }
-          console.error('Fetch (Collection GET) error handler not implemented') // TODO handle error
         },
         url: baseEndpoint + queryString
       })
@@ -102,7 +131,7 @@ export default function makeGenericModelActions (cfg) {
       return fetchAction({
         next: (err, res) => {
           if (err) {
-            console.error('Fetch (Collection POST) error handler not implemented') // TODO handle error
+            return fetchErrorHandler(network.savingError, err, res)
           } else {
             const createdEntities = res.value
             const actions = createdEntities.map((createdEntity) => addLocally(createdEntity))
@@ -130,7 +159,7 @@ export default function makeGenericModelActions (cfg) {
       return fetchAction({
         next: (err, res) => {
           if (err) {
-            console.error('Fetch (DELETE) error handler not implemented') // TODO handle error
+            return fetchErrorHandler(network.savingError, err, res)
           } else {
             const actions = []
             doRedirectIfNecessary({
@@ -154,10 +183,11 @@ export default function makeGenericModelActions (cfg) {
   if (commands['GET']) {
     actions.loadOne = (id) => fetchAction({
       next: (err, res) => {
-        if (!err) {
+        if (err) {
+          return fetchErrorHandler(network.fetchingError, err, res)
+        } else {
           return setLocally(res.value)
         }
-        console.error('Fetch (GET) handler not implemented') // TODO handle error
       },
       url: `${baseEndpoint}/${id}`
     })
@@ -168,7 +198,7 @@ export default function makeGenericModelActions (cfg) {
     actions.update = (entity) => fetchAction({
       next: (err, res) => {
         if (err) {
-          console.error('Fetch (PUT) error handler not implemented') // TODO handle error
+          return fetchErrorHandler(network.savingError, err, res)
         } else {
           const updatedEntity = res.value
           const actions = [

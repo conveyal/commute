@@ -5,7 +5,7 @@ import {Link} from 'react-router'
 export default class BreadcrumbBar extends Component {
   static propTypes = {
     // props
-    commuter: PropTypes.object.isRequired,
+    multiSite: PropTypes.object.isRequired,
     site: PropTypes.object.isRequired
   }
 
@@ -31,6 +31,11 @@ export default class BreadcrumbBar extends Component {
       }
     }
 
+    const appendMultiSite = (multiSiteId, isActive) => {
+      const multiSite = this.props.multiSite[multiSiteId]
+      appendEntity(multiSiteId, multiSite ? multiSite.name : '?', '/multi-site/', isActive)
+    }
+
     const appendSite = (siteId, isActive) => {
       const site = this.props.site[siteId]
       appendEntity(siteId, site ? site.name : '?', '/site/', isActive)
@@ -38,11 +43,44 @@ export default class BreadcrumbBar extends Component {
 
     if (path === '/' || path === '/login') {
       // do nothing for home or login
+    } else if (path.match(/\/multi-site\/create$/)) {
+      // Create Site View
+      navItems.push({
+        active: true,
+        name: 'Create Multi-Site Analysis'
+      })
+    } else if (path.match(/\/multi-site\/[\w-]+$/)) {
+      // Site View
+      appendMultiSite(path.match(/\/multi-site\/([\w-]+)/)[1], true)
     } else if (path.match(/\/site\/create$/)) {
       // Create Site View
       navItems.push({
         active: true,
         name: 'Create Site'
+      })
+    } else if (path.match(/\/site\/[\w-]+$/)) {
+      // Site View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1], true)
+    } else if (path.match(/\/site\/[\w-]+\/bulk-add-commuters$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Bulk Add Commuters'
+      })
+    } else if (path.match(/\/site\/[\w-]+\/commuter\/create$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Create New Commuter'
+      })
+    } else if (path.match(/\/site\/[\w-]+\/commuter\/[\w-]+\/edit$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Edit Commuter'
       })
     } else if (path.match(/\/site\/[\w-]+\/edit$/)) {
       // Edit Site View

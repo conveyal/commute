@@ -2,7 +2,7 @@ exports[`actions > site generic model actions create should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organization/organization-id",
+      "/site/new-entity-id",
     ],
     "method": "push",
   },
@@ -14,7 +14,7 @@ exports[`actions > site generic model actions delete should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organization/organization-2",
+      "/",
     ],
     "method": "push",
   },
@@ -26,7 +26,7 @@ exports[`actions > site generic model actions update should work 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organization/organization-2",
+      "/site/site-2",
     ],
     "method": "push",
   },

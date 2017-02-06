@@ -5,7 +5,7 @@ import {Link} from 'react-router'
 
 import ButtonLink from './button-link'
 import Icon from './icon'
-import {messages} from '../utils/env'
+import messages from '../utils/messages'
 import {arrayCountRenderer} from '../utils/table'
 import {actUponConfirmation} from '../utils/ui'
 
@@ -68,7 +68,7 @@ export default class UserHome extends Component {
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={siteNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-              <TableHeaderColumn dataField='organizations' dataFormat={arrayCountRenderer}># of Commuters</TableHeaderColumn>
+              <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}># of Commuters</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._siteToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
             <h2>Multi-site Analyses
@@ -76,7 +76,7 @@ export default class UserHome extends Component {
                 className='pull-right'
                 to='/multi-site/create'
                 >
-                <span>Create a new Multi-site analysis</span>
+                <span>Create a new Multi-Site Analysis</span>
                 <Icon type='clone' />
               </ButtonLink>
             </h2>

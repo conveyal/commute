@@ -2,6 +2,7 @@ const Schema = require('mongoose').Schema
 
 const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
+const userPlugin = require('./plugins/user')
 
 const modeType = {
   travelTime: Number
@@ -26,36 +27,33 @@ const schema = new Schema({
   }
 })
 
-schema.plugin(geocodingPlugin)
+function postGeocodeHook (commuter) {
+  console.log('commuter added or location changed, initiating polygon calculation')
+
+  // import here to resolve circular import
+  const models = require('./')
+  const isochroneUtils = require('../utils/isochrones')
+
+  models.Site.findOne({ _id: commuter.siteId, trashed: undefined })
+    .exec()
+    .then((site) => {
+      const siteIsochrones = site.travelTimeIsochrones
+
+      if (site.calculationStatus === 'successfully') {
+        isochroneUtils.calculateIsochroneStatsForCommuter(commuter, siteIsochrones)
+
+        console.log('commuter stats calculated')
+
+        commuter.save()
+      }
+    })
+    .catch((err) => {
+      console.error('error calculating commuter stats:', err)
+    })
+}
+
+schema.plugin(geocodingPlugin(postGeocodeHook))
 schema.plugin(trashPlugin)
-
-schema.pre('save', true, function (next, done) {
-  next()
-
-  if (this.isModified('coordinates') || this.isNew) {
-    // detected change in location, initiate polygon calculation
-    const self = this
-
-    // import here to resolve circular import
-    const models = require('./')
-    const isochroneUtils = require('../utils/isochrones')
-
-    models.Site.findOne({ _id: this.siteId, trashed: undefined })
-      .exec()
-      .then((site) => {
-        const siteIsochrones = site.travelTimeIsochrones
-
-        isochroneUtils.calculateIsochroneStatsForCommuter(self, siteIsochrones)
-
-        done()
-      })
-      .catch((err) => {
-        console.error('error calculating commuter stats:', err)
-        done()
-      })
-  } else {
-    done()
-  }
-})
+schema.plugin(userPlugin)
 
 module.exports = schema
