@@ -8,6 +8,11 @@ module.exports = function makeRoutes (app, jwt) {
         foreignKey: 'siteId',
         key: 'commuters',
         model: models.Commuter
+      }, {
+        foreignKey: 'siteId',
+        key: 'polygons',
+        model: models.Polygon,
+        returnChildrenAsEntities: true
       }],
       commands: {
         'Collection GET': {},

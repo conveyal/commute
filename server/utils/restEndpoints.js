@@ -31,10 +31,11 @@ function makeGetModelResponseFn (childModels, res, isCollection, returnChildrenA
       each(childModels, (childModel, childCb) => {
         childModel.model.find({
           [childModel.foreignKey]: curEntity._id,
-          trashed: undefined
+          trashed: undefined,
+          user: curEntity.user
         }, (err, childEntities) => {
           if (err) return childCb(err)
-          if (returnChildrenAsEntities) {
+          if (returnChildrenAsEntities || childModel.returnChildrenAsEntities) {
             curEntity[childModel.key] = childEntities
           } else {
             curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)

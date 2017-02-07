@@ -34,17 +34,34 @@ function postGeocodeHook (commuter) {
   const models = require('./')
   const isochroneUtils = require('../utils/isochrones')
 
-  models.Site.findOne({ _id: commuter.siteId, trashed: undefined })
+  models.Site.findOne({ _id: commuter.siteId, trashed: undefined, user: commuter.user })
     .exec()
     .then((site) => {
-      const siteIsochrones = site.travelTimeIsochrones
-
       if (site.calculationStatus === 'successfully') {
-        isochroneUtils.calculateIsochroneStatsForCommuter(commuter, siteIsochrones)
+        models.Polygon.find({ _id: commuter.siteId })
+          .exec()
+          .then((polygons) => {
+            const siteIsochrones = {}
+            polygons.forEach((polygon) => {
+              if (!siteIsochrones[polygon.mode]) {
+                siteIsochrones[polygon.mode] = {
+                  features: []
+                }
+              }
+              siteIsochrones[polygon.mode].features.push(polygon)
+            })
 
-        console.log('commuter stats calculated')
+            if (site.calculationStatus === 'successfully') {
+              isochroneUtils.calculateIsochroneStatsForCommuter(commuter, siteIsochrones)
 
-        commuter.save()
+              console.log('commuter stats calculated')
+
+              commuter.save()
+            }
+          })
+          .catch((err) => {
+            console.error('error calculating commuter stats:', err)
+          })
       }
     })
     .catch((err) => {

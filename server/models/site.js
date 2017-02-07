@@ -13,13 +13,6 @@ const schema = new Schema({
   name: {
     required: true,
     type: String
-  },
-  travelTimeIsochrones: {
-    bicycle: Schema.Types.Mixed,
-    car: Schema.Types.Mixed,
-    transit: Schema.Types.Mixed,
-    walk: Schema.Types.Mixed,
-    type: Schema.Types.Mixed
   }
 })
 

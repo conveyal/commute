@@ -33,10 +33,16 @@ describe('isochrone utils', () => {
     })
 
     // verify existence of isochrones
-    // wait a little bit and then refetch model
+    // wait a little bit and then fetch site and polygons
     await timeoutPromise(1000)
+
+    // expect site to have calculationStatus set to success
     const testSite = await models.Site.findOne().exec()
-    expect(testSite.travelTimeIsochrones).toBeTruthy()
+    expect(testSite.calculationStatus).toBe('successfully')
+
+    // expect polygons to have been created
+    const testPolygons = await models.Polygon.find({ siteId: testSite._id })
+    expect(testPolygons.length).toBeGreaterThan(0)
 
     // add commuter to site
     await models.Commuter.create({

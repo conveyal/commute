@@ -22,7 +22,6 @@ isochroneUtils.calculateSiteIsochrones = function (site) {
   console.log(requestCfg)
 
   const siteError = () => {
-    site.travelTimeIsochrones = undefined
     site.calculationStatus = 'error'
     site.save()
   }
@@ -41,11 +40,35 @@ isochroneUtils.calculateSiteIsochrones = function (site) {
     console.log('successfully calculated isochrones')
 
     // save isochrones to model
-    site.travelTimeIsochrones = json.data
+    const polygonsToSave = []
+    Object.keys(json.data).forEach((mode) => {
+      json.data[mode].features.forEach((feature) => {
+        polygonsToSave.push(Object.assign(feature, {
+          mode: mode,
+          siteId: site._id,
+          user: site.user
+        }))
+      })
+    })
+
+    models.Polygon.remove({ siteId: site._id }, (err) => {
+      if (err) {
+        console.error('error saving polygons')
+        console.error(err)
+        return siteError()
+      }
+      models.Polygon.create(polygonsToSave, (err) => {
+        if (err) {
+          console.error('error saving polygons')
+          console.error(err)
+          siteError()
+        }
+      })
+    })
     site.calculationStatus = 'successfully'
     site.save((err) => {
       if (err) {
-        console.error('error saving isochrones')
+        console.error('error saving site')
         console.error(err)
         siteError()
       }
