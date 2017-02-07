@@ -642,7 +642,7 @@ function geocodeConfidenceRenderer (cell, row) {
 }
 
 const homeIcon = icon({
-  iconUrl: '../assets/home-2.png',
+  iconUrl: 'https://s3.amazonaws.com/commute-staging/assets/home-2.png',
   iconSize: [32, 37],
   iconAnchor: [22, 37]
 })
