@@ -134,7 +134,6 @@ export default class Site extends Component {
      determine if site should be loaded
     ***************************************************************/
     if (site &&
-      site.travelTimeIsochrones &&
       site.calculationStatus === 'calculating') {
       // should load site
       if (!this.loadSiteInterval) {
@@ -227,10 +226,10 @@ export default class Site extends Component {
       activeTab === 'analysis' &&
       site.calculationStatus === 'successfully') {
       // travel times calculated successfully
-      const curIsochrones = site.travelTimeIsochrones[analysisMode]
-      curIsochrones.features.forEach((isochrone) => {
+      const curIsochrones = site.polygons.filter((polygon) => polygon.mode === analysisMode)
+      curIsochrones.forEach((isochrone) => {
         const geojsonProps = {
-          data: isochrone,
+          data: Object.assign(isochrone, { type: 'Feature' }),
           key: `isochrone-${analysisMode}-${isochrone.properties.time}`,
           onEachFeature,
           stroke: false,

@@ -38,7 +38,7 @@ function postGeocodeHook (commuter) {
     .exec()
     .then((site) => {
       if (site.calculationStatus === 'successfully') {
-        models.Polygon.find({ _id: commuter.siteId })
+        models.Polygon.find({ siteId: commuter.siteId })
           .exec()
           .then((polygons) => {
             const siteIsochrones = {}
