@@ -44,6 +44,16 @@ export default class Site extends Component {
     this._loadDataIfNeeded(nextProps)
   }
 
+  componentWillUnmount () {
+    if (this.loadSiteInterval) {
+      clearInterval(this.loadSiteInterval)
+    }
+
+    if (this.loadCommutersInterval) {
+      clearInterval(this.loadCommutersInterval)
+    }
+  }
+
   _commuterSiteNameRenderer = (cell, row) => {
     const {siteStore} = this.props
     return siteStore[row.siteId].name
@@ -642,7 +652,7 @@ function geocodeConfidenceRenderer (cell, row) {
 }
 
 const homeIcon = icon({
-  iconUrl: 'https://s3.amazonaws.com/commute-staging/assets/home-2.png',
+  iconUrl: `${process.env.STATIC_HOST}assets/home-2.png`,
   iconSize: [32, 37],
   iconAnchor: [22, 37]
 })
