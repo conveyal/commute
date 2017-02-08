@@ -41,6 +41,11 @@ export const mockCommuter = {
   state: 'Made up state'
 }
 
+export const mockPolygon = {
+  _id: 'polygon-2',
+  siteId: 'site-2'
+}
+
 export const mockSite = {
   _id: 'site-2',
   name: 'Acme Corp',
@@ -61,12 +66,16 @@ export const mockSite = {
 export const mockStores = {
   init: {
     commuter: {},
+    polygon: {},
     site: {},
     user: {}
   },
   withSite: {
     commuter: {
       'commuter-2': mockCommuter
+    },
+    polygon: {
+      'polygon-2': mockPolygon
     },
     site: {
       'site-2': mockSite

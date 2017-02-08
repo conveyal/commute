@@ -23,7 +23,8 @@ export default class EditSite extends Component {
   static propTypes = {
     // dispatch
     create: PropTypes.func.isRequired,
-    delete: PropTypes.func.isRequired,
+    deletePolygons: PropTypes.func.isRequired,
+    deleteSite: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
 
     // props
@@ -46,12 +47,15 @@ export default class EditSite extends Component {
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.delete(this.state.model)
+    const doDelete = () => {
+      this.props.deleteSite(this.state.model)
+      this.props.deletePolygons({ siteId: this.state.model._id })
+    }
     actUponConfirmation(messages.site.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
-    const {create, editMode, site, update} = this.props
+    const {create, deletePolygons, editMode, site, update} = this.props
     const {model} = this.state
 
     // reset calculation status if new or if location of site changed
@@ -63,9 +67,12 @@ export default class EditSite extends Component {
       model.calculationStatus = 'calculating'
     }
     if (editMode) {
-      update(this.state.model)
+      if (model.calculationStatus === 'calculating') {
+        deletePolygons({ siteId: this.state.model._id })
+      }
+      update(model)
     } else {
-      create(this.state.model)
+      create(model)
     }
   }
 

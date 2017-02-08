@@ -13,6 +13,7 @@ export default class UserHome extends Component {
   static propTypes = {
     // dispatch
     deleteMultiSite: PropTypes.func.isRequired,
+    deletePolygons: PropTypes.func.isRequired,
     deleteSite: PropTypes.func.isRequired,
     loadMultiSites: PropTypes.func.isRequired,
     loadSites: PropTypes.func.isRequired,
@@ -33,7 +34,10 @@ export default class UserHome extends Component {
   }
 
   _onDeleteSiteClick (site) {
-    const doDelete = () => { this.props.deleteSite(site) }
+    const doDelete = () => {
+      this.props.deleteSite(site)
+      this.props.deletePolygons({ siteId: site._id })
+    }
     actUponConfirmation(messages.site.deleteConfirmation, doDelete)
   }
 

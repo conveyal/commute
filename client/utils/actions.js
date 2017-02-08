@@ -57,6 +57,7 @@ export default function makeGenericModelActions (cfg) {
   // make local set actions
   const addLocally = createAction(`add ${singularName}`)
   const deleteLocally = createAction(`delete ${singularName}`)
+  const deleteManyLocally = createAction(`delete many ${pluralName}`)
   const setLocally = createAction(`set ${singularName}`)
   const setAllLocally = createAction(`set ${pluralName}`)
 
@@ -93,6 +94,35 @@ export default function makeGenericModelActions (cfg) {
       if (redirect) {
         cfg.actions.push(redirect)
       }
+    }
+  }
+
+  if (commands['Collection DELETE']) {
+    actions.deleteMany = (queryParams) => {
+      // only include filteredKeys in querystring
+      let queryString = ''
+      if (queryParams) {
+        queryString = qs.stringify(queryParams)
+        if (queryString.length !== 0) {
+          queryString = '?' + queryString
+        }
+      }
+
+      // make request
+      return [
+        fetchAction({
+          next: (err, res) => {
+            if (err) {
+              return fetchErrorHandler(network.fetchingError, err, res)
+            }
+          },
+          options: {
+            method: 'DELETE'
+          },
+          url: baseEndpoint + queryString
+        }),
+        deleteManyLocally(queryParams)
+      ]
     }
   }
 

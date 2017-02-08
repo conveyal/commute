@@ -19,6 +19,7 @@ export default class Site extends Component {
     // props
     isMultiSite: PropTypes.bool.isRequired,
     multiSite: PropTypes.object,
+    polygonStore: PropTypes.object,
     site: PropTypes.object,
     sites: PropTypes.array,
     siteStore: PropTypes.object,
@@ -27,8 +28,10 @@ export default class Site extends Component {
     // dispatch
     deleteCommuter: PropTypes.func,
     deleteMainEntity: PropTypes.func.isRequired,
+    deletePolygons: PropTypes.func.isRequired,
     loadCommuters: PropTypes.func.isRequired,
-    loadSite: PropTypes.func.isRequired
+    loadPolygons: PropTypes.func,
+    loadSite: PropTypes.func
   }
 
   componentWillMount () {
@@ -76,8 +79,13 @@ export default class Site extends Component {
   }
 
   _handleDelete = () => {
-    const {deleteMainEntity, isMultiSite, multiSite, site} = this.props
-    const doDelete = () => deleteMainEntity(isMultiSite ? multiSite : site)
+    const {deleteMainEntity, deletePolygons, isMultiSite, multiSite, site} = this.props
+    const doDelete = () => {
+      deleteMainEntity(isMultiSite ? multiSite : site)
+      if (!isMultiSite) {
+        deletePolygons({ siteId: site._id })
+      }
+    }
     const messageType = isMultiSite ? 'multiSite' : 'site'
     actUponConfirmation(messages[messageType].deleteConfirmation, doDelete)
   }
@@ -87,7 +95,17 @@ export default class Site extends Component {
   }
 
   _loadDataIfNeeded (props) {
-    const {commuters, isMultiSite, loadCommuters, loadSite, multiSite, site, sites} = props
+    const {
+      commuters,
+      isMultiSite,
+      loadCommuters,
+      loadPolygons,
+      loadSite,
+      multiSite,
+      polygonStore,
+      site,
+      sites
+    } = props
 
     /***************************************************************
      determine if commuters should be loaded
@@ -157,6 +175,17 @@ export default class Site extends Component {
         clearInterval(this.loadSiteInterval)
       }
     }
+
+    /***************************************************************
+     determine if polygons should be loaded
+    ***************************************************************/
+    if (site &&
+      site.calculationStatus === 'successfully') {
+      // if 0 polygons exist for site, assume they need to be fetched
+      if (!Object.values(polygonStore).some((isochrone) => isochrone.siteId === site._id)) {
+        loadPolygons({ siteId: site._id })
+      }
+    }
   }
 
   _mapSitesAndCommuters = () => {
@@ -224,7 +253,7 @@ export default class Site extends Component {
   }
 
   render () {
-    const {commuters, isMultiSite, multiSite, site, sites} = this.props
+    const {commuters, isMultiSite, polygonStore, multiSite, site, sites} = this.props
     const {activeTab, analysisMode, isochroneColoring} = this.state
 
     /************************************************************************
@@ -236,7 +265,9 @@ export default class Site extends Component {
       activeTab === 'analysis' &&
       site.calculationStatus === 'successfully') {
       // travel times calculated successfully
-      const curIsochrones = site.polygons.filter((polygon) => polygon.mode === analysisMode)
+      const curIsochrones = Object.values(polygonStore).filter((polygon) =>
+        polygon.mode === analysisMode && polygon.siteId === site._id
+      )
       curIsochrones.forEach((isochrone) => {
         const geojsonProps = {
           data: Object.assign(isochrone, { type: 'Feature' }),

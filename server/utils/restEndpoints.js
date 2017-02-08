@@ -2,7 +2,7 @@ const each = require('async/each')
 const pick = require('lodash.pick')
 
 function makeFindQuery (req, query) {
-  return Object.assign({ trashed: undefined, user: req.user.sub }, query)
+  return Object.assign(query, { trashed: undefined, user: req.user.sub })
 }
 
 function makeGenericModelResponseFn (res) {
@@ -80,6 +80,14 @@ module.exports = function makeRestEndpoints (app, jwt, cfg) {
   const modelFields = Object.keys(model.schema.paths)
   const name = cfg.name
   const returnChildrenAsEntities = cfg.returnChildrenAsEntities
+  if (commands['Collection DELETE']) {
+    app.delete(`/api/${name}`, jwt, (req, res) => {
+      // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query
+      const removeQuery = makeFindQuery(req, pick(req.query, modelFields))
+      model.remove(removeQuery, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
+    })
+  }
+
   if (commands['Collection GET']) {
     app.get(`/api/${name}`, jwt, (req, res) => {
       // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query

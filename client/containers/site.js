@@ -1,17 +1,19 @@
 import {connect} from 'react-redux'
 
 import commuterActions from '../actions/commuter'
+import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
 import Site from '../components/site'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
-  const {commuter: commuterStore, site: siteStore} = state
+  const {commuter: commuterStore, polygon: polygonStore, site: siteStore} = state
   const {params} = props
   const site = siteStore[params.siteId]
   return {
     commuters: entityIdArrayToEntityArray(site.commuters, commuterStore),
     isMultiSite: false,
+    polygonStore,
     site
   }
 }
@@ -20,7 +22,9 @@ function mapDispatchToProps (dispatch, props) {
   return {
     deleteCommuter: (opts) => dispatch(commuterActions.delete(opts)),
     deleteMainEntity: (opts) => dispatch(siteActions.delete(opts)),
+    deletePolygons: (opts) => dispatch(polygonActions.deleteMany(opts)),
     loadCommuters: (opts) => dispatch(commuterActions.loadMany(opts)),
+    loadPolygons: (opts) => dispatch(polygonActions.loadMany(opts)),
     loadSite: (opts) => dispatch(siteActions.loadOne(opts))
   }
 }

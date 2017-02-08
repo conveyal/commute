@@ -1,4 +1,5 @@
 /* globals describe, expect, it */
+import qs from 'qs'
 
 import {expectDeepEqual} from './common'
 
@@ -39,6 +40,7 @@ export function makeGenericModelActionsExpectations (cfg) {
 
   const addLocallyType = `add ${singularName}`
   const deleteLocallyType = `delete ${singularName}`
+  const deleteManyLocallyType = `delete many ${pluralName}`
   const setLocallyType = `set ${singularName}`
   const setAllLocallyType = `set ${pluralName}`
 
@@ -112,6 +114,31 @@ export function makeGenericModelActionsExpectations (cfg) {
       const deleteAction = nextFnResult[1]
       expect(deleteAction.type).toEqual(deleteLocallyType)
       expect(deleteAction.payload).toEqual(entity)
+    },
+    /**
+     * Expect a delete many action
+     *
+     * @param  {Object} expectationCfg  Configuration as follows:
+     * - action:  The action to test
+     * - entity:  The entities to delete
+     */
+    expectDeleteManyAction: (expectationCfg) => {
+      const {action, queryParams} = expectationCfg
+
+      // expect two actions
+      expect(action.length).toEqual(2)
+
+      // expect fetch action to be first action
+      expectFetchActionAndGetNextFn(action[0],
+        `${baseEndpoint}?${qs.stringify(queryParams)}`,
+        {
+          method: 'DELETE'
+        })
+
+      // expect second action to be delete many action
+      const deleteManyAction = action[1]
+      expect(deleteManyAction.type).toEqual(deleteManyLocallyType)
+      expect(deleteManyAction.payload).toMatchSnapshot()
     },
     /**
      * Expect a load all action
@@ -208,6 +235,20 @@ export function makeGenericModelActionsTests (cfg) {
   })
 
   describe('generic model actions', () => {
+    if (commands['Collection DELETE']) {
+      const testCfg = commands['Collection DELETE']
+
+      it('deleteMany should work', () => {
+        // expect action to exist
+        expect(actions['deleteMany']).toBeTruthy()
+
+        genericExpectations.expectDeleteManyAction({
+          action: actions.deleteMany(testCfg.args),
+          queryParams: testCfg.args
+        })
+      })
+    }
+
     if (commands['Collection GET']) {
       const testCfg = commands['Collection GET']
 

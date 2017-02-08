@@ -1,0 +1,10 @@
+exports[`client > reducers > polygon generic reducer tests should handle delete many polygons 1`] = `Object {}`;
+
+exports[`client > reducers > polygon generic reducer tests should handle set polygons 1`] = `
+Object {
+  "polygon-2": Object {
+    "_id": "polygon-2",
+    "siteId": "site-2",
+  },
+}
+`;
