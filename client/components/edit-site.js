@@ -25,7 +25,8 @@ export default class EditSite extends Component {
     create: PropTypes.func.isRequired,
     deletePolygons: PropTypes.func.isRequired,
     deleteSite: PropTypes.func.isRequired,
-    update: PropTypes.func.isRequired,
+    deleteSiteFromMultiSites: PropTypes.func.isRequired,
+    updateSite: PropTypes.func.isRequired,
 
     // props
     editMode: PropTypes.bool.isRequired,
@@ -55,7 +56,15 @@ export default class EditSite extends Component {
   }
 
   _handleSubmit = () => {
-    const {create, deletePolygons, editMode, site, update} = this.props
+    const {
+      create,
+      deletePolygons,
+      deleteSiteFromMultiSites,
+      editMode,
+      multiSites,
+      site,
+      updateSite
+    } = this.props
     const {model} = this.state
 
     // reset calculation status if new or if location of site changed
@@ -69,8 +78,9 @@ export default class EditSite extends Component {
     if (editMode) {
       if (model.calculationStatus === 'calculating') {
         deletePolygons({ siteId: this.state.model._id })
+        deleteSiteFromMultiSites({ multiSites, siteId: site._id })
       }
-      update(model)
+      updateSite(model)
     } else {
       create(model)
     }

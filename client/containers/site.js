@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
 
 import commuterActions from '../actions/commuter'
+import multiSiteActions from '../actions/multi-site'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
 import Site from '../components/site'
@@ -13,6 +14,7 @@ function mapStateToProps (state, props) {
   return {
     commuters: entityIdArrayToEntityArray(site.commuters, commuterStore),
     isMultiSite: false,
+    multiSites: Object.values(state.multiSite),
     polygonStore,
     site
   }
@@ -23,6 +25,7 @@ function mapDispatchToProps (dispatch, props) {
     deleteCommuter: (opts) => dispatch(commuterActions.delete(opts)),
     deleteMainEntity: (opts) => dispatch(siteActions.delete(opts)),
     deletePolygons: (opts) => dispatch(polygonActions.deleteMany(opts)),
+    deleteSiteFromMultiSites: (opts) => dispatch(multiSiteActions.deleteSiteFromMultiSites(opts)),
     loadCommuters: (opts) => dispatch(commuterActions.loadMany(opts)),
     loadPolygons: (opts) => dispatch(polygonActions.loadMany(opts)),
     loadSite: (opts) => dispatch(siteActions.loadOne(opts))

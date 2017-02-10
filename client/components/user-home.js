@@ -15,6 +15,7 @@ export default class UserHome extends Component {
     deleteMultiSite: PropTypes.func.isRequired,
     deletePolygons: PropTypes.func.isRequired,
     deleteSite: PropTypes.func.isRequired,
+    deleteSiteFromMultiSites: PropTypes.func.isRequired,
     loadMultiSites: PropTypes.func.isRequired,
     loadSites: PropTypes.func.isRequired,
 
@@ -34,9 +35,12 @@ export default class UserHome extends Component {
   }
 
   _onDeleteSiteClick (site) {
+    const {deletePolygons, deleteSite, deleteSiteFromMultiSites, multiSites} = this.props
     const doDelete = () => {
-      this.props.deleteSite(site)
-      this.props.deletePolygons({ siteId: site._id })
+      deleteSite(site)
+      deletePolygons({ siteId: site._id })
+      // remove site from multiSites
+      deleteSiteFromMultiSites({ multiSites, siteId: site._id })
     }
     actUponConfirmation(messages.site.deleteConfirmation, doDelete)
   }

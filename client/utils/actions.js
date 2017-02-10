@@ -80,17 +80,22 @@ export default function makeGenericModelActions (cfg) {
    *
    * @param  {Object} cfg Paremters as follows:
    *   - actions: The actions to append to
-   *   - endpointCfg: The endpoint config
+   *   - customRedirectionStrategy: a redirection strategy specific to this request
    *   - defaultStrategy: The default redire strategy to use (default: undefined)
+   *   - endpointCfg: The endpoint config
    *   - redirectArgs: Arguments to provide to the redirectionStrategy
    */
   const doRedirectIfNecessary = (cfg) => {
-    const redirectionStrategy = (cfg.endpointCfg.redirectionStrategy !== undefined
-      ? cfg.endpointCfg.redirectionStrategy
-      : cfg.defaultStrategy)
+    const redirectionStrategy = (cfg.customRedirectionStrategy !== undefined
+      ? cfg.customRedirectionStrategy
+      : (cfg.endpointCfg.redirectionStrategy !== undefined
+        ? cfg.endpointCfg.redirectionStrategy
+        : cfg.defaultStrategy))
 
     if (redirectionStrategy) {
-      const redirect = redirectionStrategies[redirectionStrategy](cfg.redirectArgs)
+      const redirect = redirectionStrategies[redirectionStrategy]
+        ? redirectionStrategies[redirectionStrategy](cfg.redirectArgs)
+        : undefined
       if (redirect) {
         cfg.actions.push(redirect)
       }
@@ -225,7 +230,7 @@ export default function makeGenericModelActions (cfg) {
 
   if (commands['PUT']) {
     const endpointCfg = commands['PUT']
-    actions.update = (entity) => fetchAction({
+    actions.update = (entity, customRedirectionStrategy) => fetchAction({
       next: (err, res) => {
         if (err) {
           return fetchErrorHandler(network.savingError, err, res)
@@ -236,6 +241,7 @@ export default function makeGenericModelActions (cfg) {
           ]
           doRedirectIfNecessary({
             actions,
+            customRedirectionStrategy,
             endpointCfg,
             defaultStrategy: 'toEntity',
             redirectArgs: updatedEntity

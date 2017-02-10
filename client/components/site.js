@@ -28,7 +28,8 @@ export default class Site extends Component {
     // dispatch
     deleteCommuter: PropTypes.func,
     deleteMainEntity: PropTypes.func.isRequired,
-    deletePolygons: PropTypes.func.isRequired,
+    deletePolygons: PropTypes.func,
+    deleteSiteFromMultiSites: PropTypes.func,
     loadCommuters: PropTypes.func.isRequired,
     loadPolygons: PropTypes.func,
     loadSite: PropTypes.func
@@ -79,11 +80,20 @@ export default class Site extends Component {
   }
 
   _handleDelete = () => {
-    const {deleteMainEntity, deletePolygons, isMultiSite, multiSite, site} = this.props
+    const {
+      deleteMainEntity,
+      deletePolygons,
+      deleteSiteFromMultiSites,
+      isMultiSite,
+      multiSite,
+      multiSites,
+      site
+    } = this.props
     const doDelete = () => {
       deleteMainEntity(isMultiSite ? multiSite : site)
       if (!isMultiSite) {
         deletePolygons({ siteId: site._id })
+        deleteSiteFromMultiSites({ multiSites, siteId: site._id })
       }
     }
     const messageType = isMultiSite ? 'multiSite' : 'site'

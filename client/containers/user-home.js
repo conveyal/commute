@@ -15,6 +15,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch, props) {
   return {
     deleteMultiSite: (opts) => dispatch(multiSiteActions.delete(opts)),
+    deleteSiteFromMultiSites: (opts) => dispatch(multiSiteActions.deleteSiteFromMultiSites(opts)),
     deletePolygons: (opts) => dispatch(polygonActions.deleteMany(opts)),
     deleteSite: (opts) => dispatch(siteActions.delete(opts)),
     loadMultiSites: () => dispatch(multiSiteActions.loadMany()),
