@@ -1,5 +1,7 @@
 import hslToHex from 'colorvert/hsl/hex'
 import {toCoordinates, toLeaflet} from '@conveyal/lonlat'
+import humanizeDuration from 'humanize-duration'
+import {geom, io, precision, simplify} from 'jsts'
 import {Browser, icon, latLngBounds} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
 import {Button, ButtonGroup, Col, Grid, ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
@@ -13,6 +15,9 @@ import FieldGroup from './fieldgroup'
 import messages from '../utils/messages'
 import {arrayCountRenderer} from '../utils/table'
 import {actUponConfirmation} from '../utils/ui'
+
+const geoJsonReader = new io.GeoJSONReader()
+const geoJsonWriter = new io.GeoJSONWriter()
 
 export default class Site extends Component {
   static propTypes = {
@@ -39,7 +44,7 @@ export default class Site extends Component {
     this.state = {
       activeTab: this.props.isMultiSite ? 'sites' : 'commuters',
       analysisMode: 'TRANSIT',
-      isochroneColoring: 'multi-color'
+      analysisMapStyle: 'blue-incremental'
     }
     this._loadDataIfNeeded(this.props)
   }
@@ -75,8 +80,8 @@ export default class Site extends Component {
     </ButtonGroup>
   }
 
-  _handleAnalysisModeChange = (name, event) => {
-    this.setState({ analysisMode: event.target.value })
+  _handleStateChange = (name, event) => {
+    this.setState({ [name]: event.target.value })
   }
 
   _handleDelete = () => {
@@ -189,12 +194,14 @@ export default class Site extends Component {
     /***************************************************************
      determine if polygons should be loaded
     ***************************************************************/
+    const atLeastOnePolygonExistsInStore = Object.values(polygonStore)
+      .some((isochrone) => isochrone.siteId === site._id)
+
     if (site &&
-      site.calculationStatus === 'successfully') {
+      site.calculationStatus === 'successfully' &&
+      !atLeastOnePolygonExistsInStore) {
       // if 0 polygons exist for site, assume they need to be fetched
-      if (!Object.values(polygonStore).some((isochrone) => isochrone.siteId === site._id)) {
-        loadPolygons({ siteId: site._id })
-      }
+      loadPolygons({ siteId: site._id })
     }
   }
 
@@ -264,7 +271,7 @@ export default class Site extends Component {
 
   render () {
     const {commuters, isMultiSite, polygonStore, multiSite, site, sites} = this.props
-    const {activeTab, analysisMode, isochroneColoring} = this.state
+    const {activeTab, analysisMapStyle, analysisMode} = this.state
 
     /************************************************************************
      map stuff
@@ -275,20 +282,16 @@ export default class Site extends Component {
       activeTab === 'analysis' &&
       site.calculationStatus === 'successfully') {
       // travel times calculated successfully
-      const curIsochrones = Object.values(polygonStore).filter((polygon) =>
-        polygon.mode === analysisMode && polygon.siteId === site._id
-      )
+      const curIsochrones = getIsochrones({ analysisMapStyle, analysisMode, polygonStore, site })
       curIsochrones.forEach((isochrone) => {
         const geojsonProps = {
           data: Object.assign(isochrone, { type: 'Feature' }),
-          key: `isochrone-${analysisMode}-${isochrone.properties.time}`,
-          onEachFeature,
-          stroke: false,
-          fillOpacity: 0.4
+          key: `isochrone-${analysisMapStyle}-${analysisMode}-${isochrone.properties.time}`,
+          onEachFeature
         }
 
-        if (isochroneColoring) {
-          geojsonProps.style = styleIsochrone
+        if (isochroneStyleStrategies[analysisMapStyle]) {
+          Object.assign(geojsonProps, isochroneStyleStrategies[analysisMapStyle])
         }
 
         isochrones.push(
@@ -301,10 +304,10 @@ export default class Site extends Component {
      commuter tab stuff
     ************************************************************************/
     const hasCommuters = commuters.length > 0
-    const pctGeocoded = Math.round(100 * commuters.reduce((accumulator, commuter) => {
+    const pctGeocoded = formatPercent(commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
     }, 0) / commuters.length)
-    const pctStatsCalculated = Math.round(100 * commuters.reduce((accumulator, commuter) => {
+    const pctStatsCalculated = formatPercent(commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.modeStats ? 1 : 0)
     }, 0) / commuters.length)
     const allCommutersGeocoded = pctGeocoded === 100
@@ -362,7 +365,8 @@ export default class Site extends Component {
             : (range === 'calculating...' ? range : 'N/A')
           ),
           num,
-          cumulative: cumulative + 0
+          cumulative,
+          cumulativePct: cumulative / commuters.length
         }
       })
 
@@ -469,6 +473,9 @@ export default class Site extends Component {
         ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulative = (
           ridematchingBins[ridematchingBinsArray[curBinIdx - 1]].cumulative
         )
+        ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulativePct = (
+          ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulative / commuters.length
+        )
       }
 
       // calculate num commuters without ridematch options
@@ -476,6 +483,7 @@ export default class Site extends Component {
         commuters.length - ridematchingBins[ridematchingBinsArray[ridematchingBinsArray.length - 2]].cumulative
       )
       ridematchingBins['N/A'].cumulative = commuters.length
+      ridematchingBins['N/A'].cumulativePct = 1
 
       ridematchingAggregateTable = ridematchingBinsArray.map((bin) => (
         Object.assign({ bin }, ridematchingBins[bin])
@@ -635,9 +643,20 @@ export default class Site extends Component {
                   Analysis Tab
                 ***************************/}
                 <FieldGroup
+                  label='Map Style'
+                  name='analysisMapStyle'
+                  onChange={this._handleStateChange}
+                  componentClass='select'
+                  value={analysisMapStyle}
+                  >
+                  <option value='blue-incremental'>Blueish Isochrone</option>
+                  <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone</option>
+                  <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
+                </FieldGroup>
+                <FieldGroup
                   label='Mode'
-                  name='mode'
-                  onChange={this._handleAnalysisModeChange}
+                  name='analysisMode'
+                  onChange={this._handleStateChange}
                   componentClass='select'
                   value={analysisMode}
                   >
@@ -650,6 +669,12 @@ export default class Site extends Component {
                   <TableHeaderColumn dataField='bin' isKey>Time in Minutes</TableHeaderColumn>
                   <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
                   <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
+                  <TableHeaderColumn
+                    dataField='cumulativePct'
+                    dataFormat={formatPercent}
+                    >
+                    Cumulative Percent
+                  </TableHeaderColumn>
                 </BootstrapTable>
               </Tab>
               <Tab eventKey='ridematches' title='Ridematches'>
@@ -669,6 +694,12 @@ export default class Site extends Component {
                       <TableHeaderColumn dataField='bin' isKey>Ridematch radius in miles</TableHeaderColumn>
                       <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
                       <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
+                      <TableHeaderColumn
+                        dataField='cumulativePct'
+                        dataFormat={formatPercent}
+                        >
+                        Cumulative Percent
+                      </TableHeaderColumn>
                     </BootstrapTable>
                   </div>
                 }
@@ -679,6 +710,10 @@ export default class Site extends Component {
       </Grid>
     )
   }
+}
+
+function formatPercent (n) {
+  return Math.round(n * 100)
 }
 
 function geocodeConfidenceRenderer (cell, row) {
@@ -692,19 +727,125 @@ function geocodeConfidenceRenderer (cell, row) {
   }
 }
 
+function getIsochrones ({ analysisMapStyle, analysisMode, polygonStore, site }) {
+  let isochroneTime = '5minute'
+  if (getIsochroneStrategies[analysisMapStyle] === '15-minute isochrones') {
+    isochroneTime = '15mintue'
+  }
+  const cacheQuery = `${site.coordinate.lat}-${site.coordinate.lng}-${analysisMode}-${isochroneTime}`
+  if (getIsochroneCache[cacheQuery]) {
+    return getIsochroneCache[cacheQuery]
+  }
+
+  const allPolygons = Object.values(polygonStore)
+
+  // single extent isochrone
+  if (getIsochroneStrategies[analysisMapStyle] === 'single isochrone') {
+    // diff isochrones to get 5 minute isochrones
+    for (let i = 0; i < allPolygons.length; i++) {
+      const curPolygon = allPolygons[i]
+      if (curPolygon.mode === analysisMode &&
+        curPolygon.siteId === site._id &&
+        curPolygon.properties.time === isochroneTime) {
+        getIsochroneCache[cacheQuery] = [curPolygon]
+        return curPolygon
+      }
+    }
+    // no match found
+    return []
+  }
+
+  const sitePolygons = allPolygons
+    .filter((polygon) => polygon.mode === analysisMode && polygon.siteId === site._id)
+    .sort((a, b) => a.properties.time - b.properties.time)
+
+  let timeGap = 900
+  if (getIsochroneStrategies[analysisMapStyle] === '5-minute isochrones') {
+    timeGap = 300
+  }
+
+  // diff isochrones to get desired isochrones
+  const isochrones = []
+  let traversedIsochrone
+  sitePolygons
+    .filter((polygon) => polygon.properties.time % timeGap === 0)
+    .forEach((polygon) => {
+      const curFeatureGeometry = reduceAndSimplifyGeometry(polygon.geometry)
+      let isochroneGeometry
+
+      if (!traversedIsochrone) {
+        isochroneGeometry = curFeatureGeometry
+      } else {
+        const tempGeoJson = geoJsonWriter.write(traversedIsochrone)
+        isochroneGeometry = curFeatureGeometry.difference(traversedIsochrone)
+      }
+
+      isochrones.push({
+        geometry: geoJsonWriter.write(isochroneGeometry),
+        properties: polygon.properties,
+        type: 'Feature'
+      })
+      traversedIsochrone = curFeatureGeometry
+    })
+
+  getIsochroneCache[cacheQuery] = isochrones
+  return isochrones
+}
+
+const getIsochroneCache = {}
+const getIsochroneStrategies = {
+  'blue-incremental': '5-minute isochrones',
+  'blue-incremental-15-minute': '15-minute isochrones',
+  'green-red-diverging': '5-minute isochrones'
+}
+
 const homeIcon = icon({
   iconUrl: `${process.env.STATIC_HOST}assets/home-2.png`,
   iconSize: [32, 37],
   iconAnchor: [22, 37]
 })
 
+const isochroneStyleStrategies = {
+  'blue-incremental': {
+    fillOpacity: 0.4,
+    stroke: false,
+    style: (feature) => {
+      return {
+        fillColor: hslToHex(240, 100, feature.properties.time * 0.00942 + 27.1739)
+      }
+    }
+  },
+  'blue-incremental-15-minute': {
+    color: '#000000',
+    fillOpacity: 0.4,
+    stroke: true,
+    style: (feature) => {
+      const {time} = feature.properties
+      return {
+        fillColor: hslToHex(240, 100, Math.floor(time / 900) * 8.125 + 30)
+      }
+    },
+    weight: 1
+  },
+  'green-red-diverging': {
+    fillOpacity: 0.4,
+    stroke: false,
+    style: (feature) => {
+      return {
+        fillColor: hslToHex(feature.properties.time * -0.017391304347826 + 125.217391304348, 100, 50)
+      }
+    }
+  }
+}
+
 function onEachFeature (feature, layer) {
   if (feature.properties) {
     let pop = '<p>'
     Object.keys(feature.properties).forEach((name) => {
+      const val = feature.properties[name]
       pop += name.toUpperCase()
       pop += ': '
-      pop += feature.properties[name]
+      pop += name.toUpperCase() === 'TIME' ? humanizeDuration(val * 1000) : val
       pop += '<br />'
     })
     pop += '</p>'
@@ -712,8 +853,9 @@ function onEachFeature (feature, layer) {
   }
 }
 
-function styleIsochrone (feature) {
-  return {
-    fillColor: hslToHex(feature.properties.time * -0.017391304347826 + 125.217391304348, 100, 50)
-  }
+function reduceAndSimplifyGeometry (inputGeomerty) {
+  const geometry = geoJsonReader.read(JSON.stringify(inputGeomerty))
+  const precisionModel = new geom.PrecisionModel(10000)
+  const precisionReducer = new precision.GeometryPrecisionReducer(precisionModel)
+  return precisionReducer.reduce(simplify.DouglasPeuckerSimplifier.simplify(geometry, 0.001))
 }
