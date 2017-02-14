@@ -13,6 +13,7 @@ import distance from '@turf/distance'
 import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
 import FieldGroup from './fieldgroup'
+import Legend from './legend'
 import messages from '../utils/messages'
 import {arrayCountRenderer} from '../utils/table'
 import {actUponConfirmation} from '../utils/ui'
@@ -278,11 +279,27 @@ export default class Site extends Component {
   render () {
     const {commuters, isMultiSite, polygonStore, multiSite, site, sites} = this.props
     const {activeTab, analysisMapStyle, analysisMode, isochroneCutoff} = this.state
+    const hasCommuters = commuters.length > 0
 
     /************************************************************************
      map stuff
     ************************************************************************/
+    const mapLegendProps = {
+      html: '<h4>Legend</h4><table><tbody>',
+      position: 'bottomright'
+    }
+
+    // add marker to legend
+    const siteIconUrl = 'https://unpkg.com/leaflet@1.0.2/dist/images/marker-icon-2x.png'
+    mapLegendProps.html += `<tr><td><img src="${siteIconUrl}" style="width: 25px;"/></td><td>Site</td></tr>`
+
     const {bounds, markers, position, zoom} = this._mapSitesAndCommuters()
+
+    if (hasCommuters) {
+      mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
+    }
+
+    // isochrones
     const isochrones = []
     if (!isMultiSite &&
       activeTab === 'analysis' &&
@@ -312,12 +329,13 @@ export default class Site extends Component {
             <GeoJSON {...geojsonProps} />
           )
         })
+
+      mapLegendProps.html += getIsochroneLegendHtml({ analysisMapStyle, isochroneCutoff })
     }
 
     /************************************************************************
      commuter tab stuff
     ************************************************************************/
-    const hasCommuters = commuters.length > 0
     const pctGeocoded = formatPercent(commuters.reduce((accumulator, commuter) => {
       return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
     }, 0) / commuters.length)
@@ -507,6 +525,8 @@ export default class Site extends Component {
       ))
     }
 
+    mapLegendProps.html += '</tbody></table>'
+
     return (
       <Grid>
         <Row>
@@ -539,7 +559,7 @@ export default class Site extends Component {
           {/***************************
             Map
           ***************************/}
-          <Col xs={12} style={{height: '400px', marginTop: '1em', marginBottom: '1em'}}>
+          <Col xs={12} style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
             <LeafletMap center={position} bounds={bounds} zoom={zoom}>
               <TileLayer
                 url={Browser.retina &&
@@ -550,6 +570,7 @@ export default class Site extends Component {
                 />
               {markers}
               {isochrones}
+              <Legend {...mapLegendProps} />
             </LeafletMap>
           </Col>
           {/***************************
@@ -767,6 +788,13 @@ CustomHandle.propTypes = {
   value: PropTypes.any
 }
 
+const fillColor = {
+  'blue-incremental': (time) => hslToHex(240, 100, time * 0.00942 + 27.1739),
+  'blue-incremental-15-minute': (time) => hslToHex(240, 100, Math.floor(time / 900) * 8.125 + 30),
+  'blue-solid': '#000099',
+  'green-red-diverging': (time) => hslToHex(time * -0.017391304347826 + 125.217391304348, 100, 50)
+}
+
 function formatPercent (n) {
   return Math.round(n * 100)
 }
@@ -781,6 +809,30 @@ function geocodeConfidenceRenderer (cell, row) {
     return 'Not exact'
   }
 }
+
+function getIsochroneLegendHtml ({ analysisMapStyle, isochroneCutoff }) {
+  let html = '<tr><td colspan="2">Travel Time</td></tr>'
+  const strategy = getIsochroneStrategies[analysisMapStyle]
+
+  if (strategy === 'single isochrone') {
+    html += `<tr>
+      <td style="background-color: ${fillColor[analysisMapStyle]}; opacity: 0.4;"></td>
+      <td>0 - ${shortEnglishHumanizer(isochroneCutoff * 1000)}</td>
+    </tr>`
+  } else {
+    const timeGap = 900
+
+    for (let curTime = timeGap; curTime <= 7200; curTime += timeGap) {
+      html += `<tr>
+        <td style="background-color: ${fillColor[analysisMapStyle](curTime)}; opacity: 0.4;"></td>
+        <td>${shortEnglishHumanizer((curTime - timeGap) * 1000)} - ${shortEnglishHumanizer(curTime * 1000)}</td>
+      </tr>`
+    }
+  }
+  return html
+}
+
+const getIsochroneCache = {}
 
 function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polygonStore, site }) {
   const strategy = getIsochroneStrategies[analysisMapStyle]
@@ -848,7 +900,6 @@ function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polyg
   return isochrones
 }
 
-const getIsochroneCache = {}
 const getIsochroneStrategies = {
   'blue-incremental': '5-minute isochrones',
   'blue-incremental-15-minute': '15-minute isochrones',
@@ -868,8 +919,9 @@ const handleStyle = {
   textAlign: 'center'
 }
 
+const homeIconUrl = `${process.env.STATIC_HOST}assets/home-2.png`
 const homeIcon = icon({
-  iconUrl: `${process.env.STATIC_HOST}assets/home-2.png`,
+  iconUrl: homeIconUrl,
   iconSize: [32, 37],
   iconAnchor: [22, 37]
 })
@@ -880,7 +932,7 @@ const isochroneStyleStrategies = {
     stroke: false,
     style: (feature) => {
       return {
-        fillColor: hslToHex(240, 100, feature.properties.time * 0.00942 + 27.1739)
+        fillColor: fillColor['blue-incremental'](feature.properties.time)
       }
     }
   },
@@ -889,16 +941,15 @@ const isochroneStyleStrategies = {
     fillOpacity: 0.4,
     stroke: true,
     style: (feature) => {
-      const {time} = feature.properties
       return {
-        fillColor: hslToHex(240, 100, Math.floor(time / 900) * 8.125 + 30)
+        fillColor: fillColor['blue-incremental'](feature.properties.time)
       }
     },
     weight: 1
   },
   'blue-solid': {
     color: '#000000',
-    fillColor: '#000099',
+    fillColor: fillColor['blue-solid'],
     fillOpacity: 0.4,
     stroke: true,
     weight: 1
@@ -908,7 +959,7 @@ const isochroneStyleStrategies = {
     stroke: false,
     style: (feature) => {
       return {
-        fillColor: hslToHex(feature.properties.time * -0.017391304347826 + 125.217391304348, 100, 50)
+        fillColor: fillColor['green-red-diverging'](feature.properties.time)
       }
     }
   }
@@ -935,3 +986,20 @@ function reduceAndSimplifyGeometry (inputGeomerty) {
   const precisionReducer = new precision.GeometryPrecisionReducer(precisionModel)
   return precisionReducer.reduce(simplify.DouglasPeuckerSimplifier.simplify(geometry, 0.001))
 }
+
+const shortEnglishHumanizer = humanizeDuration.humanizer({
+  language: 'shortEn',
+  languages: {
+    shortEn: {
+      y: () => 'y',
+      mo: () => 'mo',
+      w: () => 'w',
+      d: () => 'd',
+      h: () => 'h',
+      m: () => 'm',
+      s: () => 's',
+      ms: () => 'ms'
+    }
+  },
+  spacer: ''
+})
