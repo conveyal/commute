@@ -54,6 +54,11 @@ if (process.env.STATIC_HOST) {
 }
 
 // webapp
-app.get('*', (req, res) => res.status(200).type('html').send(htmlString))
+app.get('*', (req, res) => {
+  if (['/', '/login'].indexOf(req.originalUrl) === -1) {
+    return res.redirect('/')
+  }
+  res.status(200).type('html').send(htmlString)
+})
 
 module.exports = app
