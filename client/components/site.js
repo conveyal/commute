@@ -715,6 +715,7 @@ export default class Site extends Component {
                   <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone</option>
                   <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
                   <option value='blue-solid'>Single Color Isochrone</option>
+                  <option value='inverted'>Inverted Isochrone</option>
                 </FieldGroup>
                 <FieldGroup
                   label='Mode'
@@ -792,7 +793,8 @@ const fillColor = {
   'blue-incremental': (time) => hslToHex(240, 100, time * 0.00942 + 27.1739),
   'blue-incremental-15-minute': (time) => hslToHex(240, 100, Math.floor(time / 900) * 8.125 + 30),
   'blue-solid': '#000099',
-  'green-red-diverging': (time) => hslToHex(time * -0.017391304347826 + 125.217391304348, 100, 50)
+  'green-red-diverging': (time) => hslToHex(time * -0.017391304347826 + 125.217391304348, 100, 50),
+  'inverted': '#000099'
 }
 
 function formatPercent (n) {
@@ -816,7 +818,18 @@ function getIsochroneLegendHtml ({ analysisMapStyle, isochroneCutoff }) {
 
   if (strategy === 'single isochrone') {
     html += `<tr>
-      <td style="background-color: ${fillColor[analysisMapStyle]}; opacity: 0.4;"></td>
+      <td>
+        <div style="border: 1px solid black;">
+          <div style="background-color: ${fillColor[analysisMapStyle]}; opacity: 0.4;">
+            &nbsp;
+          </div>
+        </div>
+      </td>
+      <td>0 - ${shortEnglishHumanizer(isochroneCutoff * 1000)}</td>
+    </tr>`
+  } else if (strategy === 'inverted isochrone') {
+    html += `<tr>
+      <td><div style="border: 3px solid #3388FF;">&nbsp;</div></td>
       <td>0 - ${shortEnglishHumanizer(isochroneCutoff * 1000)}</td>
     </tr>`
   } else {
@@ -840,7 +853,7 @@ function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polyg
     site.coordinate.lat,
     site.coordinate.lng,
     analysisMode,
-    strategy === 'single isochrone' ? `single-${isochroneCutoff}` : strategy
+    strategy === strategy.indexOf('minute') > -1 ? strategy : `${strategy}-${isochroneCutoff}`
   ].join('-')
   if (getIsochroneCache[cacheQuery]) {
     return getIsochroneCache[cacheQuery]
@@ -849,15 +862,38 @@ function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polyg
   const allPolygons = Object.values(polygonStore)
 
   // single extent isochrone
-  if (strategy === 'single isochrone') {
+  if (strategy.indexOf('minute') === -1) {
     // diff isochrones to get 5 minute isochrones
     for (let i = 0; i < allPolygons.length; i++) {
       const curPolygon = allPolygons[i]
       if (curPolygon.mode === analysisMode &&
         curPolygon.siteId === site._id &&
         curPolygon.properties.time === isochroneCutoff) {
-        getIsochroneCache[cacheQuery] = [curPolygon]
-        return [curPolygon]
+        if (strategy === 'single isochrone') {
+          getIsochroneCache[cacheQuery] = [curPolygon]
+          return [curPolygon]
+        } else if (strategy === 'inverted isochrone') {
+          // diff against massive polygon
+          const hugePolygon = {
+            coordinates: [[
+              [-179.9999, -89.9999],
+              [-179.9999, 89.9999],
+              [179.9999, 89.9999],
+              [179.9999, -89.9999],
+              [-179.9999, -89.9999]
+            ]],
+            type: 'Polygon'
+          }
+          const hugePolygonGeometry = geoJsonReader.read(JSON.stringify(hugePolygon))
+          const invertedGeom = hugePolygonGeometry.difference(reduceAndSimplifyGeometry(curPolygon.geometry))
+          const invertedIsochrone = {
+            geometry: geoJsonWriter.write(invertedGeom),
+            properties: curPolygon.properties,
+            type: 'Feature'
+          }
+          getIsochroneCache[cacheQuery] = [invertedIsochrone]
+          return [invertedIsochrone]
+        }
       }
     }
     // no match found
@@ -904,7 +940,8 @@ const getIsochroneStrategies = {
   'blue-incremental': '5-minute isochrones',
   'blue-incremental-15-minute': '15-minute isochrones',
   'blue-solid': 'single isochrone',
-  'green-red-diverging': '5-minute isochrones'
+  'green-red-diverging': '5-minute isochrones',
+  'inverted': 'inverted isochrone'
 }
 
 const handleStyle = {
