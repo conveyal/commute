@@ -4,9 +4,10 @@ import humanizeDuration from 'humanize-duration'
 import {geom, io, precision, simplify} from 'jsts'
 import {Browser, icon, latLngBounds} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
-import {Button, ButtonGroup, Col, Grid, ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Panel, ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
+import Slider from 'rc-slider'
 import distance from '@turf/distance'
 
 import BackButton from '../containers/back-button'
@@ -44,7 +45,8 @@ export default class Site extends Component {
     this.state = {
       activeTab: this.props.isMultiSite ? 'sites' : 'commuters',
       analysisMode: 'TRANSIT',
-      analysisMapStyle: 'blue-incremental'
+      analysisMapStyle: 'blue-incremental',
+      isochroneCutoff: 7200
     }
     this._loadDataIfNeeded(this.props)
   }
@@ -78,6 +80,10 @@ export default class Site extends Component {
       </ButtonLink>
       <Button bsStyle='danger' onClick={this._onDeleteCommuterClick.bind(this, row)}>Delete</Button>
     </ButtonGroup>
+  }
+
+  _handleAnalysisTimeChange = (value) => {
+    this.setState({ isochroneCutoff: value })
   }
 
   _handleStateChange = (name, event) => {
@@ -271,7 +277,7 @@ export default class Site extends Component {
 
   render () {
     const {commuters, isMultiSite, polygonStore, multiSite, site, sites} = this.props
-    const {activeTab, analysisMapStyle, analysisMode} = this.state
+    const {activeTab, analysisMapStyle, analysisMode, isochroneCutoff} = this.state
 
     /************************************************************************
      map stuff
@@ -282,22 +288,30 @@ export default class Site extends Component {
       activeTab === 'analysis' &&
       site.calculationStatus === 'successfully') {
       // travel times calculated successfully
-      const curIsochrones = getIsochrones({ analysisMapStyle, analysisMode, polygonStore, site })
-      curIsochrones.forEach((isochrone) => {
-        const geojsonProps = {
-          data: Object.assign(isochrone, { type: 'Feature' }),
-          key: `isochrone-${analysisMapStyle}-${analysisMode}-${isochrone.properties.time}`,
-          onEachFeature
-        }
-
-        if (isochroneStyleStrategies[analysisMapStyle]) {
-          Object.assign(geojsonProps, isochroneStyleStrategies[analysisMapStyle])
-        }
-
-        isochrones.push(
-          <GeoJSON {...geojsonProps} />
-        )
+      const curIsochrones = getIsochrones({
+        analysisMapStyle,
+        analysisMode,
+        isochroneCutoff,
+        polygonStore,
+        site
       })
+      curIsochrones
+        .filter((isochrone) => isochrone.properties.time <= isochroneCutoff)
+        .forEach((isochrone) => {
+          const geojsonProps = {
+            data: Object.assign(isochrone, { type: 'Feature' }),
+            key: `isochrone-${analysisMapStyle}-${analysisMode}-${isochrone.properties.time}`,
+            onEachFeature
+          }
+
+          if (isochroneStyleStrategies[analysisMapStyle]) {
+            Object.assign(geojsonProps, isochroneStyleStrategies[analysisMapStyle])
+          }
+
+          isochrones.push(
+            <GeoJSON {...geojsonProps} />
+          )
+        })
     }
 
     /************************************************************************
@@ -335,6 +349,9 @@ export default class Site extends Component {
      analysis tab stuff
     ************************************************************************/
     const analysisModeStatsLookup = {}
+    const analysisSliderStepAndMin = (
+      getIsochroneStrategies[analysisMapStyle] === '15-minute isochrones'
+    ) ? 900 : 300
     commuters.forEach((commuter) => {
       let travelTime
       if (commuter.modeStats) {
@@ -642,6 +659,30 @@ export default class Site extends Component {
                 {/***************************
                   Analysis Tab
                 ***************************/}
+                <Panel>
+                  <p><b>Maximum Travel Time</b></p>
+                  <Slider
+                    defaultValue={7200}
+                    handle={
+                      <CustomHandle
+                        formatter={
+                          // convert minutes to milliseconds
+                          (v) => humanizeDuration(v * 1000, { round: true })
+                        }
+                        />
+                    }
+                    marks={{
+                      1800: '30 min',
+                      3600: '1 hr',
+                      5400: '1 hr 30 min',
+                      7200: '2 hr'
+                    }}
+                    max={7200}
+                    min={analysisSliderStepAndMin}
+                    onChange={this._handleAnalysisTimeChange}
+                    step={analysisSliderStepAndMin}
+                    />
+                </Panel>
                 <FieldGroup
                   label='Map Style'
                   name='analysisMapStyle'
@@ -652,6 +693,7 @@ export default class Site extends Component {
                   <option value='blue-incremental'>Blueish Isochrone</option>
                   <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone</option>
                   <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
+                  <option value='blue-solid'>Single Color Isochrone</option>
                 </FieldGroup>
                 <FieldGroup
                   label='Mode'
@@ -712,6 +754,19 @@ export default class Site extends Component {
   }
 }
 
+function CustomHandle (props) {
+  const style = Object.assign({ left: `${props.offset}%` }, handleStyle)
+  return (
+    <div style={style}>{props.formatter(props.value)}</div>
+  )
+}
+
+CustomHandle.propTypes = {
+  formatter: PropTypes.func.isRequired,
+  offset: PropTypes.number,
+  value: PropTypes.any
+}
+
 function formatPercent (n) {
   return Math.round(n * 100)
 }
@@ -727,12 +782,14 @@ function geocodeConfidenceRenderer (cell, row) {
   }
 }
 
-function getIsochrones ({ analysisMapStyle, analysisMode, polygonStore, site }) {
-  let isochroneTime = '5minute'
-  if (getIsochroneStrategies[analysisMapStyle] === '15-minute isochrones') {
-    isochroneTime = '15mintue'
-  }
-  const cacheQuery = `${site.coordinate.lat}-${site.coordinate.lng}-${analysisMode}-${isochroneTime}`
+function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polygonStore, site }) {
+  const strategy = getIsochroneStrategies[analysisMapStyle]
+  const cacheQuery = [
+    site.coordinate.lat,
+    site.coordinate.lng,
+    analysisMode,
+    strategy === 'single isochrone' ? `single-${isochroneCutoff}` : strategy
+  ].join('-')
   if (getIsochroneCache[cacheQuery]) {
     return getIsochroneCache[cacheQuery]
   }
@@ -740,15 +797,15 @@ function getIsochrones ({ analysisMapStyle, analysisMode, polygonStore, site }) 
   const allPolygons = Object.values(polygonStore)
 
   // single extent isochrone
-  if (getIsochroneStrategies[analysisMapStyle] === 'single isochrone') {
+  if (strategy === 'single isochrone') {
     // diff isochrones to get 5 minute isochrones
     for (let i = 0; i < allPolygons.length; i++) {
       const curPolygon = allPolygons[i]
       if (curPolygon.mode === analysisMode &&
         curPolygon.siteId === site._id &&
-        curPolygon.properties.time === isochroneTime) {
+        curPolygon.properties.time === isochroneCutoff) {
         getIsochroneCache[cacheQuery] = [curPolygon]
-        return curPolygon
+        return [curPolygon]
       }
     }
     // no match found
@@ -760,7 +817,7 @@ function getIsochrones ({ analysisMapStyle, analysisMode, polygonStore, site }) 
     .sort((a, b) => a.properties.time - b.properties.time)
 
   let timeGap = 900
-  if (getIsochroneStrategies[analysisMapStyle] === '5-minute isochrones') {
+  if (strategy === '5-minute isochrones') {
     timeGap = 300
   }
 
@@ -776,7 +833,6 @@ function getIsochrones ({ analysisMapStyle, analysisMode, polygonStore, site }) 
       if (!traversedIsochrone) {
         isochroneGeometry = curFeatureGeometry
       } else {
-        const tempGeoJson = geoJsonWriter.write(traversedIsochrone)
         isochroneGeometry = curFeatureGeometry.difference(traversedIsochrone)
       }
 
@@ -796,7 +852,20 @@ const getIsochroneCache = {}
 const getIsochroneStrategies = {
   'blue-incremental': '5-minute isochrones',
   'blue-incremental-15-minute': '15-minute isochrones',
+  'blue-solid': 'single isochrone',
   'green-red-diverging': '5-minute isochrones'
+}
+
+const handleStyle = {
+  position: 'absolute',
+  transform: 'translate(-50%, -50%)',
+  cursor: 'pointer',
+  padding: '2px',
+  border: '2px solid #abe2fb',
+  borderRadius: '3px',
+  background: '#fff',
+  fontSize: '14px',
+  textAlign: 'center'
 }
 
 const homeIcon = icon({
@@ -825,6 +894,13 @@ const isochroneStyleStrategies = {
         fillColor: hslToHex(240, 100, Math.floor(time / 900) * 8.125 + 30)
       }
     },
+    weight: 1
+  },
+  'blue-solid': {
+    color: '#000000',
+    fillColor: '#000099',
+    fillOpacity: 0.4,
+    stroke: true,
     weight: 1
   },
   'green-red-diverging': {
