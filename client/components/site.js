@@ -7,6 +7,7 @@ import React, {Component, PropTypes} from 'react'
 import {Button, ButtonGroup, Col, Grid, Panel, ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
+import Heatmap from 'react-leaflet-heatmap-layer'
 import Slider from 'rc-slider'
 import distance from '@turf/distance'
 
@@ -322,6 +323,18 @@ export default class Site extends Component {
             markerOptions: marker.props
           })
         })
+      } else if (rideMatchMapStyle === 'heatmap') {
+        mapLegendProps.html += `<tr>
+          <td
+            rowspan="2"
+            style="background-image: url(${process.env.STATIC_HOST}assets/heatmap-gradient.png);
+              background-size: contain;"
+            />
+          <td>Less Commuters</td>
+        </tr>
+        <tr>
+          <td>More Commuters</td>
+        </tr>`
       } else {
         mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
       }
@@ -597,10 +610,20 @@ export default class Site extends Component {
                 attribution={process.env.LEAFLET_ATTRIBUTION}
                 />
               {siteMarkers}
-              {rideMatchMapStyle === 'normal' && commuterMarkers}
-              {rideMatchMapStyle === 'marker-clusters' &&
+              {activeTab !== 'ridematches' && commuterMarkers}
+              {activeTab === 'ridematches' && rideMatchMapStyle === 'normal' &&
+                commuterMarkers}
+              {activeTab === 'ridematches' && rideMatchMapStyle === 'marker-clusters' &&
                 <MarkerCluster
                   newMarkerData={clusterMarkers}
+                  />
+              }
+              {activeTab === 'ridematches' && rideMatchMapStyle === 'heatmap' &&
+                <Heatmap
+                  intensityExtractor={m => 1000}
+                  latitudeExtractor={m => m.props.position.lat}
+                  longitudeExtractor={m => m.props.position.lng}
+                  points={commuterMarkers}
                   />
               }
               {isochrones}
