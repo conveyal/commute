@@ -14,6 +14,7 @@ import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
 import FieldGroup from './fieldgroup'
 import Legend from './legend'
+import MarkerCluster from './marker-cluster'
 import messages from '../utils/messages'
 import {arrayCountRenderer} from '../utils/table'
 import {actUponConfirmation} from '../utils/ui'
@@ -47,7 +48,8 @@ export default class Site extends Component {
       activeTab: this.props.isMultiSite ? 'sites' : 'commuters',
       analysisMode: 'TRANSIT',
       analysisMapStyle: 'blue-incremental',
-      isochroneCutoff: 7200
+      isochroneCutoff: 7200,
+      rideMatchMapStyle: 'normal'
     }
     this._loadDataIfNeeded(this.props)
   }
@@ -214,7 +216,8 @@ export default class Site extends Component {
 
   _mapSitesAndCommuters = () => {
     const {commuters, isMultiSite, site, sites} = this.props
-    const markers = []
+    const commuterMarkers = []
+    const siteMarkers = []
     let sitesToMakeMarkersFor
 
     if (isMultiSite) {
@@ -230,7 +233,7 @@ export default class Site extends Component {
       const sitePosition = toLeaflet(siteToMakeMarkerFor.coordinate)
 
       // add site marker
-      markers.push(
+      siteMarkers.push(
         <Marker
           key={`site-marker-${siteToMakeMarkerFor._id}`}
           position={sitePosition}
@@ -245,7 +248,7 @@ export default class Site extends Component {
     commuters.forEach((commuter) => {
       if (commuter.coordinate.lat === 0) return  // don't include commuters not geocoded yet
       const commuterPosition = toLeaflet(commuter.coordinate)
-      markers.push(
+      commuterMarkers.push(
         <Marker
           icon={homeIcon}
           key={`commuter-marker-${commuter._id}`}
@@ -257,9 +260,9 @@ export default class Site extends Component {
     })
 
     // return only site marker if no commuters or commuters haven't loaded yet
-    if (markers.length === 1) {
+    if (commuterMarkers.length === 0 && siteMarkers.length === 1) {
       return {
-        markers,
+        siteMarkers,
         position: firstSiteCoordinates,
         zoom: 11
       }
@@ -267,7 +270,8 @@ export default class Site extends Component {
 
     return {
       bounds,
-      markers
+      commuterMarkers,
+      siteMarkers
     }
   }
 
@@ -278,7 +282,7 @@ export default class Site extends Component {
 
   render () {
     const {commuters, isMultiSite, polygonStore, multiSite, site, sites} = this.props
-    const {activeTab, analysisMapStyle, analysisMode, isochroneCutoff} = this.state
+    const {activeTab, analysisMapStyle, analysisMode, isochroneCutoff, rideMatchMapStyle} = this.state
     const hasCommuters = commuters.length > 0
 
     /************************************************************************
@@ -293,10 +297,34 @@ export default class Site extends Component {
     const siteIconUrl = 'https://unpkg.com/leaflet@1.0.2/dist/images/marker-icon-2x.png'
     mapLegendProps.html += `<tr><td><img src="${siteIconUrl}" style="width: 25px;"/></td><td>Site</td></tr>`
 
-    const {bounds, markers, position, zoom} = this._mapSitesAndCommuters()
+    const {bounds, commuterMarkers, position, siteMarkers, zoom} = this._mapSitesAndCommuters()
+    const clusterMarkers = []
 
     if (hasCommuters) {
-      mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
+      if (rideMatchMapStyle === 'marker-clusters') {
+        mapLegendProps.html += `<tr>
+          <td>
+            <img src="${homeIconUrl}" />
+          </td>
+          <td>Single Commuter</td>
+        </tr>
+        <tr>
+          <td>
+            <img src="${process.env.STATIC_HOST}assets/cluster.png" style="width: 40px;"/>
+          </td>
+          <td>Cluster of Commuters</td>
+        </tr>`
+
+        commuterMarkers.forEach((marker) => {
+          clusterMarkers.push({
+            id: marker.key,
+            latLng: marker.props.position,
+            markerOptions: marker.props
+          })
+        })
+      } else {
+        mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
+      }
     }
 
     // isochrones
@@ -568,7 +596,13 @@ export default class Site extends Component {
                   : process.env.LEAFLET_TILE_URL}
                 attribution={process.env.LEAFLET_ATTRIBUTION}
                 />
-              {markers}
+              {siteMarkers}
+              {rideMatchMapStyle === 'normal' && commuterMarkers}
+              {rideMatchMapStyle === 'marker-clusters' &&
+                <MarkerCluster
+                  newMarkerData={clusterMarkers}
+                  />
+              }
               {isochrones}
               <Legend {...mapLegendProps} />
             </LeafletMap>
@@ -735,7 +769,7 @@ export default class Site extends Component {
                   <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
                   <TableHeaderColumn
                     dataField='cumulativePct'
-                    dataFormat={formatPercent}
+                    dataFormat={formatPercentAsStr}
                     >
                     Cumulative Percent
                   </TableHeaderColumn>
@@ -754,13 +788,24 @@ export default class Site extends Component {
                 }
                 {allCommutersGeocoded &&
                   <div>
+                    <FieldGroup
+                      label='Map Style'
+                      name='rideMatchMapStyle'
+                      onChange={this._handleStateChange}
+                      componentClass='select'
+                      value={rideMatchMapStyle}
+                      >
+                      <option value='normal'>Normal</option>
+                      <option value='marker-clusters'>Clusters</option>
+                      <option value='heatmap'>Heatmap</option>
+                    </FieldGroup>
                     <BootstrapTable data={ridematchingAggregateTable}>
                       <TableHeaderColumn dataField='bin' isKey>Ridematch radius in miles</TableHeaderColumn>
                       <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
                       <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
                       <TableHeaderColumn
                         dataField='cumulativePct'
-                        dataFormat={formatPercent}
+                        dataFormat={formatPercentAsStr}
                         >
                         Cumulative Percent
                       </TableHeaderColumn>
@@ -799,6 +844,10 @@ const fillColor = {
 
 function formatPercent (n) {
   return Math.round(n * 100)
+}
+
+function formatPercentAsStr (n) {
+  return `${formatPercent(n)}%`
 }
 
 function geocodeConfidenceRenderer (cell, row) {
