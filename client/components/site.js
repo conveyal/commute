@@ -8,6 +8,7 @@ import {Button, ButtonGroup, Col, Grid, Panel, ProgressBar, Row, Tab, Table, Tab
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Circle, GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import Heatmap from 'react-leaflet-heatmap-layer'
+import Select from 'react-select'
 import Slider from 'rc-slider'
 import distance from '@turf/distance'
 
@@ -45,7 +46,7 @@ export default class Site extends Component {
 
   componentWillMount () {
     this.state = {
-      activeTab: this.props.isMultiSite ? 'sites' : 'commuters',
+      activeTab: 'summary',
       analysisMode: 'TRANSIT',
       analysisMapStyle: 'blue-incremental',
       commuterRingRadius: 1,
@@ -208,12 +209,10 @@ export default class Site extends Component {
     /***************************************************************
      determine if polygons should be loaded
     ***************************************************************/
-    const atLeastOnePolygonExistsInStore = Object.values(polygonStore)
-      .some((isochrone) => isochrone.siteId === site._id)
-
     if (site &&
       site.calculationStatus === 'successfully' &&
-      !atLeastOnePolygonExistsInStore) {
+      !Object.values(polygonStore)
+        .some((isochrone) => isochrone.siteId === site._id)) {
       // if 0 polygons exist for site, assume they need to be fetched
       loadPolygons({ siteId: site._id })
     }
@@ -295,7 +294,16 @@ export default class Site extends Component {
       isochroneCutoff,
       rideMatchMapStyle
     } = this.state
+
     const hasCommuters = commuters.length > 0
+    const pctGeocoded = formatPercent(commuters.reduce((accumulator, commuter) => {
+      return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
+    }, 0) / commuters.length)
+    const pctStatsCalculated = formatPercent(commuters.reduce((accumulator, commuter) => {
+      return accumulator + (commuter.modeStats ? 1 : 0)
+    }, 0) / commuters.length)
+    const allCommutersGeocoded = pctGeocoded === 100
+    const allCommutersStatsCalculated = pctStatsCalculated === 100
 
     /************************************************************************
      map stuff
@@ -418,15 +426,32 @@ export default class Site extends Component {
     }
 
     /************************************************************************
+     summary tab stuff
+    ************************************************************************/
+
+    const summaryStats = {}
+
+    if (allCommutersStatsCalculated) {
+      summaryStats.numAccessToTransit = 0
+      let numWith30MinBike = 0
+      commuters.forEach((commuter) => {
+        if (commuter.modeStats.TRANSIT.travelTime > -1 &&
+          commuter.modeStats.TRANSIT.travelTime < 9999) {
+          summaryStats.numAccessToTransit++
+        }
+
+        if (commuter.modeStats.BICYCLE.travelTime > -1 &&
+          commuter.modeStats.BICYCLE.travelTime <= 1800) {
+          numWith30MinBike++
+        }
+      })
+
+      summaryStats.pctWith30MinBike = formatPercent(numWith30MinBike / commuters.length)
+    }
+
+    /************************************************************************
      commuter tab stuff
     ************************************************************************/
-    const pctGeocoded = formatPercent(commuters.reduce((accumulator, commuter) => {
-      return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
-    }, 0) / commuters.length)
-    const pctStatsCalculated = formatPercent(commuters.reduce((accumulator, commuter) => {
-      return accumulator + (commuter.modeStats ? 1 : 0)
-    }, 0) / commuters.length)
-    const allCommutersGeocoded = pctGeocoded === 100
     let createCommuterButtons
     if (!isMultiSite) {
       createCommuterButtons = (
@@ -492,11 +517,27 @@ export default class Site extends Component {
     /************************************************************************
      ridematches tab stuff
     ************************************************************************/
-    // TODO: should probably move this computation to a reducer to avoid recalculating on each render
     // only do this if all commuters are geocoded
-    let ridematchingAggregateTable = []
+    const ridematches = {}
+    const ridematchingAggregateTable = []
+
+    const addRidematch = (commuterA, commuterB, distance) => {
+      if (!ridematches[commuterA._id]) {
+        ridematches[commuterA._id] = {
+          matches: [],
+          minDistance: distance
+        }
+      }
+      ridematches[commuterA._id].matches.push({
+        commuterId: commuterB._id,
+        distance
+      })
+      if (ridematches[commuterA._id].minDistance > distance) {
+        ridematches[commuterA._id].minDistance = distance
+      }
+    }
+
     if (allCommutersGeocoded) {
-      const matches = []
       for (let i = 0; i < commuters.length; i++) {
         const commuterA = commuters[i]
         const commuterAcoordinates = toCoordinates(commuterA.coordinate)
@@ -505,108 +546,53 @@ export default class Site extends Component {
           const commuterBcoordinates = toCoordinates(commuterB.coordinate)
           const distanceBetweenCommuters = distance(commuterAcoordinates, commuterBcoordinates, 'miles')
           if (distanceBetweenCommuters <= 5) {
-            matches.push({
-              commuterA,
-              commuterB,
-              distanceBetweenCommuters
-            })
+            addRidematch(commuterA, commuterB, distanceBetweenCommuters)
+            addRidematch(commuterB, commuterA, distanceBetweenCommuters)
           }
         }
       }
 
-      const ridematchingBins = {
-        '0 - 0.25': {
-          cumulative: 0,
-          maxDistance: 0.25,
-          num: 0
-        },
-        '0.25 - 0.5': {
-          cumulative: 0,
-          maxDistance: 0.5,
-          num: 0
-        },
-        '0.5 - 1': {
-          cumulative: 0,
-          maxDistance: 1,
-          num: 0
-        },
-        '1 - 2': {
-          cumulative: 0,
-          maxDistance: 2,
-          num: 0
-        },
-        '2 - 5': {
-          cumulative: 0,
-          maxDistance: 5,
-          num: 0
-        },
-        'N/A': {}
-      }
-      const ridematchingBinsArray = Object.keys(ridematchingBins)
-      let curBinIdx = 0
-      const commutersWithRidematches = {}
-      let commutersInCurrentBin = {}
-      matches.sort((a, b) => a.distanceBetweenCommuters - b.distanceBetweenCommuters)
-        .forEach((match) => {
-          // determine current bin
-          while (match.distanceBetweenCommuters > (
-            ridematchingBins[ridematchingBinsArray[curBinIdx]].maxDistance
-          )) {
-            curBinIdx++
-            ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulative = (
-              ridematchingBins[ridematchingBinsArray[curBinIdx - 1]].cumulative
-            )
-            commutersInCurrentBin = {}
-          }
+      const ridematchingBinsByMaxDistance = [0.25, 0.5, 1, 2, 5]
+      const ridematchingBinLabels = [
+        '0 - 0.25',
+        '0.25 - 0.5',
+        '0.5 - 1',
+        '1 - 2',
+        '2 - 5',
+        'N/A'
+      ]
+      const ridematchingBinVals = [0, 0, 0, 0, 0, 0]
 
-          const binData = ridematchingBins[ridematchingBinsArray[curBinIdx]]
-
-          if (!commutersInCurrentBin[match.commuterA._id]) {
-            // first time seeing commuterA in this range, add to total for bin
-            binData.num += 1
-            commutersInCurrentBin[match.commuterA._id] = true
+      // tally up how many are in each bin
+      commuters.forEach((commuter) => {
+        const match = ridematches[commuter._id]
+        if (match) {
+          let binIdx = 0
+          while (binIdx < ridematchingBinsByMaxDistance.length &&
+            match.minDistance > ridematchingBinsByMaxDistance[binIdx]) {
+            binIdx++
           }
+          ridematchingBinVals[binIdx]++
+        } else {
+          ridematchingBinVals[ridematchingBinVals.length - 1]++
+        }
+      })
 
-          if (!commutersInCurrentBin[match.commuterB._id]) {
-            // first time seeing commuterB in this range, add to total for bin
-            binData.num += 1
-            commutersInCurrentBin[match.commuterB._id] = true
-          }
-
-          if (!commutersWithRidematches[match.commuterA._id]) {
-            // first time seeing commuterA in all matches, add to cumulative total
-            binData.cumulative += 1
-            commutersWithRidematches[match.commuterA._id] = true
-          }
-
-          if (!commutersWithRidematches[match.commuterB._id]) {
-            // first time seeing commuterB in all matches, add to cumulative total
-            binData.cumulative += 1
-            commutersWithRidematches[match.commuterB._id] = true
-          }
+      let cumulativeNum = 0
+      ridematchingBinLabels.forEach((label, idx) => {
+        const numInBin = ridematchingBinVals[idx]
+        ridematchingAggregateTable.push({
+          bin: label,
+          cumulative: cumulativeNum + numInBin,
+          cumulativePct: (cumulativeNum + numInBin) / commuters.length,
+          num: numInBin
         })
 
-      // set cumulative of remaining bins (except last)
-      while (curBinIdx < ridematchingBinsArray.length - 1) {
-        curBinIdx++
-        ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulative = (
-          ridematchingBins[ridematchingBinsArray[curBinIdx - 1]].cumulative
-        )
-        ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulativePct = (
-          ridematchingBins[ridematchingBinsArray[curBinIdx]].cumulative / commuters.length
-        )
-      }
+        cumulativeNum += numInBin
+      })
 
-      // calculate num commuters without ridematch options
-      ridematchingBins['N/A'].num = (
-        commuters.length - ridematchingBins[ridematchingBinsArray[ridematchingBinsArray.length - 2]].cumulative
-      )
-      ridematchingBins['N/A'].cumulative = commuters.length
-      ridematchingBins['N/A'].cumulativePct = 1
-
-      ridematchingAggregateTable = ridematchingBinsArray.map((bin) => (
-        Object.assign({ bin }, ridematchingBins[bin])
-      ))
+      const upToOneMileBinIdx = 2
+      summaryStats.pctWithRidematch = formatPercent(ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct)
     }
 
     mapLegendProps.html += '</tbody></table>'
@@ -683,7 +669,7 @@ export default class Site extends Component {
           {!hasCommuters &&
             <Col xs={12}>
               {isMultiSite &&
-                <p>None of the sites in this Multi-Site Analysis have any commuters!  Add commuters to individual sites.</p>
+                <p>None of the sites in this Multi-Site Analysis have any commuters!  Add commuters to specific sites.</p>
               }
               {!isMultiSite &&
                 <div>
@@ -699,6 +685,32 @@ export default class Site extends Component {
               id='site-tabs'
               onSelect={this._handleTabSelect}
               >
+              <Tab eventKey='summary' title='Summary'>
+                {/***************************
+                  Summary Tab
+                ***************************/}
+                {!allCommutersGeocoded &&
+                  <ProgressBar
+                    striped
+                    now={pctGeocoded}
+                    label='Geocoding Commuters'
+                    />
+                }
+                {allCommutersGeocoded && !allCommutersStatsCalculated &&
+                  <ProgressBar
+                    striped
+                    now={pctStatsCalculated}
+                    label='Analyzing Commutes'
+                    />
+                }
+                {allCommutersGeocoded && allCommutersStatsCalculated &&
+                  <div>
+                    <p>{summaryStats.numAccessToTransit} commuters have access to transit</p>
+                    <p>{summaryStats.pctWith30MinBike}% of commuters have a 30 minute or less bike ride to work</p>
+                    <p>{summaryStats.pctWithRidematch}% of commuters have a ridematch within 1 mile</p>
+                  </div>
+                }
+              </Tab>
               {isMultiSite &&
                 <Tab eventKey='sites' title='Sites'>
                   {/***************************
@@ -784,43 +796,47 @@ export default class Site extends Component {
                 {/***************************
                   Analysis Tab
                 ***************************/}
-                <Panel>
-                  <p><b>Maximum Travel Time</b></p>
-                  <Slider
-                    defaultValue={7200}
-                    handle={
-                      <CustomHandle
-                        formatter={
-                          // convert minutes to milliseconds
-                          (v) => humanizeDuration(v * 1000, { round: true })
+                {!isMultiSite &&
+                  <div>
+                    <Panel>
+                      <p><b>Maximum Travel Time</b></p>
+                      <Slider
+                        defaultValue={7200}
+                        handle={
+                          <CustomHandle
+                            formatter={
+                              // convert minutes to milliseconds
+                              (v) => humanizeDuration(v * 1000, { round: true })
+                            }
+                            />
                         }
+                        marks={{
+                          1800: '30 min',
+                          3600: '1 hr',
+                          5400: '1 hr 30 min',
+                          7200: '2 hr'
+                        }}
+                        max={7200}
+                        min={analysisSliderStepAndMin}
+                        onChange={this._handleAnalysisTimeChange}
+                        step={analysisSliderStepAndMin}
                         />
-                    }
-                    marks={{
-                      1800: '30 min',
-                      3600: '1 hr',
-                      5400: '1 hr 30 min',
-                      7200: '2 hr'
-                    }}
-                    max={7200}
-                    min={analysisSliderStepAndMin}
-                    onChange={this._handleAnalysisTimeChange}
-                    step={analysisSliderStepAndMin}
-                    />
-                </Panel>
-                <FieldGroup
-                  label='Map Style'
-                  name='analysisMapStyle'
-                  onChange={this._handleStateChange}
-                  componentClass='select'
-                  value={analysisMapStyle}
-                  >
-                  <option value='blue-incremental'>Blueish Isochrone</option>
-                  <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone</option>
-                  <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
-                  <option value='blue-solid'>Single Color Isochrone</option>
-                  <option value='inverted'>Inverted Isochrone</option>
-                </FieldGroup>
+                    </Panel>
+                    <FieldGroup
+                      label='Map Style'
+                      name='analysisMapStyle'
+                      onChange={this._handleStateChange}
+                      componentClass='select'
+                      value={analysisMapStyle}
+                      >
+                      <option value='blue-incremental'>Blueish Isochrone</option>
+                      <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone</option>
+                      <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
+                      <option value='blue-solid'>Single Color Isochrone</option>
+                      <option value='inverted'>Inverted Isochrone</option>
+                    </FieldGroup>
+                  </div>
+                }
                 <FieldGroup
                   label='Mode'
                   name='analysisMode'
@@ -903,6 +919,13 @@ export default class Site extends Component {
                     </BootstrapTable>
                   </div>
                 }
+              </Tab>
+              <Tab eventKey='individual-analysis' title='Individual'>
+                {/***************************
+                  Individual Analysis Tab
+                ***************************/}
+                <Select
+                  />
               </Tab>
             </Tabs>
           }
