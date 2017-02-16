@@ -4,11 +4,12 @@ import humanizeDuration from 'humanize-duration'
 import {geom, io, precision, simplify} from 'jsts'
 import {Browser, icon, latLngBounds} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
-import {Button, ButtonGroup, Col, Grid, Panel, ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, ControlLabel, FormGroup, Grid, Panel,
+  ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Circle, GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import Heatmap from 'react-leaflet-heatmap-layer'
-import Select from 'react-select'
+import Combobox from 'react-widgets/lib/Combobox'
 import Slider from 'rc-slider'
 import distance from '@turf/distance'
 
@@ -114,6 +115,10 @@ export default class Site extends Component {
 
   _handleRidematchRadiusChange = (value) => {
     this.setState({ commuterRingRadius: value })
+  }
+
+  _handleSelectCommuter = (commuter) => {
+    this.setState({ selectedCommuter: commuter })
   }
 
   _handleStateChange = (name, event) => {
@@ -285,14 +290,15 @@ export default class Site extends Component {
   }
 
   render () {
-    const {commuters, isMultiSite, polygonStore, multiSite, site, sites} = this.props
+    const {commuters, isMultiSite, polygonStore, multiSite, site, sites, siteStore} = this.props
     const {
       activeTab,
       analysisMapStyle,
       analysisMode,
       commuterRingRadius,
       isochroneCutoff,
-      rideMatchMapStyle
+      rideMatchMapStyle,
+      selectedCommuter
     } = this.state
 
     const hasCommuters = commuters.length > 0
@@ -323,7 +329,9 @@ export default class Site extends Component {
 
     if (hasCommuters) {
       if (activeTab === 'ridematches') {
-        if (rideMatchMapStyle === 'marker-clusters') {
+        if (rideMatchMapStyle === 'normal') {
+          mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
+        } else if (rideMatchMapStyle === 'marker-clusters') {
           mapLegendProps.html += `<tr>
             <td>
               <img src="${homeIconUrl}" />
@@ -433,6 +441,7 @@ export default class Site extends Component {
 
     if (allCommutersStatsCalculated) {
       summaryStats.numAccessToTransit = 0
+      summaryStats.numWith20MinWalk = 0
       let numWith30MinBike = 0
       commuters.forEach((commuter) => {
         if (commuter.modeStats.TRANSIT.travelTime > -1 &&
@@ -443,6 +452,11 @@ export default class Site extends Component {
         if (commuter.modeStats.BICYCLE.travelTime > -1 &&
           commuter.modeStats.BICYCLE.travelTime <= 1800) {
           numWith30MinBike++
+        }
+
+        if (commuter.modeStats.WALK.travelTime > -1 &&
+          commuter.modeStats.WALK.travelTime < 1200) {
+          summaryStats.numWith20MinWalk++
         }
       })
 
@@ -529,7 +543,7 @@ export default class Site extends Component {
         }
       }
       ridematches[commuterA._id].matches.push({
-        commuterId: commuterB._id,
+        commuter: commuterB,
         distance
       })
       if (ridematches[commuterA._id].minDistance > distance) {
@@ -708,6 +722,9 @@ export default class Site extends Component {
                     <p>{summaryStats.numAccessToTransit} commuters have access to transit</p>
                     <p>{summaryStats.pctWith30MinBike}% of commuters have a 30 minute or less bike ride to work</p>
                     <p>{summaryStats.pctWithRidematch}% of commuters have a ridematch within 1 mile</p>
+                    {summaryStats.numWith20MinWalk > 0 &&
+                      <p>{summaryStats.numWith20MinWalk} commuters have a 20 minute or less walk to work</p>
+                    }
                   </div>
                 }
               </Tab>
@@ -924,8 +941,107 @@ export default class Site extends Component {
                 {/***************************
                   Individual Analysis Tab
                 ***************************/}
-                <Select
-                  />
+                <FormGroup
+                  controlId={`individual-commuter-name`}
+                  >
+                  <ControlLabel>Commuter</ControlLabel>
+                  <Combobox
+                    data={commuters}
+                    onChange={this._handleSelectCommuter}
+                    suggest
+                    textField='name'
+                    value={selectedCommuter}
+                    valueField='_id'
+                    />
+                </FormGroup>
+                {selectedCommuter &&
+                  <Row>
+                    <Col xs={12}>
+                      <h4>{selectedCommuter.name}</h4>
+                    </Col>
+                    <Col xs={12} sm={6}>
+                      <h5>Location</h5>
+                      <table className='table table-bordered'>
+                        <tbody>
+                          {isMultiSite &&
+                            <tr key='selectedCommuterTableSiteRow'>
+                              <td>Site</td>
+                              <td>{siteStore[selectedCommuter.siteId].name}</td>
+                            </tr>
+                          }
+                          {['address', 'neighborhood', 'city', 'county', 'state']
+                            .map((field) => (
+                              <tr key={`selectedCommuterTable${field}Row`}>
+                                <td>{capitalize(field)}</td>
+                                <td>{selectedCommuter[field]}</td>
+                              </tr>
+                            ))
+                          }
+                          <tr key='selectedCommuterTableGeocodeConfidenceRow'>
+                            <td>Geocode Confidence</td>
+                            <td>{geocodeConfidenceRenderer(null, selectedCommuter)}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </Col>
+                    <Col xs={12} sm={6}>
+                      <h5>Commuting Options</h5>
+                      <table className='table table-bordered'>
+                        <tbody>
+                          {['bicycle', 'car', 'transit', 'walk']
+                            .map((mode) => (
+                              <tr key={`selectedCommuterTable${mode}Row`}>
+                                <td>{capitalize(mode)}</td>
+                                <td>
+                                  {
+                                    getTravelTime(selectedCommuter.modeStats[mode.toUpperCase()]) +
+                                    (mode === 'car' ? ' (without traffic)' : '')
+                                  }
+                                </td>
+                              </tr>
+                            ))
+                          }
+                        </tbody>
+                      </table>
+                    </Col>
+                    <Col xs={12} sm={6}>
+                      <h5>Ridematches</h5>
+                      {!ridematches[selectedCommuter._id] &&
+                        <p>No ridematches within 5 miles of this commuter</p>
+                      }
+                      {ridematches[selectedCommuter._id] &&
+                        <div>
+                          <p>{`${ridematches[selectedCommuter._id].matches.length} total matches`}</p>
+                          <BootstrapTable
+                            data={ridematches[selectedCommuter._id].matches
+                              .map((match) => {
+                                return {
+                                  distance: match.distance,
+                                  id: match.commuter._id,
+                                  name: match.commuter.name
+                                }
+                              })}
+                            options={{
+                              defaultSortName: 'distance',
+                              defaultSortOrder: 'asc'
+                            }}
+                            pagination={ridematches[selectedCommuter._id].matches.length > 10}
+                            >
+                            <TableHeaderColumn dataField='id' isKey hidden />
+                            <TableHeaderColumn dataField='name' dataSort>Matched Commuter</TableHeaderColumn>
+                            <TableHeaderColumn
+                              dataField='distance'
+                              dataFormat={formatDistance}
+                              dataSort
+                              >
+                              Distance Between Commuters
+                            </TableHeaderColumn>
+                          </BootstrapTable>
+                        </div>
+                      }
+                    </Col>
+                  </Row>
+                }
               </Tab>
             </Tabs>
           }
@@ -933,6 +1049,10 @@ export default class Site extends Component {
       </Grid>
     )
   }
+}
+
+function capitalize (s) {
+  return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
 function CustomHandle (props) {
@@ -954,6 +1074,10 @@ const fillColor = {
   'blue-solid': '#000099',
   'green-red-diverging': (time) => hslToHex(time * -0.017391304347826 + 125.217391304348, 100, 50),
   'inverted': '#000099'
+}
+
+function formatDistance (cell, row) {
+  return humanizeDistance(cell)
 }
 
 function formatPercent (n) {
@@ -1105,6 +1229,14 @@ const getIsochroneStrategies = {
   'blue-solid': 'single isochrone',
   'green-red-diverging': '5-minute isochrones',
   'inverted': 'inverted isochrone'
+}
+
+function getTravelTime (mode) {
+  if (!mode || !mode.travelTime) {
+    return 'N/A'
+  } else {
+    return humanizeDuration(mode.travelTime * 1000)
+  }
 }
 
 const handleStyle = {

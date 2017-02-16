@@ -13,11 +13,7 @@
     react-addons-update "^0.14.0 || <15.4.0"
     react-dom "^0.14.0 || <15.4.0"
 
-"@conveyal/lonlat@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@conveyal/lonlat/-/lonlat-1.1.0.tgz#01c41dbf7e9d8c926e3753d3423890d8fa95a187"
-
-"@conveyal/lonlat@^1.1.1":
+"@conveyal/lonlat@^1.1.0", "@conveyal/lonlat@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@conveyal/lonlat/-/lonlat-1.1.1.tgz#d26d43e0b960e478e0b4bd2ca1789cc87c2c4540"
 
@@ -6220,13 +6216,6 @@ react-select-geocoder@^1.0.0:
     lodash.throttle "^4.1.1"
     react-pure-render "^1.0.2"
     react-select "^1.0.0-rc.3"
-
-react-select@^1.0.0-rc.2:
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.2.tgz#9fc11b149a3dc1ac831289d21b40a59742f82f8d"
-  dependencies:
-    classnames "^2.2.4"
-    react-input-autosize "^1.1.0"
 
 react-select@^1.0.0-rc.3:
   version "1.0.0-rc.3"
