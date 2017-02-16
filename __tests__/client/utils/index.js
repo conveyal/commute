@@ -1,10 +1,14 @@
 /* globals describe, expect, it */
 
-import * as components from '../../../client/utils/components'
+import * as util from '../../../client/utils'
 
-describe('utils > components', () => {
+describe('utils', () => {
+  it('fixedRound should work', () => {
+    expect(util.fixedRound(1.23456)).toEqual(1.23)
+  })
+
   it('humanizeDistance should work', () => {
-    expect(components.humanizeDistance(123)).toMatchSnapshot()
+    expect(util.humanizeDistance(123)).toMatchSnapshot()
   })
 
   describe('> calcNumLessThan', () => {
@@ -56,7 +60,7 @@ describe('utils > components', () => {
 
     testCases.forEach((tc, idx) => {
       it(`should compute correct amount for test case ${idx}`, () => {
-        expect(components.calcNumLessThan(tc.arr, tc.target)).toBe(tc.expected)
+        expect(util.calcNumLessThan(tc.arr, tc.target)).toBe(tc.expected)
       })
     })
   })

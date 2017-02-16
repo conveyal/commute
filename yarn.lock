@@ -17,6 +17,10 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@conveyal/lonlat/-/lonlat-1.1.0.tgz#01c41dbf7e9d8c926e3753d3423890d8fa95a187"
 
+"@conveyal/lonlat@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@conveyal/lonlat/-/lonlat-1.1.1.tgz#d26d43e0b960e478e0b4bd2ca1789cc87c2c4540"
+
 "@conveyal/woonerf@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@conveyal/woonerf/-/woonerf-2.0.0.tgz#ba9ab8a79f544b9bcfe054902c643a60bb755668"

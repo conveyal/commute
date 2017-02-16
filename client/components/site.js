@@ -6,7 +6,7 @@ import {Browser, icon, latLngBounds} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
 import {Button, ButtonGroup, Col, Grid, Panel, ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import {GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
+import {Circle, GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import Heatmap from 'react-leaflet-heatmap-layer'
 import Slider from 'rc-slider'
 import distance from '@turf/distance'
@@ -16,9 +16,8 @@ import ButtonLink from './button-link'
 import FieldGroup from './fieldgroup'
 import Legend from './legend'
 import MarkerCluster from './marker-cluster'
+import {actUponConfirmation, arrayCountRenderer, humanizeDistance} from '../utils'
 import messages from '../utils/messages'
-import {arrayCountRenderer} from '../utils/table'
-import {actUponConfirmation} from '../utils/ui'
 
 const geoJsonReader = new io.GeoJSONReader()
 const geoJsonWriter = new io.GeoJSONWriter()
@@ -49,6 +48,7 @@ export default class Site extends Component {
       activeTab: this.props.isMultiSite ? 'sites' : 'commuters',
       analysisMode: 'TRANSIT',
       analysisMapStyle: 'blue-incremental',
+      commuterRingRadius: 1,
       isochroneCutoff: 7200,
       rideMatchMapStyle: 'normal'
     }
@@ -90,10 +90,6 @@ export default class Site extends Component {
     this.setState({ isochroneCutoff: value })
   }
 
-  _handleStateChange = (name, event) => {
-    this.setState({ [name]: event.target.value })
-  }
-
   _handleDelete = () => {
     const {
       deleteMainEntity,
@@ -113,6 +109,14 @@ export default class Site extends Component {
     }
     const messageType = isMultiSite ? 'multiSite' : 'site'
     actUponConfirmation(messages[messageType].deleteConfirmation, doDelete)
+  }
+
+  _handleRidematchRadiusChange = (value) => {
+    this.setState({ commuterRingRadius: value })
+  }
+
+  _handleStateChange = (name, event) => {
+    this.setState({ [name]: event.target.value })
   }
 
   _handleTabSelect = (selectedTab) => {
@@ -283,7 +287,14 @@ export default class Site extends Component {
 
   render () {
     const {commuters, isMultiSite, polygonStore, multiSite, site, sites} = this.props
-    const {activeTab, analysisMapStyle, analysisMode, isochroneCutoff, rideMatchMapStyle} = this.state
+    const {
+      activeTab,
+      analysisMapStyle,
+      analysisMode,
+      commuterRingRadius,
+      isochroneCutoff,
+      rideMatchMapStyle
+    } = this.state
     const hasCommuters = commuters.length > 0
 
     /************************************************************************
@@ -300,41 +311,73 @@ export default class Site extends Component {
 
     const {bounds, commuterMarkers, position, siteMarkers, zoom} = this._mapSitesAndCommuters()
     const clusterMarkers = []
+    const commuterRings = []
 
     if (hasCommuters) {
-      if (rideMatchMapStyle === 'marker-clusters') {
-        mapLegendProps.html += `<tr>
-          <td>
-            <img src="${homeIconUrl}" />
-          </td>
-          <td>Single Commuter</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="${process.env.STATIC_HOST}assets/cluster.png" style="width: 40px;"/>
-          </td>
-          <td>Cluster of Commuters</td>
-        </tr>`
+      if (activeTab === 'ridematches') {
+        if (rideMatchMapStyle === 'marker-clusters') {
+          mapLegendProps.html += `<tr>
+            <td>
+              <img src="${homeIconUrl}" />
+            </td>
+            <td>Single Commuter</td>
+          </tr>
+          <tr>
+            <td>
+              <img src="${process.env.STATIC_HOST}assets/cluster.png" style="width: 40px;"/>
+            </td>
+            <td>Cluster of Commuters</td>
+          </tr>`
 
-        commuterMarkers.forEach((marker) => {
-          clusterMarkers.push({
-            id: marker.key,
-            latLng: marker.props.position,
-            markerOptions: marker.props
+          commuterMarkers.forEach((marker) => {
+            clusterMarkers.push({
+              id: marker.key,
+              latLng: marker.props.position,
+              markerOptions: marker.props
+            })
           })
-        })
-      } else if (rideMatchMapStyle === 'heatmap') {
-        mapLegendProps.html += `<tr>
-          <td
-            rowspan="2"
-            style="background-image: url(${process.env.STATIC_HOST}assets/heatmap-gradient.png);
-              background-size: contain;"
-            />
-          <td>Less Commuters</td>
-        </tr>
-        <tr>
-          <td>More Commuters</td>
-        </tr>`
+        } else if (rideMatchMapStyle === 'heatmap') {
+          mapLegendProps.html += `<tr>
+            <td
+              rowspan="2"
+              style="background-image: url(${process.env.STATIC_HOST}assets/heatmap-gradient.png);
+                background-size: contain;"
+              />
+            <td>Less Commuters</td>
+          </tr>
+          <tr>
+            <td>More Commuters</td>
+          </tr>`
+        } else if (rideMatchMapStyle === 'commuter-rings') {
+          mapLegendProps.html += `<tr>
+            <td>
+              <img src="${homeIconUrl}" />
+            </td>
+            <td>Commuter</td>
+          </tr>
+          <tr>
+            <td>
+              <div style="border: 3px solid #3388ff; border-radius: 20px; overflow: hidden;">
+                <div style="background-color: #3388ff; opacity: 0.2; height: 25px;">
+                  &nbsp;
+                </div>
+              </div>
+            </td>
+            <td>${humanizeDistance(commuterRingRadius, 2)} Radius</td>
+          </tr>`
+
+          const meters = commuterRingRadius * 1609.34
+
+          commuterMarkers.forEach((marker) => {
+            commuterRings.push(
+              <Circle
+                center={marker.props.position}
+                key={`commuter-circle-${marker.key}`}
+                radius={meters}
+                />
+            )
+          })
+        }
       } else {
         mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
       }
@@ -626,6 +669,10 @@ export default class Site extends Component {
                   points={commuterMarkers}
                   />
               }
+              {activeTab === 'ridematches' && rideMatchMapStyle === 'commuter-rings' &&
+                commuterRings}
+              {activeTab === 'ridematches' && rideMatchMapStyle === 'commuter-rings' &&
+                commuterMarkers}
               {isochrones}
               <Legend {...mapLegendProps} />
             </LeafletMap>
@@ -821,7 +868,28 @@ export default class Site extends Component {
                       <option value='normal'>Normal</option>
                       <option value='marker-clusters'>Clusters</option>
                       <option value='heatmap'>Heatmap</option>
+                      <option value='commuter-rings'>Commuter Rings</option>
                     </FieldGroup>
+                    {rideMatchMapStyle === 'commuter-rings' &&
+                      <Panel>
+                        <p><b>Commuter Ring Size</b></p>
+                        <Slider
+                          defaultValue={1}
+                          handle={
+                            <CustomHandle
+                              formatter={
+                                // convert minutes to milliseconds
+                                (v) => humanizeDistance(v)
+                              }
+                              />
+                          }
+                          max={20}
+                          min={0.25}
+                          onChange={this._handleRidematchRadiusChange}
+                          step={0.25}
+                          />
+                      </Panel>
+                    }
                     <BootstrapTable data={ridematchingAggregateTable}>
                       <TableHeaderColumn dataField='bin' isKey>Ridematch radius in miles</TableHeaderColumn>
                       <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
@@ -1032,7 +1100,7 @@ const homeIconUrl = `${process.env.STATIC_HOST}assets/home-2.png`
 const homeIcon = icon({
   iconUrl: homeIconUrl,
   iconSize: [32, 37],
-  iconAnchor: [22, 37]
+  iconAnchor: [16, 37]
 })
 
 const isochroneStyleStrategies = {

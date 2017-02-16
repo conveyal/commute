@@ -1,8 +1,15 @@
 import currencyFormatter from 'currency-formatter'
 import yup from 'yup'
 
-import analysisDefaults from './analysisDefaults'
-import {fixedRound} from './common'
+export function actUponConfirmation (confirmationMessage, action) {
+  if (window.confirm(confirmationMessage)) {
+    action()
+  }
+}
+
+export function arrayCountRenderer (cell, row) {
+  if (Array.isArray(cell)) return cell.length
+}
 
 /**
  * Calculate number of elements in array less than or equal to target values
@@ -27,6 +34,23 @@ export function calcNumLessThan (arr, target) {
   }
 
   return left
+}
+
+/**
+ * Round a number to a fixed amount of decimal places
+ *
+ * @param  {Number} n      The number to round
+ * @param  {Number} places The number of places to round to (default=2)
+ * @return {Number}        The rounded number
+ */
+export function fixedRound (n, places) {
+  places = places || 2
+  const multiplier = Math.pow(10, places)
+  return Math.round(n * multiplier) / multiplier
+}
+
+export function formatCurrency (n) {
+  return currencyFormatter.format(n, { code: 'USD' })
 }
 
 export const geocodeResultToState = {
@@ -61,32 +85,14 @@ export const geocodeYupSchema = {
 }
 
 /**
- * Helper function to get initial series data for drawing graphs
- *
- * @return {Obj[]} Array of objects with series template
- */
-export function getInitialSeries () {
-  const modes = Object.keys(analysisDefaults.modeDisplay)
-  const series = []
-
-  modes.forEach((mode) => {
-    series.push(Object.assign({disabled: false, mode}, analysisDefaults.modeDisplay[mode]))
-  })
-
-  return series
-}
-
-/**
  * Humanize distances
  * // TODO: more humanization
  *
- * @param  {float} d Distance to humanize
- * @return {string} humanized distance
+ * @param  {float} d    Distance to humanize
+ * @param  {int} places number of decimal places to round to
+ * @return {string}     humanized distance
  */
-export function humanizeDistance (d) {
-  return `${fixedRound(d, 1)} miles`
-}
-
-export function formatCurrency (n) {
-  return currencyFormatter.format(n, { code: 'USD' })
+export function humanizeDistance (d, places) {
+  places = places || 1
+  return `${fixedRound(d, places)} miles`
 }

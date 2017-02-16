@@ -6,9 +6,9 @@ import yup from 'yup'
 
 import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
+import {actUponConfirmation} from '../utils'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 import messages from '../utils/messages'
-import {actUponConfirmation} from '../utils/ui'
 
 const multiSiteSchema = yup.object({
   name: yup.string().label('Multi-Site Analysis Name').required()

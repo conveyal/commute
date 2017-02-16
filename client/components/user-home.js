@@ -5,9 +5,8 @@ import {Link} from 'react-router'
 
 import ButtonLink from './button-link'
 import Icon from './icon'
+import {actUponConfirmation, arrayCountRenderer} from '../utils'
 import messages from '../utils/messages'
-import {arrayCountRenderer} from '../utils/table'
-import {actUponConfirmation} from '../utils/ui'
 
 export default class UserHome extends Component {
   static propTypes = {

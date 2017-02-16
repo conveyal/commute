@@ -66,6 +66,7 @@ export const mockSite = {
 export const mockStores = {
   init: {
     commuter: {},
+    multiSite: {},
     polygon: {},
     site: {},
     user: {}
@@ -74,6 +75,7 @@ export const mockStores = {
     commuter: {
       'commuter-2': mockCommuter
     },
+    multiSite: {},
     polygon: {
       'polygon-2': mockPolygon
     },

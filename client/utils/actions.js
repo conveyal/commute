@@ -6,7 +6,7 @@ import qs from 'qs'
 import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
 
-import {network} from '../utils/messages'
+import {network} from './messages'
 
 /**
  * Handle fetching errors.  Redirect to login if any response is a 401.

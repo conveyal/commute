@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import {Button} from 'react-bootstrap'
 
 import Icon from './icon'
-import actUponConfirmation from '../utils/ui'
+import {actUponConfirmation} from '../utils'
 
 export default class BackButton extends Component {
   static propTypes = {

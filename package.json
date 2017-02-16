@@ -3,7 +3,7 @@
   "description": "Commute analysis",
   "scripts": {
     "build": "mastarm build",
-    "deploy": "mastarm deploy",
+    "deploy": "mastarm deploy -m",
     "precover": "rm -rf coverage",
     "cover": "npm run cover-server && npm run cover-client && npm run merge-coverage",
     "cover-all": "npm run test-all -- --coverage --coverage-paths \"client/**/*.js server/**/*.js\"",
@@ -54,7 +54,7 @@
     "supertest-as-promised": "^4.0.2"
   },
   "dependencies": {
-    "@conveyal/lonlat": "^1.1.0",
+    "@conveyal/lonlat": "^1.1.1",
     "@conveyal/woonerf": "^2.0.0",
     "@turf/distance": "^3.7.5",
     "@turf/helpers": "^3.7.3",
