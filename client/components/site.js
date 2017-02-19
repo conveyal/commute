@@ -2,12 +2,12 @@ import hslToHex from 'colorvert/hsl/hex'
 import {toCoordinates, toLeaflet} from '@conveyal/lonlat'
 import humanizeDuration from 'humanize-duration'
 import {geom, io, precision, simplify} from 'jsts'
-import {Browser, icon, latLngBounds} from 'leaflet'
+import {Browser, icon, latLngBounds, point} from 'leaflet'
 import React, {Component, PropTypes} from 'react'
 import {Button, ButtonGroup, Col, ControlLabel, FormGroup, Grid, Panel,
   ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import {Circle, GeoJSON, Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
+import {Circle, GeoJSON, Map as LeafletMap, Marker, Popup, TileLayer} from 'react-leaflet'
 import Heatmap from 'react-leaflet-heatmap-layer'
 import Combobox from 'react-widgets/lib/Combobox'
 import Slider from 'rc-slider'
@@ -16,6 +16,7 @@ import distance from '@turf/distance'
 import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
 import FieldGroup from './fieldgroup'
+import Icon from './icon'
 import Legend from './legend'
 import MarkerCluster from './marker-cluster'
 import {actUponConfirmation, arrayCountRenderer, humanizeDistance} from '../utils'
@@ -117,8 +118,12 @@ export default class Site extends Component {
     this.setState({ commuterRingRadius: value })
   }
 
-  _handleSelectCommuter = (commuter) => {
-    this.setState({ selectedCommuter: commuter })
+  _handleSelectCommuter = (commuter, fromMap) => {
+    const newState = { selectedCommuter: commuter }
+    if (fromMap) {
+      newState.activeTab = 'individual-analysis'
+    }
+    this.setState(newState)
   }
 
   _handleStateChange = (name, event) => {
@@ -225,6 +230,7 @@ export default class Site extends Component {
 
   _mapSitesAndCommuters = () => {
     const {commuters, isMultiSite, site, sites} = this.props
+    const {selectedCommuter} = this.state
     const commuterMarkers = []
     const siteMarkers = []
     let sitesToMakeMarkersFor
@@ -257,13 +263,21 @@ export default class Site extends Component {
     commuters.forEach((commuter) => {
       if (commuter.coordinate.lat === 0) return  // don't include commuters not geocoded yet
       const commuterPosition = toLeaflet(commuter.coordinate)
+      const isSelectedCommuter = selectedCommuter && selectedCommuter._id === commuter._id
       commuterMarkers.push(
         <Marker
-          icon={homeIcon}
+          icon={isSelectedCommuter ? homeIconSelected : homeIcon}
           key={`commuter-marker-${commuter._id}`}
+          onClick={() => this._handleSelectCommuter(commuter, true)}
           position={commuterPosition}
           zIndexOffset={1234}
-          />
+          >
+          <Popup
+            offset={homeIconSelectedOffset}
+            >
+            <h4>{commuter.name}</h4>
+          </Popup>
+        </Marker>
       )
       bounds.extend(commuterPosition)
     })
@@ -349,7 +363,8 @@ export default class Site extends Component {
             clusterMarkers.push({
               id: marker.key,
               latLng: marker.props.position,
-              markerOptions: marker.props
+              markerOptions: marker.props,
+              onClick: marker.props.onClick
             })
           })
         } else if (rideMatchMapStyle === 'heatmap') {
@@ -397,6 +412,17 @@ export default class Site extends Component {
       } else {
         mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
       }
+    }
+
+    if ((!(activeTab === 'ridematches') || (
+      activeTab === 'ridematches' && rideMatchMapStyle !== 'heatmap'
+    )) && selectedCommuter) {
+      mapLegendProps.html += `<tr>
+        <td>
+          <img src="${homeIconSelectedUrl}" />
+        </td>
+        <td>${selectedCommuter.name}</td>
+      </tr>`
     }
 
     // isochrones
@@ -644,7 +670,11 @@ export default class Site extends Component {
             Map
           ***************************/}
           <Col xs={12} style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
-            <LeafletMap center={position} bounds={bounds} zoom={zoom}>
+            <LeafletMap
+              center={position}
+              bounds={bounds}
+              zoom={zoom}
+              >
               <TileLayer
                 url={Browser.retina &&
                   process.env.LEAFLET_RETINA_URL
@@ -955,6 +985,12 @@ export default class Site extends Component {
                     />
                 </FormGroup>
                 {selectedCommuter &&
+                  <Button onClick={() => this._handleSelectCommuter()}>
+                    <Icon type='close' />
+                    <span>Deselect commuter</span>
+                  </Button>
+                }
+                {selectedCommuter &&
                   <Row>
                     <Col xs={12}>
                       <h4>{selectedCommuter.name}</h4>
@@ -1232,7 +1268,7 @@ const getIsochroneStrategies = {
 }
 
 function getTravelTime (mode) {
-  if (!mode || !mode.travelTime) {
+  if (!mode || !mode.travelTime || mode.travelTime === -1 || mode.travelTime > 7200) {
     return 'N/A'
   } else {
     return humanizeDuration(mode.travelTime * 1000)
@@ -1257,6 +1293,14 @@ const homeIcon = icon({
   iconSize: [32, 37],
   iconAnchor: [16, 37]
 })
+
+const homeIconSelectedUrl = `${process.env.STATIC_HOST}assets/home-2-selected.png`
+const homeIconSelected = icon({
+  iconUrl: homeIconSelectedUrl,
+  iconSize: [32, 37],
+  iconAnchor: [16, 37]
+})
+const homeIconSelectedOffset = point(0, -20)
 
 const isochroneStyleStrategies = {
   'blue-incremental': {

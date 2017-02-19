@@ -41,7 +41,12 @@ export default class MarkerCluster extends MapLayer {
 
       nextProps.newMarkerData.forEach((obj) => {
         const leafletMarker = Leaflet.marker(obj.latLng, obj.markerOptions)
-          .on('click', () => this.props.map.panTo(obj.latLng))
+          .on('click', () => {
+            this.props.map.panTo(obj.latLng)
+            if (obj.onClick) {
+              obj.onClick()
+            }
+          })
 
         if (obj.popupHtml) {
           leafletMarker.bindPopup(obj.popupHtml, {maxHeight: 350, maxWidth: 250, minWidth: 250})
