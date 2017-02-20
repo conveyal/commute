@@ -1159,7 +1159,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
+                                        "centerPoint": Object {
                                           "lat": 39.467803,
                                           "lon": -87.397648,
                                           "radius": 20,
@@ -1223,7 +1223,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
+                                          "centerPoint": Object {
                                             "lat": 39.467803,
                                             "lon": -87.397648,
                                             "radius": 20,
@@ -1302,7 +1302,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
+                                            "centerPoint": Object {
                                               "lat": 39.467803,
                                               "lon": -87.397648,
                                               "radius": 20,
@@ -1315,8 +1315,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -1422,7 +1424,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -1449,7 +1451,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />
@@ -2732,7 +2734,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
+                                        "centerPoint": Object {
                                           "lat": 39.467803,
                                           "lon": -87.397648,
                                           "radius": 20,
@@ -2800,7 +2802,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
+                                          "centerPoint": Object {
                                             "lat": 39.467803,
                                             "lon": -87.397648,
                                             "radius": 20,
@@ -2883,7 +2885,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
+                                            "centerPoint": Object {
                                               "lat": 39.467803,
                                               "lon": -87.397648,
                                               "radius": 20,
@@ -2896,8 +2898,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -3029,7 +3033,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -3056,7 +3060,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />

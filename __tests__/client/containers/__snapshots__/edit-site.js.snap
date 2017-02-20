@@ -1147,7 +1147,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
+                                        "centerPoint": Object {
                                           "lat": 39.467803,
                                           "lon": -87.397648,
                                           "radius": 20,
@@ -1211,7 +1211,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
+                                          "centerPoint": Object {
                                             "lat": 39.467803,
                                             "lon": -87.397648,
                                             "radius": 20,
@@ -1290,7 +1290,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
+                                            "centerPoint": Object {
                                               "lat": 39.467803,
                                               "lon": -87.397648,
                                               "radius": 20,
@@ -1303,8 +1303,10 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -1410,7 +1412,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -1437,7 +1439,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />
@@ -2723,7 +2725,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
+                                        "centerPoint": Object {
                                           "lat": 39.467803,
                                           "lon": -87.397648,
                                           "radius": 20,
@@ -2791,7 +2793,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
+                                          "centerPoint": Object {
                                             "lat": 39.467803,
                                             "lon": -87.397648,
                                             "radius": 20,
@@ -2874,7 +2876,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
+                                            "centerPoint": Object {
                                               "lat": 39.467803,
                                               "lon": -87.397648,
                                               "radius": 20,
@@ -2887,8 +2889,10 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -3020,7 +3024,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -3047,7 +3051,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />
@@ -3189,6 +3193,12 @@ Object {
 `;
 
 exports[`Container > EditSite Update site 1`] = `
+Object {
+  "siteId": "site-2",
+}
+`;
+
+exports[`Container > EditSite Update site 2`] = `
 Object {
   "payload": Object {
     "args": Array [

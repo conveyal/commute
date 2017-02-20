@@ -18,6 +18,11 @@ import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditSite from '../../../client/containers/edit-site'
 
+const polygonExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'polygons',
+  singularName: 'polygon'
+})
+
 const siteExpectations = makeGenericModelActionsExpectations({
   pluralName: 'sites',
   singularName: 'site'
@@ -127,6 +132,9 @@ describe('Container > EditSite', () => {
       attachTo: document.getElementById('test')
     })
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // give each text field some input
     // name
     tree.find('input').first().simulate('change', {target: {value: 'Different Name'}})
@@ -139,8 +147,14 @@ describe('Container > EditSite', () => {
     // react-formal submit is asyncrhonous, so wait a bit
     await timeoutPromise(1000)
 
+    const actions = mockStore.getActions()
+    polygonExpectations.expectDeleteManyAction({
+      action: actions.slice(0, 2),
+      queryParams: { siteId: 'site-2' }
+    })
+
     siteExpectations.expectUpdateAction({
-      action: mockStore.getActions()[0],
+      action: actions[2],
       entity: genGeocodedEntity({
         _id: 'site-2',
         calculationStatus: 'calculating',
