@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const uuid = require('uuid')
 
 mongoose.Promise = global.Promise // default is mpromise...ugh
 
@@ -7,7 +6,11 @@ let URI = process.env.MONGODB_URI
 
 if (!URI) {
   const baseConnectionString = 'mongodb://localhost:27017/'
-  const dbName = `commute${process.env.NODE_ENV === 'test' ? '-test-' + uuid.v4() : ''}`
+  let dbName = 'commute'
+  if (process.env.NODE_ENV === 'test') {
+    const uuid = require('uuid')
+    dbName += uuid.v4()
+  }
   URI = `${baseConnectionString}${dbName}`
 }
 

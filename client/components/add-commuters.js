@@ -6,9 +6,10 @@ import React, {Component, PropTypes} from 'react'
 import {Accordion, Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Dropzone from 'react-dropzone'
-import uuid from 'uuid'
 
 import BackButton from '../containers/back-button'
+
+let uniqueid = 1
 
 export default class AddCommuters extends Component {
   static propTypes = {
@@ -36,7 +37,7 @@ export default class AddCommuters extends Component {
     r.onload = (e) => {
       const newCommuters = csvParse(e.target.result, (row) => {
         const {address, name} = row
-        const _id = row._id || uuid.v4()
+        const _id = row._id || ++uniqueid
         // TODO: parse more field possibilities (first name, last name, etc)
         const newCommuter = {address, _id, name}
         newCommuter.siteId = site._id
