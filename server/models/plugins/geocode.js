@@ -132,7 +132,7 @@ module.exports = function (postGeocodeHook) {
             console.log(`try geocode for ${addressToGeocode}`)
             geocoder.search(Object.assign(geocodeSearchOptions, {
               apiKey: env.env.MAPZEN_SEARCH_KEY,
-              text: this.fullAddress()
+              text: this.mapzenSafeDCAddress()
             }))
               .then((geojson) => {
                 if (!geojson.features) throw geojson
@@ -227,6 +227,10 @@ module.exports = function (postGeocodeHook) {
       return [this.address, this.city, this.state].filter(function (v) {
         return !!v
       }).join(', ')
+    }
+
+    schema.methods.mapzenSafeDCAddress = function () {
+      return this.fullAddress().replace(/,\s*dc/i, '')
     }
   }
 }

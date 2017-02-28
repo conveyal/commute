@@ -77,7 +77,7 @@ export default class AddCommuters extends Component {
               multiple={false}
               onDrop={this._onDrop}
               >
-              <div>Try dropping a csv file here, or click to select files to upload.  Make sure the csv file contains the headers: name, email and address.</div>
+              <div>Try dragging and dropping a csv file here, or click to select files to upload.  Make sure the csv file contains the headers: 'name' and 'address'.</div>
             </Dropzone>
             <Accordion>
               <Panel

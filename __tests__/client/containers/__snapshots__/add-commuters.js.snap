@@ -11,7 +11,7 @@ exports[`Container > AddCommuters Add Commuters View loads 1`] = `
         <input type=\"text\" value=\"Acme Corp\" disabled=\"\" id=\"site-label\" class=\"form-control\">
       </div>
       <div class=\"dropzone\">
-        <div>Try dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: name, email and address.</div>
+        <div>Try dragging and dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: \'name\' and \'address\'.</div>
         <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
       </div>
       <div role=\"tablist\" class=\"panel-group\">
@@ -103,7 +103,7 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
         <input type=\"text\" value=\"Acme Corp\" disabled=\"\" id=\"site-label\" class=\"form-control\">
       </div>
       <div class=\"dropzone\">
-        <div>Try dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: name, email and address.</div>
+        <div>Try dragging and dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: \'name\' and \'address\'.</div>
         <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
       </div>
       <div role=\"tablist\" class=\"panel-group\">

@@ -456,7 +456,7 @@ export default class Site extends Component {
           )
         })
 
-      mapLegendProps.html += getIsochroneLegendHtml({ analysisMapStyle, isochroneCutoff })
+      mapLegendProps.html += getIsochroneLegendHtml({ analysisMapStyle, isochroneCutoff, analysisMode })
     }
 
     /************************************************************************
@@ -526,9 +526,9 @@ export default class Site extends Component {
       } else {
         travelTime = 'calculating...'
       }
-      // convert unreachable to high value for sorting purposes
+      // skip uncreachables
       if (travelTime === -1) {
-        travelTime = 9999
+        return
       }
       if (!analysisModeStatsLookup[travelTime]) {
         analysisModeStatsLookup[travelTime] = 0
@@ -544,9 +544,9 @@ export default class Site extends Component {
         const num = analysisModeStatsLookup[range]
         cumulative += num
         return {
-          bin: (range < 9999
-            ? `${minutes - 5} - ${minutes}`
-            : (range === 'calculating...' ? range : 'N/A')
+          bin: (range === 'calculating...'
+            ? range
+            : `< ${humanizeDuration(minutes * 60 * 1000)}`
           ),
           num,
           cumulative,
@@ -594,12 +594,12 @@ export default class Site extends Component {
 
       const ridematchingBinsByMaxDistance = [0.25, 0.5, 1, 2, 5]
       const ridematchingBinLabels = [
-        '0 - 0.25',
-        '0.25 - 0.5',
-        '0.5 - 1',
-        '1 - 2',
-        '2 - 5',
-        'N/A'
+        '< 1/4 mile',
+        '< 1/2 mile',
+        '< 1 mile',
+        '< 2 miles',
+        '< 5 miles',
+        '5 miles+'
       ]
       const ridematchingBinVals = [0, 0, 0, 0, 0, 0]
 
@@ -831,7 +831,7 @@ export default class Site extends Component {
                           <TableHeaderColumn dataField='_id' isKey hidden />
                           <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                           <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-                          <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Confidence</TableHeaderColumn>
+                          <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Accuracy</TableHeaderColumn>
                           <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
                         </BootstrapTable>
                       }
@@ -843,32 +843,20 @@ export default class Site extends Component {
                 {/***************************
                   Analysis Tab
                 ***************************/}
+                <FieldGroup
+                  label='Mode'
+                  name='analysisMode'
+                  onChange={this._handleStateChange}
+                  componentClass='select'
+                  value={analysisMode}
+                  >
+                  <option value='TRANSIT'>Transit</option>
+                  <option value='BICYCLE'>Bicycle</option>
+                  <option value='WALK'>Walk</option>
+                  <option value='CAR'>Car</option>
+                </FieldGroup>
                 {!isMultiSite &&
                   <div>
-                    <Panel>
-                      <p><b>Maximum Travel Time</b></p>
-                      <Slider
-                        defaultValue={7200}
-                        handle={
-                          <CustomHandle
-                            formatter={
-                              // convert minutes to milliseconds
-                              (v) => humanizeDuration(v * 1000, { round: true })
-                            }
-                            />
-                        }
-                        marks={{
-                          1800: '30 min',
-                          3600: '1 hr',
-                          5400: '1 hr 30 min',
-                          7200: '2 hr'
-                        }}
-                        max={7200}
-                        min={analysisSliderStepAndMin}
-                        onChange={this._handleAnalysisTimeChange}
-                        step={analysisSliderStepAndMin}
-                        />
-                    </Panel>
                     <FieldGroup
                       label='Map Style'
                       name='analysisMapStyle'
@@ -882,29 +870,40 @@ export default class Site extends Component {
                       <option value='blue-solid'>Single Color Isochrone</option>
                       <option value='inverted'>Inverted Isochrone</option>
                     </FieldGroup>
+                    <Panel>
+                      <p><b>Maximum Travel Time</b></p>
+                      <Slider
+                        defaultValue={7200}
+                        handle={
+                          <CustomHandle
+                            formatter={
+                              // convert minutes to milliseconds
+                              (v) => humanizeDuration(v * 1000, { round: true })
+                            }
+                            />
+                        }
+                        max={7200}
+                        min={analysisSliderStepAndMin}
+                        onChange={this._handleAnalysisTimeChange}
+                        step={analysisSliderStepAndMin}
+                        />
+                    </Panel>
                   </div>
                 }
-                <FieldGroup
-                  label='Mode'
-                  name='analysisMode'
-                  onChange={this._handleStateChange}
-                  componentClass='select'
-                  value={analysisMode}
-                  >
-                  <option value='TRANSIT'>Transit</option>
-                  <option value='BICYCLE'>Bicycle</option>
-                  <option value='WALK'>Walk</option>
-                  <option value='CAR'>Car</option>
-                </FieldGroup>
+                <h4>Commuter Travel Time Summary ({capitalize(analysisMode.toLowerCase())})</h4>
+                <p>
+                  This table provides a summary of the distribution of travel times to work.
+                  Each row shows how many commuters can commute to work using the currently
+                  selected mode up to the travel time listed.
+                </p>
                 <BootstrapTable data={analysisModeStats}>
-                  <TableHeaderColumn dataField='bin' isKey>Time in Minutes</TableHeaderColumn>
-                  <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
-                  <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
+                  <TableHeaderColumn dataField='bin' isKey>Travel Time to Work (minutes)</TableHeaderColumn>
+                  <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
                   <TableHeaderColumn
                     dataField='cumulativePct'
                     dataFormat={formatPercentAsStr}
                     >
-                    Cumulative Percent
+                    Percent of Commuters
                   </TableHeaderColumn>
                 </BootstrapTable>
               </Tab>
@@ -953,15 +952,20 @@ export default class Site extends Component {
                           />
                       </Panel>
                     }
+                    <h4>Ridematch Summary</h4>
+                    <p>
+                      This table provides a summary of the distribution of commuter ridematches.
+                      Each row shows how many commuters have another commuter located within the
+                      current distance listed (as the crow flies).
+                    </p>
                     <BootstrapTable data={ridematchingAggregateTable}>
-                      <TableHeaderColumn dataField='bin' isKey>Ridematch radius in miles</TableHeaderColumn>
-                      <TableHeaderColumn dataField='num'>Number in Range</TableHeaderColumn>
-                      <TableHeaderColumn dataField='cumulative'>Cumulative Number</TableHeaderColumn>
+                      <TableHeaderColumn dataField='bin' isKey>Ridematch radius (miles)</TableHeaderColumn>
+                      <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
                       <TableHeaderColumn
                         dataField='cumulativePct'
                         dataFormat={formatPercentAsStr}
                         >
-                        Cumulative Percent
+                        Percent of Commuters
                       </TableHeaderColumn>
                     </BootstrapTable>
                   </div>
@@ -1014,7 +1018,7 @@ export default class Site extends Component {
                             ))
                           }
                           <tr key='selectedCommuterTableGeocodeConfidenceRow'>
-                            <td>Geocode Confidence</td>
+                            <td>Geocode Accuracy</td>
                             <td>{geocodeConfidenceRenderer(null, selectedCommuter)}</td>
                           </tr>
                         </tbody>
@@ -1135,8 +1139,8 @@ function geocodeConfidenceRenderer (cell, row) {
   }
 }
 
-function getIsochroneLegendHtml ({ analysisMapStyle, isochroneCutoff }) {
-  let html = '<tr><td colspan="2">Travel Time</td></tr>'
+function getIsochroneLegendHtml ({ analysisMapStyle, isochroneCutoff, analysisMode }) {
+  let html = `<tr><td colspan="2">Travel Time (by ${capitalize(analysisMode.toLowerCase())})</td></tr>`
   const strategy = getIsochroneStrategies[analysisMapStyle]
 
   if (strategy === 'single isochrone') {

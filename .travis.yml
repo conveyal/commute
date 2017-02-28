@@ -3,22 +3,19 @@ language: node_js
 services:
   - mongodb
 cache:
-  directories:
-    - ~/.yarn-cache
+  yarn: true
 notifications:
   email: false
 node_js:
   - '6'
-before_install:
-  - npm i -g yarn codecov
-install:
-  - yarn
+before_script:
+  - yarn global add codecov
 script:
-  - npm run lint
-  - npm run lint-messages
-  - npm run cover
+  - yarn run lint
+  - yarn run lint-messages
+  - yarn run cover
   - codecov
-  - npm run build
+  - yarn run build
 after_success:
   - npm run semantic-release
 branches:
