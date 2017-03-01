@@ -39,6 +39,7 @@ jspm_packages
 
 # build results
 assets
+docs-build/*
 
 # secret config
 configurations/default/env.yml

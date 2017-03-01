@@ -1,0 +1,6 @@
+site_name: conveyal-commute
+site_url: https://conveyal-commute.readthedocs.org
+repo_url: https://github.com/conveyal/commute
+site_dir: docs-build
+docs_dir: docs
+theme: readthedocs
