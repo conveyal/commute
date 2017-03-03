@@ -28,4 +28,4 @@ Multi-site Analyses include a collection of sites and thus the sites' respective
 
 ## Let's get started!
 
-Now that you know the basic concepts of Conveyal Commute, let's [get started](home-page.md) with creating some sites!
+Now that you know the basic concepts of Conveyal Commute, let's [get started](tutorial/home-page.md) with creating some sites!
