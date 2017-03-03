@@ -50,7 +50,7 @@ export default class Site extends Component {
     this.state = {
       activeTab: 'summary',
       analysisMode: 'TRANSIT',
-      analysisMapStyle: 'blue-incremental',
+      analysisMapStyle: 'blue-solid',
       commuterRingRadius: 1,
       isochroneCutoff: 7200,
       rideMatchMapStyle: 'normal'
@@ -819,7 +819,10 @@ export default class Site extends Component {
                     }
                     <div style={{ clear: 'both' }}>
                       {isMultiSite &&
-                        <BootstrapTable data={commuters}>
+                        <BootstrapTable
+                          data={commuters}
+                          pagination={commuters.length > 10}
+                          >
                           <TableHeaderColumn dataField='_id' isKey hidden />
                           <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                           <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
@@ -827,7 +830,10 @@ export default class Site extends Component {
                         </BootstrapTable>
                       }
                       {!isMultiSite &&
-                        <BootstrapTable data={commuters}>
+                        <BootstrapTable
+                          data={commuters}
+                          pagination={commuters.length > 10}
+                          >
                           <TableHeaderColumn dataField='_id' isKey hidden />
                           <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                           <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
@@ -864,11 +870,11 @@ export default class Site extends Component {
                       componentClass='select'
                       value={analysisMapStyle}
                       >
-                      <option value='blue-incremental'>Blueish Isochrone</option>
-                      <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone</option>
-                      <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
                       <option value='blue-solid'>Single Color Isochrone</option>
                       <option value='inverted'>Inverted Isochrone</option>
+                      <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
+                      <option value='blue-incremental'>Blueish Isochrone (5 minute intervals)</option>
+                      <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone (5 minute intervals)</option>
                     </FieldGroup>
                     <Panel>
                       <p><b>Maximum Travel Time</b></p>
@@ -982,6 +988,7 @@ export default class Site extends Component {
                   <Combobox
                     data={commuters}
                     onChange={this._handleSelectCommuter}
+                    placeholder='Select a commuter'
                     suggest
                     textField='name'
                     value={selectedCommuter}
