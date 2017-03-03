@@ -1,17 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Container > Footer renders correctly 1`] = `
 <Footer>
   <footer>
     <Grid
       bsClass="container"
       componentClass="div"
-      fluid={false}>
+      fluid={false}
+    >
       <div
-        className="container">
+        className="container"
+      >
         <p
-          className="text-center text-muted">
-          © 
+          className="text-center text-muted"
+        >
+          <span
+            aria-label="Copyright"
+            role="img"
+          >
+            ©
+          </span>
           <a
-            href="http://conveyal.com">
+            href="http://conveyal.com"
+          >
             Conveyal
           </a>
         </p>

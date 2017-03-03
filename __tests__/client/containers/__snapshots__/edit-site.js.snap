@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Container > EditSite Create site 1`] = `
 Object {
   "payload": Object {
@@ -12,14 +14,16 @@ Object {
 
 exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
 <div
-  className="site-header col-xs-12">
+  className="site-header col-xs-12"
+>
   <h3>
     <span>
       Create New Site
     </span>
     <Connect(BackButton)>
       <BackButton
-        goBack={[Function]}>
+        goBack={[Function]}
+      >
         <Button
           active={false}
           block={false}
@@ -27,16 +31,20 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
           bsStyle="default"
           className="pull-right"
           disabled={false}
-          onClick={[Function]}>
+          onClick={[Function]}
+        >
           <button
             className="pull-right btn btn-default"
             disabled={false}
             onClick={[Function]}
-            type="button">
+            type="button"
+          >
             <Icon
-              type="arrow-left">
+              type="arrow-left"
+            >
               <i
-                className="fa fa-arrow-left fa-fw " />
+                className="fa fa-arrow-left fa-fw "
+              />
             </Icon>
             <span>
               Back
@@ -51,7 +59,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
 
 exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
 <div
-  className="site-form col-md-5 col-xs-12">
+  className="site-form col-md-5 col-xs-12"
+>
   <Uncontrolled(Form)
     onChange={[Function]}
     onError={[Function]}
@@ -423,7 +432,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
         ],
       }
     }
-    value={Object {}}>
+    value={Object {}}
+  >
     <Form
       component="form"
       delay={300}
@@ -800,36 +810,46 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
       }
       setter={[Function]}
       strict={false}
-      value={Object {}}>
+      value={Object {}}
+    >
       <BindingContext
         getter={[Function]}
         onChange={[Function]}
         setter={[Function]}
-        value={Object {}}>
+        value={Object {}}
+      >
         <MessageListener
-          onValidationNeeded={[Function]}>
+          onValidationNeeded={[Function]}
+        >
           <MessageContainer
             mapNames={[Function]}
             messages={Object {}}
-            onValidationNeeded={[Function]}>
+            onValidationNeeded={[Function]}
+          >
             <form
               noValidate={true}
-              onSubmit={[Function]}>
+              onSubmit={[Function]}
+            >
               <FormalFieldGroup
                 label="Site Name"
                 name="name"
-                placeholder="Enter name">
+                placeholder="Enter name"
+              >
                 <FormGroup
                   bsClass="form-group"
-                  controlId="group-item-name">
+                  controlId="group-item-name"
+                >
                   <div
-                    className="form-group">
+                    className="form-group"
+                  >
                     <ControlLabel
                       bsClass="control-label"
-                      srOnly={false}>
+                      srOnly={false}
+                    >
                       <label
                         className="control-label"
-                        htmlFor="group-item-name">
+                        htmlFor="group-item-name"
+                      >
                         Site Name
                       </label>
                     </ControlLabel>
@@ -838,7 +858,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                       exclusive={false}
                       name="name"
                       placeholder="Enter name"
-                      type="">
+                      type=""
+                    >
                       <Binding
                         bindTo={[Function]}
                         changeProp="onChange"
@@ -848,10 +869,12 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                           }
                         }
                         updateAfterChild={false}
-                        valueProp="value">
+                        valueProp="value"
+                      >
                         <ChildBridge
                           events="onChange"
-                          onEvent={[Function]}>
+                          onEvent={[Function]}
+                        >
                           <MessageListener
                             events={
                               Array [
@@ -860,7 +883,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                               ]
                             }
                             for="name"
-                            mapMessages={[Function]}>
+                            mapMessages={[Function]}
+                          >
                             <MessageTrigger
                               events={
                                 Array [
@@ -871,7 +895,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                               for="name"
                               mapMessages={[Function]}
                               messages={Object {}}
-                              noValidate={false}>
+                              noValidate={false}
+                            >
                               <ChildBridge
                                 events={
                                   Array [
@@ -879,7 +904,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                     "onBlur",
                                   ]
                                 }
-                                onEvent={[Function]}>
+                                onEvent={[Function]}
+                              >
                                 <_class
                                   className="form-control"
                                   meta={
@@ -927,7 +953,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   placeholder="Enter name"
-                                  value={null}>
+                                  value={null}
+                                >
                                   <Input
                                     className="form-control"
                                     meta={
@@ -976,7 +1003,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                     onChange={[Function]}
                                     placeholder="Enter name"
                                     type="text"
-                                    value={null}>
+                                    value={null}
+                                  >
                                     <input
                                       className="form-control"
                                       name="name"
@@ -984,7 +1012,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                       onChange={[Function]}
                                       placeholder="Enter name"
                                       type="text"
-                                      value="" />
+                                      value=""
+                                    />
                                   </Input>
                                 </_class>
                               </ChildBridge>
@@ -999,16 +1028,19 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                       errorClass="validation-error"
                       extract={[Function]}
                       filter={[Function]}
-                      for="name">
+                      for="name"
+                    >
                       <MessageListener
                         className="help-block validation-error"
                         component="span"
-                        for="name">
+                        for="name"
+                      >
                         <Message
                           className="help-block validation-error"
                           component="span"
                           for="name"
-                          messages={Object {}} />
+                          messages={Object {}}
+                        />
                       </MessageListener>
                     </ValidationMessage>
                   </div>
@@ -1031,7 +1063,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                 }
                 mapToValue={[Function]}
                 name="address"
-                type={[Function]}>
+                type={[Function]}
+              >
                 <Binding
                   bindTo={[Function]}
                   changeProp="onChange"
@@ -1048,10 +1081,12 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                     }
                   }
                   updateAfterChild={false}
-                  valueProp="value">
+                  valueProp="value"
+                >
                   <ChildBridge
                     events="onChange"
-                    onEvent={[Function]}>
+                    onEvent={[Function]}
+                  >
                     <MessageListener
                       events={
                         Array [
@@ -1060,7 +1095,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                         ]
                       }
                       for="address"
-                      mapMessages={[Function]}>
+                      mapMessages={[Function]}
+                    >
                       <MessageTrigger
                         events={
                           Array [
@@ -1071,7 +1107,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                         for="address"
                         mapMessages={[Function]}
                         messages={Object {}}
-                        noValidate={false}>
+                        noValidate={false}
+                      >
                         <ChildBridge
                           events={
                             Array [
@@ -1079,7 +1116,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                               "onBlur",
                             ]
                           }
-                          onEvent={[Function]}>
+                          onEvent={[Function]}
+                        >
                           <Geocoder
                             className=""
                             label="Address"
@@ -1127,18 +1165,23 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                             name="address"
                             onBlur={[Function]}
                             onChange={[Function]}
-                            value={null}>
+                            value={null}
+                          >
                             <FormGroup
                               bsClass="form-group"
-                              controlId="geocode-control-address">
+                              controlId="geocode-control-address"
+                            >
                               <div
-                                className="form-group">
+                                className="form-group"
+                              >
                                 <ControlLabel
                                   bsClass="control-label"
-                                  srOnly={false}>
+                                  srOnly={false}
+                                >
                                   <label
                                     className="control-label"
-                                    htmlFor="geocode-control-address">
+                                    htmlFor="geocode-control-address"
+                                  >
                                     Address
                                   </label>
                                 </ControlLabel>
@@ -1204,7 +1247,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   search={[Function]}
-                                  value={null}>
+                                  value={null}
+                                >
                                   <Async
                                     apiKey="test-search-key"
                                     autoload={false}
@@ -1278,9 +1322,10 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                     options={Array []}
                                     search={[Function]}
                                     searchPromptText="Type to search"
-                                    value={null}>
+                                    value={null}
+                                  >
                                     <Select
-                                      addLabelText="Add \"{label}\"?"
+                                      addLabelText="Add \\"{label}\\"?"
                                       apiKey="test-search-key"
                                       arrowRenderer={[Function]}
                                       autoload={false}
@@ -1389,21 +1434,26 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                       tabSelectsValue={true}
                                       value={null}
                                       valueComponent={[Function]}
-                                      valueKey="value">
+                                      valueKey="value"
+                                    >
                                       <div
-                                        className="Select Select--single is-searchable">
+                                        className="Select Select--single is-searchable"
+                                      >
                                         <div
                                           className="Select-control"
                                           onKeyDown={[Function]}
                                           onMouseDown={[Function]}
                                           onTouchEnd={[Function]}
                                           onTouchMove={[Function]}
-                                          onTouchStart={[Function]}>
+                                          onTouchStart={[Function]}
+                                        >
                                           <span
                                             className="Select-multi-value-wrapper"
-                                            id="react-select-3--value">
+                                            id="react-select-3--value"
+                                          >
                                             <div
-                                              className="Select-placeholder">
+                                              className="Select-placeholder"
+                                            >
                                               Select...
                                             </div>
                                             <AutosizeInput
@@ -1418,14 +1468,16 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                               onFocus={[Function]}
                                               required={false}
                                               role="combobox"
-                                              value="">
+                                              value=""
+                                            >
                                               <div
                                                 className="Select-input"
                                                 style={
                                                   Object {
                                                     "display": "inline-block",
                                                   }
-                                                }>
+                                                }
+                                              >
                                                 <input
                                                   aria-activedescendant="react-select-3--value"
                                                   aria-expanded="false"
@@ -1442,7 +1494,8 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                                       "width": "5px",
                                                     }
                                                   }
-                                                  value="" />
+                                                  value=""
+                                                />
                                                 <div
                                                   style={
                                                     Object {
@@ -1454,16 +1507,19 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                                       "visibility": "hidden",
                                                       "whiteSpace": "pre",
                                                     }
-                                                  } />
+                                                  }
+                                                />
                                               </div>
                                             </AutosizeInput>
                                           </span>
                                           <span
                                             className="Select-arrow-zone"
-                                            onMouseDown={[Function]}>
+                                            onMouseDown={[Function]}
+                                          >
                                             <span
                                               className="Select-arrow"
-                                              onMouseDown={[Function]} />
+                                              onMouseDown={[Function]}
+                                            />
                                           </span>
                                         </div>
                                       </div>
@@ -1476,16 +1532,19 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                   errorClass="validation-error"
                                   extract={[Function]}
                                   filter={[Function]}
-                                  for="address">
+                                  for="address"
+                                >
                                   <MessageListener
                                     className="help-block validation-error"
                                     component="span"
-                                    for="address">
+                                    for="address"
+                                  >
                                     <Message
                                       className="help-block validation-error"
                                       component="span"
                                       for="address"
-                                      messages={Object {}} />
+                                      messages={Object {}}
+                                    />
                                   </MessageListener>
                                 </ValidationMessage>
                               </div>
@@ -1501,9 +1560,11 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                 block={false}
                 bsClass="btn-group"
                 justified={false}
-                vertical={false}>
+                vertical={false}
+              >
                 <div
-                  className="btn-group">
+                  className="btn-group"
+                >
                   <Button
                     className="btn btn-success"
                     component="button"
@@ -1512,10 +1573,12 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                         "onClick",
                       ]
                     }
-                    type="submit">
+                    type="submit"
+                  >
                     <button
                       className="btn btn-success"
-                      onClick={[Function]}>
+                      onClick={[Function]}
+                    >
                       Create
                     </button>
                   </Button>
@@ -1532,14 +1595,16 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
 
 exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
 <div
-  className="site-header col-xs-12">
+  className="site-header col-xs-12"
+>
   <h3>
     <span>
       Edit Site
     </span>
     <Connect(BackButton)>
       <BackButton
-        goBack={[Function]}>
+        goBack={[Function]}
+      >
         <Button
           active={false}
           block={false}
@@ -1547,16 +1612,20 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
           bsStyle="default"
           className="pull-right"
           disabled={false}
-          onClick={[Function]}>
+          onClick={[Function]}
+        >
           <button
             className="pull-right btn btn-default"
             disabled={false}
             onClick={[Function]}
-            type="button">
+            type="button"
+          >
             <Icon
-              type="arrow-left">
+              type="arrow-left"
+            >
               <i
-                className="fa fa-arrow-left fa-fw " />
+                className="fa fa-arrow-left fa-fw "
+              />
             </Icon>
             <span>
               Back
@@ -1571,7 +1640,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
 
 exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
 <div
-  className="site-form col-md-5 col-xs-12">
+  className="site-form col-md-5 col-xs-12"
+>
   <Uncontrolled(Form)
     onChange={[Function]}
     onError={[Function]}
@@ -1961,7 +2031,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
         "neighbourhood": undefined,
         "state": "Made up state",
       }
-    }>
+    }
+  >
     <Form
       component="form"
       delay={300}
@@ -2356,7 +2427,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
           "neighbourhood": undefined,
           "state": "Made up state",
         }
-      }>
+      }
+    >
       <BindingContext
         getter={[Function]}
         onChange={[Function]}
@@ -2379,31 +2451,40 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
             "neighbourhood": undefined,
             "state": "Made up state",
           }
-        }>
+        }
+      >
         <MessageListener
-          onValidationNeeded={[Function]}>
+          onValidationNeeded={[Function]}
+        >
           <MessageContainer
             mapNames={[Function]}
             messages={Object {}}
-            onValidationNeeded={[Function]}>
+            onValidationNeeded={[Function]}
+          >
             <form
               noValidate={true}
-              onSubmit={[Function]}>
+              onSubmit={[Function]}
+            >
               <FormalFieldGroup
                 label="Site Name"
                 name="name"
-                placeholder="Enter name">
+                placeholder="Enter name"
+              >
                 <FormGroup
                   bsClass="form-group"
-                  controlId="group-item-name">
+                  controlId="group-item-name"
+                >
                   <div
-                    className="form-group">
+                    className="form-group"
+                  >
                     <ControlLabel
                       bsClass="control-label"
-                      srOnly={false}>
+                      srOnly={false}
+                    >
                       <label
                         className="control-label"
-                        htmlFor="group-item-name">
+                        htmlFor="group-item-name"
+                      >
                         Site Name
                       </label>
                     </ControlLabel>
@@ -2412,7 +2493,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                       exclusive={false}
                       name="name"
                       placeholder="Enter name"
-                      type="">
+                      type=""
+                    >
                       <Binding
                         bindTo={[Function]}
                         changeProp="onChange"
@@ -2422,10 +2504,12 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                           }
                         }
                         updateAfterChild={false}
-                        valueProp="value">
+                        valueProp="value"
+                      >
                         <ChildBridge
                           events="onChange"
-                          onEvent={[Function]}>
+                          onEvent={[Function]}
+                        >
                           <MessageListener
                             events={
                               Array [
@@ -2434,7 +2518,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                               ]
                             }
                             for="name"
-                            mapMessages={[Function]}>
+                            mapMessages={[Function]}
+                          >
                             <MessageTrigger
                               events={
                                 Array [
@@ -2445,7 +2530,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                               for="name"
                               mapMessages={[Function]}
                               messages={Object {}}
-                              noValidate={false}>
+                              noValidate={false}
+                            >
                               <ChildBridge
                                 events={
                                   Array [
@@ -2453,7 +2539,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                     "onBlur",
                                   ]
                                 }
-                                onEvent={[Function]}>
+                                onEvent={[Function]}
+                              >
                                 <_class
                                   className="form-control"
                                   meta={
@@ -2501,7 +2588,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   placeholder="Enter name"
-                                  value="Acme Corp">
+                                  value="Acme Corp"
+                                >
                                   <Input
                                     className="form-control"
                                     meta={
@@ -2550,7 +2638,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                     onChange={[Function]}
                                     placeholder="Enter name"
                                     type="text"
-                                    value="Acme Corp">
+                                    value="Acme Corp"
+                                  >
                                     <input
                                       className="form-control"
                                       name="name"
@@ -2558,7 +2647,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                       onChange={[Function]}
                                       placeholder="Enter name"
                                       type="text"
-                                      value="Acme Corp" />
+                                      value="Acme Corp"
+                                    />
                                   </Input>
                                 </_class>
                               </ChildBridge>
@@ -2573,16 +2663,19 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                       errorClass="validation-error"
                       extract={[Function]}
                       filter={[Function]}
-                      for="name">
+                      for="name"
+                    >
                       <MessageListener
                         className="help-block validation-error"
                         component="span"
-                        for="name">
+                        for="name"
+                      >
                         <Message
                           className="help-block validation-error"
                           component="span"
                           for="name"
-                          messages={Object {}} />
+                          messages={Object {}}
+                        />
                       </MessageListener>
                     </ValidationMessage>
                   </div>
@@ -2605,7 +2698,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                 }
                 mapToValue={[Function]}
                 name="address"
-                type={[Function]}>
+                type={[Function]}
+              >
                 <Binding
                   bindTo={[Function]}
                   changeProp="onChange"
@@ -2622,10 +2716,12 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                     }
                   }
                   updateAfterChild={false}
-                  valueProp="value">
+                  valueProp="value"
+                >
                   <ChildBridge
                     events="onChange"
-                    onEvent={[Function]}>
+                    onEvent={[Function]}
+                  >
                     <MessageListener
                       events={
                         Array [
@@ -2634,7 +2730,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                         ]
                       }
                       for="address"
-                      mapMessages={[Function]}>
+                      mapMessages={[Function]}
+                    >
                       <MessageTrigger
                         events={
                           Array [
@@ -2645,7 +2742,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                         for="address"
                         mapMessages={[Function]}
                         messages={Object {}}
-                        noValidate={false}>
+                        noValidate={false}
+                      >
                         <ChildBridge
                           events={
                             Array [
@@ -2653,7 +2751,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                               "onBlur",
                             ]
                           }
-                          onEvent={[Function]}>
+                          onEvent={[Function]}
+                        >
                           <Geocoder
                             className=""
                             label="Address"
@@ -2705,18 +2804,23 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                               Object {
                                 "label": "123 ABC St",
                               }
-                            }>
+                            }
+                          >
                             <FormGroup
                               bsClass="form-group"
-                              controlId="geocode-control-address">
+                              controlId="geocode-control-address"
+                            >
                               <div
-                                className="form-group">
+                                className="form-group"
+                              >
                                 <ControlLabel
                                   bsClass="control-label"
-                                  srOnly={false}>
+                                  srOnly={false}
+                                >
                                   <label
                                     className="control-label"
-                                    htmlFor="geocode-control-address">
+                                    htmlFor="geocode-control-address"
+                                  >
                                     Address
                                   </label>
                                 </ControlLabel>
@@ -2786,7 +2890,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                     Object {
                                       "label": "123 ABC St",
                                     }
-                                  }>
+                                  }
+                                >
                                   <Async
                                     apiKey="test-search-key"
                                     autoload={false}
@@ -2864,9 +2969,10 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                       Object {
                                         "label": "123 ABC St",
                                       }
-                                    }>
+                                    }
+                                  >
                                     <Select
-                                      addLabelText="Add \"{label}\"?"
+                                      addLabelText="Add \\"{label}\\"?"
                                       apiKey="test-search-key"
                                       arrowRenderer={[Function]}
                                       autoload={false}
@@ -2979,24 +3085,29 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                         }
                                       }
                                       valueComponent={[Function]}
-                                      valueKey="value">
+                                      valueKey="value"
+                                    >
                                       <div
-                                        className="Select Select--single is-searchable has-value">
+                                        className="Select Select--single is-searchable has-value"
+                                      >
                                         <input
                                           disabled={false}
                                           name="address"
                                           type="hidden"
-                                          value="" />
+                                          value=""
+                                        />
                                         <div
                                           className="Select-control"
                                           onKeyDown={[Function]}
                                           onMouseDown={[Function]}
                                           onTouchEnd={[Function]}
                                           onTouchMove={[Function]}
-                                          onTouchStart={[Function]}>
+                                          onTouchStart={[Function]}
+                                        >
                                           <span
                                             className="Select-multi-value-wrapper"
-                                            id="react-select-4--value">
+                                            id="react-select-4--value"
+                                          >
                                             <Value
                                               disabled={false}
                                               id="react-select-4--value-item"
@@ -3006,14 +3117,17 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                                 Object {
                                                   "label": "123 ABC St",
                                                 }
-                                              }>
+                                              }
+                                            >
                                               <div
-                                                className="Select-value">
+                                                className="Select-value"
+                                              >
                                                 <span
                                                   aria-selected="true"
                                                   className="Select-value-label"
                                                   id="react-select-4--value-item"
-                                                  role="option">
+                                                  role="option"
+                                                >
                                                   123 ABC St
                                                 </span>
                                               </div>
@@ -3030,14 +3144,16 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                               onFocus={[Function]}
                                               required={false}
                                               role="combobox"
-                                              value="">
+                                              value=""
+                                            >
                                               <div
                                                 className="Select-input"
                                                 style={
                                                   Object {
                                                     "display": "inline-block",
                                                   }
-                                                }>
+                                                }
+                                              >
                                                 <input
                                                   aria-activedescendant="react-select-4--value"
                                                   aria-expanded="false"
@@ -3054,7 +3170,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                                       "width": "5px",
                                                     }
                                                   }
-                                                  value="" />
+                                                  value=""
+                                                />
                                                 <div
                                                   style={
                                                     Object {
@@ -3066,7 +3183,8 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                                       "visibility": "hidden",
                                                       "whiteSpace": "pre",
                                                     }
-                                                  } />
+                                                  }
+                                                />
                                               </div>
                                             </AutosizeInput>
                                           </span>
@@ -3077,21 +3195,25 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                             onTouchEnd={[Function]}
                                             onTouchMove={[Function]}
                                             onTouchStart={[Function]}
-                                            title="Clear value">
+                                            title="Clear value"
+                                          >
                                             <span
                                               className="Select-clear"
                                               dangerouslySetInnerHTML={
                                                 Object {
                                                   "__html": "&times;",
                                                 }
-                                              } />
+                                              }
+                                            />
                                           </span>
                                           <span
                                             className="Select-arrow-zone"
-                                            onMouseDown={[Function]}>
+                                            onMouseDown={[Function]}
+                                          >
                                             <span
                                               className="Select-arrow"
-                                              onMouseDown={[Function]} />
+                                              onMouseDown={[Function]}
+                                            />
                                           </span>
                                         </div>
                                       </div>
@@ -3104,16 +3226,19 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                   errorClass="validation-error"
                                   extract={[Function]}
                                   filter={[Function]}
-                                  for="address">
+                                  for="address"
+                                >
                                   <MessageListener
                                     className="help-block validation-error"
                                     component="span"
-                                    for="address">
+                                    for="address"
+                                  >
                                     <Message
                                       className="help-block validation-error"
                                       component="span"
                                       for="address"
-                                      messages={Object {}} />
+                                      messages={Object {}}
+                                    />
                                   </MessageListener>
                                 </ValidationMessage>
                               </div>
@@ -3129,9 +3254,11 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                 block={false}
                 bsClass="btn-group"
                 justified={false}
-                vertical={false}>
+                vertical={false}
+              >
                 <div
-                  className="btn-group">
+                  className="btn-group"
+                >
                   <Button
                     className="btn btn-warning"
                     component="button"
@@ -3140,10 +3267,12 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                         "onClick",
                       ]
                     }
-                    type="submit">
+                    type="submit"
+                  >
                     <button
                       className="btn btn-warning"
-                      onClick={[Function]}>
+                      onClick={[Function]}
+                    >
                       Update
                     </button>
                   </Button>
@@ -3153,12 +3282,14 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                     bsClass="btn"
                     bsStyle="danger"
                     disabled={false}
-                    onClick={[Function]}>
+                    onClick={[Function]}
+                  >
                     <button
                       className="btn btn-danger"
                       disabled={false}
                       onClick={[Function]}
-                      type="button">
+                      type="button"
+                    >
                       Delete
                     </button>
                   </Button>

@@ -16,7 +16,7 @@ script:
   - yarn run cover
   - codecov
   - yarn run build
-  - mkdocs
+  - mkdocs build
 after_success:
   - npm run semantic-release
 branches:

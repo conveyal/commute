@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`client > reducers > user should handle default state 1`] = `Object {}`;
 
 exports[`client > reducers > user should handle log out 1`] = `Object {}`;

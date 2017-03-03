@@ -1,11 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Container > Navigation renders correctly 1`] = `
 <Connect(Navigation)>
   <Navigation
     logout={[Function]}
-    userIsLoggedIn={false}>
+    userIsLoggedIn={false}
+  >
     <Uncontrolled(Navbar)
       bsStyle="default"
-      fluid={true}>
+      fluid={true}
+    >
       <Navbar
         bsClass="navbar"
         bsStyle="default"
@@ -16,22 +20,28 @@ exports[`Container > Navigation renders correctly 1`] = `
         fluid={true}
         inverse={false}
         onToggle={[Function]}
-        staticTop={false}>
+        staticTop={false}
+      >
         <nav
-          className="navbar navbar-default">
+          className="navbar navbar-default"
+        >
           <Grid
             bsClass="container"
             componentClass="div"
-            fluid={true}>
+            fluid={true}
+          >
             <div
-              className="container-fluid">
+              className="container-fluid"
+            >
               <NavbarHeader>
                 <div
-                  className="navbar-header">
+                  className="navbar-header"
+                >
                   <NavbarBrand>
                     <a
                       className="navbar-brand"
-                      href="/">
+                      href="/"
+                    >
                       Commute
                     </a>
                   </NavbarBrand>
@@ -39,17 +49,22 @@ exports[`Container > Navigation renders correctly 1`] = `
                     <button
                       className="navbar-toggle collapsed"
                       onClick={[Function]}
-                      type="button">
+                      type="button"
+                    >
                       <span
-                        className="sr-only">
+                        className="sr-only"
+                      >
                         Toggle navigation
                       </span>
                       <span
-                        className="icon-bar" />
+                        className="icon-bar"
+                      />
                       <span
-                        className="icon-bar" />
+                        className="icon-bar"
+                      />
                       <span
-                        className="icon-bar" />
+                        className="icon-bar"
+                      />
                     </button>
                   </NavbarToggle>
                 </div>
@@ -61,7 +76,8 @@ exports[`Container > Navigation renders correctly 1`] = `
                   in={false}
                   timeout={300}
                   transitionAppear={false}
-                  unmountOnExit={false}>
+                  unmountOnExit={false}
+                >
                   <Transition
                     aria-expanded={null}
                     className=""
@@ -78,47 +94,57 @@ exports[`Container > Navigation renders correctly 1`] = `
                     onExiting={[Function]}
                     timeout={300}
                     transitionAppear={false}
-                    unmountOnExit={false}>
+                    unmountOnExit={false}
+                  >
                     <div
                       aria-expanded={null}
-                      className="navbar-collapse collapse">
+                      className="navbar-collapse collapse"
+                    >
                       <Nav
                         bsClass="nav"
                         justified={false}
                         pullLeft={false}
                         pullRight={true}
-                        stacked={false}>
+                        stacked={false}
+                      >
                         <ul
                           className="nav navbar-nav navbar-right"
-                          role={null}>
+                          role={null}
+                        >
                           <NavItem
                             active={false}
                             disabled={false}
                             eventKey={2}
-                            onSelect={null}>
+                            onSelect={null}
+                          >
                             <li
                               className=""
-                              role="presentation">
+                              role="presentation"
+                            >
                               <SafeAnchor
                                 componentClass="a"
                                 disabled={false}
-                                onClick={[Function]}>
+                                onClick={[Function]}
+                              >
                                 <a
                                   href="#"
                                   onClick={[Function]}
-                                  role="button">
+                                  role="button"
+                                >
                                   <Button
                                     active={false}
                                     block={false}
                                     bsClass="btn"
                                     bsStyle="default"
                                     disabled={false}
-                                    onClick={[Function]}>
+                                    onClick={[Function]}
+                                  >
                                     <button
                                       className="btn btn-default"
                                       disabled={false}
                                       onClick={[Function]}
-                                      type="button">
+                                      type="button"
+                                    >
                                       Log out
                                     </button>
                                   </Button>

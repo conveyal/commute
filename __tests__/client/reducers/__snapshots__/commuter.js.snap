@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`client > reducers > commuter generic reducer tests should handle add commuter 1`] = `
 Object {
   "commuter-2": Object {

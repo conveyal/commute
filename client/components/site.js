@@ -153,7 +153,7 @@ export default class Site extends Component {
     let shouldLoadCommuters = false
 
     const allCommutersLoadedFromAllSites = () => {
-      let numCommutersInSites = sites.reduce((accumulator, currentSite) => {
+      const numCommutersInSites = sites.reduce((accumulator, currentSite) => {
         return accumulator + currentSite.commuters.length
       }, 0)
       return numCommutersInSites === commuters.length
