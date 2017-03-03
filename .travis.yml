@@ -9,7 +9,7 @@ node_js:
   - '6'
 before_script:
   - yarn global add codecov
-  - pip install mkdocs
+  - sudo pip install mkdocs
 script:
   - yarn run lint
   - yarn run lint-messages
