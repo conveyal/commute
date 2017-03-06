@@ -1,6 +1,7 @@
 language: node_js
 services:
   - mongodb
+sudo: false
 cache:
   yarn: true
 notifications:
@@ -9,7 +10,7 @@ node_js:
   - '6'
 before_script:
   - yarn global add codecov
-  - sudo pip install mkdocs
+  - pip install mkdocs --user
 script:
   - yarn run lint
   - yarn run lint-messages
