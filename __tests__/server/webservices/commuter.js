@@ -2,52 +2,69 @@
 
 import mongoose from 'mongoose'
 
-import {Commuter} from '../../../server/models'
+import {Commuter, Site} from '../../../server/models'
 
-import {makeRestEndpointTests} from '../../test-utils/server'
+import {makeRestEndpointTests, prepareIsochroneNock} from '../../test-utils/server'
 
 describe('commuter', () => {
   afterAll(() => {
     mongoose.disconnect() // disconnect from mongo to end running of tests
   })
 
-  const initCommuterData = {
-    address: '123 Main St',
-    coordinate: {
-      lat: 12,
-      lon: 34
-    },
-    name: 'test-commuter',
-    groupId: mongoose.Types.ObjectId()
+  const makeDependentData = () => {
+    prepareIsochroneNock()
+
+    // create site
+    return Site.create({
+      address: '123 main st',
+      coordinate: {
+        lat: 12,
+        lon: 34
+      },
+      name: 'Mock Site',
+      user: 'test-user'
+    })
+      .then((newSite) => {
+        return [{
+          address: '123 Main St',
+          coordinate: {
+            lat: 12,
+            lon: 34
+          },
+          name: 'test-commuter',
+          siteId: newSite._id,
+          user: 'test-user'
+        }]
+      })
   }
 
   makeRestEndpointTests({
     endpoints: {
       'Collection GET': {},
       'Collection POST': {
-        creationData: initCommuterData,
+        creationData: makeDependentData,
         customAssertions: (json) => {
           expect(json[0].name).toBe('test-commuter')
         }
       },
       'DELETE': {
-        initData: initCommuterData
+        initData: makeDependentData
       },
       'GET': {
-        initData: initCommuterData
+        initData: makeDependentData
       },
       'PUT': {
         customAssertions: (modelData, json) => {
           expect(modelData.name).toBe('updated name')
           expect(json.name).toBe('updated name')
         },
-        initData: initCommuterData,
+        initData: makeDependentData,
         updateData: {
           name: 'updated name'
         }
       }
     },
-    snapshotOmitions: ['groupId'],
+    snapshotOmitions: ['siteId', 'modeStats'],
     geocodePlugin: true,
     model: Commuter,
     name: 'commuter'

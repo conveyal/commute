@@ -5,18 +5,14 @@ import {Link} from 'react-router'
 export default class BreadcrumbBar extends Component {
   static propTypes = {
     // props
-    agency: PropTypes.object.isRequired,
-    analysis: PropTypes.object.isRequired,
-    commuter: PropTypes.object.isRequired,
-    group: PropTypes.object.isRequired,
-    organization: PropTypes.object.isRequired,
+    multiSite: PropTypes.object.isRequired,
     site: PropTypes.object.isRequired
   }
 
   _makeNavItems () {
     let navItems = [{
       href: '/',
-      name: 'Agencies'
+      name: 'Home'
     }]
 
     const path = process.env.NODE_ENV === 'test' ? window.fakePath : window.location.pathname
@@ -35,139 +31,56 @@ export default class BreadcrumbBar extends Component {
       }
     }
 
-    const appendAgency = (agencyId, isActive) => {
-      const agency = this.props.agency[agencyId]
-      appendEntity(agencyId, agency ? agency.name : '?', '/agency/', isActive)
-    }
-
-    const appendOrganization = (organizationId, isActive) => {
-      const organization = this.props.organization[organizationId]
-      appendAgency(organization ? organization.agencyId : 'none')
-      appendEntity(organizationId, organization ? organization.name : '?', '/organization/', isActive)
-    }
-
-    const appendAnalysis = (analysisId, isActive) => {
-      const analysis = this.props.analysis[analysisId]
-      appendOrganization(analysis ? analysis.organizationId : 'none')
-      appendEntity(analysisId, analysis ? analysis.name : '?', '/analysis/', isActive)
-    }
-
-    const appendGroup = (groupId, isActive) => {
-      const group = this.props.group[groupId]
-      appendOrganization(group ? group.organizationId : 'none')
-      appendEntity(groupId, group ? group.name : '?', '/group/', isActive)
+    const appendMultiSite = (multiSiteId, isActive) => {
+      const multiSite = this.props.multiSite[multiSiteId]
+      appendEntity(multiSiteId, multiSite ? multiSite.name : '?', '/multi-site/', isActive)
     }
 
     const appendSite = (siteId, isActive) => {
       const site = this.props.site[siteId]
-      appendOrganization(site ? site.organizationId : 'none')
       appendEntity(siteId, site ? site.name : '?', '/site/', isActive)
     }
 
-    if (path === '/') {
-      // do nothing for home
-    } else if (path.match('/agency/create')) {
-      // Create agency view
-      navItems.push({
-        active: true,
-        name: 'Create Agency'
-      })
-    } else if (path.match(/\/agency\/[\w-]+$/)) {
-      // Agency (Organizations) view
-      appendAgency(path.match(/\/agency\/([\w-]+)/)[1], true)
-    } else if (path.match(/\/agency\/[\w-]+\/edit$/)) {
-      // Edit Agency View
-      appendAgency(path.match(/\/agency\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Edit Agency'
-      })
-    } else if (path.match(/\/agency\/[\w-]+\/organization\/create$/)) {
-      // Create Organization View
-      appendAgency(path.match(/\/agency\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Create Organization'
-      })
-    } else if (path.match(/\/organization\/[\w-]+$/)) {
-      // Organization View
-      appendOrganization(path.match(/\/organization\/([\w-]+)/)[1], true)
-    } else if (path.match(/\/organization\/[\w-]+\/edit$/)) {
-      // Edit Organization View
-      appendOrganization(path.match(/\/organization\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Edit Organization'
-      })
-    } else if (path.match(/\/organization\/[\w-]+\/analysis\/create$/)) {
-      // Create Analysis View
-      appendOrganization(path.match(/\/organization\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Create Analysis'
-      })
-    } else if (path.match(/\/analysis\/[\w-]+$/)) {
-      // Analysis Summary View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1], true)
-    } else if (path.match(/\/analysis\/[\w-]+\/histogram$/)) {
-      // Analysis histogram View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Histogram'
-      })
-    } else if (path.match(/\/analysis\/[\w-]+\/possibilities$/)) {
-      // Analysis Possibilities View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Possibilities'
-      })
-    } else if (path.match(/\/analysis\/[\w-]+\/individuals$/)) {
-      // Individual Analysis View
-      appendAnalysis(path.match(/\/analysis\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Individuals'
-      })
-    } else if (path.match(/\/organization\/[\w-]+\/group\/create$/)) {
-      // Add Commuter Group View
-      appendOrganization(path.match(/\/organization\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Create Group'
-      })
-    } else if (path.match(/\/group\/[\w-]+$/)) {
-      // Group View
-      appendGroup(path.match(/\/group\/([\w-]+)/)[1], true)
-    } else if (path.match(/\/group\/[\w-]+\/add$/)) {
-      // Append Commuters View
-      appendGroup(path.match(/\/group\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Add Commuters'
-      })
-    } else if (path.match(/\/group\/[\w-]+\/commuter\/create$/)) {
-      // Create Commuter View
-      appendGroup(path.match(/\/group\/([\w-]+)/)[1])
-      navItems.push({
-        active: true,
-        name: 'Create Commuter'
-      })
-    } else if (path.match(/\/commuter\/[\w-]+\/edit$/)) {
-      // Edit Commuter View
-      const commuter = this.props.commuter[path.match(/\/commuter\/([\w-]+)/)[1]]
-      appendGroup(commuter.groupId)
-      navItems.push({
-        active: true,
-        name: 'Edit Commuter'
-      })
-    } else if (path.match(/\/organization\/[\w-]+\/site\/create$/)) {
+    if (path === '/' || path === '/login') {
+      // do nothing for home or login
+    } else if (path.match(/\/multi-site\/create$/)) {
       // Create Site View
-      appendOrganization(path.match(/\/organization\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Create Multi-Site Analysis'
+      })
+    } else if (path.match(/\/multi-site\/[\w-]+$/)) {
+      // Site View
+      appendMultiSite(path.match(/\/multi-site\/([\w-]+)/)[1], true)
+    } else if (path.match(/\/site\/create$/)) {
+      // Create Site View
       navItems.push({
         active: true,
         name: 'Create Site'
+      })
+    } else if (path.match(/\/site\/[\w-]+$/)) {
+      // Site View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1], true)
+    } else if (path.match(/\/site\/[\w-]+\/bulk-add-commuters$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Bulk Add Commuters'
+      })
+    } else if (path.match(/\/site\/[\w-]+\/commuter\/create$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Create New Commuter'
+      })
+    } else if (path.match(/\/site\/[\w-]+\/commuter\/[\w-]+\/edit$/)) {
+      // Create Commuter View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Edit Commuter'
       })
     } else if (path.match(/\/site\/[\w-]+\/edit$/)) {
       // Edit Site View

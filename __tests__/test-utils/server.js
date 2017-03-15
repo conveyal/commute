@@ -4,9 +4,9 @@ import omit from 'lodash.omit'
 import nock from 'nock'
 import request from 'supertest-as-promised'
 
-import {requireKeys} from './common'
+import {requireKeys, timeoutPromise} from './common'
 const mockGeocodeResult = require('./mock-geocode-result.json')
-const mockTripPlanResult = require('./mock-trip-plan-result.json')
+const mockIsochroneResult = require('./mock-isochrone-result.json')
 
 import app from '../../server/app'
 
@@ -35,11 +35,11 @@ export const prepareGeocodeNock = () => nock(
   .get(/v1\/search/)
   .reply(200, mockGeocodeResult)
 
-export const prepareOtpNock = () => nock(
-  'http://mock-otp.com/'
+export const prepareIsochroneNock = () => nock(
+  'http://mock-r5.com/'
 )
-  .get(/api\/otp/)
-  .reply(200, mockTripPlanResult)
+  .get(/calculateIsochrones/)
+  .reply(200, mockIsochroneResult)
 
 export const makeRemoveModelsFn = (model) => async () => await model.remove({}).exec()
 
@@ -48,7 +48,7 @@ export const makeRemoveModelsFn = (model) => async () => await model.remove({}).
  *
  * @param {Object} cfg   A configuration object with the following data:
  *   - {Object} endpoints       Keys representing endpoints to make and their corresponding options
- *   - {Array} snapshotOmitions An array of strings representing foreign keys in the model
+ *   - {Array} snapshotOmitions An array of strings representing keys that shouldn't be snapshotted
  *   - {bool} geocodePlugin     whether or not the model has a geocodePlugin
  *   - {Object} model           The mongo model to use
  *   - {String} name            The endpoint name
@@ -64,6 +64,9 @@ export const makeRestEndpointTests = (cfg) => {
   const model = cfg.model
   const name = cfg.name
   const snapshotOmitions = ['_id'].concat(cfg.snapshotOmitions || [])
+  if (geocodePlugin) {
+    snapshotOmitions.push('positionLastUpdated')
+  }
   describe('rest endpoint', () => {
     beforeEach(makeRemoveModelsFn(model))
     afterEach(makeRemoveModelsFn(model))
@@ -119,8 +122,8 @@ export const makeRestEndpointTests = (cfg) => {
         }
 
         // create model
-        const createdModel = await model.create(initData)
-        const modelId = createdModel._id
+        const createdModels = await model.create(initData)
+        const modelId = createdModels[0]._id
         const customAssertions = cfg.customAssertions || (() => 'no-op')
 
         // make request
@@ -129,6 +132,10 @@ export const makeRestEndpointTests = (cfg) => {
         // handle response
         const json = parseServerResponse(res)
         expect(json.trashed).toBeTruthy()
+
+        // wait for mongo to save data???
+        await timeoutPromise(1000)
+
         const entity = await model.findById(modelId).exec()
         expect(entity.trashed).toBeTruthy()
 
@@ -149,8 +156,8 @@ export const makeRestEndpointTests = (cfg) => {
         }
 
         // create model
-        const createdModel = await model.create(initData)
-        const modelId = createdModel._id
+        const createdModels = await model.create(initData)
+        const modelId = createdModels[0]._id
         const customAssertions = cfg.customAssertions || (() => 'no-op')
 
         // make request
@@ -178,8 +185,8 @@ export const makeRestEndpointTests = (cfg) => {
         }
 
         // create model
-        const createdModel = await model.create(initData)
-        const modelId = createdModel._id
+        const createdModels = await model.create(initData)
+        const modelId = createdModels[0]._id
 
         // make request
         const res = await request(app).put(`/api/${name}/${modelId}`).send(updateData)

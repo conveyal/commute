@@ -1,7 +1,35 @@
+/* globals alert */
+
 import fetchAction from '@conveyal/woonerf/fetch'
+import debounce from 'debounce'
 import qs from 'qs'
 import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
+
+import {network} from './messages'
+
+/**
+ * Handle fetching errors.  Redirect to login if any response is a 401.
+ *
+ * @param  {String} alertMsg  The message to display in an alert
+ * @param  {Mixed} err        the error from woonerf fetchAction
+ * @param  {Mixed} res        the res from woonerf fetchAction
+ * @return {Mixed}            return varies
+ */
+function fetchErrorHandler (alertMsg, err, res) {
+  if (err.status === 401) {
+    return push('/login')
+  } else {
+    debouncedErrorDisplay(alertMsg)
+  }
+}
+
+const debouncedErrorDisplay = debounce((alertMsg) => {
+  alert(alertMsg)
+  // TODO: replace w/ modal?  alert halts js thread
+  // so other failures will still get funnelled here
+  // once execution resumes
+}, 5000, true)
 
 /**
  * Make generic model actions that communicate with a rest server
@@ -29,6 +57,7 @@ export default function makeGenericModelActions (cfg) {
   // make local set actions
   const addLocally = createAction(`add ${singularName}`)
   const deleteLocally = createAction(`delete ${singularName}`)
+  const deleteManyLocally = createAction(`delete many ${pluralName}`)
   const setLocally = createAction(`set ${singularName}`)
   const setAllLocally = createAction(`set ${pluralName}`)
 
@@ -51,20 +80,54 @@ export default function makeGenericModelActions (cfg) {
    *
    * @param  {Object} cfg Paremters as follows:
    *   - actions: The actions to append to
-   *   - endpointCfg: The endpoint config
+   *   - customRedirectionStrategy: a redirection strategy specific to this request
    *   - defaultStrategy: The default redire strategy to use (default: undefined)
+   *   - endpointCfg: The endpoint config
    *   - redirectArgs: Arguments to provide to the redirectionStrategy
    */
   const doRedirectIfNecessary = (cfg) => {
-    const redirectionStrategy = (cfg.endpointCfg.redirectionStrategy !== undefined
-      ? cfg.endpointCfg.redirectionStrategy
-      : cfg.defaultStrategy)
+    const redirectionStrategy = (cfg.customRedirectionStrategy !== undefined
+      ? cfg.customRedirectionStrategy
+      : (cfg.endpointCfg.redirectionStrategy !== undefined
+        ? cfg.endpointCfg.redirectionStrategy
+        : cfg.defaultStrategy))
 
     if (redirectionStrategy) {
-      const redirect = redirectionStrategies[redirectionStrategy](cfg.redirectArgs)
+      const redirect = redirectionStrategies[redirectionStrategy]
+        ? redirectionStrategies[redirectionStrategy](cfg.redirectArgs)
+        : undefined
       if (redirect) {
         cfg.actions.push(redirect)
       }
+    }
+  }
+
+  if (commands['Collection DELETE']) {
+    actions.deleteMany = (queryParams) => {
+      // only include filteredKeys in querystring
+      let queryString = ''
+      if (queryParams) {
+        queryString = qs.stringify(queryParams)
+        if (queryString.length !== 0) {
+          queryString = '?' + queryString
+        }
+      }
+
+      // make request
+      return [
+        fetchAction({
+          next: (err, res) => {
+            if (err) {
+              return fetchErrorHandler(network.fetchingError, err, res)
+            }
+          },
+          options: {
+            method: 'DELETE'
+          },
+          url: baseEndpoint + queryString
+        }),
+        deleteManyLocally(queryParams)
+      ]
     }
   }
 
@@ -82,10 +145,11 @@ export default function makeGenericModelActions (cfg) {
       // make request
       return fetchAction({
         next: (err, res) => {
-          if (!err) {
+          if (err) {
+            return fetchErrorHandler(network.fetchingError, err, res)
+          } else {
             return setAllLocally(res.value)
           }
-          console.error('Fetch (Collection GET) error handler not implemented') // TODO handle error
         },
         url: baseEndpoint + queryString
       })
@@ -102,7 +166,7 @@ export default function makeGenericModelActions (cfg) {
       return fetchAction({
         next: (err, res) => {
           if (err) {
-            console.error('Fetch (Collection POST) error handler not implemented') // TODO handle error
+            return fetchErrorHandler(network.savingError, err, res)
           } else {
             const createdEntities = res.value
             const actions = createdEntities.map((createdEntity) => addLocally(createdEntity))
@@ -130,7 +194,7 @@ export default function makeGenericModelActions (cfg) {
       return fetchAction({
         next: (err, res) => {
           if (err) {
-            console.error('Fetch (DELETE) error handler not implemented') // TODO handle error
+            return fetchErrorHandler(network.savingError, err, res)
           } else {
             const actions = []
             doRedirectIfNecessary({
@@ -154,10 +218,11 @@ export default function makeGenericModelActions (cfg) {
   if (commands['GET']) {
     actions.loadOne = (id) => fetchAction({
       next: (err, res) => {
-        if (!err) {
+        if (err) {
+          return fetchErrorHandler(network.fetchingError, err, res)
+        } else {
           return setLocally(res.value)
         }
-        console.error('Fetch (GET) handler not implemented') // TODO handle error
       },
       url: `${baseEndpoint}/${id}`
     })
@@ -165,10 +230,10 @@ export default function makeGenericModelActions (cfg) {
 
   if (commands['PUT']) {
     const endpointCfg = commands['PUT']
-    actions.update = (entity) => fetchAction({
+    actions.update = (entity, customRedirectionStrategy) => fetchAction({
       next: (err, res) => {
         if (err) {
-          console.error('Fetch (PUT) error handler not implemented') // TODO handle error
+          return fetchErrorHandler(network.savingError, err, res)
         } else {
           const updatedEntity = res.value
           const actions = [
@@ -176,6 +241,7 @@ export default function makeGenericModelActions (cfg) {
           ]
           doRedirectIfNecessary({
             actions,
+            customRedirectionStrategy,
             endpointCfg,
             defaultStrategy: 'toEntity',
             redirectArgs: updatedEntity

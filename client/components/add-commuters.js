@@ -3,78 +3,44 @@
 import {csvParse} from 'd3-dsv'
 import omit from 'lodash.omit'
 import React, {Component, PropTypes} from 'react'
-import {Accordion, Button, Col, Grid, Panel, Row} from 'react-bootstrap'
+import {Accordion, Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Dropzone from 'react-dropzone'
-import Form from 'react-formal'
-import {Link} from 'react-router'
-import uuid from 'uuid'
-import yup from 'yup'
 
-import FormalFieldGroup from './formal-fieldgroup'
-import Icon from './icon'
+import BackButton from '../containers/back-button'
 
-const groupSchema = yup.object({
-  name: yup.string().label('Group Name').required()
-})
+let uniqueid = 1
 
 export default class AddCommuters extends Component {
   static propTypes = {
     // dispatch
-    createCommuter: PropTypes.func.isRequired,
-    createGroup: PropTypes.func.isRequired,
+    createCommuters: PropTypes.func.isRequired,
 
     // props
-    appendMode: PropTypes.bool,
-    existingCommuters: PropTypes.array,
-    group: PropTypes.object,
-    organizationId: PropTypes.string
-  }
-
-  componentWillMount () {
-    if (this.props.appendMode) {
-      this.state = {
-        errors: {},
-        existingCommuters: this.props.existingCommuters,
-        groupModel: this.props.group
-      }
-    } else {
-      this.state = {
-        errors: {},
-        groupModel: { organizationId: this.props.organizationId }
-      }
-    }
+    existingCommuters: PropTypes.array.isRequired,
+    site: PropTypes.object.isRequired
   }
 
   _handleSubmit = () => {
-    const {appendMode, createCommuter, createGroup} = this.props
+    const {createCommuters} = this.props
     const commutersToCreate = this.state.newCommuters
       ? this.state.newCommuters.map((commuter) => omit(commuter, '_id'))
       : []
 
-    if (appendMode) {
-      createCommuter(commutersToCreate)
-    } else {
-      const newGroup = {...this.state.groupModel}
-      newGroup.commuters = commutersToCreate
-      delete newGroup.newCommuters
-      createGroup(newGroup)
-    }
+    createCommuters(commutersToCreate)
   }
 
   _onDrop = (files) => {
-    const {appendMode, group} = this.props
+    const {site} = this.props
     const r = new FileReader()
 
     r.onload = (e) => {
       const newCommuters = csvParse(e.target.result, (row) => {
-        const {address, email, name} = row
-        const _id = row._id || uuid.v4()
+        const {address, name} = row
+        const _id = row._id || ++uniqueid
         // TODO: parse more field possibilities (first name, last name, etc)
-        const newCommuter = {address, email, _id, name}
-        if (appendMode) {
-          newCommuter.groupId = group._id
-        }
+        const newCommuter = {address, _id, name}
+        newCommuter.siteId = site._id
         return newCommuter
       })
 
@@ -85,81 +51,64 @@ export default class AddCommuters extends Component {
     r.readAsText(files[0])
   }
 
-  _setErrors = errors => this.setState({ errors })
-
-  _setModel = groupModel => this.setState({ groupModel })
-
   render () {
-    const {appendMode, group, organizationId} = this.props
-    const showAccordion = !!(this.state.existingCommuters || this.state.newCommuters)
+    const {existingCommuters, site} = this.props
+    const {newCommuters} = this.state ? this.state : {}
+    const newCommutersUploaded = newCommuters && newCommuters.length > 0
     return (
       <Grid>
         <Row>
           <Col xs={12}>
             <h3>
-              <span>{appendMode ? 'Add Commuters to Group' : 'Create Commuter Group'}</span>
-              <Button className='pull-right'>
-                <Link to={appendMode ? `/group/${group._id}` : `/organization/${organizationId}`}>
-                  <Icon type='arrow-left' />
-                  <span>Back</span>
-                </Link>
-              </Button>
+              <span>Add Commuters to Site</span>
+              <BackButton />
             </h3>
-            <Form
-              schema={groupSchema}
-              value={this.state.groupModel}
-              onChange={this._setModel}
-              onError={this._setErrors}
-              onSubmit={this._handleSubmit}
+            <FormGroup controlId='site-label'>
+              <ControlLabel>Site</ControlLabel>
+              <FormControl
+                type='text'
+                value={site.name}
+                disabled
+              />
+            </FormGroup>
+            <Dropzone
+              accept='text/csv'
+              className='dropzone'
+              multiple={false}
+              onDrop={this._onDrop}
               >
-              <FormalFieldGroup
-                disabled={appendMode}
-                label='Group Name'
-                name='name'
-                placeholder='Enter name'
-                validationState={this.state.errors.name ? 'error' : undefined}
-                />
-              <Dropzone
-                accept='text/csv'
-                className='dropzone'
-                multiple={false}
-                onDrop={this._onDrop}
+              <div>Try dragging and dropping a csv file here, or click to select files to upload.  Make sure the csv file contains the headers: 'name' and 'address'.</div>
+            </Dropzone>
+            <Accordion>
+              <Panel
+                header={`${existingCommuters.length} Existing Commuters`}
+                bsStyle='info'
+                eventKey='1'
                 >
-                <div>Try dropping a csv file here, or click to select files to upload.  Make sure the csv file contains the headers: name, email and address.</div>
-              </Dropzone>
-              {showAccordion &&
-                <Accordion>
-                  {!!(this.state.existingCommuters) &&
-                    <Panel
-                      header={`${this.state.existingCommuters.length} Existing Commuters`}
-                      bsStyle='info'
-                      eventKey='1'
-                      >
-                      <CommuterTable
-                        commuters={this.state.existingCommuters}
-                        />
-                    </Panel>
-                  }
-                  {!!(this.state.newCommuters) &&
-                    <Panel
-                      header={`${this.state.newCommuters.length} New Commuters`}
-                      bsStyle='success'
-                      eventKey='2'
-                      >
-                      <CommuterTable
-                        commuters={this.state.newCommuters}
-                        />
-                    </Panel>
-                  }
-                </Accordion>
+                <CommuterTable
+                  commuters={existingCommuters}
+                  />
+              </Panel>
+              {newCommutersUploaded &&
+                <Panel
+                  header={`${newCommuters.length} New Commuters`}
+                  bsStyle='success'
+                  eventKey='2'
+                  >
+                  <CommuterTable
+                    commuters={newCommuters}
+                    />
+                </Panel>
               }
-              <Form.Button
-                type='submit'
-                className={'btn btn-success'}
+            </Accordion>
+            {newCommutersUploaded &&
+              <Button
+                bsStyle='success'
+                onClick={this._handleSubmit}
                 >
-                {appendMode ? 'Append' : 'Create'}
-              </Form.Button>
-            </Form>
+                Add Commuters
+              </Button>
+            }
           </Col>
         </Row>
       </Grid>
@@ -172,7 +121,6 @@ function CommuterTable ({commuters}) {
     <BootstrapTable data={commuters}>
       <TableHeaderColumn dataField='_id' isKey hidden />
       <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-      <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
       <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
     </BootstrapTable>
   )

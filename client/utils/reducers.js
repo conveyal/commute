@@ -1,6 +1,6 @@
 import update from 'react-addons-update'
 
-import {addToEntityMap, addEntitiesToEntityMap, deleteFromEntityMap} from './entities'
+import {addToEntityMap, addEntitiesToEntityMap, deleteFromEntityMap, deleteManyFromEntityMap} from './entities'
 
 /**
  * Make handlers for children creation and deletion events
@@ -58,6 +58,12 @@ export function makeGenericReducerHandlers (cfg) {
   if (cfg.handlers.indexOf('delete') !== -1) {
     reducers[`delete ${cfg.name.singular}`] = function (state, action) {
       return deleteFromEntityMap(state, action.payload._id)
+    }
+  }
+
+  if (cfg.handlers.indexOf('delete many') !== -1) {
+    reducers[`delete many ${cfg.name.plural}`] = function (state, action) {
+      return deleteManyFromEntityMap(state, action.payload)
     }
   }
 

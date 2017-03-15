@@ -3,11 +3,11 @@ import {ControlLabel, FormGroup} from 'react-bootstrap'
 import Form from 'react-formal'
 import SelectGeocoder from 'react-select-geocoder'
 
-import {settings} from '../utils/env'
+import settings from '../utils/settings'
 
 const boundary = {
   circle: {
-    latlng: settings.geocoder.focus,
+    centerPoint: settings.geocoder.focus,
     radius: settings.geocoder.focus.radius
   }
 }

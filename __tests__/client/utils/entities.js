@@ -24,6 +24,12 @@ describe('utils > entities', () => {
     expect(initialState).toEqual({ '1': { _id: '1' } })
   })
 
+  it('deleteManyFromEntityMap should work', () => {
+    const initialState = { '1': { _id: '1', parentId: '2' } }
+    expect(entities.deleteManyFromEntityMap(initialState, { parentId: '2' })).toEqual({})
+    expect(initialState).toEqual({ '1': { _id: '1', parentId: '2' } })
+  })
+
   it('entityArrayToEntityIdArray should work', () => {
     expect(entities.entityArrayToEntityIdArray(entityArray)).toEqual(['1'])
   })

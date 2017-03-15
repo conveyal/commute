@@ -2,7 +2,7 @@ exports[`Container > EditCommuter Create commuter 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/group/group-2",
+      "/site/site-2",
     ],
     "method": "push",
   },
@@ -17,24 +17,22 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
     <span>
       Create Commuter
     </span>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="default"
-      className="pull-right"
-      disabled={false}>
-      <button
-        className="pull-right btn btn-default"
-        disabled={false}
-        type="button">
-        <Link
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/group/group-2">
-          <a
+    <Connect(BackButton)>
+      <BackButton
+        goBack={[Function]}>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}
+          onClick={[Function]}>
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
             onClick={[Function]}
-            style={Object {}}>
+            type="button">
             <Icon
               type="arrow-left">
               <i
@@ -43,10 +41,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
             <span>
               Back
             </span>
-          </a>
-        </Link>
-      </button>
-    </Button>
+          </button>
+        </Button>
+      </BackButton>
+    </Connect(BackButton)>
   </h3>
 </div>
 `;
@@ -83,7 +81,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
           "city",
           "address",
           "name",
-          "email",
         ],
         "_options": Object {
           "abortEarly": true,
@@ -288,31 +285,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
               [Function],
             ],
           },
-          "email": StringSchema {
-            "_blacklist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {},
-            "_label": "Email",
-            "_mutate": false,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "tests": Array [],
-            "transforms": Array [
-              [Function],
-            ],
-          },
           "geocodeConfidence": NumberSchema {
             "_blacklist": BadSet {
               "_map": Object {},
@@ -453,7 +425,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
     }
     value={
       Object {
-        "groupId": "group-2",
+        "siteId": "site-2",
       }
     }>
     <Form
@@ -488,7 +460,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
             "city",
             "address",
             "name",
-            "email",
           ],
           "_options": Object {
             "abortEarly": true,
@@ -693,31 +664,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                 [Function],
               ],
             },
-            "email": StringSchema {
-              "_blacklist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "_conditions": Array [],
-              "_deps": Array [],
-              "_exclusive": Object {},
-              "_label": "Email",
-              "_mutate": false,
-              "_options": Object {
-                "abortEarly": true,
-                "recursive": true,
-              },
-              "_type": "string",
-              "_typeError": [Function],
-              "_whitelist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "tests": Array [],
-              "transforms": Array [
-                [Function],
-              ],
-            },
             "geocodeConfidence": NumberSchema {
               "_blacklist": BadSet {
                 "_map": Object {},
@@ -860,7 +806,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
       strict={false}
       value={
         Object {
-          "groupId": "group-2",
+          "siteId": "site-2",
         }
       }>
       <BindingContext
@@ -869,7 +815,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
         setter={[Function]}
         value={
           Object {
-            "groupId": "group-2",
+            "siteId": "site-2",
           }
         }>
         <MessageListener
@@ -1080,195 +1026,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                   </div>
                 </FormGroup>
               </FormalFieldGroup>
-              <FormalFieldGroup
-                label="Commuter Email"
-                name="email"
-                placeholder="Enter email">
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="group-item-email">
-                  <div
-                    className="form-group">
-                    <ControlLabel
-                      bsClass="control-label"
-                      srOnly={false}>
-                      <label
-                        className="control-label"
-                        htmlFor="group-item-email">
-                        Commuter Email
-                      </label>
-                    </ControlLabel>
-                    <Field
-                      className="form-control"
-                      exclusive={false}
-                      name="email"
-                      placeholder="Enter email"
-                      type="">
-                      <Binding
-                        bindTo={[Function]}
-                        changeProp="onChange"
-                        mapValue={
-                          Object {
-                            "email": undefined,
-                          }
-                        }
-                        updateAfterChild={false}
-                        valueProp="value">
-                        <ChildBridge
-                          events="onChange"
-                          onEvent={[Function]}>
-                          <MessageListener
-                            events={
-                              Array [
-                                "onChange",
-                                "onBlur",
-                              ]
-                            }
-                            for="email"
-                            mapMessages={[Function]}>
-                            <MessageTrigger
-                              events={
-                                Array [
-                                  "onChange",
-                                  "onBlur",
-                                ]
-                              }
-                              for="email"
-                              mapMessages={[Function]}
-                              messages={Object {}}
-                              noValidate={false}>
-                              <ChildBridge
-                                events={
-                                  Array [
-                                    "onChange",
-                                    "onBlur",
-                                  ]
-                                }
-                                onEvent={[Function]}>
-                                <_class
-                                  className="form-control"
-                                  meta={
-                                    Object {
-                                      "context": undefined,
-                                      "errorClass": "invalid-field",
-                                      "errors": Object {},
-                                      "invalid": false,
-                                      "onError": [Function],
-                                      "resolvedType": "string",
-                                      "schema": StringSchema {
-                                        "_blacklist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "_conditions": Array [],
-                                        "_deps": Array [],
-                                        "_exclusive": Object {},
-                                        "_label": "Email",
-                                        "_mutate": false,
-                                        "_options": Object {
-                                          "abortEarly": true,
-                                          "recursive": true,
-                                        },
-                                        "_type": "string",
-                                        "_typeError": [Function],
-                                        "_whitelist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "tests": Array [],
-                                        "transforms": Array [
-                                          [Function],
-                                        ],
-                                      },
-                                      "valid": true,
-                                    }
-                                  }
-                                  name="email"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  placeholder="Enter email"
-                                  value={null}>
-                                  <Input
-                                    className="form-control"
-                                    meta={
-                                      Object {
-                                        "context": undefined,
-                                        "errorClass": "invalid-field",
-                                        "errors": Object {},
-                                        "invalid": false,
-                                        "onError": [Function],
-                                        "resolvedType": "string",
-                                        "schema": StringSchema {
-                                          "_blacklist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "_conditions": Array [],
-                                          "_deps": Array [],
-                                          "_exclusive": Object {},
-                                          "_label": "Email",
-                                          "_mutate": false,
-                                          "_options": Object {
-                                            "abortEarly": true,
-                                            "recursive": true,
-                                          },
-                                          "_type": "string",
-                                          "_typeError": [Function],
-                                          "_whitelist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "tests": Array [],
-                                          "transforms": Array [
-                                            [Function],
-                                          ],
-                                        },
-                                        "valid": true,
-                                      }
-                                    }
-                                    name="email"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Enter email"
-                                    type="text"
-                                    value={null}>
-                                    <input
-                                      className="form-control"
-                                      name="email"
-                                      onBlur={[Function]}
-                                      onChange={[Function]}
-                                      placeholder="Enter email"
-                                      type="text"
-                                      value="" />
-                                  </Input>
-                                </_class>
-                              </ChildBridge>
-                            </MessageTrigger>
-                          </MessageListener>
-                        </ChildBridge>
-                      </Binding>
-                    </Field>
-                    <ValidationMessage
-                      className="help-block"
-                      component="span"
-                      errorClass="validation-error"
-                      extract={[Function]}
-                      filter={[Function]}
-                      for="email">
-                      <MessageListener
-                        className="help-block validation-error"
-                        component="span"
-                        for="email">
-                        <Message
-                          className="help-block validation-error"
-                          component="span"
-                          for="email"
-                          messages={Object {}} />
-                      </MessageListener>
-                    </ValidationMessage>
-                  </div>
-                </FormGroup>
-              </FormalFieldGroup>
               <Field
                 exclusive={false}
                 label="Address"
@@ -1402,12 +1159,12 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
-                                          "lat": 38.8886,
-                                          "lng": -77.043,
-                                          "radius": 275,
+                                        "centerPoint": Object {
+                                          "lat": 39.467803,
+                                          "lon": -87.397648,
+                                          "radius": 20,
                                         },
-                                        "radius": 275,
+                                        "radius": 20,
                                       },
                                     }
                                   }
@@ -1466,12 +1223,12 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
-                                            "lat": 38.8886,
-                                            "lng": -77.043,
-                                            "radius": 275,
+                                          "centerPoint": Object {
+                                            "lat": 39.467803,
+                                            "lon": -87.397648,
+                                            "radius": 20,
                                           },
-                                          "radius": 275,
+                                          "radius": 20,
                                         },
                                       }
                                     }
@@ -1545,12 +1302,12 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
-                                              "lat": 38.8886,
-                                              "lng": -77.043,
-                                              "radius": 275,
+                                            "centerPoint": Object {
+                                              "lat": 39.467803,
+                                              "lon": -87.397648,
+                                              "radius": 20,
                                             },
-                                            "radius": 275,
+                                            "radius": 20,
                                           },
                                         }
                                       }
@@ -1558,8 +1315,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -1665,7 +1424,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -1692,7 +1451,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />
@@ -1750,21 +1509,30 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode
                   </ChildBridge>
                 </Binding>
               </Field>
-              <Button
-                className="btn btn-success"
-                component="button"
-                events={
-                  Array [
-                    "onClick",
-                  ]
-                }
-                type="submit">
-                <button
-                  className="btn btn-success"
-                  onClick={[Function]}>
-                  Create
-                </button>
-              </Button>
+              <ButtonGroup
+                block={false}
+                bsClass="btn-group"
+                justified={false}
+                vertical={false}>
+                <div
+                  className="btn-group">
+                  <Button
+                    className="btn btn-success"
+                    component="button"
+                    events={
+                      Array [
+                        "onClick",
+                      ]
+                    }
+                    type="submit">
+                    <button
+                      className="btn btn-success"
+                      onClick={[Function]}>
+                      Create
+                    </button>
+                  </Button>
+                </div>
+              </ButtonGroup>
             </form>
           </MessageContainer>
         </MessageListener>
@@ -1781,24 +1549,22 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 1
     <span>
       Edit Commuter
     </span>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="default"
-      className="pull-right"
-      disabled={false}>
-      <button
-        className="pull-right btn btn-default"
-        disabled={false}
-        type="button">
-        <Link
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/group/group-2">
-          <a
+    <Connect(BackButton)>
+      <BackButton
+        goBack={[Function]}>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}
+          onClick={[Function]}>
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
             onClick={[Function]}
-            style={Object {}}>
+            type="button">
             <Icon
               type="arrow-left">
               <i
@@ -1807,10 +1573,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 1
             <span>
               Back
             </span>
-          </a>
-        </Link>
-      </button>
-    </Button>
+          </button>
+        </Button>
+      </BackButton>
+    </Connect(BackButton)>
   </h3>
 </div>
 `;
@@ -1847,7 +1613,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
           "city",
           "address",
           "name",
-          "email",
         ],
         "_options": Object {
           "abortEarly": true,
@@ -2052,31 +1817,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
               [Function],
             ],
           },
-          "email": StringSchema {
-            "_blacklist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {},
-            "_label": "Email",
-            "_mutate": false,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "tests": Array [],
-            "transforms": Array [
-              [Function],
-            ],
-          },
           "geocodeConfidence": NumberSchema {
             "_blacklist": BadSet {
               "_map": Object {},
@@ -2226,11 +1966,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
         },
         "country": "Made up land",
         "county": "Made up county",
-        "email": "luke@warm.cold",
         "geocodeConfidence": 0.77,
-        "groupId": "group-2",
         "name": "Luke Warm",
         "neighbourhood": undefined,
+        "siteId": "site-2",
         "state": "Made up state",
       }
     }>
@@ -2266,7 +2005,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
             "city",
             "address",
             "name",
-            "email",
           ],
           "_options": Object {
             "abortEarly": true,
@@ -2471,31 +2209,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                 [Function],
               ],
             },
-            "email": StringSchema {
-              "_blacklist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "_conditions": Array [],
-              "_deps": Array [],
-              "_exclusive": Object {},
-              "_label": "Email",
-              "_mutate": false,
-              "_options": Object {
-                "abortEarly": true,
-                "recursive": true,
-              },
-              "_type": "string",
-              "_typeError": [Function],
-              "_whitelist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "tests": Array [],
-              "transforms": Array [
-                [Function],
-              ],
-            },
             "geocodeConfidence": NumberSchema {
               "_blacklist": BadSet {
                 "_map": Object {},
@@ -2647,11 +2360,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
           },
           "country": "Made up land",
           "county": "Made up county",
-          "email": "luke@warm.cold",
           "geocodeConfidence": 0.77,
-          "groupId": "group-2",
           "name": "Luke Warm",
           "neighbourhood": undefined,
+          "siteId": "site-2",
           "state": "Made up state",
         }
       }>
@@ -2670,11 +2382,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
             },
             "country": "Made up land",
             "county": "Made up county",
-            "email": "luke@warm.cold",
             "geocodeConfidence": 0.77,
-            "groupId": "group-2",
             "name": "Luke Warm",
             "neighbourhood": undefined,
+            "siteId": "site-2",
             "state": "Made up state",
           }
         }>
@@ -2886,195 +2597,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                   </div>
                 </FormGroup>
               </FormalFieldGroup>
-              <FormalFieldGroup
-                label="Commuter Email"
-                name="email"
-                placeholder="Enter email">
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="group-item-email">
-                  <div
-                    className="form-group">
-                    <ControlLabel
-                      bsClass="control-label"
-                      srOnly={false}>
-                      <label
-                        className="control-label"
-                        htmlFor="group-item-email">
-                        Commuter Email
-                      </label>
-                    </ControlLabel>
-                    <Field
-                      className="form-control"
-                      exclusive={false}
-                      name="email"
-                      placeholder="Enter email"
-                      type="">
-                      <Binding
-                        bindTo={[Function]}
-                        changeProp="onChange"
-                        mapValue={
-                          Object {
-                            "email": undefined,
-                          }
-                        }
-                        updateAfterChild={false}
-                        valueProp="value">
-                        <ChildBridge
-                          events="onChange"
-                          onEvent={[Function]}>
-                          <MessageListener
-                            events={
-                              Array [
-                                "onChange",
-                                "onBlur",
-                              ]
-                            }
-                            for="email"
-                            mapMessages={[Function]}>
-                            <MessageTrigger
-                              events={
-                                Array [
-                                  "onChange",
-                                  "onBlur",
-                                ]
-                              }
-                              for="email"
-                              mapMessages={[Function]}
-                              messages={Object {}}
-                              noValidate={false}>
-                              <ChildBridge
-                                events={
-                                  Array [
-                                    "onChange",
-                                    "onBlur",
-                                  ]
-                                }
-                                onEvent={[Function]}>
-                                <_class
-                                  className="form-control"
-                                  meta={
-                                    Object {
-                                      "context": undefined,
-                                      "errorClass": "invalid-field",
-                                      "errors": Object {},
-                                      "invalid": false,
-                                      "onError": [Function],
-                                      "resolvedType": "string",
-                                      "schema": StringSchema {
-                                        "_blacklist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "_conditions": Array [],
-                                        "_deps": Array [],
-                                        "_exclusive": Object {},
-                                        "_label": "Email",
-                                        "_mutate": false,
-                                        "_options": Object {
-                                          "abortEarly": true,
-                                          "recursive": true,
-                                        },
-                                        "_type": "string",
-                                        "_typeError": [Function],
-                                        "_whitelist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "tests": Array [],
-                                        "transforms": Array [
-                                          [Function],
-                                        ],
-                                      },
-                                      "valid": true,
-                                    }
-                                  }
-                                  name="email"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  placeholder="Enter email"
-                                  value="luke@warm.cold">
-                                  <Input
-                                    className="form-control"
-                                    meta={
-                                      Object {
-                                        "context": undefined,
-                                        "errorClass": "invalid-field",
-                                        "errors": Object {},
-                                        "invalid": false,
-                                        "onError": [Function],
-                                        "resolvedType": "string",
-                                        "schema": StringSchema {
-                                          "_blacklist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "_conditions": Array [],
-                                          "_deps": Array [],
-                                          "_exclusive": Object {},
-                                          "_label": "Email",
-                                          "_mutate": false,
-                                          "_options": Object {
-                                            "abortEarly": true,
-                                            "recursive": true,
-                                          },
-                                          "_type": "string",
-                                          "_typeError": [Function],
-                                          "_whitelist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "tests": Array [],
-                                          "transforms": Array [
-                                            [Function],
-                                          ],
-                                        },
-                                        "valid": true,
-                                      }
-                                    }
-                                    name="email"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Enter email"
-                                    type="text"
-                                    value="luke@warm.cold">
-                                    <input
-                                      className="form-control"
-                                      name="email"
-                                      onBlur={[Function]}
-                                      onChange={[Function]}
-                                      placeholder="Enter email"
-                                      type="text"
-                                      value="luke@warm.cold" />
-                                  </Input>
-                                </_class>
-                              </ChildBridge>
-                            </MessageTrigger>
-                          </MessageListener>
-                        </ChildBridge>
-                      </Binding>
-                    </Field>
-                    <ValidationMessage
-                      className="help-block"
-                      component="span"
-                      errorClass="validation-error"
-                      extract={[Function]}
-                      filter={[Function]}
-                      for="email">
-                      <MessageListener
-                        className="help-block validation-error"
-                        component="span"
-                        for="email">
-                        <Message
-                          className="help-block validation-error"
-                          component="span"
-                          for="email"
-                          messages={Object {}} />
-                      </MessageListener>
-                    </ValidationMessage>
-                  </div>
-                </FormGroup>
-              </FormalFieldGroup>
               <Field
                 exclusive={false}
                 label="Address"
@@ -3212,12 +2734,12 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
-                                          "lat": 38.8886,
-                                          "lng": -77.043,
-                                          "radius": 275,
+                                        "centerPoint": Object {
+                                          "lat": 39.467803,
+                                          "lon": -87.397648,
+                                          "radius": 20,
                                         },
-                                        "radius": 275,
+                                        "radius": 20,
                                       },
                                     }
                                   }
@@ -3280,12 +2802,12 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
-                                            "lat": 38.8886,
-                                            "lng": -77.043,
-                                            "radius": 275,
+                                          "centerPoint": Object {
+                                            "lat": 39.467803,
+                                            "lon": -87.397648,
+                                            "radius": 20,
                                           },
-                                          "radius": 275,
+                                          "radius": 20,
                                         },
                                       }
                                     }
@@ -3363,12 +2885,12 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
-                                              "lat": 38.8886,
-                                              "lng": -77.043,
-                                              "radius": 275,
+                                            "centerPoint": Object {
+                                              "lat": 39.467803,
+                                              "lon": -87.397648,
+                                              "radius": 20,
                                             },
-                                            "radius": 275,
+                                            "radius": 20,
                                           },
                                         }
                                       }
@@ -3376,8 +2898,10 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -3509,7 +3033,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -3536,7 +3060,7 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />
@@ -3610,36 +3134,45 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2
                   </ChildBridge>
                 </Binding>
               </Field>
-              <Button
-                className="btn btn-warning"
-                component="button"
-                events={
-                  Array [
-                    "onClick",
-                  ]
-                }
-                type="submit">
-                <button
-                  className="btn btn-warning"
-                  onClick={[Function]}>
-                  Update
-                </button>
-              </Button>
-              <Button
-                active={false}
+              <ButtonGroup
                 block={false}
-                bsClass="btn"
-                bsStyle="danger"
-                disabled={false}
-                onClick={[Function]}>
-                <button
-                  className="btn btn-danger"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button">
-                  Delete
-                </button>
-              </Button>
+                bsClass="btn-group"
+                justified={false}
+                vertical={false}>
+                <div
+                  className="btn-group">
+                  <Button
+                    className="btn btn-warning"
+                    component="button"
+                    events={
+                      Array [
+                        "onClick",
+                      ]
+                    }
+                    type="submit">
+                    <button
+                      className="btn btn-warning"
+                      onClick={[Function]}>
+                      Update
+                    </button>
+                  </Button>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="danger"
+                    disabled={false}
+                    onClick={[Function]}>
+                    <button
+                      className="btn btn-danger"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="button">
+                      Delete
+                    </button>
+                  </Button>
+                </div>
+              </ButtonGroup>
             </form>
           </MessageContainer>
         </MessageListener>
@@ -3653,7 +3186,6 @@ exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 3
 Object {
   "lat": 38.910822,
   "lng": -77.041094,
-  "lon": -77.041094,
 }
 `;
 
@@ -3661,7 +3193,7 @@ exports[`Container > EditCommuter Delete Commuter 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/group/group-2",
+      "/site/site-2",
     ],
     "method": "push",
   },
@@ -3673,7 +3205,7 @@ exports[`Container > EditCommuter Update commuter 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/group/group-2",
+      "/site/site-2",
     ],
     "method": "push",
   },

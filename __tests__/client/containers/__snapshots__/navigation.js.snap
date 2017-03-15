@@ -9,6 +9,7 @@ exports[`Container > Navigation renders correctly 1`] = `
       <Navbar
         bsClass="navbar"
         bsStyle="default"
+        collapseOnSelect={false}
         componentClass="nav"
         fixedBottom={false}
         fixedTop={false}
@@ -103,7 +104,7 @@ exports[`Container > Navigation renders correctly 1`] = `
                                 disabled={false}
                                 onClick={[Function]}>
                                 <a
-                                  href=""
+                                  href="#"
                                   onClick={[Function]}
                                   role="button">
                                   <Button

@@ -1,8 +1,8 @@
 const models = require('../models')
 const makeRestEndpoints = require('../utils/restEndpoints')
 
-module.exports = function makeRoutes (app) {
-  makeRestEndpoints(app,
+module.exports = function makeRoutes (app, jwt) {
+  makeRestEndpoints(app, jwt,
     {
       commands: {
         'Collection GET': {},

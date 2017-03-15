@@ -82,6 +82,16 @@ export function makeGenericReducerTestCases (cfg) {
       })
     }
 
+    if (cfg.handlers['delete many']) {
+      const deleteManyType = `delete many ${cfg.name.plural}`
+      it(`should handle ${deleteManyType}`, () => {
+        const deleteManyCfg = cfg.handlers['delete many']
+        const action = { payload: deleteManyCfg.payload, type: deleteManyType }
+        const result = reducer(deleteManyCfg.initialState, action)
+        expect(result).toMatchSnapshot()
+      })
+    }
+
     if (cfg.handlers.set) {
       const setType = `set ${cfg.name.singular}`
       it(`should handle ${setType}`, () => {

@@ -98,6 +98,8 @@ class MapMock extends Leaflet.Map {
     return { lat: 38.92, lng: -76.97 }
   }
 
+  remove () { }
+
   setMaxBounds (bounds) {
     bounds = Leaflet.latLngBounds(bounds)
     this.options.maxBounds = bounds

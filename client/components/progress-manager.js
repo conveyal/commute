@@ -5,26 +5,26 @@ export default class ProgressManager extends Component {
   static propTypes = {
     numDone: PropTypes.number.isRequired,
     numTotal: PropTypes.number.isRequired,
-    refreshFn: PropTypes.number.isRequired,
-    intervalLengthMs: PropTypes.number.isRequired
+    refreshFn: PropTypes.number,
+    intervalLengthMs: PropTypes.number
   }
 
   state = {}
 
   componentWillMount () {
-    console.log('ProgressManager will mount', this.props)
-    const {intervalLengthMs, refreshFn} = this.props
+    const {refreshFn} = this.props
     const pctComplete = this._calculatePctComplete(this.props)
-    if (!this.state.interval && pctComplete < 100) {
-      this.setState({
-        interval: setInterval(refreshFn, intervalLengthMs)
-      })
+    if (refreshFn) {
+      const intervalLengthMs = this.props.intervalLengthMs || 1000
+      if (!this.state.interval && pctComplete < 100) {
+        this.setState({
+          interval: setInterval(refreshFn, intervalLengthMs)
+        })
+      }
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('ProgressManager will receive props', nextProps)
-
     const pctComplete = this._calculatePctComplete(nextProps)
 
     if (pctComplete === 100) {

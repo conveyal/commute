@@ -77,6 +77,6 @@ describe('geocoder plugin', () => {
     const data = await model.find().exec()
 
     // expect non-geocoded items
-    expectDeepEqual(omit(data[0]._doc, ['_id', '__v']), creationData)
+    expectDeepEqual(omit(data[0]._doc, ['_id', '__v', 'positionLastUpdated']), creationData)
   })
 })

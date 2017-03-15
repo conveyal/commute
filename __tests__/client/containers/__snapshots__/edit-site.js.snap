@@ -2,7 +2,7 @@ exports[`Container > EditSite Create site 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organization/organization-1",
+      "/site/new-entity-id",
     ],
     "method": "push",
   },
@@ -15,35 +15,36 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 1`] = `
   className="site-header col-xs-12">
   <h3>
     <span>
-      Create Site
+      Create New Site
     </span>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="default"
-      className="pull-right"
-      disabled={false}>
-      <button
-        className="pull-right btn btn-default"
-        disabled={false}
-        type="button">
-        <Link
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/organization/organization-1">
-          <a
+    <Connect(BackButton)>
+      <BackButton
+        goBack={[Function]}>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}
+          onClick={[Function]}>
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
             onClick={[Function]}
-            style={Object {}}>
+            type="button">
             <Icon
               type="arrow-left">
               <i
                 className="fa fa-arrow-left fa-fw " />
             </Icon>
-          </a>
-        </Link>
-      </button>
-    </Button>
+            <span>
+              Back
+            </span>
+          </button>
+        </Button>
+      </BackButton>
+    </Connect(BackButton)>
   </h3>
 </div>
 `;
@@ -79,7 +80,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
           "coordinate",
           "city",
           "address",
-          "radius",
           "name",
         ],
         "_options": Object {
@@ -387,31 +387,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
               [Function],
             ],
           },
-          "radius": StringSchema {
-            "_blacklist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {},
-            "_label": "Ridematch Radius",
-            "_mutate": false,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "tests": Array [],
-            "transforms": Array [
-              [Function],
-            ],
-          },
           "state": StringSchema {
             "_blacklist": BadSet {
               "_map": Object {},
@@ -448,11 +423,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
         ],
       }
     }
-    value={
-      Object {
-        "organizationId": "organization-1",
-      }
-    }>
+    value={Object {}}>
     <Form
       component="form"
       delay={300}
@@ -484,7 +455,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
             "coordinate",
             "city",
             "address",
-            "radius",
             "name",
           ],
           "_options": Object {
@@ -792,31 +762,6 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                 [Function],
               ],
             },
-            "radius": StringSchema {
-              "_blacklist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "_conditions": Array [],
-              "_deps": Array [],
-              "_exclusive": Object {},
-              "_label": "Ridematch Radius",
-              "_mutate": false,
-              "_options": Object {
-                "abortEarly": true,
-                "recursive": true,
-              },
-              "_type": "string",
-              "_typeError": [Function],
-              "_whitelist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "tests": Array [],
-              "transforms": Array [
-                [Function],
-              ],
-            },
             "state": StringSchema {
               "_blacklist": BadSet {
                 "_map": Object {},
@@ -855,20 +800,12 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
       }
       setter={[Function]}
       strict={false}
-      value={
-        Object {
-          "organizationId": "organization-1",
-        }
-      }>
+      value={Object {}}>
       <BindingContext
         getter={[Function]}
         onChange={[Function]}
         setter={[Function]}
-        value={
-          Object {
-            "organizationId": "organization-1",
-          }
-        }>
+        value={Object {}}>
         <MessageListener
           onValidationNeeded={[Function]}>
           <MessageContainer
@@ -1210,12 +1147,12 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
-                                          "lat": 38.8886,
-                                          "lng": -77.043,
-                                          "radius": 275,
+                                        "centerPoint": Object {
+                                          "lat": 39.467803,
+                                          "lon": -87.397648,
+                                          "radius": 20,
                                         },
-                                        "radius": 275,
+                                        "radius": 20,
                                       },
                                     }
                                   }
@@ -1274,12 +1211,12 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
-                                            "lat": 38.8886,
-                                            "lng": -77.043,
-                                            "radius": 275,
+                                          "centerPoint": Object {
+                                            "lat": 39.467803,
+                                            "lon": -87.397648,
+                                            "radius": 20,
                                           },
-                                          "radius": 275,
+                                          "radius": 20,
                                         },
                                       }
                                     }
@@ -1353,12 +1290,12 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
-                                              "lat": 38.8886,
-                                              "lng": -77.043,
-                                              "radius": 275,
+                                            "centerPoint": Object {
+                                              "lat": 39.467803,
+                                              "lon": -87.397648,
+                                              "radius": 20,
                                             },
-                                            "radius": 275,
+                                            "radius": 20,
                                           },
                                         }
                                       }
@@ -1366,8 +1303,10 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -1473,7 +1412,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -1500,7 +1439,7 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />
@@ -1558,210 +1497,30 @@ exports[`Container > EditSite Create/Edit Site View loads in create mode 2`] = `
                   </ChildBridge>
                 </Binding>
               </Field>
-              <FormalFieldGroup
-                label="Ridematch Radius (mi)"
-                name="radius"
-                placeholder="Enter radius">
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="group-item-radius">
-                  <div
-                    className="form-group">
-                    <ControlLabel
-                      bsClass="control-label"
-                      srOnly={false}>
-                      <label
-                        className="control-label"
-                        htmlFor="group-item-radius">
-                        Ridematch Radius (mi)
-                      </label>
-                    </ControlLabel>
-                    <Field
-                      className="form-control"
-                      exclusive={false}
-                      name="radius"
-                      placeholder="Enter radius"
-                      type="">
-                      <Binding
-                        bindTo={[Function]}
-                        changeProp="onChange"
-                        mapValue={
-                          Object {
-                            "radius": undefined,
-                          }
-                        }
-                        updateAfterChild={false}
-                        valueProp="value">
-                        <ChildBridge
-                          events="onChange"
-                          onEvent={[Function]}>
-                          <MessageListener
-                            events={
-                              Array [
-                                "onChange",
-                                "onBlur",
-                              ]
-                            }
-                            for="radius"
-                            mapMessages={[Function]}>
-                            <MessageTrigger
-                              events={
-                                Array [
-                                  "onChange",
-                                  "onBlur",
-                                ]
-                              }
-                              for="radius"
-                              mapMessages={[Function]}
-                              messages={Object {}}
-                              noValidate={false}>
-                              <ChildBridge
-                                events={
-                                  Array [
-                                    "onChange",
-                                    "onBlur",
-                                  ]
-                                }
-                                onEvent={[Function]}>
-                                <_class
-                                  className="form-control"
-                                  meta={
-                                    Object {
-                                      "context": undefined,
-                                      "errorClass": "invalid-field",
-                                      "errors": Object {},
-                                      "invalid": false,
-                                      "onError": [Function],
-                                      "resolvedType": "string",
-                                      "schema": StringSchema {
-                                        "_blacklist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "_conditions": Array [],
-                                        "_deps": Array [],
-                                        "_exclusive": Object {},
-                                        "_label": "Ridematch Radius",
-                                        "_mutate": false,
-                                        "_options": Object {
-                                          "abortEarly": true,
-                                          "recursive": true,
-                                        },
-                                        "_type": "string",
-                                        "_typeError": [Function],
-                                        "_whitelist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "tests": Array [],
-                                        "transforms": Array [
-                                          [Function],
-                                        ],
-                                      },
-                                      "valid": true,
-                                    }
-                                  }
-                                  name="radius"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  placeholder="Enter radius"
-                                  value={null}>
-                                  <Input
-                                    className="form-control"
-                                    meta={
-                                      Object {
-                                        "context": undefined,
-                                        "errorClass": "invalid-field",
-                                        "errors": Object {},
-                                        "invalid": false,
-                                        "onError": [Function],
-                                        "resolvedType": "string",
-                                        "schema": StringSchema {
-                                          "_blacklist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "_conditions": Array [],
-                                          "_deps": Array [],
-                                          "_exclusive": Object {},
-                                          "_label": "Ridematch Radius",
-                                          "_mutate": false,
-                                          "_options": Object {
-                                            "abortEarly": true,
-                                            "recursive": true,
-                                          },
-                                          "_type": "string",
-                                          "_typeError": [Function],
-                                          "_whitelist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "tests": Array [],
-                                          "transforms": Array [
-                                            [Function],
-                                          ],
-                                        },
-                                        "valid": true,
-                                      }
-                                    }
-                                    name="radius"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Enter radius"
-                                    type="text"
-                                    value={null}>
-                                    <input
-                                      className="form-control"
-                                      name="radius"
-                                      onBlur={[Function]}
-                                      onChange={[Function]}
-                                      placeholder="Enter radius"
-                                      type="text"
-                                      value="" />
-                                  </Input>
-                                </_class>
-                              </ChildBridge>
-                            </MessageTrigger>
-                          </MessageListener>
-                        </ChildBridge>
-                      </Binding>
-                    </Field>
-                    <ValidationMessage
-                      className="help-block"
-                      component="span"
-                      errorClass="validation-error"
-                      extract={[Function]}
-                      filter={[Function]}
-                      for="radius">
-                      <MessageListener
-                        className="help-block validation-error"
-                        component="span"
-                        for="radius">
-                        <Message
-                          className="help-block validation-error"
-                          component="span"
-                          for="radius"
-                          messages={Object {}} />
-                      </MessageListener>
-                    </ValidationMessage>
-                  </div>
-                </FormGroup>
-              </FormalFieldGroup>
-              <Button
-                className="btn btn-success"
-                component="button"
-                events={
-                  Array [
-                    "onClick",
-                  ]
-                }
-                type="submit">
-                <button
-                  className="btn btn-success"
-                  onClick={[Function]}>
-                  Create
-                </button>
-              </Button>
+              <ButtonGroup
+                block={false}
+                bsClass="btn-group"
+                justified={false}
+                vertical={false}>
+                <div
+                  className="btn-group">
+                  <Button
+                    className="btn btn-success"
+                    component="button"
+                    events={
+                      Array [
+                        "onClick",
+                      ]
+                    }
+                    type="submit">
+                    <button
+                      className="btn btn-success"
+                      onClick={[Function]}>
+                      Create
+                    </button>
+                  </Button>
+                </div>
+              </ButtonGroup>
             </form>
           </MessageContainer>
         </MessageListener>
@@ -1778,33 +1537,34 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 1`] = `
     <span>
       Edit Site
     </span>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="default"
-      className="pull-right"
-      disabled={false}>
-      <button
-        className="pull-right btn btn-default"
-        disabled={false}
-        type="button">
-        <Link
-          onlyActiveOnIndex={false}
-          style={Object {}}
-          to="/organization/organization-2">
-          <a
+    <Connect(BackButton)>
+      <BackButton
+        goBack={[Function]}>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}
+          onClick={[Function]}>
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
             onClick={[Function]}
-            style={Object {}}>
+            type="button">
             <Icon
               type="arrow-left">
               <i
                 className="fa fa-arrow-left fa-fw " />
             </Icon>
-          </a>
-        </Link>
-      </button>
-    </Button>
+            <span>
+              Back
+            </span>
+          </button>
+        </Button>
+      </BackButton>
+    </Connect(BackButton)>
   </h3>
 </div>
 `;
@@ -1840,7 +1600,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
           "coordinate",
           "city",
           "address",
-          "radius",
           "name",
         ],
         "_options": Object {
@@ -2148,31 +1907,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
               [Function],
             ],
           },
-          "radius": StringSchema {
-            "_blacklist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "_conditions": Array [],
-            "_deps": Array [],
-            "_exclusive": Object {},
-            "_label": "Ridematch Radius",
-            "_mutate": false,
-            "_options": Object {
-              "abortEarly": true,
-              "recursive": true,
-            },
-            "_type": "string",
-            "_typeError": [Function],
-            "_whitelist": BadSet {
-              "_map": Object {},
-              "_refs": Object {},
-            },
-            "tests": Array [],
-            "transforms": Array [
-              [Function],
-            ],
-          },
           "state": StringSchema {
             "_blacklist": BadSet {
               "_map": Object {},
@@ -2214,6 +1948,9 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
         "_id": "site-2",
         "address": "123 ABC St",
         "city": "Megalopolis",
+        "commuters": Array [
+          "commuter-2",
+        ],
         "coordinate": Object {
           "lat": 38.892767,
           "lon": -77.04074,
@@ -2222,8 +1959,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
         "county": "Made up county",
         "name": "Acme Corp",
         "neighbourhood": undefined,
-        "organizationId": "organization-2",
-        "radius": 1,
         "state": "Made up state",
       }
     }>
@@ -2258,7 +1993,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
             "coordinate",
             "city",
             "address",
-            "radius",
             "name",
           ],
           "_options": Object {
@@ -2566,31 +2300,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                 [Function],
               ],
             },
-            "radius": StringSchema {
-              "_blacklist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "_conditions": Array [],
-              "_deps": Array [],
-              "_exclusive": Object {},
-              "_label": "Ridematch Radius",
-              "_mutate": false,
-              "_options": Object {
-                "abortEarly": true,
-                "recursive": true,
-              },
-              "_type": "string",
-              "_typeError": [Function],
-              "_whitelist": BadSet {
-                "_map": Object {},
-                "_refs": Object {},
-              },
-              "tests": Array [],
-              "transforms": Array [
-                [Function],
-              ],
-            },
             "state": StringSchema {
               "_blacklist": BadSet {
                 "_map": Object {},
@@ -2634,6 +2343,9 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
           "_id": "site-2",
           "address": "123 ABC St",
           "city": "Megalopolis",
+          "commuters": Array [
+            "commuter-2",
+          ],
           "coordinate": Object {
             "lat": 38.892767,
             "lon": -77.04074,
@@ -2642,8 +2354,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
           "county": "Made up county",
           "name": "Acme Corp",
           "neighbourhood": undefined,
-          "organizationId": "organization-2",
-          "radius": 1,
           "state": "Made up state",
         }
       }>
@@ -2656,6 +2366,9 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
             "_id": "site-2",
             "address": "123 ABC St",
             "city": "Megalopolis",
+            "commuters": Array [
+              "commuter-2",
+            ],
             "coordinate": Object {
               "lat": 38.892767,
               "lon": -77.04074,
@@ -2664,8 +2377,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
             "county": "Made up county",
             "name": "Acme Corp",
             "neighbourhood": undefined,
-            "organizationId": "organization-2",
-            "radius": 1,
             "state": "Made up state",
           }
         }>
@@ -3014,12 +2725,12 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                   boundary={
                                     Object {
                                       "circle": Object {
-                                        "latlng": Object {
-                                          "lat": 38.8886,
-                                          "lng": -77.043,
-                                          "radius": 275,
+                                        "centerPoint": Object {
+                                          "lat": 39.467803,
+                                          "lon": -87.397648,
+                                          "radius": 20,
                                         },
-                                        "radius": 275,
+                                        "radius": 20,
                                       },
                                     }
                                   }
@@ -3082,12 +2793,12 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                     boundary={
                                       Object {
                                         "circle": Object {
-                                          "latlng": Object {
-                                            "lat": 38.8886,
-                                            "lng": -77.043,
-                                            "radius": 275,
+                                          "centerPoint": Object {
+                                            "lat": 39.467803,
+                                            "lon": -87.397648,
+                                            "radius": 20,
                                           },
-                                          "radius": 275,
+                                          "radius": 20,
                                         },
                                       }
                                     }
@@ -3165,12 +2876,12 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                       boundary={
                                         Object {
                                           "circle": Object {
-                                            "latlng": Object {
-                                              "lat": 38.8886,
-                                              "lng": -77.043,
-                                              "radius": 275,
+                                            "centerPoint": Object {
+                                              "lat": 39.467803,
+                                              "lon": -87.397648,
+                                              "radius": 20,
                                             },
-                                            "radius": 275,
+                                            "radius": 20,
                                           },
                                         }
                                       }
@@ -3178,8 +2889,10 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                       cacheAsyncResults={false}
                                       className=""
                                       clearAllText="Clear all"
+                                      clearRenderer={[Function]}
                                       clearValueText="Clear value"
                                       clearable={true}
+                                      deleteRemoves={true}
                                       delimiter=","
                                       disabled={false}
                                       escapeClearsValue={true}
@@ -3311,7 +3024,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                               aria-haspopup="false"
                                               aria-owns=""
                                               className="Select-input"
-                                              minWidth="5px"
+                                              minWidth="5"
                                               onBlur={[Function]}
                                               onChange={[Function]}
                                               onFocus={[Function]}
@@ -3338,7 +3051,7 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                                                   style={
                                                     Object {
                                                       "boxSizing": "content-box",
-                                                      "width": "5pxpx",
+                                                      "width": "5px",
                                                     }
                                                   }
                                                   value="" />
@@ -3412,225 +3125,45 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 2`] = `
                   </ChildBridge>
                 </Binding>
               </Field>
-              <FormalFieldGroup
-                label="Ridematch Radius (mi)"
-                name="radius"
-                placeholder="Enter radius">
-                <FormGroup
-                  bsClass="form-group"
-                  controlId="group-item-radius">
-                  <div
-                    className="form-group">
-                    <ControlLabel
-                      bsClass="control-label"
-                      srOnly={false}>
-                      <label
-                        className="control-label"
-                        htmlFor="group-item-radius">
-                        Ridematch Radius (mi)
-                      </label>
-                    </ControlLabel>
-                    <Field
-                      className="form-control"
-                      exclusive={false}
-                      name="radius"
-                      placeholder="Enter radius"
-                      type="">
-                      <Binding
-                        bindTo={[Function]}
-                        changeProp="onChange"
-                        mapValue={
-                          Object {
-                            "radius": undefined,
-                          }
-                        }
-                        updateAfterChild={false}
-                        valueProp="value">
-                        <ChildBridge
-                          events="onChange"
-                          onEvent={[Function]}>
-                          <MessageListener
-                            events={
-                              Array [
-                                "onChange",
-                                "onBlur",
-                              ]
-                            }
-                            for="radius"
-                            mapMessages={[Function]}>
-                            <MessageTrigger
-                              events={
-                                Array [
-                                  "onChange",
-                                  "onBlur",
-                                ]
-                              }
-                              for="radius"
-                              mapMessages={[Function]}
-                              messages={Object {}}
-                              noValidate={false}>
-                              <ChildBridge
-                                events={
-                                  Array [
-                                    "onChange",
-                                    "onBlur",
-                                  ]
-                                }
-                                onEvent={[Function]}>
-                                <_class
-                                  className="form-control"
-                                  meta={
-                                    Object {
-                                      "context": undefined,
-                                      "errorClass": "invalid-field",
-                                      "errors": Object {},
-                                      "invalid": false,
-                                      "onError": [Function],
-                                      "resolvedType": "string",
-                                      "schema": StringSchema {
-                                        "_blacklist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "_conditions": Array [],
-                                        "_deps": Array [],
-                                        "_exclusive": Object {},
-                                        "_label": "Ridematch Radius",
-                                        "_mutate": false,
-                                        "_options": Object {
-                                          "abortEarly": true,
-                                          "recursive": true,
-                                        },
-                                        "_type": "string",
-                                        "_typeError": [Function],
-                                        "_whitelist": BadSet {
-                                          "_map": Object {},
-                                          "_refs": Object {},
-                                        },
-                                        "tests": Array [],
-                                        "transforms": Array [
-                                          [Function],
-                                        ],
-                                      },
-                                      "valid": true,
-                                    }
-                                  }
-                                  name="radius"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  placeholder="Enter radius"
-                                  value={1}>
-                                  <Input
-                                    className="form-control"
-                                    meta={
-                                      Object {
-                                        "context": undefined,
-                                        "errorClass": "invalid-field",
-                                        "errors": Object {},
-                                        "invalid": false,
-                                        "onError": [Function],
-                                        "resolvedType": "string",
-                                        "schema": StringSchema {
-                                          "_blacklist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "_conditions": Array [],
-                                          "_deps": Array [],
-                                          "_exclusive": Object {},
-                                          "_label": "Ridematch Radius",
-                                          "_mutate": false,
-                                          "_options": Object {
-                                            "abortEarly": true,
-                                            "recursive": true,
-                                          },
-                                          "_type": "string",
-                                          "_typeError": [Function],
-                                          "_whitelist": BadSet {
-                                            "_map": Object {},
-                                            "_refs": Object {},
-                                          },
-                                          "tests": Array [],
-                                          "transforms": Array [
-                                            [Function],
-                                          ],
-                                        },
-                                        "valid": true,
-                                      }
-                                    }
-                                    name="radius"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Enter radius"
-                                    type="text"
-                                    value={1}>
-                                    <input
-                                      className="form-control"
-                                      name="radius"
-                                      onBlur={[Function]}
-                                      onChange={[Function]}
-                                      placeholder="Enter radius"
-                                      type="text"
-                                      value={1} />
-                                  </Input>
-                                </_class>
-                              </ChildBridge>
-                            </MessageTrigger>
-                          </MessageListener>
-                        </ChildBridge>
-                      </Binding>
-                    </Field>
-                    <ValidationMessage
-                      className="help-block"
-                      component="span"
-                      errorClass="validation-error"
-                      extract={[Function]}
-                      filter={[Function]}
-                      for="radius">
-                      <MessageListener
-                        className="help-block validation-error"
-                        component="span"
-                        for="radius">
-                        <Message
-                          className="help-block validation-error"
-                          component="span"
-                          for="radius"
-                          messages={Object {}} />
-                      </MessageListener>
-                    </ValidationMessage>
-                  </div>
-                </FormGroup>
-              </FormalFieldGroup>
-              <Button
-                className="btn btn-warning"
-                component="button"
-                events={
-                  Array [
-                    "onClick",
-                  ]
-                }
-                type="submit">
-                <button
-                  className="btn btn-warning"
-                  onClick={[Function]}>
-                  Update
-                </button>
-              </Button>
-              <Button
-                active={false}
+              <ButtonGroup
                 block={false}
-                bsClass="btn"
-                bsStyle="danger"
-                disabled={false}
-                onClick={[Function]}>
-                <button
-                  className="btn btn-danger"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button">
-                  Delete
-                </button>
-              </Button>
+                bsClass="btn-group"
+                justified={false}
+                vertical={false}>
+                <div
+                  className="btn-group">
+                  <Button
+                    className="btn btn-warning"
+                    component="button"
+                    events={
+                      Array [
+                        "onClick",
+                      ]
+                    }
+                    type="submit">
+                    <button
+                      className="btn btn-warning"
+                      onClick={[Function]}>
+                      Update
+                    </button>
+                  </Button>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="danger"
+                    disabled={false}
+                    onClick={[Function]}>
+                    <button
+                      className="btn btn-danger"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="button">
+                      Delete
+                    </button>
+                  </Button>
+                </div>
+              </ButtonGroup>
             </form>
           </MessageContainer>
         </MessageListener>
@@ -3644,7 +3177,6 @@ exports[`Container > EditSite Create/Edit Site View loads in edit mode 3`] = `
 Object {
   "lat": 38.892767,
   "lng": -77.04074,
-  "lon": -77.04074,
 }
 `;
 
@@ -3652,7 +3184,7 @@ exports[`Container > EditSite Delete Site 1`] = `
 Object {
   "payload": Object {
     "args": Array [
-      "/organization/organization-2",
+      "/",
     ],
     "method": "push",
   },
@@ -3662,9 +3194,15 @@ Object {
 
 exports[`Container > EditSite Update site 1`] = `
 Object {
+  "siteId": "site-2",
+}
+`;
+
+exports[`Container > EditSite Update site 2`] = `
+Object {
   "payload": Object {
     "args": Array [
-      "/organization/organization-2",
+      "/site/site-2",
     ],
     "method": "push",
   },

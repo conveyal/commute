@@ -1,22 +1,23 @@
 import {connect} from 'react-redux'
 
+import multiSiteActions from '../actions/multi-site'
+import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
 import EditSite from '../components/edit-site'
 
 function mapStateToProps (state, props) {
-  const {site} = state
-  const {organizationId, siteId} = props.params
-  if (organizationId) {
-    return {
-      organizationId,
-      editMode: false
-    }
-  } else if (siteId) {
-    const currentSite = site[siteId]
+  const {site: siteStore} = state
+  const {siteId} = props.params ? props.params : {}
+  if (siteId) {
+    const site = siteStore[siteId]
     return {
       editMode: true,
-      organizationId: currentSite.organizationId,
-      site: currentSite
+      multiSites: Object.values(state.multiSite),
+      site
+    }
+  } else {
+    return {
+      editMode: false
     }
   }
 }
@@ -24,8 +25,10 @@ function mapStateToProps (state, props) {
 function mapDispatchToProps (dispatch, props) {
   return {
     create: (opts) => dispatch(siteActions.create(opts)),
-    delete: (opts) => dispatch(siteActions.delete(opts)),
-    update: (opts) => dispatch(siteActions.update(opts))
+    deletePolygons: (opts) => dispatch(polygonActions.deleteMany(opts)),
+    deleteSite: (opts) => dispatch(siteActions.delete(opts)),
+    deleteSiteFromMultiSites: (opts) => dispatch(multiSiteActions.deleteSiteFromMultiSites(opts)),
+    updateSite: (opts) => dispatch(siteActions.update(opts))
   }
 }
 

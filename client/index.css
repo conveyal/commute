@@ -3,10 +3,11 @@
 @import url(node_modules/font-awesome/css/font-awesome.css);
 @import url(node_modules/rc-slider/assets/index.css);
 @import url(node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css);
-@import url(node_modules/leaflet/dist/leaflet.css);
 @import url(node_modules/react-widgets/dist/css/react-widgets.css);
+@import url(https://unpkg.com/leaflet@1.0.2/dist/leaflet.css);
+@import url(node_modules/leaflet.markercluster/dist/MarkerCluster.css);
+@import url(node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css);
 @import url(node_modules/react-select/dist/react-select.css);
-@import url(node_modules/react-vis/main.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
 
 footer {
@@ -17,6 +18,11 @@ footer {
 
 h4 strong {
   margin-right: 1em;
+}
+
+/* Bootstrap add-ons */
+.tab-pane {
+  padding: 1em;
 }
 
 /* react-dropzone stuff */
@@ -37,4 +43,18 @@ h4 strong {
 .leaflet-container {
 	height: 100%;
 	width: 100%;
+}
+
+/* Map Legend */
+.legend {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+.legend td {
+  padding: 5px;
 }

@@ -3,17 +3,13 @@ import makeGenericModelActions from '../utils/actions'
 const actions = makeGenericModelActions({
   commands: {
     'Collection GET': {},
-    'Collection POST': {
-      redirectionStrategy: 'toParent'
+    'Collection POST': {},
+    'DELETE': {
+      redirectionStrategy: 'toHome'
     },
-    'DELETE': {},
     'GET': {},
-    'PUT': {
-      redirectionStrategy: 'toParent'
-    }
+    'PUT': {}
   },
-  parentKey: 'organizationId',
-  parentName: 'organization',
   pluralName: 'sites',
   singularName: 'site'
 })

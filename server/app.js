@@ -4,15 +4,22 @@ const jwt = require('express-jwt')
 const path = require('path')
 const html = require('@conveyal/woonerf/html')
 
+const env = require('./utils/env').env
 const routes = require('./routes')
-
-const SECRET = process.env.AUTH0_SECRET
 
 const app = express()
 
 // middleware
-if (SECRET) {
-  app.use(jwt({secret: SECRET}))
+let jwtMiddleWare
+if (env.AUTH0_SECRET && process.env.NODE_ENV !== 'test') {
+  jwtMiddleWare = jwt({secret: env.AUTH0_SECRET})
+} else {
+  jwtMiddleWare = (req, res, next) => {
+    req.user = {
+      sub: 'test-user'
+    }
+    next()
+  }
 }
 app.use(bodyParser.json())
 
@@ -20,11 +27,11 @@ app.use(bodyParser.json())
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')))
 
 // api
-routes(app)
+routes(app, jwtMiddleWare)
 
 let htmlString
 const title = 'Commute'
-if (process.env.MONGODB_URI) {
+if (process.env.STATIC_HOST) {
   // In heroku environment, get js and css from s3
   const host = process.env.STATIC_HOST
   htmlString = `<!DOCTYPE html>
@@ -47,6 +54,11 @@ if (process.env.MONGODB_URI) {
 }
 
 // webapp
-app.get('*', (req, res) => res.status(200).type('html').send(htmlString))
+app.get('*', (req, res) => {
+  if (['/', '/login'].indexOf(req.originalUrl) === -1) {
+    return res.redirect('/')
+  }
+  res.status(200).type('html').send(htmlString)
+})
 
 module.exports = app

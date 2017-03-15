@@ -18,6 +18,11 @@ import Leaflet from '../../test-utils/mock-leaflet'
 
 import EditSite from '../../../client/containers/edit-site'
 
+const polygonExpectations = makeGenericModelActionsExpectations({
+  pluralName: 'polygons',
+  singularName: 'polygon'
+})
+
 const siteExpectations = makeGenericModelActionsExpectations({
   pluralName: 'sites',
   singularName: 'site'
@@ -25,14 +30,12 @@ const siteExpectations = makeGenericModelActionsExpectations({
 
 describe('Container > EditSite', () => {
   it('Create/Edit Site View loads (create or edit mode)', () => {
-    const mockStore = makeMockStore(mockStores.withBlankOrganization)
+    const mockStore = makeMockStore(mockStores.init)
 
     // mount component
     mount(
       <Provider store={mockStore}>
-        <EditSite
-          params={{organizationId: 'organization-1'}}
-          />
+        <EditSite />
       </Provider>
     , {
       attachTo: document.getElementById('test')
@@ -40,14 +43,12 @@ describe('Container > EditSite', () => {
   })
 
   it('Create/Edit Site View loads in create mode', () => {
-    const mockStore = makeMockStore(mockStores.withBlankOrganization)
+    const mockStore = makeMockStore(mockStores.init)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <EditSite
-          params={{organizationId: 'organization-1'}}
-          />
+        <EditSite />
       </Provider>
     , {
       attachTo: document.getElementById('test')
@@ -61,7 +62,7 @@ describe('Container > EditSite', () => {
   })
 
   it('Create/Edit Site View loads in edit mode', () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // mount component
     const tree = mount(
@@ -83,14 +84,12 @@ describe('Container > EditSite', () => {
   })
 
   it('Create site', async () => {
-    const mockStore = makeMockStore(mockStores.withBlankOrganization)
+    const mockStore = makeMockStore(mockStores.init)
 
     // mount component
     const tree = mount(
       <Provider store={mockStore}>
-        <EditSite
-          params={{organizationId: 'organization-1'}}
-          />
+        <EditSite />
       </Provider>
     , {
       attachTo: document.getElementById('test')
@@ -100,9 +99,7 @@ describe('Container > EditSite', () => {
     // name
     tree.find('input').first().simulate('change', {target: {value: 'Mock Site'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
-    // radius
-    tree.find('input').last().simulate('change', {target: {value: 0.5}})
+    tree.find('.site-form').find('Geocoder').at(1).props().onChange(mockGeocodeResponse)
 
     // submit form
     tree.find('form').find('button').first().simulate('click')
@@ -114,15 +111,15 @@ describe('Container > EditSite', () => {
     siteExpectations.expectCreateAction({
       action: mockStore.getActions()[0],
       newEntity: genGeocodedEntity({
+        calculationStatus: 'calculating',
         name: 'Mock Site',
-        organizationId: 'organization-1',
-        radius: 0.5
+        travelTimeIsochrones: {}
       })
     })
   })
 
   it('Update site', async () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
 
     // mount component
     const tree = mount(
@@ -135,13 +132,14 @@ describe('Container > EditSite', () => {
       attachTo: document.getElementById('test')
     })
 
+    // clear all loading actions
+    mockStore.clearActions()
+
     // give each text field some input
     // name
     tree.find('input').first().simulate('change', {target: {value: 'Different Name'}})
     // address
-    tree.find('.form-group').find('Geocoder').props().onChange(mockGeocodeResponse)
-    // radius
-    tree.find('input').last().simulate('change', {target: {value: 1.5}})
+    tree.find('.site-form').find('Geocoder').at(1).props().onChange(mockGeocodeResponse)
 
     // submit form
     tree.find('form').find('button').first().simulate('click')
@@ -149,19 +147,26 @@ describe('Container > EditSite', () => {
     // react-formal submit is asyncrhonous, so wait a bit
     await timeoutPromise(1000)
 
+    const actions = mockStore.getActions()
+    polygonExpectations.expectDeleteManyAction({
+      action: actions.slice(0, 2),
+      queryParams: { siteId: 'site-2' }
+    })
+
     siteExpectations.expectUpdateAction({
-      action: mockStore.getActions()[0],
+      action: actions[2],
       entity: genGeocodedEntity({
         _id: 'site-2',
+        calculationStatus: 'calculating',
+        commuters: ['commuter-2'],
         name: 'Different Name',
-        organizationId: 'organization-2',
-        radius: 1.5
+        travelTimeIsochrones: {}
       })
     })
   })
 
   it('Delete Site', () => {
-    const mockStore = makeMockStore(mockStores.withAnalysisRun)
+    const mockStore = makeMockStore(mockStores.withSite)
     window.confirm = () => true
 
     // Given a logged-in user is viewing the Create/Edit Site View
@@ -181,7 +186,7 @@ describe('Container > EditSite', () => {
 
     // When the user clicks the delete button
     // And the user confirms the Confirm Deletion dialog
-    tree.find('form').find('button').last().simulate('click')
+    tree.find('.site-form').find('button').last().simulate('click')
 
     siteExpectations.expectDeleteAction({
       action: mockStore.getActions()[0],

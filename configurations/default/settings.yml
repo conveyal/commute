@@ -3,7 +3,7 @@ entries:
   - client/index.css:assets/index.css
 geocoder:
   focus:
-    lat: 38.8886
-    lng: -77.0430
-    radius: 275
+    lat: 38.887090
+    lon: -77.095229
+    radius: 100
 s3bucket: commute-staging

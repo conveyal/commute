@@ -12,8 +12,7 @@ describe('actions > site', () => {
       'Collection GET': {},
       'Collection POST': {
         args: {
-          name: 'New Site',
-          organizationId: 'organization-id'
+          name: 'New Site'
         }
       },
       'DELETE': {

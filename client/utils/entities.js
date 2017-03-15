@@ -36,11 +36,11 @@ export function addEntitiesToEntityMap (map, newEntities) {
 }
 
 /**
-* Delete an entity from an entity map
-*
-* @param {Object} map      The entity map
-* @param {String} entityId The id of the entity to delete
-* @return {Object}         The updated entity map
+ * Delete an entity from an entity map
+ *
+ * @param {Object} map      The entity map
+ * @param {String} entityId The id of the entity to delete
+ * @return {Object}         The updated entity map
  */
 export function deleteFromEntityMap (map, entityId) {
   return update(map, {
@@ -48,6 +48,28 @@ export function deleteFromEntityMap (map, entityId) {
       delete obj[entityId]
       return obj
     }
+  })
+}
+
+/**
+ * Delete an entity from an entity map
+ *
+ * @param {Object} map          The entity map
+ * @param {String} queryParams  The query to match to delete
+ * @return {Object}             The updated entity map
+ */
+export function deleteManyFromEntityMap (map, queryParams) {
+  return update(map, {
+    $apply: (entityMap) => entityArrayToEntityMap(
+      Object.values(entityMap).filter((entity) => {
+        for (let key in queryParams) {
+          if (entity[key] !== queryParams[key]) {
+            return true
+          }
+        }
+        return false
+      })
+    )
   })
 }
 

@@ -12,8 +12,8 @@ const actions = makeGenericModelActions({
       redirectionStrategy: 'toParent'
     }
   },
-  parentKey: 'groupId',
-  parentName: 'group',
+  parentKey: 'siteId',
+  parentName: 'site',
   pluralName: 'commuters',
   singularName: 'commuter'
 })

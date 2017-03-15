@@ -1,10 +1,8 @@
 exports[`reducers > root should have default state 1`] = `
 Object {
-  "agency": Object {},
-  "analysis": Object {},
   "commuter": Object {},
-  "group": Object {},
-  "organization": Object {},
+  "multiSite": Object {},
+  "polygon": Object {},
   "site": Object {},
   "user": Object {},
 }

@@ -1,35 +1,34 @@
+import {toLeaflet} from '@conveyal/lonlat'
 import {Browser} from 'leaflet'
 import isNumber from 'lodash.isnumber'
-import lonlng from 'lonlng'
 import React, {Component, PropTypes} from 'react'
-import {Button, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
 import Form from 'react-formal'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
-import {Link} from 'react-router'
 import yup from 'yup'
 
+import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
-import Icon from './icon'
-import {geocodeResultToState, geocodeYupSchema} from '../utils/components'
-import {messages, settings} from '../utils/env'
-import {actUponConfirmation} from '../utils/ui'
+import {actUponConfirmation, geocodeResultToState, geocodeYupSchema} from '../utils'
+import messages from '../utils/messages'
+import settings from '../utils/settings'
 
 const siteSchema = yup.object(Object.assign({
-  name: yup.string().label('Site Name').required(),
-  radius: yup.string().label('Ridematch Radius')
+  name: yup.string().label('Site Name').required()
 }, geocodeYupSchema))
 
 export default class EditSite extends Component {
   static propTypes = {
     // dispatch
     create: PropTypes.func.isRequired,
-    delete: PropTypes.func.isRequired,
-    update: PropTypes.func.isRequired,
+    deletePolygons: PropTypes.func.isRequired,
+    deleteSite: PropTypes.func.isRequired,
+    deleteSiteFromMultiSites: PropTypes.func.isRequired,
+    updateSite: PropTypes.func.isRequired,
 
     // props
     editMode: PropTypes.bool.isRequired,
-    organizationId: PropTypes.string.isRequired,
     site: PropTypes.object
   }
 
@@ -42,22 +41,47 @@ export default class EditSite extends Component {
     } else {
       this.state = {
         errors: {},
-        model: { organizationId: this.props.organizationId }
+        model: {}
       }
     }
   }
 
   _handleDelete = () => {
-    const doDelete = () => this.props.delete(this.state.model)
-    actUponConfirmation(messages.organization.deleteConfirmation, doDelete)
+    const doDelete = () => {
+      this.props.deleteSite(this.state.model)
+      this.props.deletePolygons({ siteId: this.state.model._id })
+    }
+    actUponConfirmation(messages.site.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
-    const {create, editMode, update} = this.props
+    const {
+      create,
+      deletePolygons,
+      deleteSiteFromMultiSites,
+      editMode,
+      multiSites,
+      site,
+      updateSite
+    } = this.props
+    const {model} = this.state
+
+    // reset calculation status if new or if location of site changed
+    if (!editMode || (
+      (site.address !== model.address) ||
+      (site.coordinate.lat !== model.coordinate.lat) ||
+      (site.coordinate.lon !== model.coordinate.lon))) {
+      model.travelTimeIsochrones = {}
+      model.calculationStatus = 'calculating'
+    }
     if (editMode) {
-      update(this.state.model)
+      if (model.calculationStatus === 'calculating') {
+        deletePolygons({ siteId: this.state.model._id })
+        deleteSiteFromMultiSites({ multiSites, siteId: site._id })
+      }
+      updateSite(model)
     } else {
-      create(this.state.model)
+      create(model)
     }
   }
 
@@ -66,19 +90,19 @@ export default class EditSite extends Component {
   _setModel = model => this.setState({ model })
 
   render () {
-    const {editMode, organizationId} = this.props
+    const {editMode} = this.props
     const hasCoordinates = this.state.model.coordinate && isNumber(this.state.model.coordinate.lat)
-    const position = hasCoordinates ? lonlng(this.state.model.coordinate) : lonlng(settings.geocoder.focus)
-    const zoom = hasCoordinates ? 13 : 8
+    const position = hasCoordinates
+      ? toLeaflet(this.state.model.coordinate)
+      : toLeaflet(settings.geocoder.focus)
+    const zoom = hasCoordinates ? 13 : 9
     return (
       <Grid>
         <Row>
           <Col xs={12} className='site-header'>
             <h3>
-              <span>{`${editMode ? 'Edit' : 'Create'} Site`}</span>
-              <Button className='pull-right'>
-                <Link to={`/organization/${organizationId}`}><Icon type='arrow-left' />Back</Link>
-              </Button>
+              <span>{editMode ? `Edit Site` : 'Create New Site'}</span>
+              <BackButton />
             </h3>
           </Col>
         </Row>
@@ -105,26 +129,22 @@ export default class EditSite extends Component {
                 type={Geocoder}
                 validationState={this.state.errors.address ? 'error' : undefined}
                 />
-              <FormalFieldGroup
-                label='Ridematch Radius (mi)'
-                name='radius'
-                placeholder='Enter radius'
-                validationState={this.state.errors.radius ? 'error' : undefined}
-                />
-              <Form.Button
-                type='submit'
-                className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
-                >
-                {this.props.editMode ? 'Update' : 'Create'}
-              </Form.Button>
-              {editMode &&
-                <Button
-                  bsStyle='danger'
-                  onClick={this._handleDelete}
+              <ButtonGroup>
+                <Form.Button
+                  type='submit'
+                  className={`btn ${this.props.editMode ? 'btn-warning' : 'btn-success'}`}
                   >
-                  Delete
-                </Button>
-              }
+                  {this.props.editMode ? 'Update' : 'Create'}
+                </Form.Button>
+                {editMode &&
+                  <Button
+                    bsStyle='danger'
+                    onClick={this._handleDelete}
+                    >
+                    Delete
+                  </Button>
+                }
+              </ButtonGroup>
             </Form>
           </Col>
           <Col xs={12} md={7} style={{height: '400px'}}>
