@@ -466,27 +466,23 @@ export default class Site extends Component {
     const summaryStats = {}
 
     if (allCommutersStatsCalculated) {
-      summaryStats.numAccessToTransit = 0
+      let numWith60MinTransit = 0
       summaryStats.numWith20MinWalk = 0
       let numWith30MinBike = 0
       commuters.forEach((commuter) => {
         if (commuter.modeStats.TRANSIT.travelTime > -1 &&
-          commuter.modeStats.TRANSIT.travelTime < 9999) {
-          summaryStats.numAccessToTransit++
+          commuter.modeStats.TRANSIT.travelTime <= 3600) {
+          numWith60MinTransit++
         }
 
         if (commuter.modeStats.BICYCLE.travelTime > -1 &&
           commuter.modeStats.BICYCLE.travelTime <= 1800) {
           numWith30MinBike++
         }
-
-        if (commuter.modeStats.WALK.travelTime > -1 &&
-          commuter.modeStats.WALK.travelTime < 1200) {
-          summaryStats.numWith20MinWalk++
-        }
       })
 
-      summaryStats.pctWith30MinBike = formatPercent(numWith30MinBike / commuters.length)
+      summaryStats.pctWith60MinTransit = formatPercentAsStr(numWith60MinTransit / commuters.length)
+      summaryStats.pctWith30MinBike = formatPercentAsStr(numWith30MinBike / commuters.length)
     }
 
     /************************************************************************
@@ -632,7 +628,7 @@ export default class Site extends Component {
       })
 
       const upToOneMileBinIdx = 2
-      summaryStats.pctWithRidematch = formatPercent(ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct)
+      summaryStats.pctWithRidematch = formatPercentAsStr(ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct)
     }
 
     mapLegendProps.html += '</tbody></table>'
@@ -748,14 +744,65 @@ export default class Site extends Component {
                     />
                 }
                 {allCommutersGeocoded && allCommutersStatsCalculated &&
-                  <div>
-                    <p>{summaryStats.numAccessToTransit} commuters have access to transit</p>
-                    <p>{summaryStats.pctWith30MinBike}% of commuters have a 30 minute or less bike ride to work</p>
-                    <p>{summaryStats.pctWithRidematch}% of commuters have a ridematch within 1 mile</p>
-                    {summaryStats.numWith20MinWalk > 0 &&
-                      <p>{summaryStats.numWith20MinWalk} commuters have a 20 minute or less walk to work</p>
-                    }
-                  </div>
+                  <Row>
+                    <Col xs={12} sm={3}>
+                      <h4>Total Commuters</h4>
+                      <div className='infographic-well' style={{backgroundColor: '#51992e'}}>
+                        <Icon type='group' />
+                        <span className='number'>{commuters.length}</span>
+                      </div>
+                      <p>
+                        {commuters.length}
+                        {isMultiSite
+                          ? ' commuters are at these sites.'
+                          : ' commuters are at this site.'}</p>
+                    </Col>
+                    <Col xs={12} sm={3}>
+                      <h4>Transit Commute</h4>
+                      <div
+                        className='infographic-well'
+                        style={infographicBackground('#3b90c6', summaryStats.pctWith60MinTransit)}
+                        >
+                        <Icon type='bus' />
+                        <span className='number-pct'>{summaryStats.pctWith60MinTransit}</span>
+                      </div>
+                      <p>
+                        {summaryStats.pctWith60MinTransit} of commuters at
+                        {isMultiSite ? ' these sites ' : ' this site '}
+                        are within a 60 minute transit ride.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3}>
+                      <h4>Bike Commute</h4>
+                      <div
+                        className='infographic-well'
+                        style={infographicBackground('#f0a800', summaryStats.pctWith30MinBike)}
+                        >
+                        <Icon type='bicycle' />
+                        <span className='number-pct'>{summaryStats.pctWith30MinBike}</span>
+                      </div>
+                      <p>
+                        {summaryStats.pctWith30MinBike} of commuters at
+                        {isMultiSite ? ' these sites ' : ' this site '}
+                        can bike to work in 30 minutes or less.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3}>
+                      <h4>Rideshare Commute</h4>
+                      <div
+                        className='infographic-well'
+                        style={infographicBackground('#ec684f', summaryStats.pctWithRidematch)}
+                        >
+                        <i className='icon-carshare' />
+                        <span className='number-pct'>{summaryStats.pctWithRidematch}</span>
+                      </div>
+                      <p>
+                        {summaryStats.pctWith30MinBike} of commuters at
+                        {isMultiSite ? ' these sites ' : ' this site '}
+                        have a rideshare match within 1 mile or less of their homes.
+                      </p>
+                    </Col>
+                  </Row>
                 }
               </Tab>
               {isMultiSite &&
@@ -1312,6 +1359,16 @@ const homeIconSelected = icon({
   iconAnchor: [16, 37]
 })
 const homeIconSelectedOffset = point(0, -20)
+
+function infographicBackground (color, pct) {
+  return {
+    background: `linear-gradient(to right,
+      ${color} 0%,
+      ${color} ${pct},
+      #b1b3af ${pct},
+      #b1b3af 100%)`
+  }
+}
 
 const isochroneStyleStrategies = {
   'blue-incremental': {
