@@ -21,6 +21,7 @@ import Legend from './legend'
 import MarkerCluster from './marker-cluster'
 import {actUponConfirmation, arrayCountRenderer, humanizeDistance} from '../utils'
 import messages from '../utils/messages'
+import {modeshareStats} from '../utils/settings'
 
 const geoJsonReader = new io.GeoJSONReader()
 const geoJsonWriter = new io.GeoJSONWriter()
@@ -485,6 +486,10 @@ export default class Site extends Component {
       summaryStats.pctWith30MinBike = formatPercentAsStr(numWith30MinBike / commuters.length)
     }
 
+    const regionalTransitModePct = formatPercentAsStr(modeshareStats.transit)
+    const regionalOtherModePct = formatPercentAsStr(modeshareStats.other)
+    const regionalCarpoolModePct = formatPercentAsStr(modeshareStats.carpool)
+
     /************************************************************************
      commuter tab stuff
     ************************************************************************/
@@ -745,7 +750,7 @@ export default class Site extends Component {
                 }
                 {allCommutersGeocoded && allCommutersStatsCalculated &&
                   <Row>
-                    <Col xs={12} sm={3}>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
                       <h4>Total Commuters</h4>
                       <div className='infographic-well' style={{backgroundColor: '#51992e'}}>
                         <Icon type='group' />
@@ -757,7 +762,7 @@ export default class Site extends Component {
                           ? ' commuters are at these sites.'
                           : ' commuters are at this site.'}</p>
                     </Col>
-                    <Col xs={12} sm={3}>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
                       <h4>Transit Commute</h4>
                       <div
                         className='infographic-well'
@@ -772,7 +777,7 @@ export default class Site extends Component {
                         are within a 60 minute transit ride.
                       </p>
                     </Col>
-                    <Col xs={12} sm={3}>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
                       <h4>Bike Commute</h4>
                       <div
                         className='infographic-well'
@@ -787,7 +792,7 @@ export default class Site extends Component {
                         can bike to work in 30 minutes or less.
                       </p>
                     </Col>
-                    <Col xs={12} sm={3}>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
                       <h4>Rideshare Commute</h4>
                       <div
                         className='infographic-well'
@@ -800,6 +805,39 @@ export default class Site extends Component {
                         {summaryStats.pctWith30MinBike} of commuters at
                         {isMultiSite ? ' these sites ' : ' this site '}
                         have a rideshare match within 1 mile or less of their homes.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <h4>Compare Against Washington, DC Averages</h4>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <div
+                        className='infographic-modeshare-pct-bar'
+                        style={infographicBackground('#3b90c6', regionalTransitModePct)}
+                        />
+                      <p>
+                        {regionalTransitModePct} of all commuters in Washington, DC
+                        take transit to work.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <div
+                        className='infographic-modeshare-pct-bar'
+                        style={infographicBackground('#f0a800', regionalOtherModePct)}
+                        />
+                      <p>
+                        {regionalOtherModePct} of all commuters in Washington, DC
+                        take a taxi, motorcycle, bicycle or other means of transportation to work.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <div
+                        className='infographic-modeshare-pct-bar'
+                        style={infographicBackground('#ec684f', regionalCarpoolModePct)}
+                        />
+                      <p>
+                        {regionalCarpoolModePct} of all commuters in Washington, DC
+                        carpool to work.
                       </p>
                     </Col>
                   </Row>
