@@ -802,7 +802,7 @@ export default class Site extends Component {
                         <span className='number-pct'>{summaryStats.pctWithRidematch}</span>
                       </div>
                       <p>
-                        {summaryStats.pctWith30MinBike} of commuters at
+                        {summaryStats.pctWithRidematch} of commuters at
                         {isMultiSite ? ' these sites ' : ' this site '}
                         have a rideshare match within 1 mile or less of their homes.
                       </p>
