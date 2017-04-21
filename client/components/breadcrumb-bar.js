@@ -10,7 +10,7 @@ export default class BreadcrumbBar extends Component {
   }
 
   _makeNavItems () {
-    let navItems = [{
+    const navItems = [{
       href: '/',
       name: 'Home'
     }]

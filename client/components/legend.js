@@ -3,7 +3,7 @@ import {PropTypes} from 'react'
 
 import MapControl from 'react-leaflet/lib/MapControl'
 
-export default class AttributionControl extends MapControl {
+export default class Legend extends MapControl {
   static propTypes = {
     html: PropTypes.string,
     position: PropTypes.string

@@ -10,51 +10,5 @@
 @import url(node_modules/react-select/dist/react-select.css);
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
 
-footer {
-  border-top: 1px solid gray;
-  margin-top: 3em;
-  padding: 1em;
-}
-
-h4 strong {
-  margin-right: 1em;
-}
-
-/* Bootstrap add-ons */
-.tab-pane {
-  padding: 1em;
-}
-
-/* react-dropzone stuff */
-.dropzone {
-  margin-bottom: 15px;
-  min-width: 200px;
-  min-height: 20px;
-  padding: 1em;
-  border: 2px dashed #666;
-  border-radius: 5px;
-}
-
-/*
- * react-leaflet is silly, you have to manually style the divs it creates
- * https://github.com/PaulLeCam/react-leaflet/blob/master/example/index.html
- * https://github.com/PaulLeCam/react-leaflet/issues/108
- */
-.leaflet-container {
-	height: 100%;
-	width: 100%;
-}
-
-/* Map Legend */
-.legend {
-  padding: 6px 8px;
-  font: 14px/16px Arial, Helvetica, sans-serif;
-  background: white;
-  background: rgba(255,255,255,0.8);
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  border-radius: 5px;
-}
-
-.legend td {
-  padding: 5px;
-}
+@import url(client/app.css);
+@import url(client/modeify-icons.css);

@@ -1,0 +1,18 @@
+caption {
+  text-align: center;
+}
+
+h4 {
+  font-weight: normal;
+}
+
+.image-with-caption {
+  text-align: center;
+  font-style: italic;
+}
+
+.img-spotlight {
+  background-color: grey;
+  padding: 10px;
+  border-radius: 8px;
+}

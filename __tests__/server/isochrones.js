@@ -1,6 +1,6 @@
 /* globals afterAll, afterEach, beforeEach, describe, expect, it */
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 import {timeoutPromise} from '../test-utils/common'
 import {makeRemoveModelsFn, prepareIsochroneNock} from '../test-utils/server'

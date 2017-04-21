@@ -5,10 +5,11 @@ import nock from 'nock'
 import request from 'supertest-as-promised'
 
 import {requireKeys, timeoutPromise} from './common'
-const mockGeocodeResult = require('./mock-geocode-result.json')
-const mockIsochroneResult = require('./mock-isochrone-result.json')
 
 import app from '../../server/app'
+
+const mockGeocodeResult = require('./mock-geocode-result.json')
+const mockIsochroneResult = require('./mock-isochrone-result.json')
 
 export const parseServerResponse = (res) => {
   let json
@@ -41,7 +42,11 @@ export const prepareIsochroneNock = () => nock(
   .get(/calculateIsochrones/)
   .reply(200, mockIsochroneResult)
 
-export const makeRemoveModelsFn = (model) => async () => await model.remove({}).exec()
+export function makeRemoveModelsFn (model) {
+  return async function () {
+    await model.remove({}).exec()
+  }
+}
 
 /**
  * Make a rest endpoint tests with the specified routes

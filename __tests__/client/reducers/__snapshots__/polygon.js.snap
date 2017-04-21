@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`client > reducers > polygon generic reducer tests should handle delete many polygons 1`] = `Object {}`;
 
 exports[`client > reducers > polygon generic reducer tests should handle set polygons 1`] = `

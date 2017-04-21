@@ -7,3 +7,7 @@ geocoder:
     lon: -77.095229
     radius: 100
 s3bucket: commute-staging
+modeshareStats:
+  carpool: 0.10
+  other: 0.02
+  transit: 0.14
