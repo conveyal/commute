@@ -1,8 +1,7 @@
 /* globals afterAll, afterEach, beforeEach, describe, expect, it */
 
 import omit from 'lodash.omit'
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import mongoose from 'mongoose'
 
 import {expectDeepEqual, timeoutPromise} from '../test-utils/common'
 import {makeRemoveModelsFn, prepareGeocodeNock} from '../test-utils/server'
@@ -10,6 +9,7 @@ import {makeRemoveModelsFn, prepareGeocodeNock} from '../test-utils/server'
 import db from '../../server/db'
 import geocdePlugin from '../../server/models/plugins/geocode'
 
+const Schema = mongoose.Schema
 const schema = new Schema({
   name: {
     required: true,

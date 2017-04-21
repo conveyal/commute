@@ -1272,7 +1272,7 @@ function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polyg
     site.coordinate.lat,
     site.coordinate.lng,
     analysisMode,
-    strategy === strategy.indexOf('minute') > -1 ? strategy : `${strategy}-${isochroneCutoff}`
+    strategy === (strategy.indexOf('minute') > -1) ? strategy : `${strategy}-${isochroneCutoff}`
   ].join('-')
   if (getIsochroneCache[cacheQuery]) {
     return getIsochroneCache[cacheQuery]

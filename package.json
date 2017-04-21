@@ -80,7 +80,7 @@
     "lodash.isnumber": "^3.0.3",
     "lodash.omit": "^4.5.0",
     "lodash.pick": "^4.4.0",
-    "mastarm": "^3.5.0",
+    "mastarm": "^3.8.0",
     "moment": "^2.15.2",
     "mongoose": "^4.6.4",
     "normalize.css": "^5.0.0",
