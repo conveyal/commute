@@ -58,3 +58,11 @@ h4 strong {
 .legend td {
   padding: 5px;
 }
+
+.react-bs-table {
+  margin: 5px 0px;
+}
+
+.new-section {
+  margin-top: 30px;
+}

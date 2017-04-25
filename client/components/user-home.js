@@ -46,13 +46,17 @@ export default class UserHome extends Component {
 
   _multiSiteToolsRenderer = (cell, row) => {
     return <ButtonGroup>
-      <Button bsStyle='danger' onClick={this._onDeleteMultiSiteClick.bind(this, row)}>Delete</Button>
+      <Button bsStyle='danger' onClick={this._onDeleteMultiSiteClick.bind(this, row)}>
+        <Icon type='trash' /> Delete
+      </Button>
     </ButtonGroup>
   }
 
   _siteToolsRenderer = (cell, row) => {
     return <ButtonGroup>
-      <Button bsStyle='danger' onClick={this._onDeleteSiteClick.bind(this, row)}>Delete</Button>
+      <Button bsStyle='danger' onClick={this._onDeleteSiteClick.bind(this, row)}>
+        <Icon type='trash' /> Delete
+      </Button>
     </ButtonGroup>
   }
 
@@ -62,15 +66,19 @@ export default class UserHome extends Component {
       <Grid>
         <Row>
           <Col xs={12}>
-            <h2>Sites
+            <h2><Icon type='building' /> Sites
               <ButtonLink
+                bsStyle='success'
                 className='pull-right'
                 to='/site/create'
                 >
-                <span>Create a new site</span>
-                <Icon type='building' />
+                <span><Icon type='plus' /> Create a new site</span>
               </ButtonLink>
             </h2>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
             <BootstrapTable data={sites}>
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={siteNameRenderer}>Name</TableHeaderColumn>
@@ -78,15 +86,23 @@ export default class UserHome extends Component {
               <TableHeaderColumn dataField='commuters' dataFormat={arrayCountRenderer}># of Commuters</TableHeaderColumn>
               <TableHeaderColumn dataFormat={this._siteToolsRenderer}>Tools</TableHeaderColumn>
             </BootstrapTable>
-            <h2>Multi-site Analyses
+          </Col>
+        </Row>
+        <Row className='new-section'>
+          <Col xs={12}>
+            <h2><Icon type='clone' /> Multi-site Analyses
               <ButtonLink
+                bsStyle='success'
                 className='pull-right'
                 to='/multi-site/create'
                 >
-                <span>Create a new Multi-Site Analysis</span>
-                <Icon type='clone' />
+                <span><Icon type='plus' /> Create a new Multi-Site Analysis</span>
               </ButtonLink>
             </h2>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
             <BootstrapTable data={multiSites}>
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={multiSiteNameRenderer}>Name</TableHeaderColumn>
