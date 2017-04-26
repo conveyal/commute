@@ -1,0 +1,129 @@
+footer {
+  border-top: 1px solid gray;
+  margin-top: 3em;
+  padding: 1em;
+}
+
+h4 strong {
+  margin-right: 1em;
+}
+
+/* Bootstrap add-ons */
+.tab-pane {
+  padding: 1em;
+}
+
+/* react-dropzone stuff */
+.dropzone {
+  margin-bottom: 15px;
+  min-width: 200px;
+  min-height: 20px;
+  padding: 1em;
+  border: 2px dashed #666;
+  border-radius: 5px;
+}
+
+/*
+ * react-leaflet is silly, you have to manually style the divs it creates
+ * https://github.com/PaulLeCam/react-leaflet/blob/master/example/index.html
+ * https://github.com/PaulLeCam/react-leaflet/issues/108
+ */
+.leaflet-container {
+	height: 100%;
+	width: 100%;
+}
+
+/* Map Legend */
+.legend {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+.legend td {
+  padding: 5px;
+}
+
+/* Infographics */
+.infographic-modeshare-container {
+  background-color: #eceee9;
+  padding-top: 10px;
+}
+
+.infographic-modeshare-pct-bar {
+  border-radius: 10px;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+.infographic-well {
+  border-radius: 10px;
+  color: #fff;
+  font-size: 50px;
+  margin-bottom: 10px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.infographic-well .number {
+  margin-left: 20%;
+}
+
+.infographic-well .number-pct {
+  margin-left: 10%;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .infographic-modeshare-container {
+    min-height: 160px;
+  }
+
+  .infographic-site-column {
+    min-height: 260px;
+  }
+
+  .infographic-site-column h4 {
+    min-height: 40px;
+  }
+
+  .infographic-well {
+    font-size: 40px !important;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .infographic-modeshare-container {
+    min-height: 135px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .infographic-modeshare-container {
+    min-height: 115px;
+  }
+}
+
+/* fix table alignment */
+
+.react-bs-table {
+  margin: 5px 0px;
+}
+
+/* section break */
+
+.new-section {
+  margin-top: 30px;
+}
+
+/* navbar styling */
+
+.logo {
+  float: left;
+}
+
+.nav-vertical-center {
+  line-height: 36px;
+}

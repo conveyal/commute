@@ -1,48 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Container > AddCommuters Add Commuters View loads 1`] = `
-"<div class=\"container\">
-  <div class=\"row\">
-    <div class=\"col-xs-12\">
+"<div class=\\"container\\">
+  <div class=\\"row\\">
+    <div class=\\"col-xs-12\\">
       <h3><span>Add Commuters to Site</span> 
-        <button type=\"button\" class=\"pull-right btn btn-default\">
-          <i class=\"fa fa-arrow-left fa-fw \"></i><span>Back</span> </button>
+        <button type=\\"button\\" class=\\"pull-right btn btn-default\\">
+          <i class=\\"fa fa-arrow-left fa-fw \\"></i><span>Back</span> </button>
       </h3>
-      <div class=\"form-group\">
-        <label for=\"site-label\" class=\"control-label\">Site</label>
-        <input type=\"text\" value=\"Acme Corp\" disabled=\"\" id=\"site-label\" class=\"form-control\">
+      <div class=\\"form-group\\">
+        <label for=\\"site-label\\" class=\\"control-label\\">Site</label>
+        <input type=\\"text\\" value=\\"Acme Corp\\" disabled=\\"\\" id=\\"site-label\\" class=\\"form-control\\">
       </div>
-      <div class=\"dropzone\">
-        <div>Try dragging and dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: \'name\' and \'address\'.</div>
-        <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
+      <div class=\\"dropzone\\">
+        <div>Try dragging and dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: 'name' and 'address'.</div>
+        <input type=\\"file\\" accept=\\"text/csv\\" style=\\"display: none;\\">
       </div>
-      <div role=\"tablist\" class=\"panel-group\">
-        <div class=\"panel panel-info\">
-          <div class=\"panel-heading\">
-            <h4 role=\"presentation\" class=\"panel-title\">
-              <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\" class=\"collapsed\">1 Existing Commuters</a> 
+      <div role=\\"tablist\\" class=\\"panel-group\\">
+        <div class=\\"panel panel-info\\">
+          <div class=\\"panel-heading\\">
+            <h4 role=\\"presentation\\" class=\\"panel-title\\">
+              <a role=\\"tab\\" aria-expanded=\\"false\\" aria-selected=\\"false\\" class=\\"collapsed\\">1 Existing Commuters</a> 
             </h4>
           </div>
-          <div role=\"tabpanel\" class=\"panel-collapse collapse\" aria-hidden=\"true\">
-            <div class=\"panel-body\">
-              <div class=\"react-bs-table-container\">
-                <div class=\"react-bs-table\" style=\"height: 100%;\">
-                  <div class=\"react-bs-container-header table-header-wrapper\">
-                    <table class=\"table table-hover table-bordered\">
+          <div role=\\"tabpanel\\" class=\\"panel-collapse collapse\\" aria-hidden=\\"true\\">
+            <div class=\\"panel-body\\">
+              <div class=\\"react-bs-table-container\\">
+                <div class=\\"react-bs-table\\" style=\\"height: 100%;\\">
+                  <div class=\\"react-bs-container-header table-header-wrapper\\">
+                    <table class=\\"table table-hover table-bordered\\">
                       <colgroup>
-                        <col class=\"\" style=\"display: none; min-width: NaNpx;\">
-                          <col class=\"\" style=\"min-width: NaNpx;\">
-                            <col class=\"\" style=\"min-width: NaNpx;\">
+                        <col class=\\"\\" style=\\"display: none; min-width: NaNpx;\\">
+                          <col class=\\"\\" style=\\"min-width: NaNpx;\\">
+                            <col class=\\"\\" style=\\"min-width: NaNpx;\\">
                       </colgroup>
                       <thead>
                         <tr>
-                          <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" style=\\"text-align: left; display: none;\\" data-field=\\"_id\\">
                             <div></div>
                           </th>
-                          <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" title=\\"Name\\" style=\\"text-align: left;\\" data-field=\\"name\\">
 
                             <!-- react-text: 35 -->Name<!-- /react-text -->
                             <div></div>
                           </th>
-                          <th class=\"\" data-is-only-head=\"false\" title=\"Address\" style=\"text-align: left;\" data-field=\"address\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" title=\\"Address\\" style=\\"text-align: left;\\" data-field=\\"address\\">
 
                             <!-- react-text: 38 -->Address<!-- /react-text -->
                             <div></div>
@@ -51,18 +53,18 @@ exports[`Container > AddCommuters Add Commuters View loads 1`] = `
                       </thead>
                     </table>
                   </div>
-                  <div class=\"react-bs-container-body\" style=\"height: 100%;\">
-                    <table class=\"table table-bordered\">
+                  <div class=\\"react-bs-container-body\\" style=\\"height: 100%;\\">
+                    <table class=\\"table table-bordered\\">
                       <colgroup>
-                        <col class=\"\" style=\"display: none;\">
-                          <col class=\"\">
-                            <col class=\"\">
+                        <col class=\\"\\" style=\\"display: none;\\">
+                          <col class=\\"\\">
+                            <col class=\\"\\">
                       </colgroup>
                       <tbody>
-                        <tr class=\"\">
-                          <td class=\"\" style=\"text-align: left; display: none;\">commuter-2</td>
-                          <td class=\"\" style=\"text-align: left;\">Luke Warm</td>
-                          <td class=\"\" style=\"text-align: left;\">4321 XYZ Boulevard</td>
+                        <tr class=\\"\\">
+                          <td class=\\"\\" style=\\"text-align: left; display: none;\\">commuter-2</td>
+                          <td class=\\"\\" style=\\"text-align: left;\\">Luke Warm</td>
+                          <td class=\\"\\" style=\\"text-align: left;\\">4321 XYZ Boulevard</td>
                         </tr>
                       </tbody>
                     </table>
@@ -91,50 +93,50 @@ Object {
 `;
 
 exports[`Container > AddCommuters Preview Add Commuters 1`] = `
-"<div class=\"container\">
-  <div class=\"row\">
-    <div class=\"col-xs-12\">
+"<div class=\\"container\\">
+  <div class=\\"row\\">
+    <div class=\\"col-xs-12\\">
       <h3><span>Add Commuters to Site</span> 
-        <button type=\"button\" class=\"pull-right btn btn-default\">
-          <i class=\"fa fa-arrow-left fa-fw \"></i><span>Back</span> </button>
+        <button type=\\"button\\" class=\\"pull-right btn btn-default\\">
+          <i class=\\"fa fa-arrow-left fa-fw \\"></i><span>Back</span> </button>
       </h3>
-      <div class=\"form-group\">
-        <label for=\"site-label\" class=\"control-label\">Site</label>
-        <input type=\"text\" value=\"Acme Corp\" disabled=\"\" id=\"site-label\" class=\"form-control\">
+      <div class=\\"form-group\\">
+        <label for=\\"site-label\\" class=\\"control-label\\">Site</label>
+        <input type=\\"text\\" value=\\"Acme Corp\\" disabled=\\"\\" id=\\"site-label\\" class=\\"form-control\\">
       </div>
-      <div class=\"dropzone\">
-        <div>Try dragging and dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: \'name\' and \'address\'.</div>
-        <input type=\"file\" accept=\"text/csv\" style=\"display: none;\">
+      <div class=\\"dropzone\\">
+        <div>Try dragging and dropping a csv file here, or click to select files to upload. Make sure the csv file contains the headers: 'name' and 'address'.</div>
+        <input type=\\"file\\" accept=\\"text/csv\\" style=\\"display: none;\\">
       </div>
-      <div role=\"tablist\" class=\"panel-group\">
-        <div class=\"panel panel-info\">
-          <div class=\"panel-heading\">
-            <h4 role=\"presentation\" class=\"panel-title\">
-              <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\" class=\"collapsed\">1 Existing Commuters</a> 
+      <div role=\\"tablist\\" class=\\"panel-group\\">
+        <div class=\\"panel panel-info\\">
+          <div class=\\"panel-heading\\">
+            <h4 role=\\"presentation\\" class=\\"panel-title\\">
+              <a role=\\"tab\\" aria-expanded=\\"false\\" aria-selected=\\"false\\" class=\\"collapsed\\">1 Existing Commuters</a> 
             </h4>
           </div>
-          <div role=\"tabpanel\" class=\"panel-collapse collapse\" aria-hidden=\"true\">
-            <div class=\"panel-body\">
-              <div class=\"react-bs-table-container\">
-                <div class=\"react-bs-table\" style=\"height: 100%;\">
-                  <div class=\"react-bs-container-header table-header-wrapper\">
-                    <table class=\"table table-hover table-bordered\">
+          <div role=\\"tabpanel\\" class=\\"panel-collapse collapse\\" aria-hidden=\\"true\\">
+            <div class=\\"panel-body\\">
+              <div class=\\"react-bs-table-container\\">
+                <div class=\\"react-bs-table\\" style=\\"height: 100%;\\">
+                  <div class=\\"react-bs-container-header table-header-wrapper\\">
+                    <table class=\\"table table-hover table-bordered\\">
                       <colgroup>
-                        <col class=\"\" style=\"display: none; min-width: NaNpx;\">
-                          <col class=\"\" style=\"min-width: NaNpx;\">
-                            <col class=\"\" style=\"min-width: NaNpx;\">
+                        <col class=\\"\\" style=\\"display: none; min-width: NaNpx;\\">
+                          <col class=\\"\\" style=\\"min-width: NaNpx;\\">
+                            <col class=\\"\\" style=\\"min-width: NaNpx;\\">
                       </colgroup>
                       <thead>
                         <tr>
-                          <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" style=\\"text-align: left; display: none;\\" data-field=\\"_id\\">
                             <div></div>
                           </th>
-                          <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" title=\\"Name\\" style=\\"text-align: left;\\" data-field=\\"name\\">
 
                             <!-- react-text: 35 -->Name<!-- /react-text -->
                             <div></div>
                           </th>
-                          <th class=\"\" data-is-only-head=\"false\" title=\"Address\" style=\"text-align: left;\" data-field=\"address\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" title=\\"Address\\" style=\\"text-align: left;\\" data-field=\\"address\\">
 
                             <!-- react-text: 38 -->Address<!-- /react-text -->
                             <div></div>
@@ -143,18 +145,18 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
                       </thead>
                     </table>
                   </div>
-                  <div class=\"react-bs-container-body\" style=\"height: 100%;\">
-                    <table class=\"table table-bordered\">
+                  <div class=\\"react-bs-container-body\\" style=\\"height: 100%;\\">
+                    <table class=\\"table table-bordered\\">
                       <colgroup>
-                        <col class=\"\" style=\"display: none;\">
-                          <col class=\"\">
-                            <col class=\"\">
+                        <col class=\\"\\" style=\\"display: none;\\">
+                          <col class=\\"\\">
+                            <col class=\\"\\">
                       </colgroup>
                       <tbody>
-                        <tr class=\"\">
-                          <td class=\"\" style=\"text-align: left; display: none;\">commuter-2</td>
-                          <td class=\"\" style=\"text-align: left;\">Luke Warm</td>
-                          <td class=\"\" style=\"text-align: left;\">4321 XYZ Boulevard</td>
+                        <tr class=\\"\\">
+                          <td class=\\"\\" style=\\"text-align: left; display: none;\\">commuter-2</td>
+                          <td class=\\"\\" style=\\"text-align: left;\\">Luke Warm</td>
+                          <td class=\\"\\" style=\\"text-align: left;\\">4321 XYZ Boulevard</td>
                         </tr>
                       </tbody>
                     </table>
@@ -164,34 +166,34 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
             </div>
           </div>
         </div>
-        <div class=\"panel panel-success\">
-          <div class=\"panel-heading\">
-            <h4 role=\"presentation\" class=\"panel-title\">
-              <a role=\"tab\" aria-expanded=\"false\" aria-selected=\"false\" class=\"collapsed\">1 New Commuters</a> 
+        <div class=\\"panel panel-success\\">
+          <div class=\\"panel-heading\\">
+            <h4 role=\\"presentation\\" class=\\"panel-title\\">
+              <a role=\\"tab\\" aria-expanded=\\"false\\" aria-selected=\\"false\\" class=\\"collapsed\\">1 New Commuters</a> 
             </h4>
           </div>
-          <div role=\"tabpanel\" class=\"panel-collapse collapse\" aria-hidden=\"true\">
-            <div class=\"panel-body\">
-              <div class=\"react-bs-table-container\">
-                <div class=\"react-bs-table\" style=\"height: 100%;\">
-                  <div class=\"react-bs-container-header table-header-wrapper\">
-                    <table class=\"table table-hover table-bordered\">
+          <div role=\\"tabpanel\\" class=\\"panel-collapse collapse\\" aria-hidden=\\"true\\">
+            <div class=\\"panel-body\\">
+              <div class=\\"react-bs-table-container\\">
+                <div class=\\"react-bs-table\\" style=\\"height: 100%;\\">
+                  <div class=\\"react-bs-container-header table-header-wrapper\\">
+                    <table class=\\"table table-hover table-bordered\\">
                       <colgroup>
-                        <col class=\"\" style=\"display: none; min-width: NaNpx;\">
-                          <col class=\"\" style=\"min-width: NaNpx;\">
-                            <col class=\"\" style=\"min-width: NaNpx;\">
+                        <col class=\\"\\" style=\\"display: none; min-width: NaNpx;\\">
+                          <col class=\\"\\" style=\\"min-width: NaNpx;\\">
+                            <col class=\\"\\" style=\\"min-width: NaNpx;\\">
                       </colgroup>
                       <thead>
                         <tr>
-                          <th class=\"\" data-is-only-head=\"false\" style=\"text-align: left; display: none;\" data-field=\"_id\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" style=\\"text-align: left; display: none;\\" data-field=\\"_id\\">
                             <div></div>
                           </th>
-                          <th class=\"\" data-is-only-head=\"false\" title=\"Name\" style=\"text-align: left;\" data-field=\"name\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" title=\\"Name\\" style=\\"text-align: left;\\" data-field=\\"name\\">
 
                             <!-- react-text: 70 -->Name<!-- /react-text -->
                             <div></div>
                           </th>
-                          <th class=\"\" data-is-only-head=\"false\" title=\"Address\" style=\"text-align: left;\" data-field=\"address\">
+                          <th class=\\"\\" data-is-only-head=\\"false\\" title=\\"Address\\" style=\\"text-align: left;\\" data-field=\\"address\\">
 
                             <!-- react-text: 73 -->Address<!-- /react-text -->
                             <div></div>
@@ -200,18 +202,18 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
                       </thead>
                     </table>
                   </div>
-                  <div class=\"react-bs-container-body\" style=\"height: 100%;\">
-                    <table class=\"table table-bordered\">
+                  <div class=\\"react-bs-container-body\\" style=\\"height: 100%;\\">
+                    <table class=\\"table table-bordered\\">
                       <colgroup>
-                        <col class=\"\" style=\"display: none;\">
-                          <col class=\"\">
-                            <col class=\"\">
+                        <col class=\\"\\" style=\\"display: none;\\">
+                          <col class=\\"\\">
+                            <col class=\\"\\">
                       </colgroup>
                       <tbody>
-                        <tr class=\"\">
-                          <td class=\"\" style=\"text-align: left; display: none;\">1</td>
-                          <td class=\"\" style=\"text-align: left;\">Bob</td>
-                          <td class=\"\" style=\"text-align: left;\">123 Main St</td>
+                        <tr class=\\"\\">
+                          <td class=\\"\\" style=\\"text-align: left; display: none;\\">1</td>
+                          <td class=\\"\\" style=\\"text-align: left;\\">Bob</td>
+                          <td class=\\"\\" style=\\"text-align: left;\\">123 Main St</td>
                         </tr>
                       </tbody>
                     </table>
@@ -222,7 +224,7 @@ exports[`Container > AddCommuters Preview Add Commuters 1`] = `
           </div>
         </div>
       </div>
-      <button type=\"button\" class=\"btn btn-success\">Add Commuters</button>
+      <button type=\\"button\\" class=\\"btn btn-success\\">Add Commuters</button>
     </div>
   </div>
 </div>"

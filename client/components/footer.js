@@ -5,7 +5,10 @@ export default function Footer () {
   return (
     <footer>
       <Grid>
-        <p className='text-center text-muted'>&copy; <a href='http://conveyal.com'>Conveyal</a></p>
+        <p className='text-center text-muted'>
+          <span aria-label='Copyright' role='img'>&copy;</span>
+          <a href='http://conveyal.com'>Conveyal</a>
+        </p>
       </Grid>
     </footer>
   )

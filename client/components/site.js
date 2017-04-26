@@ -21,6 +21,7 @@ import Legend from './legend'
 import MarkerCluster from './marker-cluster'
 import {actUponConfirmation, arrayCountRenderer, humanizeDistance} from '../utils'
 import messages from '../utils/messages'
+import {modeshareStats} from '../utils/settings'
 
 const geoJsonReader = new io.GeoJSONReader()
 const geoJsonWriter = new io.GeoJSONWriter()
@@ -50,7 +51,7 @@ export default class Site extends Component {
     this.state = {
       activeTab: 'summary',
       analysisMode: 'TRANSIT',
-      analysisMapStyle: 'blue-incremental',
+      analysisMapStyle: 'blue-solid',
       commuterRingRadius: 1,
       isochroneCutoff: 7200,
       rideMatchMapStyle: 'normal'
@@ -153,7 +154,7 @@ export default class Site extends Component {
     let shouldLoadCommuters = false
 
     const allCommutersLoadedFromAllSites = () => {
-      let numCommutersInSites = sites.reduce((accumulator, currentSite) => {
+      const numCommutersInSites = sites.reduce((accumulator, currentSite) => {
         return accumulator + currentSite.commuters.length
       }, 0)
       return numCommutersInSites === commuters.length
@@ -466,28 +467,28 @@ export default class Site extends Component {
     const summaryStats = {}
 
     if (allCommutersStatsCalculated) {
-      summaryStats.numAccessToTransit = 0
+      let numWith60MinTransit = 0
       summaryStats.numWith20MinWalk = 0
       let numWith30MinBike = 0
       commuters.forEach((commuter) => {
         if (commuter.modeStats.TRANSIT.travelTime > -1 &&
-          commuter.modeStats.TRANSIT.travelTime < 9999) {
-          summaryStats.numAccessToTransit++
+          commuter.modeStats.TRANSIT.travelTime <= 3600) {
+          numWith60MinTransit++
         }
 
         if (commuter.modeStats.BICYCLE.travelTime > -1 &&
           commuter.modeStats.BICYCLE.travelTime <= 1800) {
           numWith30MinBike++
         }
-
-        if (commuter.modeStats.WALK.travelTime > -1 &&
-          commuter.modeStats.WALK.travelTime < 1200) {
-          summaryStats.numWith20MinWalk++
-        }
       })
 
-      summaryStats.pctWith30MinBike = formatPercent(numWith30MinBike / commuters.length)
+      summaryStats.pctWith60MinTransit = formatPercentAsStr(numWith60MinTransit / commuters.length)
+      summaryStats.pctWith30MinBike = formatPercentAsStr(numWith30MinBike / commuters.length)
     }
+
+    const regionalTransitModePct = formatPercentAsStr(modeshareStats.transit)
+    const regionalOtherModePct = formatPercentAsStr(modeshareStats.other)
+    const regionalCarpoolModePct = formatPercentAsStr(modeshareStats.carpool)
 
     /************************************************************************
      commuter tab stuff
@@ -632,7 +633,7 @@ export default class Site extends Component {
       })
 
       const upToOneMileBinIdx = 2
-      summaryStats.pctWithRidematch = formatPercent(ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct)
+      summaryStats.pctWithRidematch = formatPercentAsStr(ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct)
     }
 
     mapLegendProps.html += '</tbody></table>'
@@ -752,14 +753,98 @@ export default class Site extends Component {
                     />
                 }
                 {allCommutersGeocoded && allCommutersStatsCalculated &&
-                  <div>
-                    <p>{summaryStats.numAccessToTransit} commuters have access to transit</p>
-                    <p>{summaryStats.pctWith30MinBike}% of commuters have a 30 minute or less bike ride to work</p>
-                    <p>{summaryStats.pctWithRidematch}% of commuters have a ridematch within 1 mile</p>
-                    {summaryStats.numWith20MinWalk > 0 &&
-                      <p>{summaryStats.numWith20MinWalk} commuters have a 20 minute or less walk to work</p>
-                    }
-                  </div>
+                  <Row>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
+                      <h4>Total Commuters</h4>
+                      <div className='infographic-well' style={{backgroundColor: '#51992e'}}>
+                        <Icon type='group' />
+                        <span className='number'>{commuters.length}</span>
+                      </div>
+                      <p>
+                        {commuters.length}
+                        {isMultiSite
+                          ? ' commuters are at these sites.'
+                          : ' commuters are at this site.'}</p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
+                      <h4>Transit Commute</h4>
+                      <div
+                        className='infographic-well'
+                        style={infographicBackground('#3b90c6', summaryStats.pctWith60MinTransit)}
+                        >
+                        <Icon type='bus' />
+                        <span className='number-pct'>{summaryStats.pctWith60MinTransit}</span>
+                      </div>
+                      <p>
+                        {summaryStats.pctWith60MinTransit} of commuters at
+                        {isMultiSite ? ' these sites ' : ' this site '}
+                        are within a 60 minute transit ride.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
+                      <h4>Bike Commute</h4>
+                      <div
+                        className='infographic-well'
+                        style={infographicBackground('#f0a800', summaryStats.pctWith30MinBike)}
+                        >
+                        <Icon type='bicycle' />
+                        <span className='number-pct'>{summaryStats.pctWith30MinBike}</span>
+                      </div>
+                      <p>
+                        {summaryStats.pctWith30MinBike} of commuters at
+                        {isMultiSite ? ' these sites ' : ' this site '}
+                        can bike to work in 30 minutes or less.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-site-column'>
+                      <h4>Rideshare Commute</h4>
+                      <div
+                        className='infographic-well'
+                        style={infographicBackground('#ec684f', summaryStats.pctWithRidematch)}
+                        >
+                        <i className='icon-carshare' />
+                        <span className='number-pct'>{summaryStats.pctWithRidematch}</span>
+                      </div>
+                      <p>
+                        {summaryStats.pctWithRidematch} of commuters at
+                        {isMultiSite ? ' these sites ' : ' this site '}
+                        have a rideshare match within 1 mile or less of their homes.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <h4>Compare Against Washington, DC Averages</h4>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <div
+                        className='infographic-modeshare-pct-bar'
+                        style={infographicBackground('#3b90c6', regionalTransitModePct)}
+                        />
+                      <p>
+                        {regionalTransitModePct} of all commuters in Washington, DC
+                        take transit to work.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <div
+                        className='infographic-modeshare-pct-bar'
+                        style={infographicBackground('#f0a800', regionalOtherModePct)}
+                        />
+                      <p>
+                        {regionalOtherModePct} of all commuters in Washington, DC
+                        take a taxi, motorcycle, bicycle or other means of transportation to work.
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                      <div
+                        className='infographic-modeshare-pct-bar'
+                        style={infographicBackground('#ec684f', regionalCarpoolModePct)}
+                        />
+                      <p>
+                        {regionalCarpoolModePct} of all commuters in Washington, DC
+                        carpool to work.
+                      </p>
+                    </Col>
+                  </Row>
                 }
               </Tab>
               {isMultiSite &&
@@ -823,7 +908,10 @@ export default class Site extends Component {
                     }
                     <div style={{ clear: 'both' }}>
                       {isMultiSite &&
-                        <BootstrapTable data={commuters}>
+                        <BootstrapTable
+                          data={commuters}
+                          pagination={commuters.length > 10}
+                          >
                           <TableHeaderColumn dataField='_id' isKey hidden />
                           <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                           <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
@@ -831,7 +919,10 @@ export default class Site extends Component {
                         </BootstrapTable>
                       }
                       {!isMultiSite &&
-                        <BootstrapTable data={commuters}>
+                        <BootstrapTable
+                          data={commuters}
+                          pagination={commuters.length > 10}
+                          >
                           <TableHeaderColumn dataField='_id' isKey hidden />
                           <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
                           <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
@@ -868,11 +959,11 @@ export default class Site extends Component {
                       componentClass='select'
                       value={analysisMapStyle}
                       >
-                      <option value='blue-incremental'>Blueish Isochrone</option>
-                      <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone</option>
-                      <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
                       <option value='blue-solid'>Single Color Isochrone</option>
                       <option value='inverted'>Inverted Isochrone</option>
+                      <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
+                      <option value='blue-incremental'>Blueish Isochrone (5 minute intervals)</option>
+                      <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone (5 minute intervals)</option>
                     </FieldGroup>
                     <Panel>
                       <p><b>Maximum Travel Time</b></p>
@@ -986,6 +1077,7 @@ export default class Site extends Component {
                   <Combobox
                     data={commuters}
                     onChange={this._handleSelectCommuter}
+                    placeholder='Select a commuter'
                     suggest
                     textField='name'
                     value={selectedCommuter}
@@ -1184,7 +1276,7 @@ function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polyg
     site.coordinate.lat,
     site.coordinate.lng,
     analysisMode,
-    strategy === strategy.indexOf('minute') > -1 ? strategy : `${strategy}-${isochroneCutoff}`
+    strategy === (strategy.indexOf('minute') > -1) ? strategy : `${strategy}-${isochroneCutoff}`
   ].join('-')
   if (getIsochroneCache[cacheQuery]) {
     return getIsochroneCache[cacheQuery]
@@ -1309,6 +1401,16 @@ const homeIconSelected = icon({
   iconAnchor: [16, 37]
 })
 const homeIconSelectedOffset = point(0, -20)
+
+function infographicBackground (color, pct) {
+  return {
+    background: `linear-gradient(to right,
+      ${color} 0%,
+      ${color} ${pct},
+      #b1b3af ${pct},
+      #b1b3af 100%)`
+  }
+}
 
 const isochroneStyleStrategies = {
   'blue-incremental': {

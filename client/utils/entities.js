@@ -62,7 +62,7 @@ export function deleteManyFromEntityMap (map, queryParams) {
   return update(map, {
     $apply: (entityMap) => entityArrayToEntityMap(
       Object.values(entityMap).filter((entity) => {
-        for (let key in queryParams) {
+        for (const key in queryParams) {
           if (entity[key] !== queryParams[key]) {
             return true
           }
