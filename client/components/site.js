@@ -82,11 +82,17 @@ export default class Site extends Component {
     const {site} = this.props
     return <ButtonGroup>
       <ButtonLink
+        bsSize='xsmall'
         bsStyle='warning'
         to={`/site/${site._id}/commuter/${row._id}/edit`}>
-        Edit
+        <Icon type='pencil' />Edit
       </ButtonLink>
-      <Button bsStyle='danger' onClick={this._onDeleteCommuterClick.bind(this, row)}>Delete</Button>
+      <Button
+        bsSize='xsmall'
+        bsStyle='danger'
+        onClick={this._onDeleteCommuterClick.bind(this, row)}>
+        <Icon type='trash' /> Delete
+      </Button>
     </ButtonGroup>
   }
 
@@ -722,7 +728,7 @@ export default class Site extends Component {
               }
               {!isMultiSite &&
                 <div>
-                  <p>This site doesn't have any commuters yet!  Add some using one of the options below:</p>
+                  <p>This site doesn{`'`}t have any commuters yet!  Add some using one of the options below:</p>
                   {createCommuterButtons}
                 </div>
               }
@@ -734,7 +740,7 @@ export default class Site extends Component {
               id='site-tabs'
               onSelect={this._handleTabSelect}
               >
-              <Tab eventKey='summary' title='Summary'>
+              <Tab eventKey='summary' title={<span><Icon type='info-circle' /> Summary</span>}>
                 {/***************************
                   Summary Tab
                 ***************************/}
@@ -869,7 +875,7 @@ export default class Site extends Component {
                   </Row>
                 </Tab>
               }
-              <Tab eventKey='commuters' title='Commuters'>
+              <Tab eventKey='commuters' title={<span><Icon type='users' /> All Commuters</span>}>
                 {/***************************
                   Commuters Tab
                 ***************************/}
@@ -934,57 +940,63 @@ export default class Site extends Component {
                   </Col>
                 </Row>
               </Tab>
-              <Tab eventKey='analysis' title='Analysis'>
+              <Tab eventKey='analysis' title={<span><Icon type='bar-chart' /> Site Analysis</span>}>
                 {/***************************
                   Analysis Tab
                 ***************************/}
-                <FieldGroup
-                  label='Mode'
-                  name='analysisMode'
-                  onChange={this._handleStateChange}
-                  componentClass='select'
-                  value={analysisMode}
-                  >
-                  <option value='TRANSIT'>Transit</option>
-                  <option value='BICYCLE'>Bicycle</option>
-                  <option value='WALK'>Walk</option>
-                  <option value='CAR'>Car</option>
-                </FieldGroup>
-                {!isMultiSite &&
-                  <div>
+                <Row>
+                  <Col xs={6}>
                     <FieldGroup
-                      label='Map Style'
-                      name='analysisMapStyle'
+                      label='Mode'
+                      name='analysisMode'
                       onChange={this._handleStateChange}
                       componentClass='select'
-                      value={analysisMapStyle}
+                      value={analysisMode}
                       >
-                      <option value='blue-solid'>Single Color Isochrone</option>
-                      <option value='inverted'>Inverted Isochrone</option>
-                      <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
-                      <option value='blue-incremental'>Blueish Isochrone (5 minute intervals)</option>
-                      <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone (5 minute intervals)</option>
+                      <option value='TRANSIT'>Transit</option>
+                      <option value='BICYCLE'>Bicycle</option>
+                      <option value='WALK'>Walk</option>
+                      <option value='CAR'>Car</option>
                     </FieldGroup>
-                    <Panel>
-                      <p><b>Maximum Travel Time</b></p>
-                      <Slider
-                        defaultValue={7200}
-                        handle={
-                          <CustomHandle
-                            formatter={
-                              // convert minutes to milliseconds
-                              (v) => humanizeDuration(v * 1000, { round: true })
-                            }
-                            />
-                        }
-                        max={7200}
-                        min={analysisSliderStepAndMin}
-                        onChange={this._handleAnalysisTimeChange}
-                        step={analysisSliderStepAndMin}
-                        />
-                    </Panel>
-                  </div>
-                }
+                    {!isMultiSite &&
+                      <FieldGroup
+                        label='Map Style'
+                        name='analysisMapStyle'
+                        onChange={this._handleStateChange}
+                        componentClass='select'
+                        value={analysisMapStyle}
+                        >
+                        <option value='blue-solid'>Single Color Isochrone</option>
+                        <option value='inverted'>Inverted Isochrone</option>
+                        <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
+                        <option value='blue-incremental'>Blueish Isochrone (5 minute intervals)</option>
+                        <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone (5 minute intervals)</option>
+                      </FieldGroup>
+                    }
+                  </Col>
+                  <Col xs={6}>
+                    {!isMultiSite &&
+                      <Panel>
+                        <p><b>Maximum Travel Time</b></p>
+                        <Slider
+                          defaultValue={7200}
+                          handle={
+                            <CustomHandle
+                              formatter={
+                                // convert minutes to milliseconds
+                                (v) => humanizeDuration(v * 1000, { round: true })
+                              }
+                              />
+                          }
+                          max={7200}
+                          min={analysisSliderStepAndMin}
+                          onChange={this._handleAnalysisTimeChange}
+                          step={analysisSliderStepAndMin}
+                          />
+                      </Panel>
+                    }
+                  </Col>
+                </Row>
                 <h4>Commuter Travel Time Summary ({capitalize(analysisMode.toLowerCase())})</h4>
                 <p>
                   This table provides a summary of the distribution of travel times to work.
@@ -1002,7 +1014,7 @@ export default class Site extends Component {
                   </TableHeaderColumn>
                 </BootstrapTable>
               </Tab>
-              <Tab eventKey='ridematches' title='Ridematches'>
+              <Tab eventKey='ridematches' title={<span><Icon type='car' /> Ridematches</span>}>
                 {/***************************
                   Ridematches Tab
                 ***************************/}
@@ -1066,7 +1078,7 @@ export default class Site extends Component {
                   </div>
                 }
               </Tab>
-              <Tab eventKey='individual-analysis' title='Individual'>
+              <Tab eventKey='individual-analysis' title={<span><Icon type='user' /> Individual Profiles</span>}>
                 {/***************************
                   Individual Analysis Tab
                 ***************************/}
