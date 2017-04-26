@@ -46,7 +46,7 @@ export default class UserHome extends Component {
 
   _multiSiteToolsRenderer = (cell, row) => {
     return <ButtonGroup>
-      <Button bsStyle='danger' onClick={this._onDeleteMultiSiteClick.bind(this, row)}>
+      <Button bsSize='xsmall' bsStyle='danger' onClick={this._onDeleteMultiSiteClick.bind(this, row)}>
         <Icon type='trash' /> Delete
       </Button>
     </ButtonGroup>
@@ -54,7 +54,7 @@ export default class UserHome extends Component {
 
   _siteToolsRenderer = (cell, row) => {
     return <ButtonGroup>
-      <Button bsStyle='danger' onClick={this._onDeleteSiteClick.bind(this, row)}>
+      <Button bsSize='xsmall' bsStyle='danger' onClick={this._onDeleteSiteClick.bind(this, row)}>
         <Icon type='trash' /> Delete
       </Button>
     </ButtonGroup>
@@ -117,9 +117,15 @@ export default class UserHome extends Component {
 }
 
 function multiSiteNameRenderer (cell, row) {
-  return <Link to={`/multi-site/${row._id}`}>{cell}</Link>
+  return <span>
+    <Icon type='clone' />{' '}
+    <Link to={`/multi-site/${row._id}`}><strong>{cell}</strong></Link>
+  </span>
 }
 
 function siteNameRenderer (cell, row) {
-  return <Link to={`/site/${row._id}`}>{cell}</Link>
+  return <span>
+    <Icon type='building' />{' '}
+    <Link to={`/site/${row._id}`}><strong>{cell}</strong></Link>
+  </span>
 }
