@@ -21,13 +21,13 @@ export default class Application extends Component {
 
   render () {
     const {children, userIsLoggedIn} = this.props
+    const path = process.env.NODE_ENV === 'test' ? window.fakePath : window.location.pathname
+
     return userIsLoggedIn
       ? (
         <div>
           <Navigation />
-          <BreadcrumbBar
-            {...this.props}
-            />
+          {path !== '/' && <BreadcrumbBar {...this.props} />}
           {children}
           <Footer />
         </div>
