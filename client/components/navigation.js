@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import {Button, Nav, Navbar, NavItem} from 'react-bootstrap'
 
+import Icon from './icon'
+
 import messages from '../utils/messages'
 
 export default class Navigation extends Component {
@@ -19,25 +21,28 @@ export default class Navigation extends Component {
       username
     } = this.props
     return (
-      <Navbar fluid>
+      <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href='/'>Commute</a>
+            <div className='logo' />
+            <a href='/' className='nav-vertical-center'>Commute Analysis</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            {username &&
-              <NavItem eventKey={1}>
+        <Nav pullRight>
+          {username &&
+            <NavItem eventKey={1}>
+              <span className='nav-vertical-center'>
                 {`${messages.authentication.username} ${username}`}
-              </NavItem>
-            }
-            <NavItem eventKey={2}>
-              <Button onClick={logout}>{messages.authentication.logOut}</Button>
+              </span>
             </NavItem>
-          </Nav>
-        </Navbar.Collapse>
+          }
+          <NavItem eventKey={2}>
+            <Button onClick={logout} bsStyle='warning'>
+              <Icon type='sign-out' /> {messages.authentication.logOut}
+            </Button>
+          </NavItem>
+        </Nav>
       </Navbar>
     )
   }

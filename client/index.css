@@ -66,3 +66,13 @@ h4 strong {
 .new-section {
   margin-top: 30px;
 }
+
+/* navbar styling */
+
+.logo {
+  float: left;
+}
+
+.nav-vertical-center {
+  line-height: 36px;
+}
