@@ -645,26 +645,30 @@ export default class Site extends Component {
           ***************************/}
           <Col xs={12}>
             <h3>
+              <Icon type='building' />{' '}
               <span>{isMultiSite ? multiSite.name : site.name}</span>
+              {' '}
+              <ButtonGroup style={{ marginLeft: '12px', paddingBottom: '2px' }}>
+                <ButtonLink
+                  bsSize='xsmall'
+                  bsStyle='warning'
+                  to={`/${isMultiSite ? 'multi-site' : 'site'}/${isMultiSite ? multiSite._id : site._id}/edit`}
+                  >
+                  <Icon type='pencil' /> Edit
+                </ButtonLink>
+                <Button
+                  bsSize='xsmall'
+                  bsStyle='danger'
+                  onClick={this._handleDelete}
+                  >
+                  <Icon type='trash' /> Delete
+                </Button>
+              </ButtonGroup>
               <BackButton />
             </h3>
             {!isMultiSite &&
-              <p>{site.address}</p>
+              <p><Icon type='map-marker' /> {site.address}</p>
             }
-            <ButtonGroup>
-              <ButtonLink
-                bsStyle='warning'
-                to={`/${isMultiSite ? 'multi-site' : 'site'}/${isMultiSite ? multiSite._id : site._id}/edit`}
-                >
-                Edit
-              </ButtonLink>
-              <Button
-                bsStyle='danger'
-                onClick={this._handleDelete}
-                >
-                Delete
-              </Button>
-            </ButtonGroup>
           </Col>
           {/***************************
             Map
