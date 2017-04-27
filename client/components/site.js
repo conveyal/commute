@@ -1008,7 +1008,7 @@ export default class Site extends Component {
                   <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
                   <TableHeaderColumn
                     dataField='cumulativePct'
-                    dataFormat={formatPercentAsStr}
+                    dataFormat={percentBar}
                     >
                     Percent of Commuters
                   </TableHeaderColumn>
@@ -1070,7 +1070,7 @@ export default class Site extends Component {
                       <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
                       <TableHeaderColumn
                         dataField='cumulativePct'
-                        dataFormat={formatPercentAsStr}
+                        dataFormat={percentBar}
                         >
                         Percent of Commuters
                       </TableHeaderColumn>
@@ -1234,6 +1234,13 @@ function formatPercent (n) {
 
 function formatPercentAsStr (n) {
   return `${formatPercent(n)}%`
+}
+
+function percentBar (n) {
+  return <Row>
+    <Col xs={10}><ProgressBar now={formatPercent(n)} /></Col>
+    <Col xs={2}>{formatPercentAsStr(n)}</Col>
+  </Row>
 }
 
 function geocodeConfidenceRenderer (cell, row) {
