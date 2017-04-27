@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react'
-import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row, Jumbotron} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Link} from 'react-router'
 
 import ButtonLink from './button-link'
 import Icon from './icon'
+import HelpPopover from './help-popover'
 import {actUponConfirmation, arrayCountRenderer} from '../utils'
 import messages from '../utils/messages'
 
@@ -64,9 +65,21 @@ export default class UserHome extends Component {
     const {sites, multiSites} = this.props
     return (
       <Grid>
+        <Jumbotron className='welcome-box'>
+          <Row>
+            <Col xs={8}>
+              <h2>{messages.docs.welcome.title}</h2>
+              <p>{messages.docs.welcome.body}</p>
+              <Button href={messages.docs.welcome.url} bsStyle='primary' bsSize='large'><Icon type='question-circle' />View Online Documentation</Button>
+            </Col>
+            <Col xs={4}>
+              <div style={{ height: '260px' }} className='welcome-image' />
+            </Col>
+          </Row>
+        </Jumbotron>
         <Row>
           <Col xs={12}>
-            <h2><Icon type='building' /> Sites
+            <h2><Icon type='building' /> Sites <HelpPopover type='siteOverview' />
               <ButtonLink
                 bsStyle='success'
                 className='pull-right'
@@ -90,7 +103,7 @@ export default class UserHome extends Component {
         </Row>
         <Row className='new-section'>
           <Col xs={12}>
-            <h2><Icon type='clone' /> Multi-site Analyses
+            <h2><Icon type='clone' /> Multi-site Analyses <HelpPopover type='multisiteOverview' />
               <ButtonLink
                 bsStyle='success'
                 className='pull-right'

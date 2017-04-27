@@ -127,3 +127,23 @@ h4 strong {
 .nav-vertical-center {
   line-height: 36px;
 }
+
+/* welcome box */
+
+.welcome-box h2 {
+  margin-top: 0;
+}
+
+/* help popover */
+
+.help-popover-trigger .help-button {
+  font-size: 18px;
+  padding: 0px 2px;
+  border: none;
+  color: #337ab7;
+}
+
+.help-popover .button-row {
+  margin-top: 12px;
+  text-align: center;
+}

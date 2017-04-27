@@ -36,6 +36,12 @@ footer a {
   background-repeat: no-repeat;
 }
 
+.welcome-image {
+  background-image: url(https://raw.githubusercontent.com/conveyal/modeify/dev/images/application/welcome-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .table-bordered > thead {
   background-color: #778595;
   color: white;
