@@ -92,7 +92,7 @@ export default class UserHome extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <BootstrapTable data={sites}>
+            <BootstrapTable data={sites.sort((a, b) => a.name > b.name)}>
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={siteNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
@@ -116,7 +116,7 @@ export default class UserHome extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <BootstrapTable data={multiSites}>
+            <BootstrapTable data={multiSites.sort((a, b) => a.name > b.name)}>
               <TableHeaderColumn dataField='_id' isKey hidden />
               <TableHeaderColumn dataField='name' dataFormat={multiSiteNameRenderer}>Name</TableHeaderColumn>
               <TableHeaderColumn dataField='sites' dataFormat={arrayCountRenderer}># of Sites</TableHeaderColumn>
