@@ -5,7 +5,6 @@ import omit from 'lodash.omit'
 import React, {Component, PropTypes} from 'react'
 import {Accordion, Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import Dropzone from 'react-dropzone'
 
 import BackButton from '../containers/back-button'
 
@@ -30,7 +29,9 @@ export default class AddCommuters extends Component {
     createCommuters(commutersToCreate)
   }
 
-  _onDrop = (files) => {
+  _onSelectFile = (event) => {
+    const {files} = event.target
+    if (!files || files.length === 0) return alert('No File Selected!  Please select a file.')
     const {site} = this.props
     const r = new FileReader()
 
@@ -47,7 +48,6 @@ export default class AddCommuters extends Component {
       this.setState({newCommuters})
     }
 
-    // TODO: handle multiple files
     r.readAsText(files[0])
   }
 
@@ -71,14 +71,15 @@ export default class AddCommuters extends Component {
                 disabled
               />
             </FormGroup>
-            <Dropzone
-              accept='text/csv'
-              className='dropzone'
-              multiple={false}
-              onDrop={this._onDrop}
-              >
-              <div>Try dragging and dropping a csv file here, or click to select files to upload.  Make sure the csv file contains the headers: 'name' and 'address'.</div>
-            </Dropzone>
+            <div className='form-group'>
+              <label htmlFor='commuters-file' className='control-label'>Select a File</label>
+              <input
+                accept='text/csv'
+                id='commuters-file'
+                onChange={this._onSelectFile}
+                type='file'
+                />
+            </div>
             <Accordion>
               <Panel
                 header={`${existingCommuters.length} Existing Commuters`}

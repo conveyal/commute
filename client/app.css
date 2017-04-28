@@ -13,16 +13,6 @@ h4 strong {
   padding: 1em;
 }
 
-/* react-dropzone stuff */
-.dropzone {
-  margin-bottom: 15px;
-  min-width: 200px;
-  min-height: 20px;
-  padding: 1em;
-  border: 2px dashed #666;
-  border-radius: 5px;
-}
-
 /*
  * react-leaflet is silly, you have to manually style the divs it creates
  * https://github.com/PaulLeCam/react-leaflet/blob/master/example/index.html
