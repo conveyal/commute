@@ -1,8 +1,9 @@
 const each = require('async/each')
+const omit = require('lodash.omit')
 const pick = require('lodash.pick')
 
 function makeFindQuery (req, query) {
-  return Object.assign(query, { trashed: undefined, user: req.user.sub })
+  return Object.assign(query, { trashed: undefined, user: req.user.email })
 }
 
 function makeGenericModelResponseFn (res) {
@@ -100,7 +101,7 @@ module.exports = function makeRestEndpoints (app, jwt, cfg) {
     app.post(`/api/${name}`, jwt, (req, res) => {
       res.set('Content-Type', 'application/json')
       if (!Array.isArray(req.body)) return serverError(res, 'Invalid input data.  Expected an array.')
-      const inputData = req.body.map((entity) => Object.assign({ user: req.user.sub }, entity))
+      const inputData = req.body.map((entity) => Object.assign(entity, { user: req.user.email }))
       model.create(inputData, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
     })
   }
@@ -132,7 +133,7 @@ module.exports = function makeRestEndpoints (app, jwt, cfg) {
       model.findOne(makeFindQuery(req, { _id: req.params.id }), (err, doc) => {
         if (err) return serverError(res, err)
         if (!doc) return serverError(res, 'a database error occurred: record not found')
-        doc.set(req.body)
+        doc.set(omit(req.body, 'user'))
         doc.save(makeGetModelResponseFn(cfg.childModels, res, false, returnChildrenAsEntities))
       })
     })

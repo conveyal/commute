@@ -48,7 +48,11 @@ export function makeChildrenHandlers (cfg) {
  * @return {Object}      The generated reducers
  */
 export function makeGenericReducerHandlers (cfg) {
-  const reducers = {}
+  const reducers = {
+    'log out' (state, action) {
+      return {}
+    }
+  }
   if (cfg.handlers.indexOf('add') !== -1) {
     reducers[`add ${cfg.name.singular}`] = function (state, action) {
       return addToEntityMap(state, action.payload)

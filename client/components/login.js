@@ -6,6 +6,12 @@ import messages from '../utils/messages'
 export default function Login () {
   const lockOptions = {
     allowSignUp: false,
+    auth: {
+      params: {
+        scope: 'openid email user_metadata'
+      },
+      redirect: false
+    },
     autoclose: true,
     closable: false,
     languageDictionary: {

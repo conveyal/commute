@@ -3,7 +3,7 @@
   "description": "Commute analysis",
   "scripts": {
     "build": "mastarm build",
-    "deploy": "mastarm deploy -m",
+    "deploy": "mastarm deploy -m -e production",
     "precover": "rm -rf coverage",
     "cover": "npm run cover-server && npm run cover-client && npm run merge-coverage",
     "cover-all": "npm run test-all -- --coverage --coverage-paths \"client/**/*.js server/**/*.js\"",
