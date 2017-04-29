@@ -3,6 +3,7 @@ const omit = require('lodash.omit')
 const pick = require('lodash.pick')
 
 function makeFindQuery (req, query) {
+  console.log(req.user)
   return Object.assign(query, { trashed: undefined, user: req.user.email })
 }
 
