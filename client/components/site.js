@@ -54,7 +54,8 @@ export default class Site extends Component {
       analysisMapStyle: 'blue-solid',
       commuterRingRadius: 1,
       isochroneCutoff: 7200,
-      rideMatchMapStyle: 'normal'
+      rideMatchMapStyle: 'normal',
+      mapState: 'STANDARD' // STANDARD / FULLSCREEN / HIDDEN
     }
     this._loadDataIfNeeded(this.props)
   }
@@ -139,6 +140,13 @@ export default class Site extends Component {
 
   _handleTabSelect = (selectedTab) => {
     this.setState({ activeTab: selectedTab })
+  }
+
+  _setMapState (mapState) {
+    this.setState({ mapState })
+    setTimeout(() => {
+      this.refs['leafletMap'].leafletElement.invalidateSize(false)
+    }, 100)
   }
 
   _loadDataIfNeeded (props) {
@@ -677,52 +685,14 @@ export default class Site extends Component {
               <p><Icon type='map-marker' /> {site.address}</p>
             }
           </Col>
-          {/***************************
-            Map
-          ***************************/}
-          <Col xs={12} style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
-            <LeafletMap
-              center={position}
-              bounds={bounds}
-              zoom={zoom}
-              >
-              <TileLayer
-                url={Browser.retina &&
-                  process.env.LEAFLET_RETINA_URL
-                  ? process.env.LEAFLET_RETINA_URL
-                  : process.env.LEAFLET_TILE_URL}
-                attribution={process.env.LEAFLET_ATTRIBUTION}
-                />
-              {siteMarkers}
-              {activeTab !== 'ridematches' && commuterMarkers}
-              {activeTab === 'ridematches' && rideMatchMapStyle === 'normal' &&
-                commuterMarkers}
-              {activeTab === 'ridematches' && rideMatchMapStyle === 'marker-clusters' &&
-                <MarkerCluster
-                  newMarkerData={clusterMarkers}
-                  />
-              }
-              {activeTab === 'ridematches' && rideMatchMapStyle === 'heatmap' &&
-                <Heatmap
-                  intensityExtractor={m => 1000}
-                  latitudeExtractor={m => m.props.position.lat}
-                  longitudeExtractor={m => m.props.position.lng}
-                  points={commuterMarkers}
-                  />
-              }
-              {activeTab === 'ridematches' && rideMatchMapStyle === 'commuter-rings' &&
-                commuterRings}
-              {activeTab === 'ridematches' && rideMatchMapStyle === 'commuter-rings' &&
-                commuterMarkers}
-              {isochrones}
-              <Legend {...mapLegendProps} />
-            </LeafletMap>
-          </Col>
+        </Row>
+
+        <Row style={{ marginTop: '15px' }}>
           {/***************************
             Content
           ***************************/}
           {!hasCommuters &&
-            <Col xs={12}>
+            <Col xs={this.state.mapState === 'HIDDEN' ? 12 : 7}>
               {isMultiSite &&
                 <p>None of the sites in this Multi-Site Analysis have any commuters!  Add commuters to specific sites.</p>
               }
@@ -735,11 +705,19 @@ export default class Site extends Component {
             </Col>
           }
           {hasCommuters &&
+            <Col xs={this.state.mapState === 'HIDDEN' ? 12 : 7}>
             <Tabs
               activeKey={activeTab}
               id='site-tabs'
               onSelect={this._handleTabSelect}
               >
+              {this.state.mapState === 'HIDDEN' &&
+                <div style={{ position: 'absolute', right: '15px', top: '0px' }}>
+                  <Button bsSize='small' onClick={() => this.setState({ mapState: 'STANDARD' })}>
+                    <Icon type='map' /> Show Map
+                  </Button>
+                </div>
+              }
               <Tab eventKey='summary' title={<span><Icon type='info-circle' /> Summary</span>}>
                 {/***************************
                   Summary Tab
@@ -760,34 +738,54 @@ export default class Site extends Component {
                 }
                 {allCommutersGeocoded && allCommutersStatsCalculated &&
                   <Row>
-                    <Col xs={12} sm={3} className='infographic-site-column'>
-                      <h4>Total Commuters</h4>
-                      <div className='infographic-well' style={{backgroundColor: '#51992e'}}>
-                        <Icon type='group' />
-                        <span className='number'>{commuters.length}</span>
-                      </div>
-                      <p>
-                        {commuters.length}
-                        {isMultiSite
-                          ? ' commuters are at these sites.'
-                          : ' commuters are at this site.'}</p>
-                    </Col>
-                    <Col xs={12} sm={3} className='infographic-site-column'>
-                      <h4>Transit Commute</h4>
-                      <div
-                        className='infographic-well'
-                        style={infographicBackground('#3b90c6', summaryStats.pctWith60MinTransit)}
-                        >
-                        <Icon type='bus' />
-                        <span className='number-pct'>{summaryStats.pctWith60MinTransit}</span>
-                      </div>
-                      <p>
-                        {summaryStats.pctWith60MinTransit} of commuters at
-                        {isMultiSite ? ' these sites ' : ' this site '}
-                        are within a 60 minute transit ride.
-                      </p>
-                    </Col>
-                    <Col xs={12} sm={3} className='infographic-site-column'>
+                    <Row>
+                      <Col xs={6} className='infographic-site-column'>
+                        <h4>Total Commuters</h4>
+                        <div className='infographic-well' style={{backgroundColor: '#51992e'}}>
+                          <Icon type='group' />
+                          <span className='number'>{commuters.length}</span>
+                        </div>
+                        <p>
+                          {commuters.length}
+                          {isMultiSite
+                            ? ' commuters are at these sites.'
+                            : ' commuters are at this site.'}</p>
+                      </Col>
+                      <Col xs={6} className='infographic-site-column'>
+                        <h4>Transit Commute</h4>
+                        <div
+                          className='infographic-well'
+                          style={infographicBackground('#3b90c6', summaryStats.pctWith60MinTransit)}
+                          >
+                          <Icon type='bus' />
+                          <span className='number-pct'>{summaryStats.pctWith60MinTransit}</span>
+                        </div>
+                        <p>
+                          {summaryStats.pctWith60MinTransit} of commuters at
+                          {isMultiSite ? ' these sites ' : ' this site '}
+                          are within a 60 minute transit ride.
+                        </p>
+                      </Col>
+                    </Row>
+
+                    <Row>
+                      <Col xs={6} className='infographic-modeshare-container'>
+                        <h4>Compare Against Washington, DC Averages</h4>
+                      </Col>
+                      <Col xs={6} className='infographic-modeshare-container'>
+                        <div
+                          className='infographic-modeshare-pct-bar'
+                          style={infographicBackground('#3b90c6', regionalTransitModePct)}
+                          />
+                        <p>
+                          {regionalTransitModePct} of all commuters in Washington, DC
+                          take transit to work.
+                        </p>
+                      </Col>
+                    </Row>
+
+                    <Row>
+                    <Col xs={6} className='infographic-site-column'>
                       <h4>Bike Commute</h4>
                       <div
                         className='infographic-well'
@@ -802,8 +800,8 @@ export default class Site extends Component {
                         can bike to work in 30 minutes or less.
                       </p>
                     </Col>
-                    <Col xs={12} sm={3} className='infographic-site-column'>
-                      <h4>Rideshare Commute</h4>
+                    <Col xs={6} className='infographic-site-column'>
+                      <h4>Carpool/Vanpool Commute</h4>
                       <div
                         className='infographic-well'
                         style={infographicBackground('#ec684f', summaryStats.pctWithRidematch)}
@@ -817,20 +815,10 @@ export default class Site extends Component {
                         have a rideshare match within 1 mile or less of their homes.
                       </p>
                     </Col>
-                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
-                      <h4>Compare Against Washington, DC Averages</h4>
-                    </Col>
-                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
-                      <div
-                        className='infographic-modeshare-pct-bar'
-                        style={infographicBackground('#3b90c6', regionalTransitModePct)}
-                        />
-                      <p>
-                        {regionalTransitModePct} of all commuters in Washington, DC
-                        take transit to work.
-                      </p>
-                    </Col>
-                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                    </Row>
+
+                    <Row>
+                    <Col xs={6} className='infographic-modeshare-container'>
                       <div
                         className='infographic-modeshare-pct-bar'
                         style={infographicBackground('#f0a800', regionalOtherModePct)}
@@ -840,7 +828,7 @@ export default class Site extends Component {
                         take a taxi, motorcycle, bicycle or other means of transportation to work.
                       </p>
                     </Col>
-                    <Col xs={12} sm={3} className='infographic-modeshare-container'>
+                    <Col xs={6} className='infographic-modeshare-container'>
                       <div
                         className='infographic-modeshare-pct-bar'
                         style={infographicBackground('#ec684f', regionalCarpoolModePct)}
@@ -850,6 +838,7 @@ export default class Site extends Component {
                         carpool to work.
                       </p>
                     </Col>
+                    </Row>
                   </Row>
                 }
               </Tab>
@@ -875,7 +864,7 @@ export default class Site extends Component {
                   </Row>
                 </Tab>
               }
-              <Tab eventKey='commuters' title={<span><Icon type='users' /> All Commuters</span>}>
+              <Tab eventKey='commuters' title={<span><Icon type='users' /> Commuters</span>}>
                 {/***************************
                   Commuters Tab
                 ***************************/}
@@ -940,7 +929,7 @@ export default class Site extends Component {
                   </Col>
                 </Row>
               </Tab>
-              <Tab eventKey='analysis' title={<span><Icon type='bar-chart' /> Site Analysis</span>}>
+              <Tab eventKey='analysis' title={<span><Icon type='bar-chart' /> Analysis</span>}>
                 {/***************************
                   Analysis Tab
                 ***************************/}
@@ -958,7 +947,9 @@ export default class Site extends Component {
                       <option value='WALK'>Walk</option>
                       <option value='CAR'>Car</option>
                     </FieldGroup>
-                    {!isMultiSite &&
+                  </Col>
+                  {!isMultiSite &&
+                    <Col xs={6}>
                       <FieldGroup
                         label='Map Style'
                         name='analysisMapStyle'
@@ -972,9 +963,11 @@ export default class Site extends Component {
                         <option value='blue-incremental'>Blueish Isochrone (5 minute intervals)</option>
                         <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone (5 minute intervals)</option>
                       </FieldGroup>
-                    }
-                  </Col>
-                  <Col xs={6}>
+                    </Col>
+                  }
+                </Row>
+                <Row>
+                  <Col xs={12}>
                     {!isMultiSite &&
                       <Panel>
                         <p><b>Maximum Travel Time</b></p>
@@ -1004,8 +997,8 @@ export default class Site extends Component {
                   selected mode up to the travel time listed.
                 </p>
                 <BootstrapTable data={analysisModeStats}>
-                  <TableHeaderColumn dataField='bin' isKey>Travel Time to Work (minutes)</TableHeaderColumn>
-                  <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
+                  <TableHeaderColumn dataField='bin' isKey width='150'>Travel Time to<br/>Work (minutes)</TableHeaderColumn>
+                  <TableHeaderColumn dataField='cumulative' width='100'>Number of<br/>Commuters</TableHeaderColumn>
                   <TableHeaderColumn
                     dataField='cumulativePct'
                     dataFormat={percentBar}
@@ -1014,7 +1007,7 @@ export default class Site extends Component {
                   </TableHeaderColumn>
                 </BootstrapTable>
               </Tab>
-              <Tab eventKey='ridematches' title={<span><Icon type='car' /> Ridematches</span>}>
+              <Tab eventKey='ridematches' title={<span><Icon type='car' /> Matches</span>}>
                 {/***************************
                   Ridematches Tab
                 ***************************/}
@@ -1078,7 +1071,7 @@ export default class Site extends Component {
                   </div>
                 }
               </Tab>
-              <Tab eventKey='individual-analysis' title={<span><Icon type='user' /> Individual Profiles</span>}>
+              <Tab eventKey='individual-analysis' title={<span><Icon type='user' /> Profiles</span>}>
                 {/***************************
                   Individual Analysis Tab
                 ***************************/}
@@ -1192,6 +1185,76 @@ export default class Site extends Component {
                 }
               </Tab>
             </Tabs>
+            </Col>
+          }
+          {/***************************
+            Map
+          ***************************/}
+          {this.state.mapState !== 'HIDDEN' &&
+            <Col xs={5}>
+              <div style={this.state.mapState === 'FULLSCREEN' ? {
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0
+              } : {height: '600px', marginTop: '1em', marginBottom: '1em'} }>
+                <LeafletMap ref='leafletMap'
+                  style={{ width: '100%', height: '100%' }}
+                  center={position}
+                  bounds={bounds}
+                  zoom={zoom}
+                  >
+                  <TileLayer
+                    url={Browser.retina &&
+                      process.env.LEAFLET_RETINA_URL
+                      ? process.env.LEAFLET_RETINA_URL
+                      : process.env.LEAFLET_TILE_URL}
+                    attribution={process.env.LEAFLET_ATTRIBUTION}
+                    />
+                  {siteMarkers}
+                  {activeTab !== 'ridematches' && commuterMarkers}
+                  {activeTab === 'ridematches' && rideMatchMapStyle === 'normal' &&
+                    commuterMarkers}
+                  {activeTab === 'ridematches' && rideMatchMapStyle === 'marker-clusters' &&
+                    <MarkerCluster
+                      newMarkerData={clusterMarkers}
+                      />
+                  }
+                  {activeTab === 'ridematches' && rideMatchMapStyle === 'heatmap' &&
+                    <Heatmap
+                      intensityExtractor={m => 1000}
+                      latitudeExtractor={m => m.props.position.lat}
+                      longitudeExtractor={m => m.props.position.lng}
+                      points={commuterMarkers}
+                      />
+                  }
+                  {activeTab === 'ridematches' && rideMatchMapStyle === 'commuter-rings' &&
+                    commuterRings}
+                  {activeTab === 'ridematches' && rideMatchMapStyle === 'commuter-rings' &&
+                    commuterMarkers}
+                  {isochrones}
+                  <Legend {...mapLegendProps} />
+                  {this.state.mapState === 'STANDARD' &&
+                    <div style={{ position: 'absolute', right: '10px', top: '10px', zIndex: '10000' }}>
+                      <Button bsSize='small' onClick={() => { this.setState({ mapState: 'HIDDEN' }) }}>
+                        <Icon type='compress' /> Hide Map
+                      </Button>
+                      <Button bsSize='small' onClick={() => { this._setMapState('FULLSCREEN') }}>
+                        <Icon type='expand' /> Fullscreen
+                      </Button>
+                    </div>
+                  }
+                  {this.state.mapState === 'FULLSCREEN' &&
+                    <div style={{ position: 'absolute', right: '10px', top: '10px', zIndex: '10000' }}>
+                      <Button bsSize='small' onClick={() => { this._setMapState('STANDARD') }}>
+                        <Icon type='times' />
+                      </Button>
+                    </div>
+                  }
+                </LeafletMap>
+              </div>
+            </Col>
           }
         </Row>
       </Grid>
@@ -1238,8 +1301,8 @@ function formatPercentAsStr (n) {
 
 function percentBar (n) {
   return <Row>
-    <Col xs={10}><ProgressBar now={formatPercent(n)} /></Col>
-    <Col xs={2}>{formatPercentAsStr(n)}</Col>
+    <Col xs={9}><ProgressBar now={formatPercent(n)} style={{ marginBottom: 0 }} /></Col>
+    <Col xs={3}>{formatPercentAsStr(n)}</Col>
   </Row>
 }
 
