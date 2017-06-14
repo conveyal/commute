@@ -1,3 +1,7 @@
+body {
+  -webkit-print-color-adjust: exact;
+}
+
 footer {
   border-top: 1px solid gray;
   margin-top: 3em;
@@ -39,7 +43,7 @@ h4 strong {
 
 /* Infographics */
 .infographic-modeshare-container {
-  background-color: #eceee9;
+  background-color: #eceee9 !important;
   padding-top: 10px;
 }
 
@@ -64,6 +68,18 @@ h4 strong {
 
 .infographic-well .number-pct {
   margin-left: 10%;
+}
+
+.summary-tab .infographic .infographic-well {
+  font-size: 30px;
+}
+
+.summary-tab .infographic h4 {
+  min-height: 40px;
+}
+
+.summary-tab .infographic p {
+  font-size:  14px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
@@ -136,4 +152,15 @@ h4 strong {
 .help-popover .button-row {
   margin-top: 12px;
   text-align: center;
+}
+
+/* printable site report */
+
+.site-report > .header {
+  padding: 8px;
+  margin-bottom: 20px;
+}
+
+.site-report .intro {
+  font-size: 20px;
 }

@@ -9,6 +9,7 @@ import EditMultiSite from './containers/edit-multi-site'
 import EditSite from './containers/edit-site'
 import MultiSite from './containers/multi-site'
 import Site from './containers/site'
+import SiteReport from './containers/site-report'
 import UserHome from './containers/user-home'
 
 const ApplicationRouter = ({history}) => (
@@ -22,6 +23,7 @@ const ApplicationRouter = ({history}) => (
       <Route path='/site/:siteId/bulk-add-commuters' component={AddCommuters} />
       <Route path='/site/:siteId/commuter/create' component={EditCommuter} />
       <Route path='/site/:siteId/commuter/:commuterId/edit' component={EditCommuter} />
+      <Route path='/site/:siteId/report' component={SiteReport} />
 
       // Multi-Site Views
       <Route path='/multi-site/create' component={EditMultiSite} />

@@ -96,3 +96,15 @@ export function humanizeDistance (d, places) {
   places = places || 1
   return `${fixedRound(d, places)} miles`
 }
+
+export function formatDistance (cell, row) {
+  return humanizeDistance(cell)
+}
+
+export function formatPercent (n) {
+  return Math.round(n * 100)
+}
+
+export function formatPercentAsStr (n) {
+  return `${formatPercent(n)}%`
+}

@@ -89,6 +89,13 @@ export default class BreadcrumbBar extends Component {
         active: true,
         name: 'Edit Site'
       })
+    } else if (path.match(/\/site\/[\w-]+\/report$/)) {
+      // Site Report View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Site Report'
+      })
     } else {
       console.error(`Path not matched for breadcrumb generation: ${path}`)
     }
