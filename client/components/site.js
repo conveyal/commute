@@ -18,7 +18,7 @@ import messages from '../utils/messages'
 import SiteMap from './site-map'
 import SiteInfographic from './site-infographic'
 
-import { processSite } from './site-common'
+import { processSite, downloadMatches } from './site-common'
 
 export default class Site extends Component {
   static propTypes = {
@@ -784,6 +784,27 @@ export default class Site extends Component {
                         Percent of Commuters
                       </TableHeaderColumn>
                     </BootstrapTable>
+
+                    <Row>
+                      <Col xs={12}>
+                        <Panel header={(<h3>Download Match Report</h3>)} className='download-report-panel'>
+                          <Col xs={5}>
+                            <Button
+                              bsStyle='primary'
+                              bsSize='large'
+                              onClick={() => {
+                                downloadMatches(processed.ridematches)
+                              }}
+                            >
+                              <Icon type='download' /> Download Matches
+                            </Button>
+                          </Col>
+                          <Col xs={7}>
+                            <Icon type='info-circle' /> Click "Download Matches" to download a the raw individual ridematch data as a CSV-format spreadsheet.
+                          </Col>
+                        </Panel>
+                      </Col>
+                    </Row>
                   </div>
                 }
               </Tab>
