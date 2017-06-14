@@ -6,7 +6,7 @@ import {formatPercentAsStr} from '../utils'
 import {modeshareStats} from '../utils/settings'
 
 const regionalTransitModePct = formatPercentAsStr(modeshareStats.transit)
-const regionalOtherModePct = formatPercentAsStr(modeshareStats.other)
+const regionalBikeModePct = formatPercentAsStr(modeshareStats.bike)
 const regionalCarpoolModePct = formatPercentAsStr(modeshareStats.carpool)
 
 export default class SiteReport extends Component {
@@ -98,11 +98,11 @@ export default class SiteReport extends Component {
           <Col xs={3} className='infographic-modeshare-container'>
             <div
               className='infographic-modeshare-pct-bar'
-              style={infographicBackground('#f0a800', regionalOtherModePct)}
+              style={infographicBackground('#f0a800', regionalBikeModePct)}
               />
             <p>
-              {regionalOtherModePct} of all commuters in Washington, DC
-              take a taxi, motorcycle, bicycle or other means of transportation to work.
+              {regionalBikeModePct} of all commuters in Washington, DC
+              bike to work.
             </p>
           </Col>
           <Col xs={3} className='infographic-modeshare-container'>
