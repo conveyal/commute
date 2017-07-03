@@ -23,11 +23,11 @@ export default class SiteReport extends Component {
           <Col xs={12}>
             <div className='site-report'>
               <div className='header' style={{ height: '100px' }}>
-                <div className='logo' style={{ width: '30%' }} />
+                <div className='logo' />
               </div>
 
               <div className='intro'>
-                Lorem ipsum
+                Introductory Text Here
               </div>
 
               <SiteInfographic
