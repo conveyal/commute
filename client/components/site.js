@@ -661,7 +661,7 @@ export default class Site extends Component {
                       <option value='TRANSIT'>Transit</option>
                       <option value='BICYCLE'>Bicycle</option>
                       <option value='WALK'>Walk</option>
-                      <option value='CAR'>Car</option>
+                      <option value='CAR'>Carpool</option>
                     </FieldGroup>
                   </Col>
                   {!isMultiSite &&
