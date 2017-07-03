@@ -2,7 +2,7 @@ import {toLeaflet} from '@conveyal/lonlat'
 import {Browser} from 'leaflet'
 import isNumber from 'lodash.isnumber'
 import React, {Component, PropTypes} from 'react'
-import {Button, ButtonGroup, Col, Grid, Row} from 'react-bootstrap'
+import {Button, ButtonGroup, Col, Grid, Row, Panel} from 'react-bootstrap'
 import Form from 'react-formal'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import yup from 'yup'
@@ -13,6 +13,7 @@ import Geocoder from './geocoder'
 import {actUponConfirmation, geocodeResultToState, geocodeYupSchema} from '../utils'
 import messages from '../utils/messages'
 import settings from '../utils/settings'
+import Icon from './icon'
 
 const siteSchema = yup.object(Object.assign({
   name: yup.string().label('Site Name').required()
@@ -108,6 +109,12 @@ export default class EditSite extends Component {
         </Row>
         <Row>
           <Col xs={12} md={5} className='site-form'>
+            <Panel>
+              <Col xs={2}><Icon type='info-circle' style={{ fontSize: '36px', color: '#337ab7' }}/></Col>
+              <Col xs={10}>
+                A <b>Site</b> is an single location (e.g., a workplace) where analysis will be performed for a collection of people commuting to that location. To get started, enter a name and location for the site below and click "Create".
+              </Col>
+            </Panel>
             <Form
               schema={siteSchema}
               value={this.state.model}
