@@ -32,7 +32,6 @@ const homeIconSelected = icon({
 const homeIconSelectedOffset = point(0, -20)
 
 export default class SiteMap extends Component {
-
   static propTypes = {
     activeTab: PropTypes.string,
     commuters: PropTypes.array,
