@@ -7,6 +7,7 @@ import yup from 'yup'
 import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import {actUponConfirmation} from '../utils'
+import {pageview} from '../utils/analytics'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 import messages from '../utils/messages'
 
@@ -33,6 +34,7 @@ export default class EditSite extends Component {
         errors: {},
         model: {...this.props.multiSite}
       }
+      pageview('/multi-site/edit')
     } else {
       this.state = {
         errors: {},
@@ -40,6 +42,7 @@ export default class EditSite extends Component {
           sites: []
         }
       }
+      pageview('/multi-site/create')
     }
   }
 

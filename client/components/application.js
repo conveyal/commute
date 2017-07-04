@@ -1,8 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 
 import BreadcrumbBar from '../components/breadcrumb-bar'
-import Footer from './footer'
 import Navigation from '../containers/navigation'
+import Footer from './footer'
+import {pageview} from '../utils/analytics'
 
 export default class Application extends Component {
   static propTypes = {
@@ -16,6 +17,8 @@ export default class Application extends Component {
     const {navigateToLogin, userIsLoggedIn} = this.props
     if (process.env.NODE_ENV !== 'test' && !userIsLoggedIn) {
       navigateToLogin()
+    } else {
+      pageview('/')
     }
   }
 

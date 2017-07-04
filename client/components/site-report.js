@@ -1,12 +1,15 @@
-import React, {Component, PropTypes} from 'react'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
+import React, {Component} from 'react'
+import { Grid, Row, Col } from 'react-bootstrap'
 
 import SiteMap from './site-map'
 import SiteInfographic from './site-infographic'
-
 import { processSite } from './site-common'
+import {pageview} from '../utils/analytics'
 
 export default class SiteReport extends Component {
+  componentWillMount () {
+    pageview('/site/report')
+  }
 
   render () {
     const { commuters, isMultiSite, polygonStore, selectedCommuter, site, sites } = this.props
@@ -14,11 +17,11 @@ export default class SiteReport extends Component {
     const processed = processSite(commuters, 'TRANSIT')
     return (
       <Grid>
-        {/*<Row>
+        {/* <Row>
           <Col xs={12}>
             <Button onClick={() => { this._createPdf() }}>Generate PDF</Button>
           </Col>
-        </Row>*/}
+        </Row> */}
         <Row ref='report'>
           <Col xs={12}>
             <div className='site-report'>

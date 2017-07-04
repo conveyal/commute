@@ -11,6 +11,7 @@ import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
 import {actUponConfirmation, geocodeResultToState, geocodeYupSchema} from '../utils'
+import {pageview} from '../utils/analytics'
 import messages from '../utils/messages'
 import settings from '../utils/settings'
 import Icon from './icon'
@@ -39,11 +40,13 @@ export default class EditSite extends Component {
         errors: {},
         model: {...this.props.site}
       }
+      pageview('/site/edit')
     } else {
       this.state = {
         errors: {},
         model: {}
       }
+      pageview('/site/create')
     }
   }
 
@@ -110,7 +113,9 @@ export default class EditSite extends Component {
         <Row>
           <Col xs={12} md={5} className='site-form'>
             <Panel>
-              <Col xs={2}><Icon type='info-circle' style={{ fontSize: '36px', color: '#337ab7' }}/></Col>
+              <Col xs={2}>
+                <Icon type='info-circle' style={{ fontSize: '36px', color: '#337ab7' }} />
+              </Col>
               <Col xs={10}>
                 A <b>Site</b> is an single location (e.g., a workplace) where analysis will be performed for a collection of people commuting to that location. To get started, enter a name and location for the site below and click "Create".
               </Col>
