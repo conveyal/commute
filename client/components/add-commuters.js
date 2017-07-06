@@ -5,6 +5,7 @@ import omit from 'lodash.omit'
 import React, {Component, PropTypes} from 'react'
 import {Accordion, Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+import Modal from 'react-modal'
 
 import BackButton from '../containers/back-button'
 
@@ -20,13 +21,21 @@ export default class AddCommuters extends Component {
     site: PropTypes.object.isRequired
   }
 
+  state = {
+    loading: false
+  }
+
   _handleSubmit = () => {
     const {createCommuters} = this.props
     const commutersToCreate = this.state.newCommuters
       ? this.state.newCommuters.map((commuter) => omit(commuter, '_id'))
       : []
 
-    createCommuters(commutersToCreate)
+    this.setState({ loading: true })
+
+    setTimeout(() => {
+      createCommuters(commutersToCreate)
+    }, 500)
   }
 
   _onSelectFile = (event) => {
@@ -112,6 +121,11 @@ export default class AddCommuters extends Component {
             }
           </Col>
         </Row>
+        {this.state.isLoading &&
+          <Modal>
+            <p>Saving commuters, please wait...</p>
+          </Modal>
+        }
       </Grid>
     )
   }
@@ -119,7 +133,10 @@ export default class AddCommuters extends Component {
 
 function CommuterTable ({commuters}) {
   return (
-    <BootstrapTable data={commuters}>
+    <BootstrapTable
+      data={commuters}
+      pagination={commuters.length > 10}
+      >
       <TableHeaderColumn dataField='_id' isKey hidden />
       <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
       <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>

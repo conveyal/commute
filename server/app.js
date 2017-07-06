@@ -21,7 +21,7 @@ if (env.AUTH0_SECRET && process.env.NODE_ENV !== 'test') {
     next()
   }
 }
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '50mb' }))
 
 // static assets
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')))

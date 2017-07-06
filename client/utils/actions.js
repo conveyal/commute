@@ -56,6 +56,7 @@ export default function makeGenericModelActions (cfg) {
 
   // make local set actions
   const addLocally = createAction(`add ${singularName}`)
+  const addManyLocally = createAction(`add many ${pluralName}`)
   const deleteLocally = createAction(`delete ${singularName}`)
   const deleteManyLocally = createAction(`delete many ${pluralName}`)
   const setLocally = createAction(`set ${singularName}`)
@@ -169,7 +170,7 @@ export default function makeGenericModelActions (cfg) {
             return fetchErrorHandler(network.savingError, err, res)
           } else {
             const createdEntities = res.value
-            const actions = createdEntities.map((createdEntity) => addLocally(createdEntity))
+            const actions = [addManyLocally(createdEntities)]
             doRedirectIfNecessary({
               actions,
               endpointCfg,

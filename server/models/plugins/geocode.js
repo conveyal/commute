@@ -77,7 +77,7 @@ module.exports = function (postGeocodeHook) {
           // address provided, but coordinates are blank
           // perform geocode
           console.log('initiating geodcode')
-          this.original_address = this.address
+          this.originalAddress = this.address
           this.geocode()
         } else {
           // address and coordinates provided
