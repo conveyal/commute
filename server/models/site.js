@@ -13,6 +13,10 @@ const schema = new Schema({
   name: {
     required: true,
     type: String
+  },
+  reportConfig: {
+    required: false,
+    type: Object
   }
 })
 

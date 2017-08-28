@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 
 import SiteMap from './site-map'
 import SiteInfographic from './site-infographic'
@@ -7,6 +7,14 @@ import SiteInfographic from './site-infographic'
 import { processSite } from './site-common'
 
 export default class SiteReport extends Component {
+  static propTypes = {
+    commuters: PropTypes.array,
+    isMultiSite: PropTypes.bool,
+    polygonStore: PropTypes.object,
+    selectedCommuter: PropTypes.object,
+    site: PropTypes.object,
+    sites: PropTypes.array
+  }
 
   render () {
     const { commuters, isMultiSite, polygonStore, selectedCommuter, site, sites } = this.props
@@ -14,11 +22,6 @@ export default class SiteReport extends Component {
     const processed = processSite(commuters, 'TRANSIT')
     return (
       <Grid>
-        {/*<Row>
-          <Col xs={12}>
-            <Button onClick={() => { this._createPdf() }}>Generate PDF</Button>
-          </Col>
-        </Row>*/}
         <Row ref='report'>
           <Col xs={12}>
             <div className='site-report'>
@@ -27,41 +30,43 @@ export default class SiteReport extends Component {
               </div>
 
               <div className='intro'>
-                Introductory Text Here
+                <h2>Site Access Report for {site.name}</h2>
               </div>
 
-              <SiteInfographic
-                commuterCount={commuters.length}
-                summaryStats={processed.summaryStats}
-                isMultiSite={isMultiSite}
-              />
+              {site.reportConfig && site.reportConfig.sections && site.reportConfig.sections.map((section, k) => {
+                return (
+                  <div key={k} style={{ marginTop: '30px' }}>
+                    {section.type === 'summary' && (
+                      <SiteInfographic
+                        commuterCount={commuters.length}
+                        summaryStats={processed.summaryStats}
+                        isMultiSite={isMultiSite}
+                      />
+                    )}
 
-              <div style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
-                <SiteMap ref='map'
-                  commuters={commuters}
-                  isMultiSite={isMultiSite}
-                  polygonStore={polygonStore}
-                  selectedCommuter={selectedCommuter}
-                  site={site}
-                  sites={sites}
-                  activeTab='analysis'
-                  analysisMode='TRANSIT'
-                  analysisMapStyle='blue-solid'
-                  commuterRingRadius={1}
-                  isochroneCutoff={7200}
-                  rideMatchMapStyle='normal'
-                  mapDisplayMode='STANDARD'
-                />
-              </div>
-
-              <Row>
-                <Col xs={6}>
-                  <h3>Transit Access Summary</h3>
-                </Col>
-                <Col xs={6}>
-                  <h3>Carpool/Vanpool Potential Summary</h3>
-                </Col>
-              </Row>
+                    {section.type === 'map' && (<div>
+                      <h3>{section.mode} Commute Access Map (up to {section.cutoff / 60} minutes)</h3>
+                      <div style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
+                        <SiteMap ref='map'
+                          commuters={commuters}
+                          isMultiSite={isMultiSite}
+                          polygonStore={polygonStore}
+                          selectedCommuter={selectedCommuter}
+                          site={site}
+                          sites={sites}
+                          activeTab='analysis'
+                          analysisMode={section.mode}
+                          analysisMapStyle='blue-solid'
+                          commuterRingRadius={1}
+                          isochroneCutoff={section.cutoff * 1.0}
+                          rideMatchMapStyle='normal'
+                          mapDisplayMode='STANDARD'
+                        />
+                      </div>
+                    </div>)}
+                  </div>
+                )
+              })}
             </div>
           </Col>
         </Row>

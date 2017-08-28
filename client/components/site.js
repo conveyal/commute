@@ -540,12 +540,12 @@ export default class Site extends Component {
                             <ButtonLink
                               bsStyle='primary'
                               bsSize='large'
-                              to={`/site/${site._id}/report`}>
-                              <Icon type='print' />View Printable Report
+                              to={`/site/${site._id}/create-report`}>
+                              <Icon type='print' />Printable Report
                             </ButtonLink>
                           </Col>
                           <Col xs={7}>
-                            <Icon type='info-circle' /> Click "View Printable Report" to view a summary version of this site analysis suitable for sharing with partners.
+                            <Icon type='info-circle' /> Click "Printable Report" to view a summary version of this site analysis suitable for sharing with partners.
                           </Col>
                         </Panel>
                       </Col>
