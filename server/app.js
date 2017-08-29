@@ -11,8 +11,11 @@ const app = express()
 
 // middleware
 let jwtMiddleWare
-if (env.AUTH0_SECRET && process.env.NODE_ENV !== 'test') {
-  jwtMiddleWare = jwt({secret: env.AUTH0_SECRET})
+if (env.AUTH0_SIGNING_CERTIFICATE && process.env.NODE_ENV !== 'test') {
+  jwtMiddleWare = jwt({
+    algorithms: ['HS256', 'RS256'],
+    secret: env.AUTH0_SIGNING_CERTIFICATE
+  })
 } else {
   jwtMiddleWare = (req, res, next) => {
     req.user = {
