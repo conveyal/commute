@@ -5,6 +5,7 @@ import {Button, ButtonGroup, Col, ControlLabel, FormGroup, Grid, Panel,
   ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Combobox from 'react-widgets/lib/Combobox'
+import {createSelector} from 'reselect'
 import Slider from 'rc-slider'
 import distance from '@turf/distance'
 
@@ -47,8 +48,9 @@ export default class Site extends Component {
       analysisMode: 'TRANSIT',
       analysisMapStyle: 'blue-solid',
       commuterRingRadius: 1,
+      loadingCommuters: false,
       isochroneCutoff: 7200,
-      rideMatchMapStyle: 'normal',
+      rideMatchMapStyle: 'marker-clusters',
       mapDisplayMode: 'STANDARD' // STANDARD / FULLSCREEN / HIDDEN
     }
     this._loadDataIfNeeded(this.props)
@@ -59,13 +61,15 @@ export default class Site extends Component {
   }
 
   componentWillUnmount () {
-    if (this.loadSiteInterval) {
-      clearInterval(this.loadSiteInterval)
+    if (this.loadSiteTimeout) {
+      clearTimeout(this.loadSiteTimeout)
     }
 
-    if (this.loadCommutersInterval) {
-      clearInterval(this.loadCommutersInterval)
+    if (this.loadCommutersTimeout) {
+      clearTimeout(this.loadCommutersTimeout)
     }
+
+    this.loadingPolygons = false
   }
 
   _commuterSiteNameRenderer = (cell, row) => {
@@ -186,7 +190,7 @@ export default class Site extends Component {
       }
     }
 
-    if (shouldLoadCommuters && !this.loadCommutersInterval) {
+    if (shouldLoadCommuters && !this.loadCommutersTimeout) {
       // load commuters if not already doing so
       let loadCommutersQuery
       if (isMultiSite) {
@@ -200,11 +204,16 @@ export default class Site extends Component {
         // load commuters only from specific site
         loadCommutersQuery = { siteId: site._id }
       }
-      this.loadCommutersInterval = setInterval(() => {
+      this.loadCommutersTimeout = setTimeout(() => {
+        this.loadCommutersTimeout = undefined
         loadCommuters(loadCommutersQuery)
+        this.setState({ loadingCommuters: true })
       }, 1111)
-    } else if (!shouldLoadCommuters && this.loadCommutersInterval) {
-      clearInterval(this.loadCommutersInterval)
+    } else if (!shouldLoadCommuters) {
+      this.setState({ loadingCommuters: false })
+      if (this.loadCommutersTimeout) {
+        clearTimeout(this.loadCommutersTimeout)
+      }
     }
 
     /***************************************************************
@@ -213,27 +222,33 @@ export default class Site extends Component {
     if (site &&
       site.calculationStatus === 'calculating') {
       // should load site
-      if (!this.loadSiteInterval) {
-        this.loadSiteInterval = setInterval(() => {
+      if (!this.loadSiteTimeout) {
+        this.loadSiteTimeout = setTimeout(() => {
+          this.loadSiteTimeout = undefined
           loadSite(site._id)
         }, 1111)
       }
     } else {
       // site doens't need to load
-      if (this.loadSiteInterval) {
-        clearInterval(this.loadSiteInterval)
+      if (this.loadSiteTimeout) {
+        clearTimeout(this.loadSiteTimeout)
       }
     }
 
     /***************************************************************
      determine if polygons should be loaded
     ***************************************************************/
-    if (site &&
+    const shouldLoadPolygons = (site &&
       site.calculationStatus === 'successfully' &&
       !Object.values(polygonStore)
-        .some((isochrone) => isochrone.siteId === site._id)) {
+        .some((isochrone) => isochrone.siteId === site._id))
+
+    if (shouldLoadPolygons && !this.loadingPolygons) {
       // if 0 polygons exist for site, assume they need to be fetched
       loadPolygons({ siteId: site._id })
+      this.loadingPolygons = true
+    } else {
+      this.loadingPolygons = false
     }
   }
 
@@ -250,6 +265,7 @@ export default class Site extends Component {
       analysisMode,
       commuterRingRadius,
       isochroneCutoff,
+      loadingCommuters,
       rideMatchMapStyle,
       selectedCommuter,
       mapDisplayMode
@@ -389,59 +405,9 @@ export default class Site extends Component {
     }
 
     if (allCommutersGeocoded) {
-      for (let i = 0; i < commuters.length; i++) {
-        const commuterA = commuters[i]
-        const commuterAcoordinates = toCoordinates(commuterA.coordinate)
-        for (let j = i + 1; j < commuters.length; j++) {
-          const commuterB = commuters[j]
-          const commuterBcoordinates = toCoordinates(commuterB.coordinate)
-          const distanceBetweenCommuters = distance(commuterAcoordinates, commuterBcoordinates, 'miles')
-          if (distanceBetweenCommuters <= 5) {
-            addRidematch(commuterA, commuterB, distanceBetweenCommuters)
-            addRidematch(commuterB, commuterA, distanceBetweenCommuters)
-          }
-        }
-      }
-
-      const ridematchingBinsByMaxDistance = [0.25, 0.5, 1, 2, 5]
-      const ridematchingBinLabels = [
-        '< 1/4 mile',
-        '< 1/2 mile',
-        '< 1 mile',
-        '< 2 miles',
-        '< 5 miles',
-        '5 miles+'
-      ]
-      const ridematchingBinVals = [0, 0, 0, 0, 0, 0]
-
-      // tally up how many are in each bin
-      commuters.forEach((commuter) => {
-        const match = ridematches[commuter._id]
-        if (match) {
-          let binIdx = 0
-          while (binIdx < ridematchingBinsByMaxDistance.length &&
-            match.minDistance > ridematchingBinsByMaxDistance[binIdx]) {
-            binIdx++
-          }
-          ridematchingBinVals[binIdx]++
-        } else {
-          ridematchingBinVals[ridematchingBinVals.length - 1]++
-        }
-      })
-
-      let cumulativeNum = 0
-      ridematchingBinLabels.forEach((label, idx) => {
-        const numInBin = ridematchingBinVals[idx]
-        ridematchingAggregateTable.push({
-          bin: label,
-          cumulative: cumulativeNum + numInBin,
-          cumulativePct: (cumulativeNum + numInBin) / commuters.length,
-          num: numInBin
-        })
-
-        cumulativeNum += numInBin
-      })
-
+      const ridematchData = getRidematchData(commuters)
+      ridematches = ridematchData.ridematches
+      ridematchingAggregateTable = ridematchData.ridematchingAggregateTable
       const upToOneMileBinIdx = 2
       summaryStats.pctWithRidematch = formatPercentAsStr(ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct)
     }*/
@@ -490,10 +456,15 @@ export default class Site extends Component {
               {isMultiSite &&
                 <p>None of the sites in this Multi-Site Analysis have any commuters!  Add commuters to specific sites.</p>
               }
-              {!isMultiSite &&
+              {!isMultiSite && !loadingCommuters &&
                 <div>
                   <p>This site doesn{`'`}t have any commuters yet!  Add some using one of the options below:</p>
                   {createCommuterButtons}
+                </div>
+              }
+              {!isMultiSite && loadingCommuters &&
+                <div>
+                  <p>Loading commuters...</p>
                 </div>
               }
             </Col>
@@ -743,7 +714,6 @@ export default class Site extends Component {
                       componentClass='select'
                       value={rideMatchMapStyle}
                       >
-                      <option value='normal'>Normal</option>
                       <option value='marker-clusters'>Clusters</option>
                       <option value='heatmap'>Heatmap</option>
                       <option value='commuter-rings'>Commuter Rings</option>
@@ -847,6 +817,10 @@ export default class Site extends Component {
                               <td>{siteStore[selectedCommuter.siteId].name}</td>
                             </tr>
                           }
+                          <tr key='selectedCommuterTableOriginalAddressRow'>
+                            <td>Original Address</td>
+                            <td>{selectedCommuter['originalAddress']}</td>
+                          </tr>
                           {['address', 'neighborhood', 'city', 'county', 'state']
                             .map((field) => (
                               <tr key={`selectedCommuterTable${field}Row`}>

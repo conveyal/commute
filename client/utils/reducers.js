@@ -2,6 +2,16 @@ import update from 'react-addons-update'
 
 import {addToEntityMap, addEntitiesToEntityMap, deleteFromEntityMap, deleteManyFromEntityMap} from './entities'
 
+function addChildEntityToParent (parentMap, newEntity, parentIdField, childPluralName) {
+  return update(parentMap, {
+    [newEntity[parentIdField]]: {
+      [childPluralName]: {
+        $push: [newEntity._id]
+      }
+    }
+  })
+}
+
 /**
  * Make handlers for children creation and deletion events
  *
@@ -15,13 +25,26 @@ export function makeChildrenHandlers (cfg) {
   const reducers = {}
   reducers[`add ${cfg.childSingularName}`] = function (state, action) {
     const newEntity = action.payload
-    return update(state, {
-      [newEntity[cfg.parentIdField]]: {
-        [cfg.childPluralName]: {
-          $push: [newEntity._id]
-        }
-      }
+    return addChildEntityToParent(
+      state,
+      newEntity,
+      cfg.parentIdField,
+      cfg.childPluralName
+    )
+  }
+
+  reducers[`add many ${cfg.childPluralName}`] = function (state, action) {
+    const newEntities = action.payload
+    let updatedState = state
+    newEntities.forEach(newEntity => {
+      updatedState = addChildEntityToParent(
+        updatedState,
+        newEntity,
+        cfg.parentIdField,
+        cfg.childPluralName
+      )
     })
+    return updatedState
   }
 
   reducers[`delete ${cfg.childSingularName}`] = function (state, action) {
@@ -44,7 +67,7 @@ export function makeChildrenHandlers (cfg) {
  *
  * @param  {Object} cfg  An object with name and handlers parameters structured as follows:
  *   - name: must have singular and plural keys with the corresponding strings
- *   - handlers: An array of strings of handlers.  Possible values: ['add', 'delete', 'set', 'set many']
+ *   - handlers: An array of strings of handlers.  Possible values: ['add', 'add many', 'delete', 'set', 'set many']
  * @return {Object}      The generated reducers
  */
 export function makeGenericReducerHandlers (cfg) {
@@ -56,6 +79,12 @@ export function makeGenericReducerHandlers (cfg) {
   if (cfg.handlers.indexOf('add') !== -1) {
     reducers[`add ${cfg.name.singular}`] = function (state, action) {
       return addToEntityMap(state, action.payload)
+    }
+  }
+
+  if (cfg.handlers.indexOf('add many') !== -1) {
+    reducers[`add many ${cfg.name.plural}`] = function (state, action) {
+      return addEntitiesToEntityMap(state, action.payload)
     }
   }
 

@@ -24,7 +24,7 @@ if (env.AUTH0_SIGNING_CERTIFICATE && process.env.NODE_ENV !== 'test') {
     next()
   }
 }
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '50mb' }))
 
 // static assets
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')))

@@ -26,6 +26,8 @@ export default class MarkerCluster extends MapLayer {
   }
 
   componentWillReceiveProps (nextProps) {
+    // Remove layer from map with previously rendered clustered markers
+    this.leafletElement.clearLayers()
     this._addDataToCluster(nextProps)
   }
 
