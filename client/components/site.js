@@ -20,6 +20,7 @@ import {
   formatPercent,
   formatPercentAsStr
 } from '../utils'
+import {pageview} from '../utils/analytics'
 import messages from '../utils/messages'
 import { processSite, downloadMatches } from '../utils/site-common'
 
@@ -56,6 +57,12 @@ export default class Site extends Component {
       mapDisplayMode: 'STANDARD' // STANDARD / FULLSCREEN / HIDDEN
     }
     this._loadDataIfNeeded(this.props)
+    const {isMultiSite} = this.props
+    if (isMultiSite) {
+      pageview('/multi-site')
+    } else {
+      pageview('/site')
+    }
   }
 
   componentWillReceiveProps (nextProps) {

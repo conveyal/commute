@@ -1,4 +1,4 @@
-/* globals FileReader */
+/* globals alert, FileReader */
 
 import {csvParse} from 'd3-dsv'
 import omit from 'lodash.omit'
@@ -8,6 +8,7 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Modal from 'react-modal'
 
 import BackButton from '../containers/back-button'
+import {pageview} from '../utils/analytics'
 
 let uniqueid = 1
 
@@ -23,6 +24,10 @@ export default class AddCommuters extends Component {
 
   state = {
     loading: false
+  }
+
+  componentWillMount () {
+    pageview('/site/bulk-add-commuters')
   }
 
   _handleSubmit = () => {

@@ -11,6 +11,7 @@ import BackButton from '../containers/back-button'
 import FormalFieldGroup from './formal-fieldgroup'
 import Geocoder from './geocoder'
 import {actUponConfirmation, geocodeResultToState, geocodeYupSchema} from '../utils'
+import {pageview} from '../utils/analytics'
 import messages from '../utils/messages'
 import settings from '../utils/settings'
 import Icon from './icon'
@@ -39,11 +40,13 @@ export default class EditSite extends Component {
         errors: {},
         model: {...this.props.site}
       }
+      pageview('/site/edit')
     } else {
       this.state = {
         errors: {},
         model: {}
       }
+      pageview('/site/create')
     }
   }
 
