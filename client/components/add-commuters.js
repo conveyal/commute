@@ -3,7 +3,7 @@
 import {csvParse} from 'd3-dsv'
 import omit from 'lodash.omit'
 import React, {Component, PropTypes} from 'react'
-import {Accordion, Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel, Row} from 'react-bootstrap'
+import {Accordion, Button, Col, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Modal from 'react-modal'
 
@@ -90,14 +90,14 @@ export default class AddCommuters extends Component {
                 </Accordion>
               </Col>
             </Row>
-            {/*}<FormGroup controlId='site-label'>
+            {/* }<FormGroup controlId='site-label'>
               <ControlLabel>Site</ControlLabel>
               <FormControl
                 type='text'
                 value={site.name}
                 disabled
               />
-            </FormGroup>*/}
+            </FormGroup> */}
             <Panel header={(<h3>Upload a File</h3>)} style={{ marginTop: '30px' }}>
               <Row>
                 <Col xs={6}>
@@ -144,8 +144,6 @@ export default class AddCommuters extends Component {
                 </Col>
               </Row>
             </Panel>
-
-
           </Col>
         </Row>
         {this.state.isLoading &&

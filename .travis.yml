@@ -14,8 +14,6 @@ before_script:
 script:
   - yarn run lint
   - yarn run lint-messages
-  - yarn run cover
-  - codecov
   - yarn run build
   - mkdocs build
 after_success:

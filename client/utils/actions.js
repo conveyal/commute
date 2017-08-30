@@ -55,7 +55,6 @@ export default function makeGenericModelActions (cfg) {
   const actions = {}
 
   // make local set actions
-  const addLocally = createAction(`add ${singularName}`)
   const addManyLocally = createAction(`add many ${pluralName}`)
   const deleteLocally = createAction(`delete ${singularName}`)
   const deleteManyLocally = createAction(`delete many ${pluralName}`)
