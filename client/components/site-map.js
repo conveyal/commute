@@ -32,7 +32,6 @@ const homeIconSelected = icon({
 const homeIconSelectedOffset = point(0, -20)
 
 export default class SiteMap extends Component {
-
   static propTypes = {
     activeTab: PropTypes.string,
     commuters: PropTypes.array,
@@ -119,8 +118,21 @@ export default class SiteMap extends Component {
   }
 
   render () {
-    const { activeTab, commuters, isMultiSite, polygonStore, selectedCommuter, site } = this.props
-    const { analysisMode, analysisMapStyle, commuterRingRadius, isochroneCutoff, rideMatchMapStyle, mapDisplayMode, setMapDisplayMode } = this.props
+    const {
+      activeTab,
+      analysisMapStyle,
+      analysisMode,
+      commuterRingRadius,
+      commuters,
+      isMultiSite,
+      isochroneCutoff,
+      mapDisplayMode,
+      polygonStore,
+      rideMatchMapStyle,
+      selectedCommuter,
+      setMapDisplayMode,
+      site
+    } = this.props
 
     const hasCommuters = commuters.length > 0
 
@@ -140,32 +152,34 @@ export default class SiteMap extends Component {
     const clusterMarkers = []
     const commuterRings = []
 
+    function doClusterMarkerWork () {
+      mapLegendProps.html += `<tr>
+        <td>
+          <img src="${homeIconUrl}" />
+        </td>
+        <td>Single Commuter</td>
+      </tr>
+      <tr>
+        <td>
+          <img src="${process.env.STATIC_HOST}assets/cluster.png" style="width: 40px;"/>
+        </td>
+        <td>Cluster of Commuters</td>
+      </tr>`
+
+      commuterMarkers.forEach((marker) => {
+        clusterMarkers.push({
+          id: marker.key,
+          latLng: marker.props.position,
+          markerOptions: marker.props,
+          onClick: marker.props.onClick
+        })
+      })
+    }
+
     if (hasCommuters) {
       if (activeTab === 'ridematches') {
-        if (rideMatchMapStyle === 'normal') {
-          mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
-        } else if (rideMatchMapStyle === 'marker-clusters') {
-          mapLegendProps.html += `<tr>
-            <td>
-              <img src="${homeIconUrl}" />
-            </td>
-            <td>Single Commuter</td>
-          </tr>
-          <tr>
-            <td>
-              <img src="${process.env.STATIC_HOST}assets/cluster.png" style="width: 40px;"/>
-            </td>
-            <td>Cluster of Commuters</td>
-          </tr>`
-
-          commuterMarkers.forEach((marker) => {
-            clusterMarkers.push({
-              id: marker.key,
-              latLng: marker.props.position,
-              markerOptions: marker.props,
-              onClick: marker.props.onClick
-            })
-          })
+        if (rideMatchMapStyle === 'marker-clusters') {
+          doClusterMarkerWork()
         } else if (rideMatchMapStyle === 'heatmap') {
           mapLegendProps.html += `<tr>
             <td
@@ -209,7 +223,7 @@ export default class SiteMap extends Component {
           })
         }
       } else {
-        mapLegendProps.html += `<tr><td><img src="${homeIconUrl}" /></td><td>Commuter</td></tr>`
+        doClusterMarkerWork()
       }
     }
 
@@ -275,10 +289,8 @@ export default class SiteMap extends Component {
           attribution={process.env.LEAFLET_ATTRIBUTION}
           />
         {siteMarkers}
-        {activeTab !== 'ridematches' && commuterMarkers}
-        {activeTab === 'ridematches' && rideMatchMapStyle === 'normal' &&
-          commuterMarkers}
-        {activeTab === 'ridematches' && rideMatchMapStyle === 'marker-clusters' &&
+        {(activeTab !== 'ridematches' ||
+          (activeTab === 'ridematches' && rideMatchMapStyle === 'marker-clusters')) &&
           <MarkerCluster
             newMarkerData={clusterMarkers}
             />

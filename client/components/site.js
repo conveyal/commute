@@ -1,25 +1,27 @@
-import {toCoordinates} from '@conveyal/lonlat'
 import humanizeDuration from 'humanize-duration'
 import React, {Component, PropTypes} from 'react'
 import {Button, ButtonGroup, Col, ControlLabel, FormGroup, Grid, Panel,
   ProgressBar, Row, Tab, Table, Tabs} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Combobox from 'react-widgets/lib/Combobox'
-import {createSelector} from 'reselect'
 import Slider from 'rc-slider'
-import distance from '@turf/distance'
 
 import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
 import FieldGroup from './fieldgroup'
 import Icon from './icon'
-import {actUponConfirmation, arrayCountRenderer, humanizeDistance,
-  formatDistance, formatPercent, formatPercentAsStr} from '../utils'
-import messages from '../utils/messages'
 import SiteMap from './site-map'
 import SiteInfographic from './site-infographic'
-
-import { processSite, downloadMatches } from './site-common'
+import {
+  actUponConfirmation,
+  arrayCountRenderer,
+  humanizeDistance,
+  formatDistance,
+  formatPercent,
+  formatPercentAsStr
+} from '../utils'
+import messages from '../utils/messages'
+import { processSite, downloadMatches } from '../utils/site-common'
 
 export default class Site extends Component {
   static propTypes = {
@@ -275,42 +277,6 @@ export default class Site extends Component {
 
     const processed = processSite(commuters, analysisMode)
 
-    /*const hasCommuters = commuters.length > 0
-    const pctGeocoded = formatPercent(commuters.reduce((accumulator, commuter) => {
-      return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
-    }, 0) / commuters.length)
-    const pctStatsCalculated = formatPercent(commuters.reduce((accumulator, commuter) => {
-      return accumulator + (commuter.modeStats ? 1 : 0)
-    }, 0) / commuters.length)
-    const allCommutersGeocoded = pctGeocoded === 100
-    const allCommutersStatsCalculated = pctStatsCalculated === 100*/
-
-    /************************************************************************
-     summary tab stuff
-    ************************************************************************/
-
-    /*const summaryStats = {}
-
-    if (allCommutersStatsCalculated) {
-      let numWith60MinTransit = 0
-      summaryStats.numWith20MinWalk = 0
-      let numWith30MinBike = 0
-      commuters.forEach((commuter) => {
-        if (commuter.modeStats.TRANSIT.travelTime > -1 &&
-          commuter.modeStats.TRANSIT.travelTime <= 3600) {
-          numWith60MinTransit++
-        }
-
-        if (commuter.modeStats.BICYCLE.travelTime > -1 &&
-          commuter.modeStats.BICYCLE.travelTime <= 1800) {
-          numWith30MinBike++
-        }
-      })
-
-      summaryStats.pctWith60MinTransit = formatPercentAsStr(numWith60MinTransit / commuters.length)
-      summaryStats.pctWith30MinBike = formatPercentAsStr(numWith30MinBike / commuters.length)
-    }*/
-
     /************************************************************************
      commuter tab stuff
     ************************************************************************/
@@ -341,76 +307,6 @@ export default class Site extends Component {
     const analysisSliderStepAndMin = (
       getIsochroneStrategies[analysisMapStyle] === '15-minute isochrones'
     ) ? 900 : 300
-
-    /*const analysisModeStatsLookup = {}
-    const analysisSliderStepAndMin = (
-      getIsochroneStrategies[analysisMapStyle] === '15-minute isochrones'
-    ) ? 900 : 300
-    commuters.forEach((commuter) => {
-      let travelTime
-      if (commuter.modeStats) {
-        travelTime = commuter.modeStats[analysisMode].travelTime
-      } else {
-        travelTime = 'calculating...'
-      }
-      // skip uncreachables
-      if (travelTime === -1) {
-        return
-      }
-      if (!analysisModeStatsLookup[travelTime]) {
-        analysisModeStatsLookup[travelTime] = 0
-      }
-      analysisModeStatsLookup[travelTime]++
-    })
-
-    let cumulative = 0
-    const analysisModeStats = Object.keys(analysisModeStatsLookup)
-      .sort((a, b) => a - b)
-      .map((range) => {
-        const minutes = range / 60
-        const num = analysisModeStatsLookup[range]
-        cumulative += num
-        return {
-          bin: (range === 'calculating...'
-            ? range
-            : `< ${humanizeDuration(minutes * 60 * 1000)}`
-          ),
-          num,
-          cumulative,
-          cumulativePct: cumulative / commuters.length
-        }
-      })*/
-
-    /************************************************************************
-     ridematches tab stuff
-    ************************************************************************/
-    // only do this if all commuters are geocoded
-    /*const ridematches = {}
-    const ridematchingAggregateTable = []
-
-    const addRidematch = (commuterA, commuterB, distance) => {
-      if (!ridematches[commuterA._id]) {
-        ridematches[commuterA._id] = {
-          matches: [],
-          minDistance: distance
-        }
-      }
-      ridematches[commuterA._id].matches.push({
-        commuter: commuterB,
-        distance
-      })
-      if (ridematches[commuterA._id].minDistance > distance) {
-        ridematches[commuterA._id].minDistance = distance
-      }
-    }
-
-    if (allCommutersGeocoded) {
-      const ridematchData = getRidematchData(commuters)
-      ridematches = ridematchData.ridematches
-      ridematchingAggregateTable = ridematchData.ridematchingAggregateTable
-      const upToOneMileBinIdx = 2
-      summaryStats.pctWithRidematch = formatPercentAsStr(ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct)
-    }*/
 
     return (
       <Grid>
@@ -471,431 +367,431 @@ export default class Site extends Component {
           }
           {hasCommuters &&
             <Col xs={this.state.mapDisplayMode === 'HIDDEN' ? 12 : 7}>
-            <Tabs
-              activeKey={activeTab}
-              id='site-tabs'
-              onSelect={this._handleTabSelect}
-              >
-              {this.state.mapDisplayMode === 'HIDDEN' &&
-                <div style={{ position: 'absolute', right: '15px', top: '0px' }}>
-                  <Button bsSize='small' onClick={() => this.setState({ mapDisplayMode: 'STANDARD' })}>
-                    <Icon type='map' /> Show Map
-                  </Button>
-                </div>
-              }
-              <Tab eventKey='summary' title={<span><Icon type='info-circle' /> Summary</span>}>
-                {/***************************
-                  Summary Tab
-                ***************************/}
-                {!processed.allCommutersGeocoded &&
-                  <ProgressBar
-                    striped
-                    now={processed.pctGeocoded}
-                    label='Geocoding Commuters'
-                    />
+              <Tabs
+                activeKey={activeTab}
+                id='site-tabs'
+                onSelect={this._handleTabSelect}
+                >
+                {this.state.mapDisplayMode === 'HIDDEN' &&
+                  <div style={{ position: 'absolute', right: '15px', top: '0px' }}>
+                    <Button bsSize='small' onClick={() => this.setState({ mapDisplayMode: 'STANDARD' })}>
+                      <Icon type='map' /> Show Map
+                    </Button>
+                  </div>
                 }
-                {processed.allCommutersGeocoded && !processed.allCommutersStatsCalculated &&
-                  <ProgressBar
-                    striped
-                    now={processed.pctStatsCalculated}
-                    label='Analyzing Commutes'
-                    />
-                }
-                {processed.allCommutersGeocoded && processed.allCommutersStatsCalculated &&
+                <Tab eventKey='summary' title={<span><Icon type='info-circle' /> Summary</span>}>
+                  {/***************************
+                    Summary Tab
+                  ***************************/}
+                  {!processed.allCommutersGeocoded &&
+                    <ProgressBar
+                      striped
+                      now={processed.pctGeocoded}
+                      label='Geocoding Commuters'
+                      />
+                  }
+                  {processed.allCommutersGeocoded && !processed.allCommutersStatsCalculated &&
+                    <ProgressBar
+                      striped
+                      now={processed.pctStatsCalculated}
+                      label='Analyzing Commutes'
+                      />
+                  }
+                  {processed.allCommutersGeocoded && processed.allCommutersStatsCalculated &&
 
-                  <Row className='summary-tab'>
+                    <Row className='summary-tab'>
+                      <Row>
+                        <Col xs={12}>
+                          <Panel header={(<h3>Printable Report</h3>)}>
+                            <Col xs={5}>
+                              <ButtonLink
+                                bsStyle='primary'
+                                bsSize='large'
+                                to={`/site/${site._id}/create-report`}>
+                                <Icon type='print' />Printable Report
+                              </ButtonLink>
+                            </Col>
+                            <Col xs={7}>
+                              <Icon type='info-circle' /> Click "Printable Report" to view a summary version of this site analysis suitable for sharing with partners.
+                            </Col>
+                          </Panel>
+                        </Col>
+                      </Row>
+                      <SiteInfographic
+                        commuterCount={commuters.length}
+                        summaryStats={processed.summaryStats}
+                        isMultiSite={isMultiSite}
+                      />
+                    </Row>
+                  }
+                </Tab>
+                {isMultiSite &&
+                  <Tab eventKey='sites' title='Sites'>
+                    {/***************************
+                      Sites Tab
+                    ***************************/}
                     <Row>
                       <Col xs={12}>
-                        <Panel header={(<h3>Printable Report</h3>)}>
-                          <Col xs={5}>
-                            <ButtonLink
-                              bsStyle='primary'
-                              bsSize='large'
-                              to={`/site/${site._id}/create-report`}>
-                              <Icon type='print' />Printable Report
-                            </ButtonLink>
-                          </Col>
-                          <Col xs={7}>
-                            <Icon type='info-circle' /> Click "Printable Report" to view a summary version of this site analysis suitable for sharing with partners.
-                          </Col>
-                        </Panel>
+                        <BootstrapTable data={sites}>
+                          <TableHeaderColumn dataField='_id' isKey hidden />
+                          <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                          <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+                          <TableHeaderColumn
+                            dataField='commuters'
+                            dataFormat={arrayCountRenderer}
+                            >
+                            # of Commuters
+                          </TableHeaderColumn>
+                        </BootstrapTable>
                       </Col>
                     </Row>
-                    <SiteInfographic
-                      commuterCount={commuters.length}
-                      summaryStats={processed.summaryStats}
-                      isMultiSite={isMultiSite}
-                    />
-                  </Row>
+                  </Tab>
                 }
-              </Tab>
-              {isMultiSite &&
-                <Tab eventKey='sites' title='Sites'>
+                <Tab eventKey='commuters' title={<span><Icon type='users' /> Commuters</span>}>
                   {/***************************
-                    Sites Tab
+                    Commuters Tab
                   ***************************/}
                   <Row>
                     <Col xs={12}>
-                      <BootstrapTable data={sites}>
-                        <TableHeaderColumn dataField='_id' isKey hidden />
-                        <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-                        <TableHeaderColumn
-                          dataField='commuters'
-                          dataFormat={arrayCountRenderer}
-                          >
-                          # of Commuters
-                        </TableHeaderColumn>
-                      </BootstrapTable>
+                      {!isMultiSite && createCommuterButtons}
+                      {!isMultiSite &&
+                        <span className='pull-right'>
+                          <Table condensed bordered>
+                            <tbody>
+                              <tr>
+                                <td>% of commuters geocoded:</td>
+                                <td>{processed.pctGeocoded}</td>
+                              </tr>
+                              <tr>
+                                <td>% of commutes calculated:</td>
+                                <td>{processed.pctStatsCalculated}</td>
+                              </tr>
+                            </tbody>
+                          </Table>
+                        </span>
+                      }
+                      {isMultiSite &&
+                        <span className='pull-right'>
+                          <Table condensed bordered>
+                            <tbody>
+                              <tr>
+                                <td>% of commuters geocoded:</td>
+                                <td>{processed.pctGeocoded}</td>
+                                <td>% of commutes calculated:</td>
+                                <td>{processed.pctStatsCalculated}</td>
+                              </tr>
+                            </tbody>
+                          </Table>
+                        </span>
+                      }
+                      <div style={{ clear: 'both' }}>
+                        {isMultiSite &&
+                          <BootstrapTable
+                            data={commuters}
+                            pagination={commuters.length > 10}
+                            >
+                            <TableHeaderColumn dataField='_id' isKey hidden />
+                            <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                            <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+                            <TableHeaderColumn dataFormat={this._commuterSiteNameRenderer}>Site</TableHeaderColumn>
+                          </BootstrapTable>
+                        }
+                        {!isMultiSite &&
+                          <BootstrapTable
+                            data={commuters}
+                            pagination={commuters.length > 10}
+                            >
+                            <TableHeaderColumn dataField='_id' isKey hidden />
+                            <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                            <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
+                            <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Accuracy</TableHeaderColumn>
+                            <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
+                          </BootstrapTable>
+                        }
+                      </div>
                     </Col>
                   </Row>
                 </Tab>
-              }
-              <Tab eventKey='commuters' title={<span><Icon type='users' /> Commuters</span>}>
-                {/***************************
-                  Commuters Tab
-                ***************************/}
-                <Row>
-                  <Col xs={12}>
-                    {!isMultiSite && createCommuterButtons}
-                    {!isMultiSite &&
-                      <span className='pull-right'>
-                        <Table condensed bordered>
-                          <tbody>
-                            <tr>
-                              <td>% of commuters geocoded:</td>
-                              <td>{processed.pctGeocoded}</td>
-                            </tr>
-                            <tr>
-                              <td>% of commutes calculated:</td>
-                              <td>{processed.pctStatsCalculated}</td>
-                            </tr>
-                          </tbody>
-                        </Table>
-                      </span>
-                    }
-                    {isMultiSite &&
-                      <span className='pull-right'>
-                        <Table condensed bordered>
-                          <tbody>
-                            <tr>
-                              <td>% of commuters geocoded:</td>
-                              <td>{processed.pctGeocoded}</td>
-                              <td>% of commutes calculated:</td>
-                              <td>{processed.pctStatsCalculated}</td>
-                            </tr>
-                          </tbody>
-                        </Table>
-                      </span>
-                    }
-                    <div style={{ clear: 'both' }}>
-                      {isMultiSite &&
-                        <BootstrapTable
-                          data={commuters}
-                          pagination={commuters.length > 10}
-                          >
-                          <TableHeaderColumn dataField='_id' isKey hidden />
-                          <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                          <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-                          <TableHeaderColumn dataFormat={this._commuterSiteNameRenderer}>Site</TableHeaderColumn>
-                        </BootstrapTable>
-                      }
-                      {!isMultiSite &&
-                        <BootstrapTable
-                          data={commuters}
-                          pagination={commuters.length > 10}
-                          >
-                          <TableHeaderColumn dataField='_id' isKey hidden />
-                          <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                          <TableHeaderColumn dataField='address'>Address</TableHeaderColumn>
-                          <TableHeaderColumn dataFormat={geocodeConfidenceRenderer}>Geocode Accuracy</TableHeaderColumn>
-                          <TableHeaderColumn dataFormat={this._commuterToolsRenderer}>Tools</TableHeaderColumn>
-                        </BootstrapTable>
-                      }
-                    </div>
-                  </Col>
-                </Row>
-              </Tab>
-              <Tab eventKey='analysis' title={<span><Icon type='bar-chart' /> Analysis</span>}>
-                {/***************************
-                  Analysis Tab
-                ***************************/}
-                <Row>
-                  <Col xs={6}>
-                    <FieldGroup
-                      label='Mode'
-                      name='analysisMode'
-                      onChange={this._handleStateChange}
-                      componentClass='select'
-                      value={analysisMode}
-                      >
-                      <option value='TRANSIT'>Transit</option>
-                      <option value='BICYCLE'>Bicycle</option>
-                      <option value='WALK'>Walk</option>
-                      <option value='CAR'>Carpool</option>
-                    </FieldGroup>
-                  </Col>
-                  {!isMultiSite &&
+                <Tab eventKey='analysis' title={<span><Icon type='bar-chart' /> Analysis</span>}>
+                  {/***************************
+                    Analysis Tab
+                  ***************************/}
+                  <Row>
                     <Col xs={6}>
                       <FieldGroup
-                        label='Map Style'
-                        name='analysisMapStyle'
+                        label='Mode'
+                        name='analysisMode'
                         onChange={this._handleStateChange}
                         componentClass='select'
-                        value={analysisMapStyle}
+                        value={analysisMode}
                         >
-                        <option value='blue-solid'>Single Color Isochrone</option>
-                        <option value='inverted'>Inverted Isochrone</option>
-                        <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
-                        <option value='blue-incremental'>Blueish Isochrone (5 minute intervals)</option>
-                        <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone (5 minute intervals)</option>
+                        <option value='TRANSIT'>Transit</option>
+                        <option value='BICYCLE'>Bicycle</option>
+                        <option value='WALK'>Walk</option>
+                        <option value='CAR'>Carpool</option>
                       </FieldGroup>
                     </Col>
-                  }
-                </Row>
-                <Row>
-                  <Col xs={12}>
                     {!isMultiSite &&
-                      <Panel>
-                        <p><b>Maximum Travel Time</b></p>
-                        <Slider
-                          defaultValue={7200}
-                          handle={
-                            <CustomHandle
-                              formatter={
-                                // convert minutes to milliseconds
-                                (v) => humanizeDuration(v * 1000, { round: true })
-                              }
-                              />
-                          }
-                          max={7200}
-                          min={analysisSliderStepAndMin}
-                          onChange={this._handleAnalysisTimeChange}
-                          step={analysisSliderStepAndMin}
-                          />
-                      </Panel>
-                    }
-                  </Col>
-                </Row>
-                <h4>Commuter Travel Time Summary ({capitalize(analysisMode.toLowerCase())})</h4>
-                <p>
-                  This table provides a summary of the distribution of travel times to work.
-                  Each row shows how many commuters can commute to work using the currently
-                  selected mode up to the travel time listed.
-                </p>
-                <BootstrapTable data={processed.analysisModeStats}>
-                  <TableHeaderColumn dataField='bin' isKey width='150'>Travel Time to<br/>Work (minutes)</TableHeaderColumn>
-                  <TableHeaderColumn dataField='cumulative' width='100'>Number of<br/>Commuters</TableHeaderColumn>
-                  <TableHeaderColumn
-                    dataField='cumulativePct'
-                    dataFormat={percentBar}
-                    >
-                    Percent of Commuters
-                  </TableHeaderColumn>
-                </BootstrapTable>
-              </Tab>
-              <Tab eventKey='ridematches' title={<span><Icon type='car' /> Matches</span>}>
-                {/***************************
-                  Ridematches Tab
-                ***************************/}
-                {!processed.allCommutersGeocoded &&
-                  <ProgressBar
-                    striped
-                    now={processed.pctGeocoded}
-                    label='Geocoding Commuters'
-                    />
-                }
-                {processed.allCommutersGeocoded &&
-                  <div>
-                    <FieldGroup
-                      label='Map Style'
-                      name='rideMatchMapStyle'
-                      onChange={this._handleStateChange}
-                      componentClass='select'
-                      value={rideMatchMapStyle}
-                      >
-                      <option value='marker-clusters'>Clusters</option>
-                      <option value='heatmap'>Heatmap</option>
-                      <option value='commuter-rings'>Commuter Rings</option>
-                    </FieldGroup>
-                    {rideMatchMapStyle === 'commuter-rings' &&
-                      <Panel>
-                        <p><b>Commuter Ring Size</b></p>
-                        <Slider
-                          defaultValue={1}
-                          handle={
-                            <CustomHandle
-                              formatter={
-                                // convert minutes to milliseconds
-                                (v) => humanizeDistance(v)
-                              }
-                              />
-                          }
-                          max={20}
-                          min={0.25}
-                          onChange={this._handleRidematchRadiusChange}
-                          step={0.25}
-                          />
-                      </Panel>
-                    }
-                    <h4>Ridematch Summary</h4>
-                    <p>
-                      This table provides a summary of the distribution of commuter ridematches.
-                      Each row shows how many commuters have another commuter located within the
-                      current distance listed (as the crow flies).
-                    </p>
-                    <BootstrapTable data={processed.ridematchingAggregateTable}>
-                      <TableHeaderColumn dataField='bin' isKey>Ridematch radius (miles)</TableHeaderColumn>
-                      <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
-                      <TableHeaderColumn
-                        dataField='cumulativePct'
-                        dataFormat={percentBar}
-                        >
-                        Percent of Commuters
-                      </TableHeaderColumn>
-                    </BootstrapTable>
-
-                    <Row>
-                      <Col xs={12}>
-                        <Panel header={(<h3>Download Match Report</h3>)} className='download-report-panel'>
-                          <Col xs={5}>
-                            <Button
-                              bsStyle='primary'
-                              bsSize='large'
-                              onClick={() => {
-                                downloadMatches(processed.ridematches)
-                              }}
-                            >
-                              <Icon type='download' /> Download Matches
-                            </Button>
-                          </Col>
-                          <Col xs={7}>
-                            <Icon type='info-circle' /> Click "Download Matches" to download a the raw individual ridematch data as a CSV-format spreadsheet.
-                          </Col>
-                        </Panel>
+                      <Col xs={6}>
+                        <FieldGroup
+                          label='Map Style'
+                          name='analysisMapStyle'
+                          onChange={this._handleStateChange}
+                          componentClass='select'
+                          value={analysisMapStyle}
+                          >
+                          <option value='blue-solid'>Single Color Isochrone</option>
+                          <option value='inverted'>Inverted Isochrone</option>
+                          <option value='blue-incremental-15-minute'>Blueish Isochrone (15 minute intervals)</option>
+                          <option value='blue-incremental'>Blueish Isochrone (5 minute intervals)</option>
+                          <option value='green-red-diverging'>Green > Yellow > Orange > Red Isochrone (5 minute intervals)</option>
+                        </FieldGroup>
                       </Col>
-                    </Row>
-                  </div>
-                }
-              </Tab>
-              <Tab eventKey='individual-analysis' title={<span><Icon type='user' /> Profiles</span>}>
-                {/***************************
-                  Individual Analysis Tab
-                ***************************/}
-                <FormGroup
-                  controlId={`individual-commuter-name`}
-                  >
-                  <ControlLabel>Commuter</ControlLabel>
-                  <Combobox
-                    data={commuters}
-                    onChange={this._handleSelectCommuter}
-                    placeholder='Select a commuter'
-                    suggest
-                    textField='name'
-                    value={selectedCommuter}
-                    valueField='_id'
-                    />
-                </FormGroup>
-                {selectedCommuter &&
-                  <Button onClick={() => this._handleSelectCommuter()}>
-                    <Icon type='close' />
-                    <span>Deselect commuter</span>
-                  </Button>
-                }
-                {selectedCommuter &&
+                    }
+                  </Row>
                   <Row>
                     <Col xs={12}>
-                      <h4>{selectedCommuter.name}</h4>
-                    </Col>
-                    <Col xs={12} sm={6}>
-                      <h5>Location</h5>
-                      <table className='table table-bordered'>
-                        <tbody>
-                          {isMultiSite &&
-                            <tr key='selectedCommuterTableSiteRow'>
-                              <td>Site</td>
-                              <td>{siteStore[selectedCommuter.siteId].name}</td>
-                            </tr>
-                          }
-                          <tr key='selectedCommuterTableOriginalAddressRow'>
-                            <td>Original Address</td>
-                            <td>{selectedCommuter['originalAddress']}</td>
-                          </tr>
-                          {['address', 'neighborhood', 'city', 'county', 'state']
-                            .map((field) => (
-                              <tr key={`selectedCommuterTable${field}Row`}>
-                                <td>{capitalize(field)}</td>
-                                <td>{selectedCommuter[field]}</td>
-                              </tr>
-                            ))
-                          }
-                          <tr key='selectedCommuterTableGeocodeConfidenceRow'>
-                            <td>Geocode Accuracy</td>
-                            <td>{geocodeConfidenceRenderer(null, selectedCommuter)}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </Col>
-                    <Col xs={12} sm={6}>
-                      <h5>Commuting Options</h5>
-                      <table className='table table-bordered'>
-                        <tbody>
-                          {['bicycle', 'car', 'transit', 'walk']
-                            .map((mode) => (
-                              <tr key={`selectedCommuterTable${mode}Row`}>
-                                <td>{capitalize(mode)}</td>
-                                <td>
-                                  {
-                                    getTravelTime(selectedCommuter.modeStats[mode.toUpperCase()]) +
-                                    (mode === 'car' ? ' (without traffic)' : '')
-                                  }
-                                </td>
-                              </tr>
-                            ))
-                          }
-                        </tbody>
-                      </table>
-                    </Col>
-                    <Col xs={12} sm={6}>
-                      <h5>Ridematches</h5>
-                      {!processed.ridematches[selectedCommuter._id] &&
-                        <p>No ridematches within 5 miles of this commuter</p>
-                      }
-                      {processed.ridematches[selectedCommuter._id] &&
-                        <div>
-                          <p>{`${processed.ridematches[selectedCommuter._id].matches.length} total matches`}</p>
-                          <BootstrapTable
-                            data={processed.ridematches[selectedCommuter._id].matches
-                              .map((match) => {
-                                return {
-                                  distance: match.distance,
-                                  id: match.commuter._id,
-                                  name: match.commuter.name
+                      {!isMultiSite &&
+                        <Panel>
+                          <p><b>Maximum Travel Time</b></p>
+                          <Slider
+                            defaultValue={7200}
+                            handle={
+                              <CustomHandle
+                                formatter={
+                                  // convert minutes to milliseconds
+                                  (v) => humanizeDuration(v * 1000, { round: true })
                                 }
-                              })}
-                            options={{
-                              defaultSortName: 'distance',
-                              defaultSortOrder: 'asc'
-                            }}
-                            pagination={processed.ridematches[selectedCommuter._id].matches.length > 10}
-                            >
-                            <TableHeaderColumn dataField='id' isKey hidden />
-                            <TableHeaderColumn dataField='name' dataSort>Matched Commuter</TableHeaderColumn>
-                            <TableHeaderColumn
-                              dataField='distance'
-                              dataFormat={formatDistance}
-                              dataSort
-                              >
-                              Distance Between Commuters
-                            </TableHeaderColumn>
-                          </BootstrapTable>
-                        </div>
+                                />
+                            }
+                            max={7200}
+                            min={analysisSliderStepAndMin}
+                            onChange={this._handleAnalysisTimeChange}
+                            step={analysisSliderStepAndMin}
+                            />
+                        </Panel>
                       }
                     </Col>
                   </Row>
-                }
-              </Tab>
-            </Tabs>
+                  <h4>Commuter Travel Time Summary ({capitalize(analysisMode.toLowerCase())})</h4>
+                  <p>
+                    This table provides a summary of the distribution of travel times to work.
+                    Each row shows how many commuters can commute to work using the currently
+                    selected mode up to the travel time listed.
+                  </p>
+                  <BootstrapTable data={processed.analysisModeStats}>
+                    <TableHeaderColumn dataField='bin' isKey width='150'>Travel Time to<br />Work (minutes)</TableHeaderColumn>
+                    <TableHeaderColumn dataField='cumulative' width='100'>Number of<br />Commuters</TableHeaderColumn>
+                    <TableHeaderColumn
+                      dataField='cumulativePct'
+                      dataFormat={percentBar}
+                      >
+                      Percent of Commuters
+                    </TableHeaderColumn>
+                  </BootstrapTable>
+                </Tab>
+                <Tab eventKey='ridematches' title={<span><Icon type='car' /> Matches</span>}>
+                  {/***************************
+                    Ridematches Tab
+                  ***************************/}
+                  {!processed.allCommutersGeocoded &&
+                    <ProgressBar
+                      striped
+                      now={processed.pctGeocoded}
+                      label='Geocoding Commuters'
+                      />
+                  }
+                  {processed.allCommutersGeocoded &&
+                    <div>
+                      <FieldGroup
+                        label='Map Style'
+                        name='rideMatchMapStyle'
+                        onChange={this._handleStateChange}
+                        componentClass='select'
+                        value={rideMatchMapStyle}
+                        >
+                        <option value='marker-clusters'>Clusters</option>
+                        <option value='heatmap'>Heatmap</option>
+                        <option value='commuter-rings'>Commuter Rings</option>
+                      </FieldGroup>
+                      {rideMatchMapStyle === 'commuter-rings' &&
+                        <Panel>
+                          <p><b>Commuter Ring Size</b></p>
+                          <Slider
+                            defaultValue={1}
+                            handle={
+                              <CustomHandle
+                                formatter={
+                                  // convert minutes to milliseconds
+                                  (v) => humanizeDistance(v)
+                                }
+                                />
+                            }
+                            max={20}
+                            min={0.25}
+                            onChange={this._handleRidematchRadiusChange}
+                            step={0.25}
+                            />
+                        </Panel>
+                      }
+                      <h4>Ridematch Summary</h4>
+                      <p>
+                        This table provides a summary of the distribution of commuter ridematches.
+                        Each row shows how many commuters have another commuter located within the
+                        current distance listed (as the crow flies).
+                      </p>
+                      <BootstrapTable data={processed.ridematchingAggregateTable}>
+                        <TableHeaderColumn dataField='bin' isKey>Ridematch radius (miles)</TableHeaderColumn>
+                        <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
+                        <TableHeaderColumn
+                          dataField='cumulativePct'
+                          dataFormat={percentBar}
+                          >
+                          Percent of Commuters
+                        </TableHeaderColumn>
+                      </BootstrapTable>
+
+                      <Row>
+                        <Col xs={12}>
+                          <Panel header={(<h3>Download Match Report</h3>)} className='download-report-panel'>
+                            <Col xs={5}>
+                              <Button
+                                bsStyle='primary'
+                                bsSize='large'
+                                onClick={() => {
+                                  downloadMatches(processed.ridematches)
+                                }}
+                              >
+                                <Icon type='download' /> Download Matches
+                              </Button>
+                            </Col>
+                            <Col xs={7}>
+                              <Icon type='info-circle' /> Click "Download Matches" to download a the raw individual ridematch data as a CSV-format spreadsheet.
+                            </Col>
+                          </Panel>
+                        </Col>
+                      </Row>
+                    </div>
+                  }
+                </Tab>
+                <Tab eventKey='individual-analysis' title={<span><Icon type='user' /> Profiles</span>}>
+                  {/***************************
+                    Individual Analysis Tab
+                  ***************************/}
+                  <FormGroup
+                    controlId={`individual-commuter-name`}
+                    >
+                    <ControlLabel>Commuter</ControlLabel>
+                    <Combobox
+                      data={commuters}
+                      onChange={this._handleSelectCommuter}
+                      placeholder='Select a commuter'
+                      suggest
+                      textField='name'
+                      value={selectedCommuter}
+                      valueField='_id'
+                      />
+                  </FormGroup>
+                  {selectedCommuter &&
+                    <Button onClick={() => this._handleSelectCommuter()}>
+                      <Icon type='close' />
+                      <span>Deselect commuter</span>
+                    </Button>
+                  }
+                  {selectedCommuter &&
+                    <Row>
+                      <Col xs={12}>
+                        <h4>{selectedCommuter.name}</h4>
+                      </Col>
+                      <Col xs={12} sm={6}>
+                        <h5>Location</h5>
+                        <table className='table table-bordered'>
+                          <tbody>
+                            {isMultiSite &&
+                              <tr key='selectedCommuterTableSiteRow'>
+                                <td>Site</td>
+                                <td>{siteStore[selectedCommuter.siteId].name}</td>
+                              </tr>
+                            }
+                            <tr key='selectedCommuterTableOriginalAddressRow'>
+                              <td>Original Address</td>
+                              <td>{selectedCommuter['originalAddress']}</td>
+                            </tr>
+                            {['address', 'neighborhood', 'city', 'county', 'state']
+                              .map((field) => (
+                                <tr key={`selectedCommuterTable${field}Row`}>
+                                  <td>{capitalize(field)}</td>
+                                  <td>{selectedCommuter[field]}</td>
+                                </tr>
+                              ))
+                            }
+                            <tr key='selectedCommuterTableGeocodeConfidenceRow'>
+                              <td>Geocode Accuracy</td>
+                              <td>{geocodeConfidenceRenderer(null, selectedCommuter)}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </Col>
+                      <Col xs={12} sm={6}>
+                        <h5>Commuting Options</h5>
+                        <table className='table table-bordered'>
+                          <tbody>
+                            {['bicycle', 'car', 'transit', 'walk']
+                              .map((mode) => (
+                                <tr key={`selectedCommuterTable${mode}Row`}>
+                                  <td>{capitalize(mode)}</td>
+                                  <td>
+                                    {
+                                      getTravelTime(selectedCommuter.modeStats[mode.toUpperCase()]) +
+                                      (mode === 'car' ? ' (without traffic)' : '')
+                                    }
+                                  </td>
+                                </tr>
+                              ))
+                            }
+                          </tbody>
+                        </table>
+                      </Col>
+                      <Col xs={12} sm={6}>
+                        <h5>Ridematches</h5>
+                        {!processed.ridematches[selectedCommuter._id] &&
+                          <p>No ridematches within 5 miles of this commuter</p>
+                        }
+                        {processed.ridematches[selectedCommuter._id] &&
+                          <div>
+                            <p>{`${processed.ridematches[selectedCommuter._id].matches.length} total matches`}</p>
+                            <BootstrapTable
+                              data={processed.ridematches[selectedCommuter._id].matches
+                                .map((match) => {
+                                  return {
+                                    distance: match.distance,
+                                    id: match.commuter._id,
+                                    name: match.commuter.name
+                                  }
+                                })}
+                              options={{
+                                defaultSortName: 'distance',
+                                defaultSortOrder: 'asc'
+                              }}
+                              pagination={processed.ridematches[selectedCommuter._id].matches.length > 10}
+                              >
+                              <TableHeaderColumn dataField='id' isKey hidden />
+                              <TableHeaderColumn dataField='name' dataSort>Matched Commuter</TableHeaderColumn>
+                              <TableHeaderColumn
+                                dataField='distance'
+                                dataFormat={formatDistance}
+                                dataSort
+                                >
+                                Distance Between Commuters
+                              </TableHeaderColumn>
+                            </BootstrapTable>
+                          </div>
+                        }
+                      </Col>
+                    </Row>
+                  }
+                </Tab>
+              </Tabs>
             </Col>
           }
           {/***************************
@@ -909,7 +805,8 @@ export default class Site extends Component {
                 left: 0,
                 bottom: 0,
                 right: 0
-              } : {height: '600px', marginTop: '1em', marginBottom: '1em'} }>
+              } : {height: '600px', marginTop: '1em', marginBottom: '1em'}}
+                >
                 <SiteMap ref='map'
                   commuters={commuters}
                   isMultiSite={isMultiSite}

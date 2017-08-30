@@ -1,10 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 
+import { processSite } from '../utils/site-common'
 import SiteMap from './site-map'
 import SiteInfographic from './site-infographic'
-
-import { processSite } from './site-common'
 
 export default class SiteReport extends Component {
   static propTypes = {
