@@ -18,7 +18,7 @@ export default class AddCommuters extends Component {
     createCommuters: PropTypes.func.isRequired,
 
     // props
-    existingCommuters: PropTypes.array.isRequired,
+    commuters: PropTypes.array.isRequired,
     site: PropTypes.object.isRequired
   }
 
@@ -66,7 +66,7 @@ export default class AddCommuters extends Component {
   }
 
   render () {
-    const {existingCommuters, site} = this.props
+    const {commuters, site} = this.props
     const {newCommuters} = this.state ? this.state : {}
     const newCommutersUploaded = newCommuters && newCommuters.length > 0
     return (
@@ -79,17 +79,17 @@ export default class AddCommuters extends Component {
             </h3>
             <Row style={{ marginTop: '20px' }}>
               <Col xs={6}>
-                This Site currently includes <b>{existingCommuters.length}</b> commuters. To view individual names and address of current commuters, expand the preview panel to the right. To add new commuters, use the "Upload" button below.
+                This Site currently includes <b>{commuters.length}</b> commuters. To view individual names and address of current commuters, expand the preview panel to the right. To add new commuters, use the "Upload" button below.
               </Col>
               <Col xs={6}>
                 <Accordion>
                   <Panel
-                    header={`${existingCommuters.length} Existing Commuters`}
+                    header={`${commuters.length} Existing Commuters`}
                     bsStyle='info'
                     eventKey='1'
                     >
                     <CommuterTable
-                      commuters={existingCommuters}
+                      commuters={commuters}
                       />
                   </Panel>
                 </Accordion>
@@ -151,7 +151,7 @@ export default class AddCommuters extends Component {
             </Panel>
           </Col>
         </Row>
-        {this.state.isLoading &&
+        {this.state.loading &&
           <Modal>
             <p>Saving commuters, please wait...</p>
           </Modal>

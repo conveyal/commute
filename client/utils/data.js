@@ -5,6 +5,47 @@ import distance from '@turf/distance'
 
 import {formatPercent, formatPercentAsStr} from '../utils'
 
+export function downloadMatches (ridematches) {
+  let csvContent = 'data:text/csv;charset=utf-8,'
+  csvContent +=
+    'c1_name,c1_addr,c1_confidence,c2_name,c2_addr,c2_confidence,distance\n'
+
+  const matchKeys = Object.keys(ridematches)
+  if (matchKeys.length > 0) {
+    matchKeys.forEach(key => {
+      const ridematch = ridematches[key]
+      if (ridematch.matches.length > 0) {
+        ridematch.matches.forEach(m => {
+          const row = []
+          row.push(ridematch.commuter.name)
+          row.push(`"${ridematch.commuter.address}"`)
+          row.push(ridematch.commuter.geocodeConfidence)
+          row.push(m.commuter.name)
+          row.push(`"${m.commuter.address}"`)
+          row.push(m.commuter.geocodeConfidence)
+          row.push(m.distance)
+
+          const rowText = row.join(',')
+          csvContent += rowText + '\n'
+        })
+      }
+    })
+  }
+
+  var encodedUri = encodeURI(csvContent)
+  var link = document.createElement('a')
+  link.setAttribute('href', encodedUri)
+  link.setAttribute('download', 'matches.csv')
+  document.body.appendChild(link) // Required for FF
+  link.click()
+}
+
+/**
+ * Function to calculate common stats for a group of commuters
+ *
+ * @param {Array} commuters
+ * @param {string} analysisMode
+ */
 export const processSite = createSelector(
   (commuters, analysisMode) => commuters,
   (commuters, analysisMode) => analysisMode,
@@ -93,8 +134,6 @@ export const processSite = createSelector(
       })
 
     // rideshare stats
-
-    // only do this if all commuters are geocoded
     const ridematches = {}
     const ridematchingAggregateTable = []
 
@@ -193,38 +232,3 @@ export const processSite = createSelector(
     }
   }
 )
-
-export function downloadMatches (ridematches) {
-  let csvContent = 'data:text/csv;charset=utf-8,'
-  csvContent +=
-    'c1_name,c1_addr,c1_confidence,c2_name,c2_addr,c2_confidence,distance\n'
-
-  const matchKeys = Object.keys(ridematches)
-  if (matchKeys.length > 0) {
-    matchKeys.forEach(key => {
-      const ridematch = ridematches[key]
-      if (ridematch.matches.length > 0) {
-        ridematch.matches.forEach(m => {
-          const row = []
-          row.push(ridematch.commuter.name)
-          row.push(`"${ridematch.commuter.address}"`)
-          row.push(ridematch.commuter.geocodeConfidence)
-          row.push(m.commuter.name)
-          row.push(`"${m.commuter.address}"`)
-          row.push(m.commuter.geocodeConfidence)
-          row.push(m.distance)
-
-          const rowText = row.join(',')
-          csvContent += rowText + '\n'
-        })
-      }
-    })
-  }
-
-  var encodedUri = encodeURI(csvContent)
-  var link = document.createElement('a')
-  link.setAttribute('href', encodedUri)
-  link.setAttribute('download', 'matches.csv')
-  document.body.appendChild(link) // Required for FF
-  link.click()
-}

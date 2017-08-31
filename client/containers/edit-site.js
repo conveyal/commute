@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import multiSiteActions from '../actions/multi-site'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
+import makeDataDependentComponent from '../components/data-dependent-component'
 import EditSite from '../components/edit-site'
 
 function mapStateToProps (state, props) {
@@ -22,14 +23,15 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    create: (opts) => dispatch(siteActions.create(opts)),
-    deletePolygons: (opts) => dispatch(polygonActions.deleteMany(opts)),
-    deleteSite: (opts) => dispatch(siteActions.delete(opts)),
-    deleteSiteFromMultiSites: (opts) => dispatch(multiSiteActions.deleteSiteFromMultiSites(opts)),
-    updateSite: (opts) => dispatch(siteActions.update(opts))
-  }
+const mapDispatchToProps = {
+  create: siteActions.create,
+  deletePolygons: polygonActions.deleteMany,
+  deleteSite: siteActions.delete,
+  deleteSiteFromMultiSites: multiSiteActions.deleteSiteFromMultiSites,
+  loadSite: siteActions.loadOne,
+  updateSite: siteActions.update
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditSite)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  makeDataDependentComponent('site-only', EditSite)
+)

@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
-import { Grid, Row, Col, Button, ButtonToolbar, Panel, Form, ControlLabel, FormGroup, FormControl } from 'react-bootstrap'
+import { Grid, Row, Col,
+  Button, ButtonToolbar, Panel, Form, ControlLabel, FormGroup, FormControl } from 'react-bootstrap'
 
 import ButtonLink from './button-link'
 import Icon from './icon'
@@ -31,16 +32,13 @@ export default class SiteCreateReport extends Component {
     updateSite: PropTypes.func
   }
 
-  constructor () {
-    super()
-    this.state = { }
-  }
+  state = {}
 
   componentWillMount () {
     const { site, updateSite } = this.props
 
-    // add the default configuration if needed
     if (!site.reportConfig || !site.reportConfig.sections) {
+      // add the default configuration if needed
       site.reportConfig = defaultConfig
       updateSite(site)
     }

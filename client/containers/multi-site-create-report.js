@@ -15,7 +15,6 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    loadSite: (opts) => dispatch(siteActions.loadOne(opts)),
     updateSite: (opts) => dispatch(siteActions.update(opts, 'none'))
   }
 }

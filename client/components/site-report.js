@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 
-import { processSite } from '../utils/site-common'
+import { processSite } from '../utils/data'
 import SiteMap from './site-map'
 import SiteInfographic from './site-infographic'
 

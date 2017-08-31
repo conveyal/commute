@@ -7,6 +7,7 @@ import ButtonLink from './button-link'
 import Icon from './icon'
 import HelpPopover from './help-popover'
 import {actUponConfirmation, arrayCountRenderer} from '../utils'
+import {pageview} from '../utils/analytics'
 import messages from '../utils/messages'
 
 export default class UserHome extends Component {
@@ -27,6 +28,7 @@ export default class UserHome extends Component {
   componentWillMount () {
     this.props.loadSites()
     this.props.loadMultiSites()
+    pageview('/')
   }
 
   _onDeleteMultiSiteClick (multiSite) {

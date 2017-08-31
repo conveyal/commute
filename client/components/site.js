@@ -6,8 +6,8 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Combobox from 'react-widgets/lib/Combobox'
 import Slider from 'rc-slider'
 
-import BackButton from '../containers/back-button'
 import ButtonLink from './button-link'
+import BackButton from '../containers/back-button'
 import FieldGroup from './fieldgroup'
 import Icon from './icon'
 import SiteMap from './site-map'
@@ -21,8 +21,8 @@ import {
   formatPercentAsStr
 } from '../utils'
 import {pageview} from '../utils/analytics'
+import {downloadMatches, processSite} from '../utils/data'
 import messages from '../utils/messages'
-import { processSite, downloadMatches } from '../utils/site-common'
 
 export default class Site extends Component {
   static propTypes = {
@@ -41,8 +41,10 @@ export default class Site extends Component {
     deletePolygons: PropTypes.func,
     deleteSiteFromMultiSites: PropTypes.func,
     loadCommuters: PropTypes.func.isRequired,
+    loadMultiSite: PropTypes.func,
     loadPolygons: PropTypes.func,
-    loadSite: PropTypes.func
+    loadSite: PropTypes.func,
+    loadSites: PropTypes.func
   }
 
   componentWillMount () {
@@ -56,29 +58,12 @@ export default class Site extends Component {
       rideMatchMapStyle: 'marker-clusters',
       mapDisplayMode: 'STANDARD' // STANDARD / FULLSCREEN / HIDDEN
     }
-    this._loadDataIfNeeded(this.props)
     const {isMultiSite} = this.props
     if (isMultiSite) {
       pageview('/multi-site')
     } else {
       pageview('/site')
     }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this._loadDataIfNeeded(nextProps)
-  }
-
-  componentWillUnmount () {
-    if (this.loadSiteTimeout) {
-      clearTimeout(this.loadSiteTimeout)
-    }
-
-    if (this.loadCommutersTimeout) {
-      clearTimeout(this.loadCommutersTimeout)
-    }
-
-    this.loadingPolygons = false
   }
 
   _commuterSiteNameRenderer = (cell, row) => {
@@ -156,111 +141,6 @@ export default class Site extends Component {
     }, 100)
   }
 
-  _loadDataIfNeeded (props) {
-    const {
-      commuters,
-      isMultiSite,
-      loadCommuters,
-      loadPolygons,
-      loadSite,
-      multiSite,
-      polygonStore,
-      site,
-      sites
-    } = props
-
-    /***************************************************************
-     determine if commuters should be loaded
-    ***************************************************************/
-    let shouldLoadCommuters = false
-
-    const allCommutersLoadedFromAllSites = () => {
-      const numCommutersInSites = sites.reduce((accumulator, currentSite) => {
-        return accumulator + currentSite.commuters.length
-      }, 0)
-      return numCommutersInSites === commuters.length
-    }
-
-    // check if all commuters have been loaded
-    if ((!isMultiSite && (site.commuters.length > commuters.length)) ||
-      (isMultiSite && !allCommutersLoadedFromAllSites())) {
-      // not all commuters loaded in store
-      shouldLoadCommuters = true
-    } else {
-      // check if all commuters have been geocoded and have stats calculated
-      for (let i = 0; i < commuters.length; i++) {
-        const curCommuter = commuters[i]
-        const isGeocoded = curCommuter.geocodeConfidence !== -1
-        const hasStats = curCommuter.modeStats
-        if (!isGeocoded || !hasStats) {
-          shouldLoadCommuters = true
-          break
-        }
-      }
-    }
-
-    if (shouldLoadCommuters && !this.loadCommutersTimeout) {
-      // load commuters if not already doing so
-      let loadCommutersQuery
-      if (isMultiSite) {
-        // query for commuters at all siteIds
-        loadCommutersQuery = {
-          siteId: {
-            $in: multiSite.sites
-          }
-        }
-      } else {
-        // load commuters only from specific site
-        loadCommutersQuery = { siteId: site._id }
-      }
-      this.loadCommutersTimeout = setTimeout(() => {
-        this.loadCommutersTimeout = undefined
-        loadCommuters(loadCommutersQuery)
-        this.setState({ loadingCommuters: true })
-      }, 1111)
-    } else if (!shouldLoadCommuters) {
-      this.setState({ loadingCommuters: false })
-      if (this.loadCommutersTimeout) {
-        clearTimeout(this.loadCommutersTimeout)
-      }
-    }
-
-    /***************************************************************
-     determine if site should be loaded
-    ***************************************************************/
-    if (site &&
-      site.calculationStatus === 'calculating') {
-      // should load site
-      if (!this.loadSiteTimeout) {
-        this.loadSiteTimeout = setTimeout(() => {
-          this.loadSiteTimeout = undefined
-          loadSite(site._id)
-        }, 1111)
-      }
-    } else {
-      // site doens't need to load
-      if (this.loadSiteTimeout) {
-        clearTimeout(this.loadSiteTimeout)
-      }
-    }
-
-    /***************************************************************
-     determine if polygons should be loaded
-    ***************************************************************/
-    const shouldLoadPolygons = (site &&
-      site.calculationStatus === 'successfully' &&
-      !Object.values(polygonStore)
-        .some((isochrone) => isochrone.siteId === site._id))
-
-    if (shouldLoadPolygons && !this.loadingPolygons) {
-      // if 0 polygons exist for site, assume they need to be fetched
-      loadPolygons({ siteId: site._id })
-      this.loadingPolygons = true
-    } else {
-      this.loadingPolygons = false
-    }
-  }
-
   _onDeleteCommuterClick (commuter) {
     const doDelete = () => this.props.deleteCommuter(commuter)
     actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
@@ -279,6 +159,20 @@ export default class Site extends Component {
       selectedCommuter,
       mapDisplayMode
     } = this.state
+
+    if (isMultiSite) {
+      if (
+        !multiSite ||
+        (multiSite && multiSite.sites.length > sites.length)
+      ) {
+        return null
+      }
+    } else {
+      if (!site) {
+        // page load, return nothing
+        return null
+      }
+    }
 
     const hasCommuters = commuters.length > 0
 
@@ -414,7 +308,10 @@ export default class Site extends Component {
                               <ButtonLink
                                 bsStyle='primary'
                                 bsSize='large'
-                                to={`/site/${site._id}/create-report`}>
+                                to={isMultiSite
+                                  ? `/multi-site/${multiSite._id}/create-report`
+                                  : `/site/${site._id}/create-report`}
+                                >
                                 <Icon type='print' />Printable Report
                               </ButtonLink>
                             </Col>

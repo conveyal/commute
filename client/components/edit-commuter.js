@@ -22,9 +22,9 @@ const commuterSchema = yup.object(Object.assign({
 export default class EditCommuter extends Component {
   static propTypes = {
     // dispatch
-    create: PropTypes.func.isRequired,
-    delete: PropTypes.func.isRequired,
-    update: PropTypes.func.isRequired,
+    createCommuter: PropTypes.func.isRequired,
+    deleteCommuter: PropTypes.func.isRequired,
+    updateCommuter: PropTypes.func.isRequired,
 
     // props
     editMode: PropTypes.bool,
@@ -33,38 +33,49 @@ export default class EditCommuter extends Component {
   }
 
   componentWillMount () {
+    this._setStateFromProps(this.props)
     if (this.props.editMode) {
-      this.state = {
-        errors: {},
-        model: {...this.props.commuter}
-      }
       pageview('/site/commuter/edit')
     } else {
-      this.state = {
-        errors: {},
-        model: { siteId: this.props.siteId }
-      }
       pageview('/site/commuter/create')
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    this._setStateFromProps(nextProps)
+  }
+
   _handleDelete = () => {
-    const doDelete = () => this.props.delete(this.state.model)
+    const doDelete = () => this.props.deleteCommuter(this.state.model)
     actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
   }
 
   _handleSubmit = () => {
-    const {create, editMode, update} = this.props
+    const {createCommuter, editMode, updateCommuter} = this.props
     if (editMode) {
-      update(this.state.model)
+      updateCommuter(this.state.model)
     } else {
-      create(this.state.model)
+      createCommuter(this.state.model)
     }
   }
 
   _setErrors = errors => this.setState({ errors })
 
   _setModel = model => this.setState({ model })
+
+  _setStateFromProps (props) {
+    if (props.editMode) {
+      this.state = {
+        errors: {},
+        model: {...props.commuter}
+      }
+    } else {
+      this.state = {
+        errors: {},
+        model: { siteId: props.siteId }
+      }
+    }
+  }
 
   render () {
     const {editMode} = this.props

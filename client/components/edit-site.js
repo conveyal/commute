@@ -35,19 +35,16 @@ export default class EditSite extends Component {
   }
 
   componentWillMount () {
+    this._setStateFromProps(this.props)
     if (this.props.editMode) {
-      this.state = {
-        errors: {},
-        model: {...this.props.site}
-      }
       pageview('/site/edit')
     } else {
-      this.state = {
-        errors: {},
-        model: {}
-      }
       pageview('/site/create')
     }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this._setStateFromProps(nextProps)
   }
 
   _handleDelete = () => {
@@ -92,6 +89,20 @@ export default class EditSite extends Component {
   _setErrors = errors => this.setState({ errors })
 
   _setModel = model => this.setState({ model })
+
+  _setStateFromProps (props) {
+    if (props.editMode) {
+      this.setState({
+        errors: {},
+        model: {...props.site}
+      })
+    } else {
+      this.setState({
+        errors: {},
+        model: {}
+      })
+    }
+  }
 
   render () {
     const {editMode} = this.props

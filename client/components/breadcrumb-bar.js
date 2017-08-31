@@ -44,13 +44,13 @@ export default class BreadcrumbBar extends Component {
     if (path === '/' || path === '/login') {
       // do nothing for home or login
     } else if (path.match(/\/multi-site\/create$/)) {
-      // Create Site View
+      // Create Multi Site View
       navItems.push({
         active: true,
         name: 'Create Multi-Site Analysis'
       })
     } else if (path.match(/\/multi-site\/[\w-]+$/)) {
-      // Site View
+      // Multie Site View
       appendMultiSite(path.match(/\/multi-site\/([\w-]+)/)[1], true)
     } else if (path.match(/\/site\/create$/)) {
       // Create Site View
@@ -62,7 +62,7 @@ export default class BreadcrumbBar extends Component {
       // Site View
       appendSite(path.match(/\/site\/([\w-]+)/)[1], true)
     } else if (path.match(/\/site\/[\w-]+\/bulk-add-commuters$/)) {
-      // Create Commuter View
+      // Bulk Add Commuters View
       appendSite(path.match(/\/site\/([\w-]+)/)[1])
       navItems.push({
         active: true,
@@ -76,7 +76,7 @@ export default class BreadcrumbBar extends Component {
         name: 'Create New Commuter'
       })
     } else if (path.match(/\/site\/[\w-]+\/commuter\/[\w-]+\/edit$/)) {
-      // Create Commuter View
+      // Edit Commuter View
       appendSite(path.match(/\/site\/([\w-]+)/)[1])
       navItems.push({
         active: true,
@@ -90,7 +90,7 @@ export default class BreadcrumbBar extends Component {
         name: 'Edit Site'
       })
     } else if (path.match(/\/site\/[\w-]+\/create-report$/)) {
-      // Site Report View
+      // Create Site Report View
       appendSite(path.match(/\/site\/([\w-]+)/)[1])
       navItems.push({
         active: true,

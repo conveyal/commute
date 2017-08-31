@@ -8,9 +8,11 @@ import EditCommuter from './containers/edit-commuter'
 import EditMultiSite from './containers/edit-multi-site'
 import EditSite from './containers/edit-site'
 import MultiSite from './containers/multi-site'
+import MultiSiteCreateReport from './containers/multi-site-create-report'
+import MultiSiteReport from './containers/multi-site-report'
 import Site from './containers/site'
-import SiteReport from './containers/site-report'
 import SiteCreateReport from './containers/site-create-report'
+import SiteReport from './containers/site-report'
 import UserHome from './containers/user-home'
 
 const ApplicationRouter = ({history}) => (
@@ -31,6 +33,8 @@ const ApplicationRouter = ({history}) => (
       <Route path='/multi-site/create' component={EditMultiSite} />
       <Route path='/multi-site/:multiSiteId/edit' component={EditMultiSite} />
       <Route path='/multi-site/:multiSiteId' component={MultiSite} />
+      <Route path='/multi-site/:multiSiteId/create-report' component={MultiSiteCreateReport} />
+      <Route path='/multi-site/:multiSiteId/report' component={MultiSiteReport} />
     </Route>
     <Route path='/login' component={Login} />
   </Router>

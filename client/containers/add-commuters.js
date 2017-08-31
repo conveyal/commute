@@ -1,7 +1,10 @@
 import {connect} from 'react-redux'
 
-import {create as createCommuters} from '../actions/commuter'
+import commuterActions from '../actions/commuter'
+import polygonActions from '../actions/polygon'
+import siteActions from '../actions/site'
 import AddCommuters from '../components/add-commuters'
+import makeDataDependentComponent from '../components/data-dependent-component'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
@@ -9,15 +12,20 @@ function mapStateToProps (state, props) {
   const {params} = props
   const site = siteStore[params.siteId]
   return {
-    existingCommuters: entityIdArrayToEntityArray(site.commuters, commuterStore),
+    commuters: (site
+      ? entityIdArrayToEntityArray(site.commuters, commuterStore)
+      : []),
     site
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    createCommuters: (opts) => dispatch(createCommuters(opts))
-  }
+const mapDispatchToProps = {
+  createCommuters: commuterActions.create,
+  loadCommuters: commuterActions.loadMany,
+  loadPolygons: polygonActions.loadMany,
+  loadSite: siteActions.loadOne
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCommuters)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  makeDataDependentComponent('site', AddCommuters)
+)
