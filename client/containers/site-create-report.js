@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
 
 import siteActions from '../actions/site'
+import makeDataDependentComponent from '../components/data-dependent-component'
 import SiteCreateReport from '../components/site-create-report'
 
 function mapStateToProps (state, props) {
@@ -9,6 +10,7 @@ function mapStateToProps (state, props) {
   const site = siteStore[params.siteId]
 
   return {
+    isMultiSite: false,
     site
   }
 }
@@ -16,8 +18,10 @@ function mapStateToProps (state, props) {
 function mapDispatchToProps (dispatch, props) {
   return {
     loadSite: (opts) => dispatch(siteActions.loadOne(opts)),
-    updateSite: (opts) => dispatch(siteActions.update(opts, 'none'))
+    update: (opts) => dispatch(siteActions.update(opts, 'none'))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SiteCreateReport)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  makeDataDependentComponent('site-only', SiteCreateReport)
+)

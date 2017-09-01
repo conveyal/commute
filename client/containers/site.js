@@ -15,7 +15,9 @@ function mapStateToProps (state, props) {
   return {
     commuters: site ? entityIdArrayToEntityArray(site.commuters, commuterStore) : [],
     isMultiSite: false,
+    lastCommuterStoreUpdateTime: commuterStore._lastUpdate,
     multiSites: Object.values(state.multiSite),
+    numCommuters: site ? site.commuters.length : 0,
     polygonStore,
     site
   }

@@ -28,51 +28,64 @@ const defaultSection = {
 
 export default class SiteCreateReport extends Component {
   static propTypes = {
+    isMultiSite: PropTypes.bool.isRequired,
+    multiSite: PropTypes.object,
     site: PropTypes.object,
-    updateSite: PropTypes.func
+    update: PropTypes.func
   }
 
   state = {}
 
   componentWillMount () {
-    const { site, updateSite } = this.props
+    const entity = this._getEntity()
 
-    if (!site.reportConfig || !site.reportConfig.sections) {
+    if (!entity.reportConfig || !entity.reportConfig.sections) {
       // add the default configuration if needed
-      site.reportConfig = defaultConfig
-      updateSite(site)
+      entity.reportConfig = defaultConfig
+      this.props.update(entity)
     }
   }
 
   _deleteSection (index) {
-    const { site, updateSite } = this.props
-    const newSections = site.reportConfig.sections.filter((s, i) => { return i !== index })
-    site.reportConfig.sections = newSections
-    updateSite(site)
+    const entity = this._getEntity()
+    const newSections = entity.reportConfig.sections.filter((e, i) => { return i !== index })
+    entity.reportConfig.sections = newSections
+    this.props.update(entity)
   }
 
-  _addSection () {
-    const { site, updateSite } = this.props
-    site.reportConfig.sections.push(defaultSection)
-    updateSite(site)
+  _addSection = () => {
+    const entity = this._getEntity()
+    entity.reportConfig.sections.push(defaultSection)
+    this.props.update(entity)
+  }
+
+  _getEntity () {
+    const { isMultiSite, multiSite, site } = this.props
+    return isMultiSite ? multiSite : site
   }
 
   _updateSection (index, config) {
-    const { site, updateSite } = this.props
-    site.reportConfig.sections[index] = config
-    updateSite(site)
+    const entity = this._getEntity()
+    entity.reportConfig.sections[index] = config
+    this.props.update(entity)
   }
 
   _swapSections (x, y) {
-    const { site, updateSite } = this.props
-    const temp = site.reportConfig.sections[y]
-    site.reportConfig.sections[y] = site.reportConfig.sections[x]
-    site.reportConfig.sections[x] = temp
-    updateSite(site)
+    const entity = this._getEntity()
+    const temp = entity.reportConfig.sections[y]
+    entity.reportConfig.sections[y] = entity.reportConfig.sections[x]
+    entity.reportConfig.sections[x] = temp
+    this.props.update(entity)
   }
 
   render () {
-    const { site } = this.props
+    const {isMultiSite} = this.props
+    const entity = this._getEntity()
+    const entityHasSections = !!(
+      entity.reportConfig &&
+      entity.reportConfig.sections &&
+      entity.reportConfig.sections.length > 0
+    )
 
     return (
       <Grid>
@@ -87,7 +100,7 @@ export default class SiteCreateReport extends Component {
                 <div style={{ marginTop: '10px', textAlign: 'center' }}>
                   <Button
                     bsStyle='success'
-                    onClick={() => this._addSection()}
+                    onClick={this._addSection}
                   ><Icon type='plus' /> Add Section</Button>
                 </div>
 
@@ -96,30 +109,30 @@ export default class SiteCreateReport extends Component {
                   <ButtonLink
                     bsStyle='primary'
                     bsSize='large'
-                    to={`/site/${site._id}/report`}>
+                    to={`/${isMultiSite ? 'multi-site' : 'site'}/${entity._id}/report`}>
                     <Icon type='print' /> View Report
                   </ButtonLink>
                 </div>
               </Col>
               <Col xs={8}>
-                {site.reportConfig && site.reportConfig.sections && site.reportConfig.sections.length === 0 && (
+                {!entityHasSections && (
                   <Panel style={{ textAlign: 'center' }}>
                     <h3>This report does not have any sections yet.</h3>
                     Click the "Add Section" button to add the first section.
                   </Panel>
                 )}
 
-                {site.reportConfig && site.reportConfig.sections && site.reportConfig.sections.map((section, k) => {
+                {entityHasSections && entity.reportConfig.sections.map((section, k) => {
                   return (
                     <ReportSection
                       config={section}
                       index={k}
-                      length={site.reportConfig.sections.length}
+                      length={entity.reportConfig.sections.length}
                       key={k}
-                      deleteSection={index => this._deleteSection(index)}
-                      updateSection={(index, section) => this._updateSection(index, section)}
-                      swapSections={(x, y) => this._swapSections(x, y)}
-                    />
+                      deleteSection={this._deleteSection}
+                      updateSection={this._updateSection}
+                      swapSections={this._swapSections}
+                      />
                   )
                 })}
               </Col>
@@ -133,12 +146,34 @@ export default class SiteCreateReport extends Component {
 
 class ReportSection extends Component {
   static propTypes = {
-    config: PropTypes.object,
-    index: PropTypes.number,
-    deleteSection: PropTypes.func,
-    swapSections: PropTypes.func,
-    updateSection: PropTypes.func
+    config: PropTypes.object.isRequired,
+    deleteSection: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
+    length: PropTypes.number.isRequired,
+    swapSections: PropTypes.func.isRequired,
+    updateSection: PropTypes.func.isRequired
   }
+
+  _delete = () => {
+    const {deleteSection, index} = this.props
+    deleteSection(index)
+  }
+
+  _moveDown = () => {
+    const {index, swapSections} = this.props
+    swapSections(index, index + 1)
+  }
+
+  _moveUp = () => {
+    const {index, swapSections} = this.props
+    swapSections(index, index - 1)
+  }
+
+  _setCutoff = evt => { this._updateProperty('cutoff', evt.target.value) }
+
+  _setMode = evt => { this._updateProperty('mode', evt.target.value) }
+
+  _setType = evt => { this._updateProperty('type', evt.target.value) }
 
   _updateProperty (prop, value) {
     const { config, index, updateSection } = this.props
@@ -147,7 +182,7 @@ class ReportSection extends Component {
   }
 
   render () {
-    const { config, index, length, deleteSection, swapSections } = this.props
+    const { config, index, length } = this.props
 
     const header = <div>
       <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Section {index + 1}</span>
@@ -156,7 +191,7 @@ class ReportSection extends Component {
           <Button
             bsStyle='warning'
             bsSize='xsmall'
-            onClick={() => swapSections(index, index - 1)}
+            onClick={this._moveUp}
           ><Icon type='arrow-up' /> Move Up</Button>
         )}
 
@@ -164,14 +199,14 @@ class ReportSection extends Component {
           <Button
             bsStyle='warning'
             bsSize='xsmall'
-            onClick={() => swapSections(index, index + 1)}
+            onClick={this._moveDown}
           ><Icon type='arrow-down' /> Move Down</Button>
         )}
 
         <Button
           bsStyle='danger'
           bsSize='xsmall'
-          onClick={() => deleteSection(index)}
+          onClick={this._delete}
         ><Icon type='trash' /> Delete</Button>
       </ButtonToolbar>
     </div>
@@ -184,8 +219,8 @@ class ReportSection extends Component {
               <FormGroup>
                 <ControlLabel>Section Type:&nbsp;</ControlLabel>
                 <FormControl componentClass='select' value={config.type}
-                  onChange={evt => { this._updateProperty('type', evt.target.value) }}
-                >
+                  onChange={this._setType}
+                  >
                   <option value='summary'>Site Access Summary</option>
                   <option value='map'>Commuter Access Map</option>
                   <option value='table'>Commuter Access Table</option>
@@ -199,7 +234,7 @@ class ReportSection extends Component {
                 <FormGroup>
                   <ControlLabel>Access Mode:&nbsp;</ControlLabel>
                   <FormControl componentClass='select' value={config.mode}
-                    onChange={evt => { this._updateProperty('mode', evt.target.value) }}
+                    onChange={this._setMode}
                   >
                     <option value='TRANSIT'>Transit</option>
                     <option value='WALK'>Walk</option>
@@ -211,8 +246,8 @@ class ReportSection extends Component {
                 <FormGroup style={{ marginTop: '15px' }}>
                   <ControlLabel>Travel Time Cutoff:&nbsp;</ControlLabel>
                   <FormControl componentClass='select' value={config.cutoff}
-                    onChange={evt => { this._updateProperty('cutoff', evt.target.value) }}
-                  >
+                    onChange={this._setCutoff}
+                    >
                     <option value={900}>15 minutes</option>
                     <option value={1800}>30 minutes</option>
                     <option value={2700}>45 minutes</option>

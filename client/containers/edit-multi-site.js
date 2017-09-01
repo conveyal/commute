@@ -1,6 +1,8 @@
 import {connect} from 'react-redux'
 
 import multiSiteActions from '../actions/multi-site'
+import siteActions from '../actions/site'
+import makeDataDependentComponent from '../components/data-dependent-component'
 import EditMultiSite from '../components/edit-multi-site'
 
 function mapStateToProps (state, props) {
@@ -21,12 +23,14 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    create: (opts) => dispatch(multiSiteActions.create(opts)),
-    delete: (opts) => dispatch(multiSiteActions.delete(opts)),
-    update: (opts) => dispatch(multiSiteActions.update(opts))
-  }
+const mapDispatchToProps = {
+  create: multiSiteActions.create,
+  delete: multiSiteActions.delete,
+  loadMultiSite: multiSiteActions.loadOne,
+  loadSites: siteActions.loadMany,
+  update: multiSiteActions.update
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditMultiSite)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  makeDataDependentComponent('multi-site-only', EditMultiSite)
+)

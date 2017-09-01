@@ -1,6 +1,6 @@
 import {toCoordinates} from '@conveyal/lonlat'
 import humanizeDuration from 'humanize-duration'
-import {createSelector} from 'reselect'
+import memoize from 'lodash.memoize'
 import distance from '@turf/distance'
 
 import {formatPercent, formatPercentAsStr} from '../utils'
@@ -41,15 +41,42 @@ export function downloadMatches (ridematches) {
 }
 
 /**
+ * Generate a key for the memoized function
+ *
+ * @param  {number}  lastCommuterStoreUpdateTime
+ * @param  {Array}  commuters
+ * @param  {Boolean} analysisMode
+ * @return {string}
+ */
+function memoizeKeyResolver (
+  lastCommuterStoreUpdateTime,
+  entityId,
+  commuters,
+  analysisMode
+) {
+  return `${lastCommuterStoreUpdateTime}-${entityId}-${analysisMode}`
+}
+
+/**
  * Function to calculate common stats for a group of commuters
  *
  * @param {Array} commuters
  * @param {string} analysisMode
+ * @return {Object} An object with the following shape:
+ *   {
+ *     pctGeocoded,
+ *     pctStatsCalculated,
+ *     allCommutersGeocoded,
+ *     allCommutersStatsCalculated,
+ *     summaryStats,
+ *     ridematchingAggregateTable,
+ *     ridematches,
+ *     analysisModeStats
+ *   }
  */
-export const processSite = createSelector(
-  (commuters, analysisMode) => commuters,
-  (commuters, analysisMode) => analysisMode,
-  (commuters, analysisMode) => {
+export const processSite = memoize(
+  (lastCommuterStoreUpdateTime, entityId, commuters, analysisMode) => {
+    console.log('calculate site stats')
     const pctGeocoded = formatPercent(
       commuters.reduce((accumulator, commuter) => {
         return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
@@ -230,5 +257,6 @@ export const processSite = createSelector(
       ridematches,
       analysisModeStats
     }
-  }
+  },
+  memoizeKeyResolver
 )

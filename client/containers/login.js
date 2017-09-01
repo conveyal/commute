@@ -6,6 +6,7 @@ import Login from '../components/login'
 function mapStateToProps (state, props) {
   return {}
 }
+
 const mapDispatchToProps = {
   setAuth0User
 }

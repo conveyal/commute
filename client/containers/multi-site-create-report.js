@@ -1,22 +1,29 @@
 import {connect} from 'react-redux'
 
+import multiSiteActions from '../actions/multi-site'
 import siteActions from '../actions/site'
+import makeDataDependentComponent from '../components/data-dependent-component'
 import SiteCreateReport from '../components/site-create-report'
 
 function mapStateToProps (state, props) {
-  const {site: siteStore} = state
+  const {multiSite: multiSiteStore} = state
   const {params} = props
-  const site = siteStore[params.siteId]
+  const multiSite = multiSiteStore[params.multiSiteId]
 
   return {
-    site
+    isMultiSite: true,
+    multiSite
   }
 }
 
 function mapDispatchToProps (dispatch, props) {
   return {
-    updateSite: (opts) => dispatch(siteActions.update(opts, 'none'))
+    loadMultiSite: (opts) => dispatch(multiSiteActions.loadOne(opts)),
+    loadSites: (opts) => dispatch(siteActions.loadMany(opts)),
+    update: (opts) => dispatch(multiSiteActions.update(opts, 'none'))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SiteCreateReport)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  makeDataDependentComponent('multi-site-only', SiteCreateReport)
+)

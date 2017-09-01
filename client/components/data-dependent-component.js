@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Col, Grid, Row} from 'react-bootstrap'
 
 export default function makeDataDependentComponent (type, ComponentToWrap) {
   class DataDependentComponent extends Component {
@@ -50,9 +51,21 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
       } = props
 
       if (type.indexOf('multi-site') > -1) {
-        if (!params || !params.multiSiteId) {
-          // creation page, no need to load
-          return this.setState({ dataLoading: false })
+        if (type === 'multi-site-only') {
+          if ((
+            (params && params.multiSiteId && !multiSite) ||
+            (!params.multiSiteId)
+          ) && !this.loadingInitialData) {
+            // edit or create page, load all sites
+            this.loadingInitialData = true
+            this.loadingInitialData2 = true
+            loadSites()
+            if (params && params.multiSiteId) {
+              // edit page, load multisite
+              loadMultiSite(params.multiSiteId)
+            }
+            return
+          }
         } else if (!multiSite && !this.loadingInitialData) {
           // pageload on multiSite, load multiSite and all of its sites
           this.loadingInitialData = true
@@ -97,7 +110,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
       this.loadingInitialData = false
       this.loadingInitialData2 = false
 
-      if (type.indexOf('site') > -1 && type !== 'site-only') {
+      if (type.indexOf('site') > -1 && type.indexOf('only') === -1) {
         /***************************************************************
          determine if commuters should be loaded
         ***************************************************************/
@@ -197,7 +210,17 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
 
     render () {
       return (
-        this.state.dataLoading ? null : <ComponentToWrap {...this.props} />
+        this.state.dataLoading
+          ? (
+            <Grid>
+              <Row>
+                <Col xs={12}>
+                  <h4>Loading data, please wait...</h4>
+                </Col>
+              </Row>
+            </Grid>
+          )
+          : <ComponentToWrap {...this.props} />
       )
     }
   }

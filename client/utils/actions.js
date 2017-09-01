@@ -18,7 +18,7 @@ import {network} from './messages'
  */
 function fetchErrorHandler (alertMsg, err, res) {
   if (err.status === 401) {
-    return push('/login')
+    return debouncedErrorDisplay('A request was unauthorized.')
   } else {
     debouncedErrorDisplay(alertMsg)
   }

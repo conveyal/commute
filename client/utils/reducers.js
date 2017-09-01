@@ -12,6 +12,12 @@ function addChildEntityToParent (parentMap, newEntity, parentIdField, childPlura
   })
 }
 
+export function getGenericReducerInitialState () {
+  return {
+    _lastUpdate: now()
+  }
+}
+
 /**
  * Make handlers for children creation and deletion events
  *
@@ -25,12 +31,12 @@ export function makeChildrenHandlers (cfg) {
   const reducers = {}
   reducers[`add ${cfg.childSingularName}`] = function (state, action) {
     const newEntity = action.payload
-    return addChildEntityToParent(
+    return updateTime(addChildEntityToParent(
       state,
       newEntity,
       cfg.parentIdField,
       cfg.childPluralName
-    )
+    ))
   }
 
   reducers[`add many ${cfg.childPluralName}`] = function (state, action) {
@@ -44,19 +50,19 @@ export function makeChildrenHandlers (cfg) {
         cfg.childPluralName
       )
     })
-    return updatedState
+    return updateTime(updatedState)
   }
 
   reducers[`delete ${cfg.childSingularName}`] = function (state, action) {
     const entity = action.payload
     const childIds = state[entity[cfg.parentIdField]][cfg.childPluralName]
-    return update(state, {
+    return updateTime(update(state, {
       [entity[cfg.parentIdField]]: {
         [cfg.childPluralName]: {
           $set: childIds.filter((id) => id !== entity._id)
         }
       }
-    })
+    }))
   }
 
   return reducers
@@ -73,44 +79,56 @@ export function makeChildrenHandlers (cfg) {
 export function makeGenericReducerHandlers (cfg) {
   const reducers = {
     'log out' (state, action) {
-      return {}
+      return updateTime({})
     }
   }
   if (cfg.handlers.indexOf('add') !== -1) {
     reducers[`add ${cfg.name.singular}`] = function (state, action) {
-      return addToEntityMap(state, action.payload)
+      return updateTime(addToEntityMap(state, action.payload))
     }
   }
 
   if (cfg.handlers.indexOf('add many') !== -1) {
     reducers[`add many ${cfg.name.plural}`] = function (state, action) {
-      return addEntitiesToEntityMap(state, action.payload)
+      return updateTime(addEntitiesToEntityMap(state, action.payload))
     }
   }
 
   if (cfg.handlers.indexOf('delete') !== -1) {
     reducers[`delete ${cfg.name.singular}`] = function (state, action) {
-      return deleteFromEntityMap(state, action.payload._id)
+      return updateTime(deleteFromEntityMap(state, action.payload._id))
     }
   }
 
   if (cfg.handlers.indexOf('delete many') !== -1) {
     reducers[`delete many ${cfg.name.plural}`] = function (state, action) {
-      return deleteManyFromEntityMap(state, action.payload)
+      return updateTime(deleteManyFromEntityMap(state, action.payload))
     }
   }
 
   if (cfg.handlers.indexOf('set') !== -1) {
     reducers[`set ${cfg.name.singular}`] = function (state, action) {
-      return addToEntityMap(state, action.payload)
+      return updateTime(addToEntityMap(state, action.payload))
     }
   }
 
   if (cfg.handlers.indexOf('set many') !== -1) {
     reducers[`set ${cfg.name.plural}`] = function (state, action) {
-      return addEntitiesToEntityMap(state, action.payload)
+      return updateTime(addEntitiesToEntityMap(state, action.payload))
     }
   }
 
   return reducers
+}
+
+function now () {
+  return (new Date()).getTime()
+}
+
+export function updateTime (state) {
+  return update(state, {
+    _lastUpdate: {
+      $set: now()
+    }
+  })
 }

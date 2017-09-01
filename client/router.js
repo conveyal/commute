@@ -1,7 +1,6 @@
 import React from 'react'
 import {IndexRoute, Router, Route} from 'react-router'
 
-import Login from './components/login'
 import AddCommuters from './containers/add-commuters'
 import Application from './containers/application'
 import EditCommuter from './containers/edit-commuter'
@@ -36,7 +35,6 @@ const ApplicationRouter = ({history}) => (
       <Route path='/multi-site/:multiSiteId/create-report' component={MultiSiteCreateReport} />
       <Route path='/multi-site/:multiSiteId/report' component={MultiSiteReport} />
     </Route>
-    <Route path='/login' component={Login} />
   </Router>
 )
 

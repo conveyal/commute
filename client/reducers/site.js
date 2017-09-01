@@ -1,4 +1,8 @@
-import {makeChildrenHandlers, makeGenericReducerHandlers} from '../utils/reducers'
+import {
+  getGenericReducerInitialState,
+  makeChildrenHandlers,
+  makeGenericReducerHandlers
+} from '../utils/reducers'
 
 export const reducers = makeGenericReducerHandlers({
   handlers: ['add', 'add many', 'delete', 'set', 'set many'],
@@ -14,4 +18,4 @@ Object.assign(reducers, makeChildrenHandlers({
   parentIdField: 'siteId'
 }))
 
-export const initialState = {}
+export const initialState = getGenericReducerInitialState()

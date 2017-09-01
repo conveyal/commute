@@ -78,6 +78,7 @@
     "leaflet.markercluster": "^1.0.3",
     "lodash.isequal": "^4.5.0",
     "lodash.isnumber": "^3.0.3",
+    "lodash.memoize": "^4.1.2",
     "lodash.omit": "^4.5.0",
     "lodash.pick": "^4.4.0",
     "mastarm": "^3.9.0",
@@ -103,7 +104,6 @@
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
     "request": "^2.79.0",
-    "reselect": "^3.0.1",
     "yamljs": "^0.2.8",
     "yup": "^0.21.2"
   },

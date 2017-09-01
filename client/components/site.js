@@ -53,7 +53,6 @@ export default class Site extends Component {
       analysisMode: 'TRANSIT',
       analysisMapStyle: 'blue-solid',
       commuterRingRadius: 1,
-      loadingCommuters: false,
       isochroneCutoff: 7200,
       rideMatchMapStyle: 'marker-clusters',
       mapDisplayMode: 'STANDARD' // STANDARD / FULLSCREEN / HIDDEN
@@ -147,18 +146,29 @@ export default class Site extends Component {
   }
 
   render () {
-    const {commuters, isMultiSite, polygonStore, multiSite, site, sites, siteStore} = this.props
+    const {
+      commuters,
+      isMultiSite,
+      lastCommuterStoreUpdateTime,
+      polygonStore,
+      multiSite,
+      numCommuters,
+      site,
+      sites,
+      siteStore
+    } = this.props
     const {
       activeTab,
       analysisMapStyle,
       analysisMode,
       commuterRingRadius,
       isochroneCutoff,
-      loadingCommuters,
       rideMatchMapStyle,
       selectedCommuter,
       mapDisplayMode
     } = this.state
+
+    let entity
 
     if (isMultiSite) {
       if (
@@ -167,16 +177,24 @@ export default class Site extends Component {
       ) {
         return null
       }
+      entity = multiSite
     } else {
       if (!site) {
         // page load, return nothing
         return null
       }
+      entity = site
     }
 
     const hasCommuters = commuters.length > 0
+    const loadingCommuters = numCommuters > commuters.length
 
-    const processed = processSite(commuters, analysisMode)
+    const processed = processSite(
+      lastCommuterStoreUpdateTime,
+      entity._id,
+      commuters,
+      analysisMode
+    )
 
     /************************************************************************
      commuter tab stuff
@@ -218,13 +236,13 @@ export default class Site extends Component {
           <Col xs={12}>
             <h3>
               <Icon type='building' />{' '}
-              <span>{isMultiSite ? multiSite.name : site.name}</span>
+              <span>{entity.name}</span>
               {' '}
               <ButtonGroup style={{ marginLeft: '12px', paddingBottom: '2px' }}>
                 <ButtonLink
                   bsSize='xsmall'
                   bsStyle='warning'
-                  to={`/${isMultiSite ? 'multi-site' : 'site'}/${isMultiSite ? multiSite._id : site._id}/edit`}
+                  to={`/${isMultiSite ? 'multi-site' : 'site'}/${entity._id}/edit`}
                   >
                   <Icon type='pencil' /> Edit
                 </ButtonLink>
