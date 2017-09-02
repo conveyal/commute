@@ -9,7 +9,7 @@ const regionalTransitModePct = formatPercentAsStr(modeshareStats.transit)
 const regionalBikeModePct = formatPercentAsStr(modeshareStats.bike)
 const regionalCarpoolModePct = formatPercentAsStr(modeshareStats.carpool)
 
-export default class SiteReport extends Component {
+export default class Infographic extends Component {
   static propTypes = {
     commuterCount: PropTypes.number,
     isMultiSite: PropTypes.bool,

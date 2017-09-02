@@ -5,6 +5,47 @@ import distance from '@turf/distance'
 
 import {formatPercent, formatPercentAsStr} from '../utils'
 
+/**
+ * Get the most basic stats about a list of commuters
+ *
+ * @param {number} lastCommuterStoreUpdateTime  The last update time of the commuter store.
+ *   Used for calculating the memoize key.
+ * @param {string} entityId The id of the entity in question.
+ *   Used for calculating the memoize key.
+ * @param {Array} commuters A list of commuters
+ * @return {Object} An object in the form:
+ *   {
+ *     allCommutersGeocoded: boolean,
+ *     allCommutersStatsCalculated: boolean,
+ *     pctGeocoded: number,
+ *     pctStatsCalculated: number
+ *   }
+ */
+export const basicStats = memoize(
+  (lastCommuterStoreUpdateTime, entityId, commuters) => {
+    const pctGeocoded = formatPercent(
+      commuters.reduce((accumulator, commuter) => {
+        return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
+      }, 0) / commuters.length
+    )
+    const pctStatsCalculated = formatPercent(
+      commuters.reduce((accumulator, commuter) => {
+        return accumulator + (commuter.modeStats ? 1 : 0)
+      }, 0) / commuters.length
+    )
+    const allCommutersGeocoded = pctGeocoded === 100
+    const allCommutersStatsCalculated = pctStatsCalculated === 100
+
+    return {
+      allCommutersGeocoded,
+      allCommutersStatsCalculated,
+      pctGeocoded,
+      pctStatsCalculated
+    }
+  },
+  memoizeKeyResolver
+)
+
 export function downloadMatches (ridematches) {
   let csvContent = 'data:text/csv;charset=utf-8,'
   csvContent +=
@@ -52,76 +93,38 @@ function memoizeKeyResolver (
   lastCommuterStoreUpdateTime,
   entityId,
   commuters,
-  analysisMode
+  analysisMode,
+  binBy15Minutes
 ) {
-  return `${lastCommuterStoreUpdateTime}-${entityId}-${analysisMode}`
+  console.log(`${lastCommuterStoreUpdateTime}-${entityId}-${analysisMode}-${binBy15Minutes}`)
+  return `${lastCommuterStoreUpdateTime}-${entityId}-${analysisMode}-${binBy15Minutes}`
 }
 
 /**
- * Function to calculate common stats for a group of commuters
+ * Get the stats about a specific mode.  Data is used in AccessTable.
  *
- * @param {Array} commuters
- * @param {string} analysisMode
- * @return {Object} An object with the following shape:
+ * @param {number} lastCommuterStoreUpdateTime  The last update time of the commuter store.
+ *   Used for calculating the memoize key.
+ * @param {string} entityId The id of the entity in question.
+ *   Used for calculating the memoize key.
+ * @param {Array} commuters A list of commuters
+ * @param {string} analysisMode The mode to analyze
+ * @return {Array} An array with objects in the form:
  *   {
- *     pctGeocoded,
- *     pctStatsCalculated,
- *     allCommutersGeocoded,
- *     allCommutersStatsCalculated,
- *     summaryStats,
- *     ridematchingAggregateTable,
- *     ridematches,
- *     analysisModeStats
+ *     bin: string,
+ *     num: number,
+ *     cumulative: number,
+ *     cumulativePct: number
  *   }
  */
-export const processSite = memoize(
-  (lastCommuterStoreUpdateTime, entityId, commuters, analysisMode) => {
-    const pctGeocoded = formatPercent(
-      commuters.reduce((accumulator, commuter) => {
-        return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)
-      }, 0) / commuters.length
-    )
-    const pctStatsCalculated = formatPercent(
-      commuters.reduce((accumulator, commuter) => {
-        return accumulator + (commuter.modeStats ? 1 : 0)
-      }, 0) / commuters.length
-    )
-    const allCommutersGeocoded = pctGeocoded === 100
-    const allCommutersStatsCalculated = pctStatsCalculated === 100
-
-    // compute summary stats for bike/transit
-    const summaryStats = {}
-
-    if (allCommutersStatsCalculated) {
-      let numWith60MinTransit = 0
-      summaryStats.numWith20MinWalk = 0
-      let numWith30MinBike = 0
-      commuters.forEach(commuter => {
-        if (
-          commuter.modeStats.TRANSIT.travelTime > -1 &&
-          commuter.modeStats.TRANSIT.travelTime <= 3600
-        ) {
-          numWith60MinTransit++
-        }
-
-        if (
-          commuter.modeStats.BICYCLE.travelTime > -1 &&
-          commuter.modeStats.BICYCLE.travelTime <= 1800
-        ) {
-          numWith30MinBike++
-        }
-      })
-
-      summaryStats.pctWith60MinTransit = formatPercentAsStr(
-        numWith60MinTransit / commuters.length
-      )
-      summaryStats.pctWith30MinBike = formatPercentAsStr(
-        numWith30MinBike / commuters.length
-      )
-    }
-
-    // analysis mode stats
-
+export const modeStats = memoize(
+  (
+    lastCommuterStoreUpdateTime,
+    entityId,
+    commuters,
+    analysisMode,
+    binBy15Minutes
+  ) => {
     const analysisModeStatsLookup = {}
 
     commuters.forEach(commuter => {
@@ -142,28 +145,80 @@ export const processSite = memoize(
     })
 
     let cumulative = 0
-    const analysisModeStats = Object.keys(analysisModeStatsLookup)
-      .sort((a, b) => a - b)
-      .map(range => {
+
+    /**
+     * Helper to make a new row.
+     *
+     * @param  {number} endOfBinMinutes The maximum minutes of this bin
+     * @return {Object}
+     */
+    function makeNewRow (endOfBinMinutes) {
+      return {
+        bin: `< ${humanizeDuration(endOfBinMinutes * 60 * 1000)}`,
+        num: 0,
+        cumulative,
+        cumulativePct: cumulative / commuters.length
+      }
+    }
+
+    if (binBy15Minutes) {
+      // create a table that is binned by every 15 minutes
+      const travelTimeBins = []
+      let curRow = makeNewRow(15)
+      for (let i = 5; i <= 120; i += 5) {
+        const curSeconds = i * 60
+        const numCommutersInThisBin = analysisModeStatsLookup[curSeconds] || 0
+        curRow.num += numCommutersInThisBin
+        cumulative += numCommutersInThisBin
+        if (i % 15 === 0) {
+          curRow.cumulative = cumulative
+          curRow.cumulativePct = cumulative / commuters.length
+          travelTimeBins.push(curRow)
+          curRow = makeNewRow(i + 15)
+        }
+      }
+      return travelTimeBins
+    } else {
+      return Object.keys(analysisModeStatsLookup).sort(
+        (a, b) => a - b
+      ).map(range => {
         const minutes = range / 60
-        const num = analysisModeStatsLookup[range]
+        const num = analysisModeStatsLookup[range] || 0
         cumulative += num
         return {
-          bin:
-            range === 'calculating...'
-              ? range
-              : `< ${humanizeDuration(minutes * 60 * 1000)}`,
+          bin: range === 'calculating...'
+            ? range
+            : `< ${humanizeDuration(minutes * 60 * 1000)}`,
           num,
           cumulative,
           cumulativePct: cumulative / commuters.length
         }
       })
+    }
+  },
+  memoizeKeyResolver
+)
 
-    // rideshare stats
+/**
+ * Calculate ridematches among a list of commuters.
+ *
+ * @param {number} lastCommuterStoreUpdateTime  The last update time of the commuter store.
+ *   Used for calculating the memoize key.
+ * @param {string} entityId The id of the entity in question.
+ *   Used for calculating the memoize key.
+ * @param {Array} commuters A list of commuters
+ * @return {Object} An objects in the form:
+ *   {
+ *     ridematchingAggregateTable: An array used in RidematchesTable,
+ *     ridematches: A lookup of which commuters are matched to a certain commuter
+ *   }
+ */
+export const ridematches = memoize(
+  (lastCommuterStoreUpdateTime, entityId, commuters) => {
     const ridematches = {}
     const ridematchingAggregateTable = []
 
-    const addRidematch = (commuterA, commuterB, distance) => {
+    function addRidematch (commuterA, commuterB, distance) {
       if (!ridematches[commuterA._id]) {
         ridematches[commuterA._id] = {
           commuter: commuterA,
@@ -180,7 +235,7 @@ export const processSite = memoize(
       }
     }
 
-    if (allCommutersGeocoded) {
+    if (basicStats(lastCommuterStoreUpdateTime, entityId, commuters).allCommutersGeocoded) {
       for (let i = 0; i < commuters.length; i++) {
         const commuterA = commuters[i]
         const commuterAcoordinates = toCoordinates(commuterA.coordinate)
@@ -239,22 +294,75 @@ export const processSite = memoize(
 
         cumulativeNum += numInBin
       })
-
-      const upToOneMileBinIdx = 2
-      summaryStats.pctWithRidematch = formatPercentAsStr(
-        ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct
-      )
     }
 
     return {
-      pctGeocoded,
-      pctStatsCalculated,
-      allCommutersGeocoded,
-      allCommutersStatsCalculated,
-      summaryStats,
       ridematchingAggregateTable,
-      ridematches,
-      analysisModeStats
+      ridematches
+    }
+  },
+  memoizeKeyResolver
+)
+
+/**
+ * Calculate overall aggregated stats.  Data used in Infographic.
+ *
+ * @param {number} lastCommuterStoreUpdateTime  The last update time of the commuter store.
+ *   Used for calculating the memoize key.
+ * @param {string} entityId The id of the entity in question.
+ *   Used for calculating the memoize key.
+ * @param {Array} commuters A list of commuters
+ * @return {Object} An objects in the form:
+ *   {
+ *     pctWith30MinBike: string,
+ *     pctWith60MinTransit: string,
+ *     pctWithRidematch: string
+ *   }
+ */
+export const summaryStats = memoize(
+  (lastCommuterStoreUpdateTime, entityId, commuters) => {
+    // compute summary stats for bike/transit
+    let numWith60MinTransit = 0
+    let numWith30MinBike = 0
+
+    if (
+      basicStats(
+        lastCommuterStoreUpdateTime,
+        entityId,
+        commuters
+      ).allCommutersStatsCalculated
+    ) {
+      commuters.forEach(commuter => {
+        if (
+          commuter.modeStats.TRANSIT.travelTime > -1 &&
+          commuter.modeStats.TRANSIT.travelTime <= 3600
+        ) {
+          numWith60MinTransit++
+        }
+
+        if (
+          commuter.modeStats.BICYCLE.travelTime > -1 &&
+          commuter.modeStats.BICYCLE.travelTime <= 1800
+        ) {
+          numWith30MinBike++
+        }
+      })
+    }
+
+    const upToOneMileBinIdx = 2
+
+    return {
+      pctWith30MinBike: formatPercentAsStr(
+        numWith30MinBike / commuters.length
+      ),
+      pctWith60MinTransit: formatPercentAsStr(
+        numWith60MinTransit / commuters.length
+      ),
+      pctWithRidematch: formatPercentAsStr(
+        ridematches(
+          lastCommuterStoreUpdateTime, entityId, commuters
+        ).ridematchingAggregateTable[upToOneMileBinIdx].cumulativePct
+      )
     }
   },
   memoizeKeyResolver

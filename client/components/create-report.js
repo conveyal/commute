@@ -46,7 +46,7 @@ export default class SiteCreateReport extends Component {
     }
   }
 
-  _deleteSection (index) {
+  _deleteSection = (index) => {
     const entity = this._getEntity()
     const newSections = entity.reportConfig.sections.filter((e, i) => { return i !== index })
     entity.reportConfig.sections = newSections
@@ -64,17 +64,17 @@ export default class SiteCreateReport extends Component {
     return isMultiSite ? multiSite : site
   }
 
-  _updateSection (index, config) {
-    const entity = this._getEntity()
-    entity.reportConfig.sections[index] = config
-    this.props.update(entity)
-  }
-
-  _swapSections (x, y) {
+  _swapSections = (x, y) => {
     const entity = this._getEntity()
     const temp = entity.reportConfig.sections[y]
     entity.reportConfig.sections[y] = entity.reportConfig.sections[x]
     entity.reportConfig.sections[x] = temp
+    this.props.update(entity)
+  }
+
+  _updateSection = (index, config) => {
+    const entity = this._getEntity()
+    entity.reportConfig.sections[index] = config
     this.props.update(entity)
   }
 
@@ -189,23 +189,23 @@ class ReportSection extends Component {
       <ButtonToolbar className='pull-right'>
         {index > 0 && (
           <Button
-            bsStyle='warning'
             bsSize='xsmall'
+            bsStyle='warning'
             onClick={this._moveUp}
           ><Icon type='arrow-up' /> Move Up</Button>
         )}
 
         {index < length - 1 && (
           <Button
-            bsStyle='warning'
             bsSize='xsmall'
+            bsStyle='warning'
             onClick={this._moveDown}
           ><Icon type='arrow-down' /> Move Down</Button>
         )}
 
         <Button
-          bsStyle='danger'
           bsSize='xsmall'
+          bsStyle='danger'
           onClick={this._delete}
         ><Icon type='trash' /> Delete</Button>
       </ButtonToolbar>
@@ -218,24 +218,29 @@ class ReportSection extends Component {
             <Form inline>
               <FormGroup>
                 <ControlLabel>Section Type:&nbsp;</ControlLabel>
-                <FormControl componentClass='select' value={config.type}
+                <FormControl
+                  componentClass='select'
                   onChange={this._setType}
+                  value={config.type}
                   >
                   <option value='summary'>Site Access Summary</option>
                   <option value='map'>Commuter Access Map</option>
-                  <option value='table'>Commuter Access Table</option>
+                  <option value='access-table'>Commuter Access Table</option>
+                  <option value='ridematch-table'>Ridematching Table</option>
                 </FormControl>
               </FormGroup>
             </Form>
           </Col>
           <Col xs={6}>
-            {config.type === 'map' && (
+            {(config.type === 'map' || config.type === 'access-table') && (
               <Form inline>
                 <FormGroup>
                   <ControlLabel>Access Mode:&nbsp;</ControlLabel>
-                  <FormControl componentClass='select' value={config.mode}
+                  <FormControl
+                    componentClass='select'
                     onChange={this._setMode}
-                  >
+                    value={config.mode}
+                    >
                     <option value='TRANSIT'>Transit</option>
                     <option value='WALK'>Walk</option>
                     <option value='BICYCLE'>Bike</option>
@@ -243,20 +248,23 @@ class ReportSection extends Component {
                   </FormControl>
                 </FormGroup>
 
-                <FormGroup style={{ marginTop: '15px' }}>
-                  <ControlLabel>Travel Time Cutoff:&nbsp;</ControlLabel>
-                  <FormControl componentClass='select' value={config.cutoff}
-                    onChange={this._setCutoff}
-                    >
-                    <option value={900}>15 minutes</option>
-                    <option value={1800}>30 minutes</option>
-                    <option value={2700}>45 minutes</option>
-                    <option value={3600}>1 hour</option>
-                    <option value={5400}>1 hour, 30 minutes</option>
-                    <option value={7200}>2 hours</option>
-                  </FormControl>
-                </FormGroup>
-
+                {config.type === 'map' && (
+                  <FormGroup style={{ marginTop: '15px' }}>
+                    <ControlLabel>Travel Time Cutoff:&nbsp;</ControlLabel>
+                    <FormControl
+                      componentClass='select'
+                      onChange={this._setCutoff}
+                      value={config.cutoff}
+                      >
+                      <option value={900}>15 minutes</option>
+                      <option value={1800}>30 minutes</option>
+                      <option value={2700}>45 minutes</option>
+                      <option value={3600}>1 hour</option>
+                      <option value={5400}>1 hour, 30 minutes</option>
+                      <option value={7200}>2 hours</option>
+                    </FormControl>
+                  </FormGroup>
+                )}
               </Form>
             )}
           </Col>

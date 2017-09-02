@@ -36,6 +36,10 @@ export function calcNumLessThan (arr, target) {
   return left
 }
 
+export function capitalize (s) {
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
 /**
  * Round a number to a fixed amount of decimal places
  *
@@ -51,6 +55,18 @@ export function fixedRound (n, places) {
 
 export function formatCurrency (n) {
   return currencyFormatter.format(n, { code: 'USD' })
+}
+
+export function formatDistance (cell, row) {
+  return humanizeDistance(cell)
+}
+
+export function formatPercent (n) {
+  return Math.round(n * 100)
+}
+
+export function formatPercentAsStr (n) {
+  return `${formatPercent(n)}%`
 }
 
 export const geocodeResultToState = {
@@ -95,16 +111,4 @@ export const geocodeYupSchema = {
 export function humanizeDistance (d, places) {
   places = places || 1
   return `${fixedRound(d, places)} miles`
-}
-
-export function formatDistance (cell, row) {
-  return humanizeDistance(cell)
-}
-
-export function formatPercent (n) {
-  return Math.round(n * 100)
-}
-
-export function formatPercentAsStr (n) {
-  return `${formatPercent(n)}%`
 }

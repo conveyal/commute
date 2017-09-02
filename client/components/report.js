@@ -1,9 +1,14 @@
 import React, {Component, PropTypes} from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 
+import Infographic from './site-helpers/infographic'
 import SiteMap from './site-helpers/map'
-import SiteInfographic from './site-helpers/infographic'
-import { processSite } from '../utils/data'
+import {AccessTable, RidematchesTable} from './site-helpers/tables'
+import {
+  modeStats,
+  ridematches,
+  summaryStats
+} from '../utils/data'
 
 export default class SiteReport extends Component {
   static propTypes = {
@@ -17,20 +22,92 @@ export default class SiteReport extends Component {
     sites: PropTypes.array
   }
 
-  render () {
+  _getEntity () {
+    const {
+      isMultiSite,
+      multiSite,
+      site
+    } = this.props
+    return isMultiSite ? multiSite : site
+  }
+
+  _renderSection = (section, k) => {
     const {
       commuters,
       isMultiSite,
       lastCommuterStoreUpdateTime,
-      multiSite,
-      numCommuters,
       polygonStore,
       selectedCommuter,
       site,
       sites
     } = this.props
+    const entity = this._getEntity()
+    const dataArgs = [
+      lastCommuterStoreUpdateTime,
+      entity._id,
+      commuters,
+      section.mode,
+      true
+    ]
 
-    const entity = isMultiSite ? multiSite : site
+    return (
+      <div key={k} style={{ marginTop: '30px' }}>
+        {section.type === 'summary' && (
+          <Infographic
+            commuterCount={commuters.length}
+            summaryStats={summaryStats(...dataArgs)}
+            isMultiSite={isMultiSite}
+            />
+        )}
+
+        {section.type === 'map' && (
+          <div>
+            <h3>
+              {section.mode} Commute Access Map (up to {section.cutoff / 60} minutes)
+            </h3>
+            <div style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
+              <SiteMap ref='map'
+                commuters={commuters}
+                isMultiSite={isMultiSite}
+                polygonStore={polygonStore}
+                selectedCommuter={selectedCommuter}
+                site={site}
+                sites={sites}
+                activeTab='analysis'
+                analysisMode={section.mode}
+                analysisMapStyle='blue-solid'
+                commuterRingRadius={1}
+                isochroneCutoff={section.cutoff * 1.0}
+                rideMatchMapStyle='normal'
+                mapDisplayMode='STANDARD'
+                />
+            </div>
+          </div>
+        )}
+
+        {section.type === 'access-table' && (
+          <AccessTable
+            analysisModeStats={modeStats(...dataArgs)}
+            mode={section.mode}
+            />
+        )}
+
+        {section.type === 'ridematch-table' && (
+          <RidematchesTable
+            ridematchingAggregateTable={ridematches(...dataArgs).ridematchingAggregateTable}
+            />
+        )}
+      </div>
+    )
+  }
+
+  render () {
+    const {
+      commuters,
+      numCommuters
+    } = this.props
+
+    const entity = this._getEntity()
     const loadingCommuters = numCommuters > commuters.length
 
     return (
@@ -53,50 +130,8 @@ export default class SiteReport extends Component {
               {!loadingCommuters &&
                 entity.reportConfig &&
                 entity.reportConfig.sections &&
-                entity.reportConfig.sections.map((section, k) => {
-                  let processed
-                  if (section.mode) {
-                    processed = processSite(
-                      lastCommuterStoreUpdateTime,
-                      entity._id,
-                      commuters,
-                      section.mode
-                    )
-                  }
-                  return (
-                    <div key={k} style={{ marginTop: '30px' }}>
-                      {section.type === 'summary' && (
-                        <SiteInfographic
-                          commuterCount={commuters.length}
-                          summaryStats={processed.summaryStats}
-                          isMultiSite={isMultiSite}
-                          />
-                      )}
-
-                      {section.type === 'map' && (<div>
-                        <h3>{section.mode} Commute Access Map (up to {section.cutoff / 60} minutes)</h3>
-                        <div style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
-                          <SiteMap ref='map'
-                            commuters={commuters}
-                            isMultiSite={isMultiSite}
-                            polygonStore={polygonStore}
-                            selectedCommuter={selectedCommuter}
-                            site={site}
-                            sites={sites}
-                            activeTab='analysis'
-                            analysisMode={section.mode}
-                            analysisMapStyle='blue-solid'
-                            commuterRingRadius={1}
-                            isochroneCutoff={section.cutoff * 1.0}
-                            rideMatchMapStyle='normal'
-                            mapDisplayMode='STANDARD'
-                            />
-                        </div>
-                      </div>)}
-                    </div>
-                  )
-                }
-              )}
+                entity.reportConfig.sections.map(this._renderSection)
+              }
             </div>
           </Col>
         </Row>

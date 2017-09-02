@@ -8,20 +8,26 @@ import Slider from 'rc-slider'
 
 import ButtonLink from './util/button-link'
 import BackButton from '../containers/util/back-button'
+import Infographic from './site-helpers/infographic'
+import SiteMap from './site-helpers/map'
+import {AccessTable, RidematchesTable} from './site-helpers/tables'
 import FieldGroup from './util/fieldgroup'
 import Icon from './util/icon'
-import SiteMap from './site-helpers/map'
-import SiteInfographic from './site-helpers/infographic'
 import {
   actUponConfirmation,
   arrayCountRenderer,
+  capitalize,
   humanizeDistance,
-  formatDistance,
-  formatPercent,
-  formatPercentAsStr
+  formatDistance
 } from '../utils'
 import {pageview} from '../utils/analytics'
-import {downloadMatches, processSite} from '../utils/data'
+import {
+  basicStats,
+  downloadMatches,
+  modeStats,
+  ridematches as getRideMatches,
+  summaryStats
+} from '../utils/data'
 import messages from '../utils/messages'
 
 export default class Site extends Component {
@@ -189,12 +195,22 @@ export default class Site extends Component {
     const hasCommuters = commuters.length > 0
     const loadingCommuters = numCommuters > commuters.length
 
-    const processed = processSite(
+    const dataArgs = [
       lastCommuterStoreUpdateTime,
       entity._id,
       commuters,
       analysisMode
-    )
+    ]
+    const {
+      allCommutersGeocoded,
+      allCommutersStatsCalculated,
+      pctGeocoded,
+      pctStatsCalculated
+    } = basicStats(...dataArgs)
+    const {
+      ridematches,
+      ridematchingAggregateTable
+    } = getRideMatches(...dataArgs)
 
     /************************************************************************
      commuter tab stuff
@@ -302,21 +318,21 @@ export default class Site extends Component {
                   {/***************************
                     Summary Tab
                   ***************************/}
-                  {!processed.allCommutersGeocoded &&
+                  {!allCommutersGeocoded &&
                     <ProgressBar
                       striped
-                      now={processed.pctGeocoded}
+                      now={pctGeocoded}
                       label='Geocoding Commuters'
                       />
                   }
-                  {processed.allCommutersGeocoded && !processed.allCommutersStatsCalculated &&
+                  {allCommutersGeocoded && !allCommutersStatsCalculated &&
                     <ProgressBar
                       striped
-                      now={processed.pctStatsCalculated}
+                      now={pctStatsCalculated}
                       label='Analyzing Commutes'
                       />
                   }
-                  {processed.allCommutersGeocoded && processed.allCommutersStatsCalculated &&
+                  {allCommutersGeocoded && allCommutersStatsCalculated &&
 
                     <Row className='summary-tab'>
                       <Row>
@@ -339,11 +355,11 @@ export default class Site extends Component {
                           </Panel>
                         </Col>
                       </Row>
-                      <SiteInfographic
+                      <Infographic
                         commuterCount={commuters.length}
-                        summaryStats={processed.summaryStats}
+                        summaryStats={summaryStats(...dataArgs)}
                         isMultiSite={isMultiSite}
-                      />
+                        />
                     </Row>
                   }
                 </Tab>
@@ -382,11 +398,11 @@ export default class Site extends Component {
                             <tbody>
                               <tr>
                                 <td>% of commuters geocoded:</td>
-                                <td>{processed.pctGeocoded}</td>
+                                <td>{pctGeocoded}</td>
                               </tr>
                               <tr>
                                 <td>% of commutes calculated:</td>
-                                <td>{processed.pctStatsCalculated}</td>
+                                <td>{pctStatsCalculated}</td>
                               </tr>
                             </tbody>
                           </Table>
@@ -398,9 +414,9 @@ export default class Site extends Component {
                             <tbody>
                               <tr>
                                 <td>% of commuters geocoded:</td>
-                                <td>{processed.pctGeocoded}</td>
+                                <td>{pctGeocoded}</td>
                                 <td>% of commutes calculated:</td>
-                                <td>{processed.pctStatsCalculated}</td>
+                                <td>{pctStatsCalculated}</td>
                               </tr>
                             </tbody>
                           </Table>
@@ -495,35 +511,23 @@ export default class Site extends Component {
                       }
                     </Col>
                   </Row>
-                  <h4>Commuter Travel Time Summary ({capitalize(analysisMode.toLowerCase())})</h4>
-                  <p>
-                    This table provides a summary of the distribution of travel times to work.
-                    Each row shows how many commuters can commute to work using the currently
-                    selected mode up to the travel time listed.
-                  </p>
-                  <BootstrapTable data={processed.analysisModeStats}>
-                    <TableHeaderColumn dataField='bin' isKey width='150'>Travel Time to<br />Work (minutes)</TableHeaderColumn>
-                    <TableHeaderColumn dataField='cumulative' width='100'>Number of<br />Commuters</TableHeaderColumn>
-                    <TableHeaderColumn
-                      dataField='cumulativePct'
-                      dataFormat={percentBar}
-                      >
-                      Percent of Commuters
-                    </TableHeaderColumn>
-                  </BootstrapTable>
+                  <AccessTable
+                    analysisModeStats={modeStats(...dataArgs)}
+                    mode={analysisMode}
+                    />
                 </Tab>
                 <Tab eventKey='ridematches' title={<span><Icon type='car' /> Matches</span>}>
                   {/***************************
                     Ridematches Tab
                   ***************************/}
-                  {!processed.allCommutersGeocoded &&
+                  {!allCommutersGeocoded &&
                     <ProgressBar
                       striped
-                      now={processed.pctGeocoded}
+                      now={pctGeocoded}
                       label='Geocoding Commuters'
                       />
                   }
-                  {processed.allCommutersGeocoded &&
+                  {allCommutersGeocoded &&
                     <div>
                       <FieldGroup
                         label='Map Style'
@@ -556,23 +560,9 @@ export default class Site extends Component {
                             />
                         </Panel>
                       }
-                      <h4>Ridematch Summary</h4>
-                      <p>
-                        This table provides a summary of the distribution of commuter ridematches.
-                        Each row shows how many commuters have another commuter located within the
-                        current distance listed (as the crow flies).
-                      </p>
-                      <BootstrapTable data={processed.ridematchingAggregateTable}>
-                        <TableHeaderColumn dataField='bin' isKey>Ridematch radius (miles)</TableHeaderColumn>
-                        <TableHeaderColumn dataField='cumulative'>Number of Commuters</TableHeaderColumn>
-                        <TableHeaderColumn
-                          dataField='cumulativePct'
-                          dataFormat={percentBar}
-                          >
-                          Percent of Commuters
-                        </TableHeaderColumn>
-                      </BootstrapTable>
-
+                      <RidematchesTable
+                        ridematchingAggregateTable={ridematchingAggregateTable}
+                        />
                       <Row>
                         <Col xs={12}>
                           <Panel header={(<h3>Download Match Report</h3>)} className='download-report-panel'>
@@ -581,7 +571,7 @@ export default class Site extends Component {
                                 bsStyle='primary'
                                 bsSize='large'
                                 onClick={() => {
-                                  downloadMatches(processed.ridematches)
+                                  downloadMatches(ridematches)
                                 }}
                               >
                                 <Icon type='download' /> Download Matches
@@ -676,14 +666,14 @@ export default class Site extends Component {
                       </Col>
                       <Col xs={12} sm={6}>
                         <h5>Ridematches</h5>
-                        {!processed.ridematches[selectedCommuter._id] &&
+                        {!ridematches[selectedCommuter._id] &&
                           <p>No ridematches within 5 miles of this commuter</p>
                         }
-                        {processed.ridematches[selectedCommuter._id] &&
+                        {ridematches[selectedCommuter._id] &&
                           <div>
-                            <p>{`${processed.ridematches[selectedCommuter._id].matches.length} total matches`}</p>
+                            <p>{`${ridematches[selectedCommuter._id].matches.length} total matches`}</p>
                             <BootstrapTable
-                              data={processed.ridematches[selectedCommuter._id].matches
+                              data={ridematches[selectedCommuter._id].matches
                                 .map((match) => {
                                   return {
                                     distance: match.distance,
@@ -695,7 +685,7 @@ export default class Site extends Component {
                                 defaultSortName: 'distance',
                                 defaultSortOrder: 'asc'
                               }}
-                              pagination={processed.ridematches[selectedCommuter._id].matches.length > 10}
+                              pagination={ridematches[selectedCommuter._id].matches.length > 10}
                               >
                               <TableHeaderColumn dataField='id' isKey hidden />
                               <TableHeaderColumn dataField='name' dataSort>Matched Commuter</TableHeaderColumn>
@@ -754,10 +744,6 @@ export default class Site extends Component {
   }
 }
 
-function capitalize (s) {
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
 function CustomHandle (props) {
   const style = Object.assign({ left: `${props.offset}%` }, handleStyle)
   return (
@@ -769,13 +755,6 @@ CustomHandle.propTypes = {
   formatter: PropTypes.func.isRequired,
   offset: PropTypes.number,
   value: PropTypes.any
-}
-
-function percentBar (n) {
-  return <Row>
-    <Col xs={9}><ProgressBar now={formatPercent(n)} style={{ marginBottom: 0 }} /></Col>
-    <Col xs={3}>{formatPercentAsStr(n)}</Col>
-  </Row>
 }
 
 function geocodeConfidenceRenderer (cell, row) {
