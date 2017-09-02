@@ -4,7 +4,7 @@ import commuterActions from '../actions/commuter'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
 import AddCommuters from '../components/add-commuters'
-import makeDataDependentComponent from '../components/data-dependent-component'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {

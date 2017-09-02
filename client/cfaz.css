@@ -54,11 +54,11 @@ footer a {
   border: 1px solid #778595;
 }
 
-.site-report > .header {
+.report > .header {
   background: #455a71 !important;
 }
 
-.site-report > .header .logo {
+.report > .header .logo {
   width: 300px;
   height: 80px;
 }

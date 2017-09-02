@@ -4,11 +4,14 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Form from 'react-formal'
 import yup from 'yup'
 
-import BackButton from '../containers/back-button'
-import FormalFieldGroup from './formal-fieldgroup'
+import BackButton from '../containers/util/back-button'
+import FormalFieldGroup from './util/formal-fieldgroup'
 import {actUponConfirmation} from '../utils'
 import {pageview} from '../utils/analytics'
-import {entityIdArrayToEntityArray} from '../utils/entities'
+import {
+  entityIdArrayToEntityArray,
+  entityMapToEntityArray
+} from '../utils/entities'
 import messages from '../utils/messages'
 
 const multiSiteSchema = yup.object({
@@ -93,7 +96,9 @@ export default class EditSite extends Component {
     model.sites.forEach((siteId) => {
       multiSiteSitesLookup[siteId] = true
     })
-    const availableSites = Object.values(siteStore).filter((site) => !multiSiteSitesLookup[site._id])
+    const availableSites = entityMapToEntityArray(siteStore).filter(
+      (site) => !multiSiteSitesLookup[site._id]
+    )
     return (
       <Grid>
         <Row>

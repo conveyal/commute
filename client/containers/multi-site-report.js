@@ -4,8 +4,8 @@ import commuterActions from '../actions/commuter'
 import multiSiteActions from '../actions/multi-site'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
-import makeDataDependentComponent from '../components/data-dependent-component'
-import SiteReport from '../components/site-report'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
+import SiteReport from '../components/report'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {

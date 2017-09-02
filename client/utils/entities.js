@@ -114,3 +114,13 @@ export function entityIdArrayToEntityArray (entityIdArray, entityMap) {
   }
   return entities
 }
+
+/**
+ * Get all entities in an entityMap minus by acocunting for reserved keys
+ *
+ * @param  {Object} entityMap
+ * @return {Array}
+ */
+export function entityMapToEntityArray (entityMap) {
+  return Object.keys(entityMap).filter(k => k !== '_lastUpdate').map(k => entityMap[k])
+}

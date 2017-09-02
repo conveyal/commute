@@ -1,8 +1,8 @@
 import {connect} from 'react-redux'
 
 import siteActions from '../actions/site'
-import makeDataDependentComponent from '../components/data-dependent-component'
-import SiteCreateReport from '../components/site-create-report'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
+import SiteCreateReport from '../components/create-report'
 
 function mapStateToProps (state, props) {
   const {site: siteStore} = state

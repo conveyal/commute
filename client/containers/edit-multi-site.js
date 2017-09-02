@@ -2,7 +2,7 @@ import {connect} from 'react-redux'
 
 import multiSiteActions from '../actions/multi-site'
 import siteActions from '../actions/site'
-import makeDataDependentComponent from '../components/data-dependent-component'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import EditMultiSite from '../components/edit-multi-site'
 
 function mapStateToProps (state, props) {

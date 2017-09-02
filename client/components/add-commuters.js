@@ -7,7 +7,7 @@ import {Accordion, Button, Col, Grid, Panel, Row} from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Modal from 'react-modal'
 
-import BackButton from '../containers/back-button'
+import BackButton from '../containers/util/back-button'
 import {pageview} from '../utils/analytics'
 
 let uniqueid = 1

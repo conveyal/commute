@@ -1,6 +1,5 @@
 import {control, DomUtil} from 'leaflet'
 import {PropTypes} from 'react'
-
 import MapControl from 'react-leaflet/lib/MapControl'
 
 export default class Legend extends MapControl {

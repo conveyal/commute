@@ -4,23 +4,22 @@ import multiSiteActions from '../actions/multi-site'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
 import UserHome from '../components/user-home'
+import {entityMapToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state) {
   return {
-    multiSites: Object.values(state.multiSite),
-    sites: Object.values(state.site)
+    multiSites: entityMapToEntityArray(state.multiSite),
+    sites: entityMapToEntityArray(state.site)
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    deleteMultiSite: (opts) => dispatch(multiSiteActions.delete(opts)),
-    deleteSiteFromMultiSites: (opts) => dispatch(multiSiteActions.deleteSiteFromMultiSites(opts)),
-    deletePolygons: (opts) => dispatch(polygonActions.deleteMany(opts)),
-    deleteSite: (opts) => dispatch(siteActions.delete(opts)),
-    loadMultiSites: () => dispatch(multiSiteActions.loadMany()),
-    loadSites: () => dispatch(siteActions.loadMany())
-  }
+const mapDispatchToProps = {
+  deleteMultiSite: multiSiteActions.delete,
+  deleteSiteFromMultiSites: multiSiteActions.deleteSiteFromMultiSites,
+  deletePolygons: polygonActions.deleteMany,
+  deleteSite: siteActions.delete,
+  loadMultiSites: multiSiteActions.loadMany,
+  loadSites: siteActions.loadMany
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserHome)

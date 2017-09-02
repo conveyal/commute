@@ -7,14 +7,14 @@ import Form from 'react-formal'
 import {Map as LeafletMap, Marker, TileLayer} from 'react-leaflet'
 import yup from 'yup'
 
-import BackButton from '../containers/back-button'
-import FormalFieldGroup from './formal-fieldgroup'
-import Geocoder from './geocoder'
+import BackButton from '../containers/util/back-button'
+import FormalFieldGroup from './util/formal-fieldgroup'
+import Geocoder from './util/geocoder'
+import Icon from './util/icon'
 import {actUponConfirmation, geocodeResultToState, geocodeYupSchema} from '../utils'
 import {pageview} from '../utils/analytics'
 import messages from '../utils/messages'
 import settings from '../utils/settings'
-import Icon from './icon'
 
 const siteSchema = yup.object(Object.assign({
   name: yup.string().label('Site Name').required()

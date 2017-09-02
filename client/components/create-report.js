@@ -2,8 +2,8 @@ import React, {Component, PropTypes} from 'react'
 import { Grid, Row, Col,
   Button, ButtonToolbar, Panel, Form, ControlLabel, FormGroup, FormControl } from 'react-bootstrap'
 
-import ButtonLink from './button-link'
-import Icon from './icon'
+import ButtonLink from './util/button-link'
+import Icon from './util/icon'
 
 // default config for a new site: basic report with summary section and 2-hour transit access map
 const defaultConfig = {

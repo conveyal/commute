@@ -156,12 +156,12 @@ h4 strong {
 
 /* printable site report */
 
-.site-report > .header {
+.report > .header {
   padding: 8px;
   margin-bottom: 20px;
 }
 
-.site-report .intro {
+.report .intro {
   font-size: 20px;
   margin-bottom: 20px;
 }

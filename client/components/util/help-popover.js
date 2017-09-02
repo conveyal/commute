@@ -1,9 +1,8 @@
 import React from 'react'
 import {Button, Popover, OverlayTrigger} from 'react-bootstrap'
 
-import messages from '../utils/messages'
-
 import Icon from './icon'
+import messages from '../../utils/messages'
 
 export default function HelpPopover ({ type }) {
   const popover = (

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import commuterActions from '../actions/commuter'
 import multiSiteActions from '../actions/multi-site'
 import siteActions from '../actions/site'
-import makeDataDependentComponent from '../components/data-dependent-component'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import Site from '../components/site'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 

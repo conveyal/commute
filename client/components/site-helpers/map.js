@@ -1,17 +1,18 @@
-import React, {Component, PropTypes} from 'react'
+import hslToHex from 'colorvert/hsl/hex'
+import {toLeaflet} from '@conveyal/lonlat'
+import {geom, io, precision, simplify} from 'jsts'
+import humanizeDuration from 'humanize-duration'
 import {Browser, icon, latLngBounds, point} from 'leaflet'
+import React, {Component, PropTypes} from 'react'
 import {Circle, GeoJSON, Map as LeafletMap, Marker, Popup, TileLayer} from 'react-leaflet'
 import {Button} from 'react-bootstrap'
 import Heatmap from 'react-leaflet-heatmap-layer'
-import {geom, io, precision, simplify} from 'jsts'
-import hslToHex from 'colorvert/hsl/hex'
-import humanizeDuration from 'humanize-duration'
-import {toLeaflet} from '@conveyal/lonlat'
 
-import Icon from './icon'
+import Icon from '../util/icon'
 import Legend from './legend'
 import MarkerCluster from './marker-cluster'
-import { humanizeDistance } from '../utils'
+import { humanizeDistance } from '../../utils'
+import {entityMapToEntityArray} from '../../utils/entities'
 
 const geoJsonReader = new io.GeoJSONReader()
 const geoJsonWriter = new io.GeoJSONWriter()
@@ -386,7 +387,7 @@ function getIsochrones ({ analysisMapStyle, analysisMode, isochroneCutoff, polyg
     return getIsochroneCache[cacheQuery]
   }
 
-  const allPolygons = Object.values(polygonStore)
+  const allPolygons = entityMapToEntityArray(polygonStore)
 
   // single extent isochrone
   if (strategy.indexOf('minute') === -1) {

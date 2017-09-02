@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 import { Row, Col } from 'react-bootstrap'
-import Icon from './icon'
-import {formatPercentAsStr} from '../utils'
 
-import {modeshareStats} from '../utils/settings'
+import Icon from '../util/icon'
+import {formatPercentAsStr} from '../../utils'
+import {modeshareStats} from '../../utils/settings'
 
 const regionalTransitModePct = formatPercentAsStr(modeshareStats.transit)
 const regionalBikeModePct = formatPercentAsStr(modeshareStats.bike)

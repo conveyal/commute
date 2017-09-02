@@ -2,7 +2,7 @@ import {connect} from 'react-redux'
 
 import commuterActions from '../actions/commuter'
 import siteActions from '../actions/site'
-import makeDataDependentComponent from '../components/data-dependent-component'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import EditCommuter from '../components/edit-commuter'
 
 function mapStateToProps (state, props) {

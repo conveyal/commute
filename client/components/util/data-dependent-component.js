@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {Col, Grid, Row} from 'react-bootstrap'
 
+import {entityMapToEntityArray} from '../../utils/entities'
+
 export default function makeDataDependentComponent (type, ComponentToWrap) {
   class DataDependentComponent extends Component {
     state = {
@@ -124,7 +126,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
         }
 
         // check if all commuters have been loaded
-        if ((!isMultiSite && (site.commuters.length > commuters.length)) ||
+        if ((!isMultiSite && site && (site.commuters.length > commuters.length)) ||
           (isMultiSite && !allCommutersLoadedFromAllSites())) {
           // not all commuters loaded in store
           shouldLoadCommuters = true
@@ -192,7 +194,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
         if (polygonStore) {
           const shouldLoadPolygons = (site &&
             site.calculationStatus === 'successfully' &&
-            !Object.values(polygonStore)
+            !entityMapToEntityArray(polygonStore)
               .some((isochrone) => isochrone.siteId === site._id))
 
           if (shouldLoadPolygons && !this.loadingPolygons) {

@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 import multiSiteActions from '../actions/multi-site'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
-import makeDataDependentComponent from '../components/data-dependent-component'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import EditSite from '../components/edit-site'
+import {entityMapToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
   const {site: siteStore} = state
@@ -13,7 +14,7 @@ function mapStateToProps (state, props) {
     const site = siteStore[siteId]
     return {
       editMode: true,
-      multiSites: Object.values(state.multiSite),
+      multiSites: entityMapToEntityArray(state.multiSite),
       site
     }
   } else {

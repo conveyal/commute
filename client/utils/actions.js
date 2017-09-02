@@ -6,6 +6,7 @@ import qs from 'qs'
 import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
 
+import {logout} from '../actions/user'
 import {network} from './messages'
 
 /**
@@ -18,7 +19,7 @@ import {network} from './messages'
  */
 function fetchErrorHandler (alertMsg, err, res) {
   if (err.status === 401) {
-    return debouncedErrorDisplay('A request was unauthorized.')
+    return logout()
   } else {
     debouncedErrorDisplay(alertMsg)
   }

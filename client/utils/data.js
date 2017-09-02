@@ -76,7 +76,6 @@ function memoizeKeyResolver (
  */
 export const processSite = memoize(
   (lastCommuterStoreUpdateTime, entityId, commuters, analysisMode) => {
-    console.log('calculate site stats')
     const pctGeocoded = formatPercent(
       commuters.reduce((accumulator, commuter) => {
         return accumulator + (commuter.geocodeConfidence !== -1 ? 1 : 0)

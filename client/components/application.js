@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 
-import BreadcrumbBar from './breadcrumb-bar'
-import Login from '../containers/login'
-import Navigation from '../containers/navigation'
-import Footer from './footer'
+import Login from '../containers/util/login'
+import Navigation from '../containers/nav/navigation'
+import BreadcrumbBar from './nav/breadcrumb-bar'
+import Footer from './nav/footer'
 
 export default class Application extends Component {
   static propTypes = {

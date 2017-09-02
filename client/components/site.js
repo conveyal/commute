@@ -6,12 +6,12 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Combobox from 'react-widgets/lib/Combobox'
 import Slider from 'rc-slider'
 
-import ButtonLink from './button-link'
-import BackButton from '../containers/back-button'
-import FieldGroup from './fieldgroup'
-import Icon from './icon'
-import SiteMap from './site-map'
-import SiteInfographic from './site-infographic'
+import ButtonLink from './util/button-link'
+import BackButton from '../containers/util/back-button'
+import FieldGroup from './util/fieldgroup'
+import Icon from './util/icon'
+import SiteMap from './site-helpers/map'
+import SiteInfographic from './site-helpers/infographic'
 import {
   actUponConfirmation,
   arrayCountRenderer,

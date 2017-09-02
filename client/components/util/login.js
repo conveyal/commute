@@ -1,7 +1,7 @@
 import {getLock} from '@conveyal/woonerf/auth0'
 import {Component, PropTypes} from 'react'
 
-import messages from '../utils/messages'
+import messages from '../../utils/messages'
 
 export default class Login extends Component {
   static propTypes = {

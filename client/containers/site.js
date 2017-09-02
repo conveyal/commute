@@ -4,9 +4,12 @@ import commuterActions from '../actions/commuter'
 import multiSiteActions from '../actions/multi-site'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
-import makeDataDependentComponent from '../components/data-dependent-component'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import Site from '../components/site'
-import {entityIdArrayToEntityArray} from '../utils/entities'
+import {
+  entityIdArrayToEntityArray,
+  entityMapToEntityArray
+} from '../utils/entities'
 
 function mapStateToProps (state, props) {
   const {commuter: commuterStore, polygon: polygonStore, site: siteStore} = state
@@ -16,7 +19,7 @@ function mapStateToProps (state, props) {
     commuters: site ? entityIdArrayToEntityArray(site.commuters, commuterStore) : [],
     isMultiSite: false,
     lastCommuterStoreUpdateTime: commuterStore._lastUpdate,
-    multiSites: Object.values(state.multiSite),
+    multiSites: entityMapToEntityArray(state.multiSite),
     numCommuters: site ? site.commuters.length : 0,
     polygonStore,
     site

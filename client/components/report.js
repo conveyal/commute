@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 
+import SiteMap from './site-helpers/map'
+import SiteInfographic from './site-helpers/infographic'
 import { processSite } from '../utils/data'
-import SiteMap from './site-map'
-import SiteInfographic from './site-infographic'
 
 export default class SiteReport extends Component {
   static propTypes = {
@@ -37,7 +37,7 @@ export default class SiteReport extends Component {
       <Grid>
         <Row ref='report'>
           <Col xs={12}>
-            <div className='site-report'>
+            <div className='report'>
               <div className='header' style={{ height: '100px' }}>
                 <div className='logo' />
               </div>
@@ -48,7 +48,7 @@ export default class SiteReport extends Component {
 
               {loadingCommuters &&
                 <h4>Loading data, please wait...</h4>
-                }
+              }
 
               {!loadingCommuters &&
                 entity.reportConfig &&
