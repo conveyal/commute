@@ -277,7 +277,6 @@ export default class SiteMap extends Component {
 
     return (
       <LeafletMap ref='leafletMap'
-        style={{ width: '100%', height: '100%' }}
         center={position}
         bounds={bounds}
         zoom={zoom}
@@ -311,7 +310,7 @@ export default class SiteMap extends Component {
         {isochrones}
         <Legend {...mapLegendProps} />
         {mapDisplayMode === 'STANDARD' &&
-          <div style={{ position: 'absolute', right: '10px', top: '10px', zIndex: '10000' }}>
+          <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('HIDDEN') }}>
               <Icon type='compress' /> Hide Map
             </Button>
@@ -321,7 +320,7 @@ export default class SiteMap extends Component {
           </div>
         }
         {mapDisplayMode === 'FULLSCREEN' &&
-          <div style={{ position: 'absolute', right: '10px', top: '10px', zIndex: '10000' }}>
+          <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('STANDARD') }}>
               <Icon type='times' />
             </Button>

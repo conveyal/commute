@@ -37,7 +37,12 @@ export function AccessTable (props) {
 
 function percentBar (n) {
   return <Row>
-    <Col xs={9}><ProgressBar now={formatPercent(n)} style={{ marginBottom: 0 }} /></Col>
+    <Col xs={9}>
+      <ProgressBar
+        className='percent-bar-progress'
+        now={formatPercent(n)}
+        />
+    </Col>
     <Col xs={3}>{formatPercentAsStr(n)}</Col>
   </Row>
 }

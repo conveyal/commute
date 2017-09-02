@@ -75,7 +75,7 @@ export default class UserHome extends Component {
               <Button href={messages.docs.welcome.url} bsStyle='primary' bsSize='large'><Icon type='question-circle' />View Online Documentation</Button>
             </Col>
             <Col xs={4}>
-              <div style={{ height: '260px' }} className='welcome-image' />
+              <div className='welcome-image' />
             </Col>
           </Row>
         </Jumbotron>

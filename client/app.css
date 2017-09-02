@@ -8,6 +8,10 @@ footer {
   padding: 1em;
 }
 
+h3 {
+  margin-bottom: 20px;
+}
+
 h4 strong {
   margin-right: 1em;
 }
@@ -27,6 +31,17 @@ h4 strong {
 	width: 100%;
 }
 
+.map-edit-container {
+  height: 400px;
+}
+
+.map-size-buttons-container {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 10000
+}
+
 /* Map Legend */
 .legend {
   padding: 6px 8px;
@@ -39,6 +54,50 @@ h4 strong {
 
 .legend td {
   padding: 5px;
+}
+
+.percent-bar-progress {
+  margin-bottom: 0;
+}
+
+/* Add Commuters Page */
+.upload-file-panel {
+  margin-top: 20px;
+}
+
+.upload-file-panel .file-upload {
+  background: #ddd;
+}
+
+.upload-file-panel .success-button-container {
+  text-align: center;
+}
+
+/* Create Report */
+.create-report .cutoff-selector-container {
+  margin-top: 15px;
+}
+
+.create-report .header {
+  margin-bottom: 40px;
+}
+
+.create-report .empty-panel {
+  text-align: center;
+}
+
+.create-report .instruction:nth-child(n+2) {
+  margin-top: 40px;
+}
+
+.create-report .main-button {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.create-report .section-header {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* Infographics */
@@ -60,6 +119,10 @@ h4 strong {
   margin-bottom: 10px;
   padding: 20px 0;
   text-align: center;
+}
+
+.infographic-well.num-commuters {
+  background-color: #51992e;
 }
 
 .infographic-well .number {
@@ -140,6 +203,10 @@ h4 strong {
   margin-top: 0;
 }
 
+.welcome-image {
+  height: 260px;
+}
+
 /* help popover */
 
 .help-popover-trigger .help-button {
@@ -164,6 +231,16 @@ h4 strong {
 .report .intro {
   font-size: 20px;
   margin-bottom: 20px;
+}
+
+.report .map {
+  height: 600px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.report .section {
+  margin-top: 30px;
 }
 
 .download-report-panel {

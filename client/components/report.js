@@ -51,7 +51,7 @@ export default class SiteReport extends Component {
     ]
 
     return (
-      <div key={k} style={{ marginTop: '30px' }}>
+      <div key={k} className='section'>
         {section.type === 'summary' && (
           <Infographic
             commuterCount={commuters.length}
@@ -65,7 +65,7 @@ export default class SiteReport extends Component {
             <h3>
               {section.mode} Commute Access Map (up to {section.cutoff / 60} minutes)
             </h3>
-            <div style={{height: '600px', marginTop: '1em', marginBottom: '1em'}}>
+            <div className='map'>
               <SiteMap ref='map'
                 commuters={commuters}
                 isMultiSite={isMultiSite}

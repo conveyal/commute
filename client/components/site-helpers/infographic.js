@@ -24,7 +24,7 @@ export default class Infographic extends Component {
         <Row>
           <Col xs={3} className='infographic-site-column'>
             <h4>Total Commuters</h4>
-            <div className='infographic-well' style={{backgroundColor: '#51992e'}}>
+            <div className='infographic-well num-commuters'>
               <Icon type='group' />
               <span className='number'>{commuterCount}</span>
             </div>

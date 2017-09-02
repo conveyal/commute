@@ -135,7 +135,7 @@ export default class EditCommuter extends Component {
               </ButtonGroup>
             </Form>
           </Col>
-          <Col xs={12} md={7} style={{height: '400px'}}>
+          <Col xs={12} md={7} className='map-edit-container'>
             <LeafletMap center={position} zoom={zoom}>
               <TileLayer
                 url={Browser.retina &&

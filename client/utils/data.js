@@ -96,7 +96,6 @@ function memoizeKeyResolver (
   analysisMode,
   binBy15Minutes
 ) {
-  console.log(`${lastCommuterStoreUpdateTime}-${entityId}-${analysisMode}-${binBy15Minutes}`)
   return `${lastCommuterStoreUpdateTime}-${entityId}-${analysisMode}-${binBy15Minutes}`
 }
 

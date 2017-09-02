@@ -88,24 +88,26 @@ export default class SiteCreateReport extends Component {
     )
 
     return (
-      <Grid>
+      <Grid className='create-report'>
         <Row ref='report'>
           <Col xs={12}>
-            <h2>Create Printable Report</h2>
-            <Row style={{ marginTop: '40px' }}>
+            <h2 className='header'>Create Printable Report</h2>
+            <Row>
               <Col xs={4}>
-                <div>
+                <div className='instruction'>
                   This page allows you to create a customized report for this site. Use the buttons in the Sections headers to reorder or delete sections. Click the "Add Section" button below to add a new section to the end of the report.
                 </div>
-                <div style={{ marginTop: '10px', textAlign: 'center' }}>
+                <div className='main-button'>
                   <Button
                     bsStyle='success'
                     onClick={this._addSection}
                   ><Icon type='plus' /> Add Section</Button>
                 </div>
 
-                <div style={{ marginTop: '40px' }}>To generate the report, click the "View Report" button.</div>
-                <div style={{ marginTop: '10px', textAlign: 'center' }}>
+                <div className='instruction'>
+                  To generate the report, click the "View Report" button.
+                </div>
+                <div className='main-button'>
                   <ButtonLink
                     bsStyle='primary'
                     bsSize='large'
@@ -116,7 +118,7 @@ export default class SiteCreateReport extends Component {
               </Col>
               <Col xs={8}>
                 {!entityHasSections && (
-                  <Panel style={{ textAlign: 'center' }}>
+                  <Panel className='empty-panel'>
                     <h3>This report does not have any sections yet.</h3>
                     Click the "Add Section" button to add the first section.
                   </Panel>
@@ -185,7 +187,7 @@ class ReportSection extends Component {
     const { config, index, length } = this.props
 
     const header = <div>
-      <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Section {index + 1}</span>
+      <span className='section-header'>Section {index + 1}</span>
       <ButtonToolbar className='pull-right'>
         {index > 0 && (
           <Button
@@ -249,7 +251,7 @@ class ReportSection extends Component {
                 </FormGroup>
 
                 {config.type === 'map' && (
-                  <FormGroup style={{ marginTop: '15px' }}>
+                  <FormGroup className='cutoff-selector-container'>
                     <ControlLabel>Travel Time Cutoff:&nbsp;</ControlLabel>
                     <FormControl
                       componentClass='select'
