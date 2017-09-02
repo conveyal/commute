@@ -1,3 +1,4 @@
+import copy from 'copy-to-clipboard'
 import React, {Component, PropTypes} from 'react'
 import { Grid, Row, Col,
   Button, ButtonToolbar, Panel, Form, ControlLabel, FormGroup, FormControl } from 'react-bootstrap'
@@ -7,6 +8,7 @@ import Icon from './util/icon'
 
 // default config for a new site: basic report with summary section and 2-hour transit access map
 const defaultConfig = {
+  isPublic: false,
   sections: [
     {
       type: 'summary'
@@ -34,7 +36,9 @@ export default class SiteCreateReport extends Component {
     update: PropTypes.func
   }
 
-  state = {}
+  state = {
+    linkWasJustCopied: false
+  }
 
   componentWillMount () {
     const entity = this._getEntity()
@@ -46,6 +50,20 @@ export default class SiteCreateReport extends Component {
     }
   }
 
+  _addSection = () => {
+    const entity = this._getEntity()
+    entity.reportConfig.sections.push(defaultSection)
+    this.props.update(entity)
+  }
+
+  _copyPublicLink = () => {
+    copy(this._getReportUrl(true))
+    this.setState({ linkWasJustCopied: true })
+    setTimeout(() => {
+      this.setState({ linkWasJustCopied: false })
+    }, 3000)
+  }
+
   _deleteSection = (index) => {
     const entity = this._getEntity()
     const newSections = entity.reportConfig.sections.filter((e, i) => { return i !== index })
@@ -53,15 +71,19 @@ export default class SiteCreateReport extends Component {
     this.props.update(entity)
   }
 
-  _addSection = () => {
-    const entity = this._getEntity()
-    entity.reportConfig.sections.push(defaultSection)
-    this.props.update(entity)
-  }
-
   _getEntity () {
     const { isMultiSite, multiSite, site } = this.props
     return isMultiSite ? multiSite : site
+  }
+
+  _getReportUrl (publicUrl) {
+    const entity = this._getEntity()
+    let publicPrefix = ''
+    if (publicUrl) {
+      const {host, protocol} = window.location
+      publicPrefix = `${protocol}//${host}/public`
+    }
+    return `${publicPrefix}/${this.props.isMultiSite ? 'multi-site' : 'site'}/${entity._id}/report`
   }
 
   _swapSections = (x, y) => {
@@ -72,6 +94,12 @@ export default class SiteCreateReport extends Component {
     this.props.update(entity)
   }
 
+  _togglePublic = (evt) => {
+    const entity = this._getEntity()
+    entity.reportConfig.isPublic = evt.target.checked
+    this.props.update(entity)
+  }
+
   _updateSection = (index, config) => {
     const entity = this._getEntity()
     entity.reportConfig.sections[index] = config
@@ -79,7 +107,6 @@ export default class SiteCreateReport extends Component {
   }
 
   render () {
-    const {isMultiSite} = this.props
     const entity = this._getEntity()
     const entityHasSections = !!(
       entity.reportConfig &&
@@ -94,9 +121,9 @@ export default class SiteCreateReport extends Component {
             <h2 className='header'>Create Printable Report</h2>
             <Row>
               <Col xs={4}>
-                <div className='instruction'>
+                <p className='instruction'>
                   This page allows you to create a customized report for this site. Use the buttons in the Sections headers to reorder or delete sections. Click the "Add Section" button below to add a new section to the end of the report.
-                </div>
+                </p>
                 <div className='main-button'>
                   <Button
                     bsStyle='success'
@@ -104,16 +131,66 @@ export default class SiteCreateReport extends Component {
                   ><Icon type='plus' /> Add Section</Button>
                 </div>
 
-                <div className='instruction'>
+                <p className='instruction'>
                   To generate the report, click the "View Report" button.
-                </div>
+                </p>
                 <div className='main-button'>
                   <ButtonLink
                     bsStyle='primary'
                     bsSize='large'
-                    to={`/${isMultiSite ? 'multi-site' : 'site'}/${entity._id}/report`}>
+                    to={this._getReportUrl()}>
                     <Icon type='print' /> View Report
                   </ButtonLink>
+                </div>
+
+                <p className='instruction'>
+                  It is possible to make this report viewable without having to login.
+                  Checking the box below will enable this and create a page that will
+                  allow anyone who knows the URL to be able to access the report.
+                </p>
+                <div className='main-button'>
+                  <Panel>
+                    <div className='checkbox'>
+                      <label
+                        htmlFor='create-report-checkbox'
+                        style={{
+                          fontWeight: 'bold'
+                        }}
+                        >
+                        <input
+                          checked={entity.reportConfig.isPublic}
+                          id='create-report-checkbox'
+                          onChange={this._togglePublic}
+                          type='checkbox'
+                          />
+                        Make Report Public
+                      </label>
+                    </div>
+                    {entity.reportConfig &&
+                      entity.reportConfig.isPublic && (
+                        <div>
+                          <p>This report is public!</p>
+                          <p>
+                            <a
+                              href={this._getReportUrl(true)}
+                              >
+                              Click Here
+                            </a> to go to the public report.
+                          </p>
+                          <Button
+                            bsStyle='success'
+                            onClick={this._copyPublicLink}
+                            >
+                            <Icon type='clipboard' />
+                            Copy Link to the Clipboard
+                          </Button>
+                          {this.state.linkWasJustCopied &&
+                            <p style={{ marginTop: '10px' }}>Successfully copied!</p>
+                          }
+                        </div>
+                      )
+                    }
+                  </Panel>
                 </div>
               </Col>
               <Col xs={8}>

@@ -34,6 +34,10 @@ const ApplicationRouter = ({history}) => (
       <Route path='/multi-site/:multiSiteId' component={MultiSite} />
       <Route path='/multi-site/:multiSiteId/create-report' component={MultiSiteCreateReport} />
       <Route path='/multi-site/:multiSiteId/report' component={MultiSiteReport} />
+
+      // public views
+      <Route path='/public/site/:siteId/report' component={SiteReport} />
+      <Route path='/public/multi-site/:multiSiteId/report' component={MultiSiteReport} />
     </Route>
   </Router>
 )

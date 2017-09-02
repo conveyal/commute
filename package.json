@@ -64,6 +64,7 @@
     "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "colorvert": "^0.2.1",
+    "copy-to-clipboard": "^3.0.8",
     "currency-formatter": "^1.0.8",
     "d3-dsv": "^1.0.3",
     "debounce": "^1.0.0",

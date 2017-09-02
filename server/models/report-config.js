@@ -1,4 +1,8 @@
 module.exports = {
+  isPublic: {
+    required: true,
+    type: Boolean
+  },
   required: false,
   sections: [{
     type: {
