@@ -80,7 +80,7 @@ export default class EditSite extends Component {
         deletePolygons({ siteId: this.state.model._id })
         deleteSiteFromMultiSites({ multiSites, siteId: site._id })
       }
-      updateSite(model)
+      updateSite({ entity: model })
     } else {
       create(model)
     }

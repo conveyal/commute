@@ -11,10 +11,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    logout: () => dispatch(logout())
-  }
+const mapDispatchToProps = {
+  logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

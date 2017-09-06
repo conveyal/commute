@@ -7,10 +7,8 @@ function mapStateToProps (state) {
   return {}
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    goBack: () => dispatch(goBack())
-  }
+const mapDispatchToProps = {
+  goBack
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BackButton)

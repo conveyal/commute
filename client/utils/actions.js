@@ -133,7 +133,12 @@ export default function makeGenericModelActions (cfg) {
   }
 
   if (commands['Collection GET']) {
-    actions.loadMany = (queryParams) => {
+    actions.loadMany = (args) => {
+      let queryParams, usePublic
+      if (args) {
+        queryParams = args.queryParams
+        usePublic = args.usePublic
+      }
       // only include filteredKeys in querystring
       let queryString = ''
       if (queryParams) {
@@ -217,7 +222,7 @@ export default function makeGenericModelActions (cfg) {
   }
 
   if (commands['GET']) {
-    actions.loadOne = (id) => fetchAction({
+    actions.loadOne = ({ id, usePublic }) => fetchAction({
       next: (err, res) => {
         if (err) {
           return fetchErrorHandler(network.fetchingError, err, res)
@@ -231,7 +236,7 @@ export default function makeGenericModelActions (cfg) {
 
   if (commands['PUT']) {
     const endpointCfg = commands['PUT']
-    actions.update = (entity, customRedirectionStrategy) => fetchAction({
+    actions.update = ({ entity, customRedirectionStrategy }) => fetchAction({
       next: (err, res) => {
         if (err) {
           return fetchErrorHandler(network.savingError, err, res)

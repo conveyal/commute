@@ -53,7 +53,7 @@ export default class EditCommuter extends Component {
   _handleSubmit = () => {
     const {createCommuter, editMode, updateCommuter} = this.props
     if (editMode) {
-      updateCommuter(this.state.model)
+      updateCommuter({ entity: this.state.model })
     } else {
       createCommuter(this.state.model)
     }

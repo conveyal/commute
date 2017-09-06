@@ -64,14 +64,14 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
             loadSites()
             if (params && params.multiSiteId) {
               // edit page, load multisite
-              loadMultiSite(params.multiSiteId)
+              loadMultiSite({ id: params.multiSiteId })
             }
             return
           }
         } else if (!multiSite && !this.loadingInitialData) {
           // pageload on multiSite, load multiSite and all of its sites
           this.loadingInitialData = true
-          return loadMultiSite(params.multiSiteId)
+          return loadMultiSite({ id: params.multiSiteId })
         } else if (
           multiSite &&
           multiSite.sites.length > sites.length &&
@@ -79,8 +79,10 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
         ) {
           this.loadingInitialData2 = true
           return loadSites({
-            _id: {
-              $in: multiSite.sites
+            queryParams: {
+              _id: {
+                $in: multiSite.sites
+              }
             }
           })
         }
@@ -91,16 +93,16 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
         } else if (!site && !this.loadingInitialData) {
           // pageload on Site, load Site
           this.loadingInitialData = true
-          return loadSite(params.siteId)
+          return loadSite({ id: params.siteId })
         }
       } else if (type === 'commuter') {
         if (site && !params.commuterId) {
           return this.setState({ dataLoading: false })
         } else if ((!site || (params.commuterId && !commuter)) && !this.loadingInitialData) {
           this.loadingInitialData = true
-          loadSite(params.siteId)
+          loadSite({ id: params.siteId })
           if (params.commuterId && !commuter) {
-            loadCommuter(params.commuterId)
+            loadCommuter({ id: params.commuterId })
           } else if (!params.commuterId) {
             // creating new commuter, say data is loaded because breadcrumb will update on its own
             this.setState({ dataLoading: false })
@@ -159,7 +161,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
           }
           this.loadCommutersTimeout = setTimeout(() => {
             this.loadCommutersTimeout = undefined
-            loadCommuters(loadCommutersQuery)
+            loadCommuters({ queryParams: loadCommutersQuery })
             this.setState({ loadingCommuters: true })
           }, 1111)
         } else if (!shouldLoadCommuters) {
@@ -178,7 +180,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
           if (!this.loadSiteTimeout) {
             this.loadSiteTimeout = setTimeout(() => {
               this.loadSiteTimeout = undefined
-              loadSite(site._id)
+              loadSite({ id: site._id })
             }, 1111)
           }
         } else {
@@ -199,7 +201,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
 
           if (shouldLoadPolygons && !this.loadingPolygons) {
             // if 0 polygons exist for site, assume they need to be fetched
-            loadPolygons({ siteId: site._id })
+            loadPolygons({ queryParams: { siteId: site._id } })
             this.loadingPolygons = true
           } else {
             this.loadingPolygons = false

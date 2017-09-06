@@ -46,14 +46,17 @@ export default class SiteCreateReport extends Component {
     if (!entity.reportConfig || !entity.reportConfig.sections) {
       // add the default configuration if needed
       entity.reportConfig = defaultConfig
-      this.props.update(entity)
+      this._save(entity)
+    } else if (!('isPublic' in entity.reportConfig)) {
+      entity.reportConfig.isPublic = false
+      this._save(entity)
     }
   }
 
   _addSection = () => {
     const entity = this._getEntity()
     entity.reportConfig.sections.push(defaultSection)
-    this.props.update(entity)
+    this._save(entity)
   }
 
   _copyPublicLink = () => {
@@ -68,7 +71,7 @@ export default class SiteCreateReport extends Component {
     const entity = this._getEntity()
     const newSections = entity.reportConfig.sections.filter((e, i) => { return i !== index })
     entity.reportConfig.sections = newSections
-    this.props.update(entity)
+    this._save(entity)
   }
 
   _getEntity () {
@@ -86,24 +89,28 @@ export default class SiteCreateReport extends Component {
     return `${publicPrefix}/${this.props.isMultiSite ? 'multi-site' : 'site'}/${entity._id}/report`
   }
 
+  _save (entity) {
+    this.props.update({ entity, customRedirectionStrategy: 'none' })
+  }
+
   _swapSections = (x, y) => {
     const entity = this._getEntity()
     const temp = entity.reportConfig.sections[y]
     entity.reportConfig.sections[y] = entity.reportConfig.sections[x]
     entity.reportConfig.sections[x] = temp
-    this.props.update(entity)
+    this._save(entity)
   }
 
   _togglePublic = (evt) => {
     const entity = this._getEntity()
     entity.reportConfig.isPublic = evt.target.checked
-    this.props.update(entity)
+    this._save(entity)
   }
 
   _updateSection = (index, config) => {
     const entity = this._getEntity()
     entity.reportConfig.sections[index] = config
-    this.props.update(entity)
+    this._save(entity)
   }
 
   render () {

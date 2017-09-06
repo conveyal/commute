@@ -61,7 +61,7 @@ export default class EditSite extends Component {
   _handleSubmit = () => {
     const {create, editMode, update} = this.props
     if (editMode) {
-      update(this.state.model)
+      update({ entity: this.state.model })
     } else {
       create(this.state.model)
     }

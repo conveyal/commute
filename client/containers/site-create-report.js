@@ -15,11 +15,9 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    loadSite: (opts) => dispatch(siteActions.loadOne(opts)),
-    update: (opts) => dispatch(siteActions.update(opts, 'none'))
-  }
+const mapDispatchToProps = {
+  loadSite: siteActions.loadOne,
+  update: siteActions.update
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(

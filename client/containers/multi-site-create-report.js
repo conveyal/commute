@@ -16,12 +16,10 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    loadMultiSite: (opts) => dispatch(multiSiteActions.loadOne(opts)),
-    loadSites: (opts) => dispatch(siteActions.loadMany(opts)),
-    update: (opts) => dispatch(multiSiteActions.update(opts, 'none'))
-  }
+const mapDispatchToProps = {
+  loadMultiSite: multiSiteActions.loadOne,
+  loadSites: siteActions.loadMany,
+  update: multiSiteActions.update
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
