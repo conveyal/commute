@@ -114,6 +114,7 @@ export default class SiteCreateReport extends Component {
   }
 
   render () {
+    const {isMultiSite} = this.props
     const entity = this._getEntity()
     const entityHasSections = !!(
       entity.reportConfig &&
@@ -213,6 +214,7 @@ export default class SiteCreateReport extends Component {
                     <ReportSection
                       config={section}
                       index={k}
+                      isMultiSite={isMultiSite}
                       length={entity.reportConfig.sections.length}
                       key={k}
                       deleteSection={this._deleteSection}
@@ -235,6 +237,7 @@ class ReportSection extends Component {
     config: PropTypes.object.isRequired,
     deleteSection: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
+    isMultiSite: PropTypes.bool.isRequired,
     length: PropTypes.number.isRequired,
     swapSections: PropTypes.func.isRequired,
     updateSection: PropTypes.func.isRequired
@@ -268,7 +271,7 @@ class ReportSection extends Component {
   }
 
   render () {
-    const { config, index, length } = this.props
+    const { config, index, isMultiSite, length } = this.props
 
     const header = <div>
       <span className='section-header'>Section {index + 1}</span>
@@ -310,7 +313,8 @@ class ReportSection extends Component {
                   value={config.type}
                   >
                   <option value='summary'>Site Access Summary</option>
-                  <option value='map'>Commuter Access Map</option>
+                  {!isMultiSite && <option value='map'>Commuter Access Map</option>}
+                  {isMultiSite && <option value='commuter-map'>Commuter Map</option>}
                   <option value='access-table'>Commuter Access Table</option>
                   <option value='ridematch-table'>Ridematching Table</option>
                 </FormControl>

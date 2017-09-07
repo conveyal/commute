@@ -60,10 +60,13 @@ export default class SiteReport extends Component {
             />
         )}
 
-        {section.type === 'map' && (
+        {(section.type === 'map' || section.type === 'commuter-map') && (
           <div>
             <h3>
-              {section.mode} Commute Access Map (up to {section.cutoff / 60} minutes)
+              {section.type === 'map'
+                ? <span>{section.mode} Commute Access Map (up to {section.cutoff / 60} minutes)</span>
+                : <span>Commuter Map</span>
+              }
             </h3>
             <div className='map'>
               <SiteMap ref='map'

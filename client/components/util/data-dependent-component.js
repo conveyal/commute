@@ -63,19 +63,6 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
           ) && !this.loadingInitialData) {
             // edit or create page, load all sites
             this.loadingInitialData = true
-            this.loadingInitialData2 = true
-            loadSites({
-              isPublic,
-              queryParams: {
-                _id: {
-                  $in: multiSite.sites
-                },
-                requester: {
-                  entity: 'multi-site',
-                  id: params.multiSiteId
-                }
-              }
-            })
             if (params && params.multiSiteId) {
               // edit page, load multisite
               loadMultiSite({ id: params.multiSiteId, isPublic })
@@ -233,7 +220,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
             // if 0 polygons exist for site, assume they need to be fetched
             loadPolygons({
               isPublic,
-              queryParams: { 
+              queryParams: {
                 requester: {
                   entity: 'site',
                   id: site._id
