@@ -15,7 +15,7 @@ export default class Application extends Component {
     const {children, userIsLoggedIn} = this.props
     const path = process.env.NODE_ENV === 'test' ? window.fakePath : window.location.pathname
 
-    if (userIsLoggedIn) {
+    if (userIsLoggedIn || path.indexOf('/public/') === 0) {
       if (path.endsWith('/report')) {
         return (
           <div>

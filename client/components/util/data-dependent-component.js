@@ -48,9 +48,12 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
         multiSite,
         params,
         polygonStore,
+        router,
         site,
         sites
       } = props
+
+      const isPublic = router.location.pathname.indexOf('/public') === 0
 
       if (type.indexOf('multi-site') > -1) {
         if (type === 'multi-site-only') {
@@ -61,17 +64,28 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
             // edit or create page, load all sites
             this.loadingInitialData = true
             this.loadingInitialData2 = true
-            loadSites()
+            loadSites({
+              isPublic,
+              queryParams: {
+                _id: {
+                  $in: multiSite.sites
+                },
+                requester: {
+                  entity: 'multi-site',
+                  id: params.multiSiteId
+                }
+              }
+            })
             if (params && params.multiSiteId) {
               // edit page, load multisite
-              loadMultiSite({ id: params.multiSiteId })
+              loadMultiSite({ id: params.multiSiteId, isPublic })
             }
             return
           }
         } else if (!multiSite && !this.loadingInitialData) {
           // pageload on multiSite, load multiSite and all of its sites
           this.loadingInitialData = true
-          return loadMultiSite({ id: params.multiSiteId })
+          return loadMultiSite({ id: params.multiSiteId, isPublic })
         } else if (
           multiSite &&
           multiSite.sites.length > sites.length &&
@@ -79,9 +93,14 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
         ) {
           this.loadingInitialData2 = true
           return loadSites({
+            isPublic,
             queryParams: {
               _id: {
                 $in: multiSite.sites
+              },
+              requester: {
+                entity: 'multi-site',
+                id: params.multiSiteId
               }
             }
           })
@@ -93,9 +112,10 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
         } else if (!site && !this.loadingInitialData) {
           // pageload on Site, load Site
           this.loadingInitialData = true
-          return loadSite({ id: params.siteId })
+          return loadSite({ id: params.siteId, isPublic })
         }
       } else if (type === 'commuter') {
+        // no public views for this, so don't allow it
         if (site && !params.commuterId) {
           return this.setState({ dataLoading: false })
         } else if ((!site || (params.commuterId && !commuter)) && !this.loadingInitialData) {
@@ -153,15 +173,25 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
             loadCommutersQuery = {
               siteId: {
                 $in: multiSite.sites
+              },
+              requester: {
+                entity: 'multi-site',
+                id: params.multiSiteId
               }
             }
           } else {
             // load commuters only from specific site
-            loadCommutersQuery = { siteId: site._id }
+            loadCommutersQuery = {
+              requester: {
+                entity: 'site',
+                id: params.siteId
+              },
+              siteId: site._id
+            }
           }
           this.loadCommutersTimeout = setTimeout(() => {
             this.loadCommutersTimeout = undefined
-            loadCommuters({ queryParams: loadCommutersQuery })
+            loadCommuters({ isPublic, queryParams: loadCommutersQuery })
             this.setState({ loadingCommuters: true })
           }, 1111)
         } else if (!shouldLoadCommuters) {
@@ -180,7 +210,7 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
           if (!this.loadSiteTimeout) {
             this.loadSiteTimeout = setTimeout(() => {
               this.loadSiteTimeout = undefined
-              loadSite({ id: site._id })
+              loadSite({ id: site._id, isPublic })
             }, 1111)
           }
         } else {
@@ -201,7 +231,16 @@ export default function makeDataDependentComponent (type, ComponentToWrap) {
 
           if (shouldLoadPolygons && !this.loadingPolygons) {
             // if 0 polygons exist for site, assume they need to be fetched
-            loadPolygons({ queryParams: { siteId: site._id } })
+            loadPolygons({
+              isPublic,
+              queryParams: { 
+                requester: {
+                  entity: 'site',
+                  id: site._id
+                },
+                siteId: site._id
+              }
+            })
             this.loadingPolygons = true
           } else {
             this.loadingPolygons = false

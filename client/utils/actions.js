@@ -63,6 +63,7 @@ export default function makeGenericModelActions (cfg) {
   const setAllLocally = createAction(`set ${pluralName}`)
 
   const baseEndpoint = `/api/${singularName}`
+  const basePublicEndpoint = `/public-api/${singularName}`
 
   const redirectionStrategies = {
     'toEntity': (entity) => {
@@ -134,10 +135,10 @@ export default function makeGenericModelActions (cfg) {
 
   if (commands['Collection GET']) {
     actions.loadMany = (args) => {
-      let queryParams, usePublic
+      let queryParams, isPublic
       if (args) {
         queryParams = args.queryParams
-        usePublic = args.usePublic
+        isPublic = args.isPublic
       }
       // only include filteredKeys in querystring
       let queryString = ''
@@ -157,7 +158,7 @@ export default function makeGenericModelActions (cfg) {
             return setAllLocally(res.value)
           }
         },
-        url: baseEndpoint + queryString
+        url: (isPublic ? basePublicEndpoint : baseEndpoint) + queryString
       })
     }
   }
@@ -222,7 +223,7 @@ export default function makeGenericModelActions (cfg) {
   }
 
   if (commands['GET']) {
-    actions.loadOne = ({ id, usePublic }) => fetchAction({
+    actions.loadOne = ({ id, isPublic }) => fetchAction({
       next: (err, res) => {
         if (err) {
           return fetchErrorHandler(network.fetchingError, err, res)
@@ -230,7 +231,7 @@ export default function makeGenericModelActions (cfg) {
           return setLocally(res.value)
         }
       },
-      url: `${baseEndpoint}/${id}`
+      url: `${isPublic ? basePublicEndpoint : baseEndpoint}/${id}`
     })
   }
 
