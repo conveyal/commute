@@ -1,0 +1,32 @@
+{
+  "name": "commute",
+  "scripts": {
+  },
+  "env": {
+    "AUTH0_SECRET": {
+      "required": true
+    },
+    "MAPZEN_SEARCH_KEY": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    },
+    "R5_URL": {
+      "required": true
+    },
+    "STATIC_HOST": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "mongolab"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
