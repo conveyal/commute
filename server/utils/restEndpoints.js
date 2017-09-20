@@ -9,7 +9,9 @@ function makeFindQuery (req, query, isPublic) {
   if (!isPublic) {
     moreParams.user = req.user.email
   }
-  return Object.assign(query, moreParams)
+  const dbQuery = Object.assign(query, moreParams)
+  console.log(dbQuery)
+  return dbQuery
 }
 
 function makeGenericModelResponseFn (res) {
