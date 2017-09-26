@@ -24,6 +24,7 @@ import {pageview} from '../utils/analytics'
 import {
   basicStats,
   downloadMatches,
+  getSiteOrMultiSiteEntityInfo,
   modeStats,
   ridematches as getRideMatches,
   summaryStats
@@ -151,6 +152,40 @@ export default class Site extends Component {
     actUponConfirmation(messages.commuter.deleteConfirmation, doDelete)
   }
 
+  _renderHeader (entity, isMultiSite) {
+    return (
+      <Row>
+        <Col xs={12}>
+          <h3>
+            <Icon type='building' />{' '}
+            <span>{entity.name}</span>
+            {' '}
+            <ButtonGroup style={{ marginLeft: '12px', paddingBottom: '2px' }}>
+              <ButtonLink
+                bsSize='xsmall'
+                bsStyle='warning'
+                to={`/${isMultiSite ? 'multi-site' : 'site'}/${entity._id}/edit`}
+                >
+                <Icon type='pencil' /> Edit
+              </ButtonLink>
+              <Button
+                bsSize='xsmall'
+                bsStyle='danger'
+                onClick={this._handleDelete}
+                >
+                <Icon type='trash' /> Delete
+              </Button>
+            </ButtonGroup>
+            <BackButton />
+          </h3>
+          {!isMultiSite &&
+            <p><Icon type='map-marker' /> {entity.address}</p>
+          }
+        </Col>
+      </Row>
+    )
+  }
+
   render () {
     const {
       commuters,
@@ -174,22 +209,32 @@ export default class Site extends Component {
       mapDisplayMode
     } = this.state
 
-    let entity
+    const {
+      entity,
+      errorMessage,
+      hasSiteCalculationError
+    } = getSiteOrMultiSiteEntityInfo(this.props)
 
-    if (isMultiSite) {
-      if (
-        !multiSite ||
-        (multiSite && multiSite.sites.length > sites.length)
-      ) {
-        return null
-      }
-      entity = multiSite
-    } else {
-      if (!site) {
-        // page load, return nothing
-        return null
-      }
-      entity = site
+    // make sure data has loaded
+    if (
+      (isMultiSite &&
+        (!multiSite || (multiSite && multiSite.sites.length > sites.length))) ||
+      (!isMultiSite && !site)
+    ) {
+      return null
+    }
+
+    if (hasSiteCalculationError) {
+      return (
+        <Grid>
+          {this._renderHeader(entity, isMultiSite)}
+
+          <Row style={{ marginTop: '15px' }}>
+            <h4>An error occurred</h4>
+            <p>{errorMessage}</p>
+          </Row>
+        </Grid>
+      )
     }
 
     const hasCommuters = commuters.length > 0
@@ -245,38 +290,7 @@ export default class Site extends Component {
 
     return (
       <Grid>
-        <Row>
-          {/***************************
-            Header
-          ***************************/}
-          <Col xs={12}>
-            <h3>
-              <Icon type='building' />{' '}
-              <span>{entity.name}</span>
-              {' '}
-              <ButtonGroup style={{ marginLeft: '12px', paddingBottom: '2px' }}>
-                <ButtonLink
-                  bsSize='xsmall'
-                  bsStyle='warning'
-                  to={`/${isMultiSite ? 'multi-site' : 'site'}/${entity._id}/edit`}
-                  >
-                  <Icon type='pencil' /> Edit
-                </ButtonLink>
-                <Button
-                  bsSize='xsmall'
-                  bsStyle='danger'
-                  onClick={this._handleDelete}
-                  >
-                  <Icon type='trash' /> Delete
-                </Button>
-              </ButtonGroup>
-              <BackButton />
-            </h3>
-            {!isMultiSite &&
-              <p><Icon type='map-marker' /> {site.address}</p>
-            }
-          </Col>
-        </Row>
+        {this._renderHeader(entity, isMultiSite)}
 
         <Row style={{ marginTop: '15px' }}>
           {/***************************
@@ -284,7 +298,7 @@ export default class Site extends Component {
           ***************************/}
           {!hasCommuters &&
             <Col xs={this.state.mapDisplayMode === 'HIDDEN' ? 12 : 7}>
-              {isMultiSite &&
+              {isMultiSite && !loadingCommuters &&
                 <p>None of the sites in this Multi-Site Analysis have any commuters!  Add commuters to specific sites.</p>
               }
               {!isMultiSite && !loadingCommuters &&
@@ -293,9 +307,9 @@ export default class Site extends Component {
                   {createCommuterButtons}
                 </div>
               }
-              {!isMultiSite && loadingCommuters &&
+              {loadingCommuters &&
                 <div>
-                  <p>Loading commuters...</p>
+                  <p>Loading data...</p>
                 </div>
               }
             </Col>

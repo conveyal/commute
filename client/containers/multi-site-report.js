@@ -6,6 +6,7 @@ import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
 import makeDataDependentComponent from '../components/util/data-dependent-component'
 import SiteReport from '../components/report'
+import * as multiSiteDataHandler from '../utils/data-handlers/multi-site'
 import {entityIdArrayToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
@@ -41,5 +42,5 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  makeDataDependentComponent('multi-site', SiteReport)
+  makeDataDependentComponent(multiSiteDataHandler, SiteReport)
 )

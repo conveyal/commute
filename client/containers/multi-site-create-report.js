@@ -4,6 +4,7 @@ import multiSiteActions from '../actions/multi-site'
 import siteActions from '../actions/site'
 import makeDataDependentComponent from '../components/util/data-dependent-component'
 import SiteCreateReport from '../components/create-report'
+import * as multiSiteDataHandler from '../utils/data-handlers/multi-site'
 
 function mapStateToProps (state, props) {
   const {multiSite: multiSiteStore} = state
@@ -23,5 +24,5 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  makeDataDependentComponent('multi-site-only', SiteCreateReport)
+  makeDataDependentComponent(multiSiteDataHandler, SiteCreateReport)
 )

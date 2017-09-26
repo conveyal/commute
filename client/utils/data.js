@@ -81,6 +81,29 @@ export function downloadMatches (ridematches) {
   link.click()
 }
 
+export function getSiteOrMultiSiteEntityInfo (props) {
+  const {isMultiSite, multiSite, site, sites} = props
+  if (isMultiSite) {
+    return {
+      entity: multiSite,
+      hasSiteCalculationError: sites
+        ? sites.some(site => site.calculationStatus === 'error')
+        : false,
+      errorMessage:
+        'An error while trying to calculate the accessibility to at least one of the sites in this multi-site analysis.'
+    }
+  } else {
+    return {
+      entity: site,
+      hasSiteCalculationError: site
+        ? site.calculationStatus === 'error'
+        : false,
+      errorMessage:
+        'An error while trying to calculate the accessibility to this site.'
+    }
+  }
+}
+
 /**
  * Generate a key for the memoized function
  *

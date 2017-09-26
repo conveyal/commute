@@ -4,6 +4,7 @@ import commuterActions from '../actions/commuter'
 import siteActions from '../actions/site'
 import makeDataDependentComponent from '../components/util/data-dependent-component'
 import EditCommuter from '../components/edit-commuter'
+import * as commuterDataHandler from '../utils/data-handlers/commuter'
 
 function mapStateToProps (state, props) {
   const {commuter: commuterStore} = state
@@ -31,5 +32,5 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  makeDataDependentComponent('commuter', EditCommuter)
+  makeDataDependentComponent(commuterDataHandler, EditCommuter)
 )

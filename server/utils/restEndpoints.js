@@ -10,7 +10,6 @@ function makeFindQuery (req, query, isPublic) {
     moreParams.user = req.user.email
   }
   const dbQuery = Object.assign(query, moreParams)
-  console.log(dbQuery)
   return dbQuery
 }
 
@@ -94,7 +93,10 @@ function makePublicGetModelResponseFn (config, req, res, isCollection, returnChi
             (err, multiSite) => {
               if (err) return genericResponder(err)
               if (!multiSite) return userError(res, 'referenced multisite not found')
-              if (!multiSite.sites.every(siteId => req.query._id['$in'].indexOf(siteId) > -1)) {
+              const idSelector = config.name === 'commuter' ? 'siteId' : '_id'
+              if (!multiSite.sites.every(siteId => {
+                return req.query[idSelector]['$in'].indexOf('' + siteId) > -1
+              })) {
                 return userError(res, 'invalid request: entity ids mismatch')
               }
               sendDataIfEntityAllowsPublicAccess(multiSite)

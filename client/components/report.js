@@ -5,6 +5,7 @@ import Infographic from './site-helpers/infographic'
 import SiteMap from './site-helpers/map'
 import {AccessTable, RidematchesTable} from './site-helpers/tables'
 import {
+  getSiteOrMultiSiteEntityInfo,
   modeStats,
   ridematches,
   summaryStats
@@ -22,15 +23,6 @@ export default class SiteReport extends Component {
     sites: PropTypes.array
   }
 
-  _getEntity () {
-    const {
-      isMultiSite,
-      multiSite,
-      site
-    } = this.props
-    return isMultiSite ? multiSite : site
-  }
-
   _renderSection = (section, k) => {
     const {
       commuters,
@@ -41,7 +33,7 @@ export default class SiteReport extends Component {
       site,
       sites
     } = this.props
-    const entity = this._getEntity()
+    const {entity} = getSiteOrMultiSiteEntityInfo(this.props)
     const dataArgs = [
       lastCommuterStoreUpdateTime,
       entity._id,
@@ -110,7 +102,11 @@ export default class SiteReport extends Component {
       numCommuters
     } = this.props
 
-    const entity = this._getEntity()
+    const {
+      entity,
+      errorMessage,
+      hasSiteCalculationError
+    } = getSiteOrMultiSiteEntityInfo(this.props)
     const loadingCommuters = numCommuters > commuters.length
 
     return (
@@ -126,11 +122,18 @@ export default class SiteReport extends Component {
                 <h2>Site Access Report for {entity.name}</h2>
               </div>
 
-              {loadingCommuters &&
+              {hasSiteCalculationError &&
+                <div>
+                  <h4>An error occurred</h4>
+                  <p>{errorMessage}</p>
+                </div>
+              }
+
+              {!hasSiteCalculationError && loadingCommuters &&
                 <h4>Loading data, please wait...</h4>
               }
 
-              {!loadingCommuters &&
+              {!hasSiteCalculationError && !loadingCommuters &&
                 entity.reportConfig &&
                 entity.reportConfig.sections &&
                 entity.reportConfig.sections.map(this._renderSection)

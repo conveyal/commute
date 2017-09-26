@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import siteActions from '../actions/site'
 import makeDataDependentComponent from '../components/util/data-dependent-component'
 import SiteCreateReport from '../components/create-report'
+import * as siteDataHandler from '../utils/data-handlers/site'
 
 function mapStateToProps (state, props) {
   const {site: siteStore} = state
@@ -21,5 +22,5 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  makeDataDependentComponent('site-only', SiteCreateReport)
+  makeDataDependentComponent(siteDataHandler, SiteCreateReport)
 )

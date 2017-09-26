@@ -1,21 +1,23 @@
 module.exports = {
-  isPublic: {
-    required: true,
-    type: Boolean
-  },
   required: false,
-  sections: [{
-    type: {
+  type: {
+    isPublic: {
       required: true,
-      type: String
+      type: Boolean
     },
-    mode: {
-      required: false,
-      type: String
-    },
-    cutoff: {
-      required: false,
-      type: Number
-    }
-  }]
+    sections: [{
+      type: {
+        required: true,
+        type: String
+      },
+      mode: {
+        required: false,
+        type: String
+      },
+      cutoff: {
+        required: false,
+        type: Number
+      }
+    }]
+  }
 }
