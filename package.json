@@ -84,6 +84,7 @@
     "lodash.pick": "^4.4.0",
     "mastarm": "^3.9.0",
     "mongoose": "^4.6.4",
+    "morgan": "^1.8.2",
     "normalize.css": "^5.0.0",
     "qs": "^6.3.0",
     "rc-slider": "^5.2.1",

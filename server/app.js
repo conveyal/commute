@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const jwt = require('express-jwt')
+const morgan = require('morgan')
 const path = require('path')
 const html = require('@conveyal/woonerf/html')
 
@@ -24,6 +25,7 @@ if (env.AUTH0_SIGNING_CERTIFICATE && process.env.NODE_ENV !== 'test') {
     next()
   }
 }
+app.use(morgan('combined'))
 app.use(bodyParser.json({ limit: '50mb' }))
 
 // static assets
