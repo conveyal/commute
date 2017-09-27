@@ -70,19 +70,25 @@ export function formatPercentAsStr (n) {
 }
 
 export const geocodeResultToState = {
-  address: result => result ? result.properties.label : undefined,
-  city: result => result ? result.properties.locality : undefined,
-  coordinate: result => {
-    return result ? {
-      lat: result.geometry.coordinates[1],
-      lon: result.geometry.coordinates[0]
-    } : undefined
-  },
-  country: result => result ? result.properties.country : undefined,
-  county: result => result ? result.properties.county : undefined,
-  geocodeConfidence: result => result ? result.properties.confidence : undefined,
-  neighborhood: result => result ? result.properties.neighborhood : undefined,
-  state: result => result ? result.properties.region : undefined
+  address: result => (result ? result.properties.label : undefined),
+  city: result => (result ? result.properties.locality : undefined),
+  coordinate: result =>
+    result
+      ? {
+        lat: result.geometry.coordinates[1],
+        lon: result.geometry.coordinates[0]
+      }
+      : undefined,
+  country: result => (result ? result.properties.country : undefined),
+  county: result => (result ? result.properties.county : undefined),
+  geocodeConfidence: result =>
+    result
+      ? result.properties.hasOwnProperty('confidence')
+        ? result.properties.confidence
+        : 0.2 // this is a stopgap because mapzen's geocoder isn't returning the confidence property in certain cases
+      : undefined,
+  neighborhood: result => (result ? result.properties.neighborhood : undefined),
+  state: result => (result ? result.properties.region : undefined)
 }
 
 export const geocodeYupSchema = {
