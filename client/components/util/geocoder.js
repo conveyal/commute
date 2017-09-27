@@ -5,13 +5,6 @@ import SelectGeocoder from 'react-select-geocoder'
 
 import settings from '../../utils/settings'
 
-const boundary = {
-  circle: {
-    centerPoint: settings.geocoder.focus,
-    radius: settings.geocoder.focus.radius
-  }
-}
-
 export default function Geocoder ({ label, validationState, ...props }) {
   return (
     <FormGroup
@@ -21,7 +14,7 @@ export default function Geocoder ({ label, validationState, ...props }) {
       <ControlLabel>{label}</ControlLabel>
       <SelectGeocoder
         apiKey={process.env.MAPZEN_SEARCH_KEY}
-        boundary={boundary}
+        boundary={settings.geocoder.boundary}
         {...props}
         />
       <Form.Message className='help-block' for={props.name} />

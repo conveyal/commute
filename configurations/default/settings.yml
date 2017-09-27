@@ -2,6 +2,12 @@ entries:
   - client/index.js:assets/index.js
   - client/index.css:assets/index.css
 geocoder:
+  boundary:
+    rect:
+      maxLat: 39.9287
+      maxLon: -75.8057
+      minLat: 37.7859
+      minLon: -78.5797
   focus:
     lat: 38.887090
     lon: -77.095229
