@@ -102,9 +102,10 @@ export default class SiteMap extends Component {
       bounds.extend(commuterPosition)
     })
 
-    // return only site marker if no commuters or commuters haven't loaded yet
+    // return position and zoom if no commuters or commuters haven't loaded yet
     if (commuterMarkers.length === 0 && siteMarkers.length === 1) {
       return {
+        commuterMarkers,
         siteMarkers,
         position: firstSiteCoordinates,
         zoom: 11
