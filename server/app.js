@@ -26,6 +26,14 @@ if (env.AUTH0_SIGNING_CERTIFICATE && process.env.NODE_ENV !== 'test') {
   }
 }
 app.use(morgan('combined'))
+// Redirect all HTTP traffic to HTTPS
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV !== 'production' || req.headers['x-forwarded-proto'] === 'https') {
+    // OK, continue
+    return next()
+  }
+  res.redirect(301, `https://${req.hostname}${req.url}`)
+})
 app.use(bodyParser.json({ limit: '50mb' }))
 
 // static assets
