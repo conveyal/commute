@@ -17,6 +17,7 @@ import {entityMapToEntityArray} from '../../utils/entities'
 const geoJsonReader = new io.GeoJSONReader()
 const geoJsonWriter = new io.GeoJSONWriter()
 
+const circleIconUrl = `${process.env.STATIC_HOST}assets/circle.png`
 const homeIconUrl = `${process.env.STATIC_HOST}assets/home-2.png`
 const homeIcon = icon({
   iconUrl: homeIconUrl,
@@ -36,9 +37,9 @@ export default class SiteMap extends Component {
   static propTypes = {
     activeTab: PropTypes.string,
     commuters: PropTypes.array,
-    enableMapDisplayControls: PropTypes.bool,
     handleSelectCommuter: PropTypes.func,
     isMultiSite: PropTypes.bool,
+    isReport: PropTypes.bool,
     mapDisplayMode: PropTypes.string,
     polygonStore: PropTypes.object,
     selectedCommuter: PropTypes.object,
@@ -56,6 +57,7 @@ export default class SiteMap extends Component {
       commuters,
       handleSelectCommuter,
       isMultiSite,
+      isReport,
       site,
       sites,
       selectedCommuter
@@ -95,10 +97,11 @@ export default class SiteMap extends Component {
       const isSelectedCommuter = selectedCommuter && selectedCommuter._id === commuter._id
       commuterMarkers.push(
         <Marker
+          commuterName={commuter.name}  // used when creating MarkerCluster
           icon={isSelectedCommuter ? homeIconSelected : homeIcon}
           key={`commuter-marker-${commuter._id}`}
           onClick={() => {
-            if (handleSelectCommuter) {
+            if (!isReport) {
               handleSelectCommuter(commuter, true)
             }
           }}
@@ -141,8 +144,8 @@ export default class SiteMap extends Component {
       analysisMode,
       commuterRingRadius,
       commuters,
-      enableMapDisplayControls,
       isMultiSite,
+      isReport,
       isochroneCutoff,
       mapDisplayMode,
       polygonStore,
@@ -173,7 +176,7 @@ export default class SiteMap extends Component {
     function doClusterMarkerWork () {
       mapLegendProps.html += `<tr>
         <td>
-          <img src="${homeIconUrl}" />
+          <img src="${isReport ? circleIconUrl : homeIconUrl}" />
         </td>
         <td>Single Commuter</td>
       </tr>
@@ -187,9 +190,11 @@ export default class SiteMap extends Component {
       commuterMarkers.forEach((marker) => {
         clusterMarkers.push({
           id: marker.key,
+          isReport,
           latLng: marker.props.position,
           markerOptions: marker.props,
-          onClick: marker.props.onClick
+          onClick: marker.props.onClick,
+          popupHtml: `<h4>${marker.props.commuterName}</h4>`
         })
       })
     }
@@ -326,7 +331,7 @@ export default class SiteMap extends Component {
           commuterMarkers}
         {isochrones}
         <Legend {...mapLegendProps} />
-        {enableMapDisplayControls && mapDisplayMode === 'STANDARD' &&
+        {!isReport && mapDisplayMode === 'STANDARD' &&
           <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('HIDDEN') }}>
               <Icon type='compress' /> Hide Map
@@ -336,7 +341,7 @@ export default class SiteMap extends Component {
             </Button>
           </div>
         }
-        {enableMapDisplayControls && mapDisplayMode === 'FULLSCREEN' &&
+        {!isReport && mapDisplayMode === 'FULLSCREEN' &&
           <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('STANDARD') }}>
               <Icon type='times' />
