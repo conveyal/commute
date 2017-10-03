@@ -36,6 +36,7 @@ export default class SiteMap extends Component {
   static propTypes = {
     activeTab: PropTypes.string,
     commuters: PropTypes.array,
+    enableMapDisplayControls: PropTypes.bool,
     handleSelectCommuter: PropTypes.func,
     isMultiSite: PropTypes.bool,
     mapDisplayMode: PropTypes.string,
@@ -104,11 +105,13 @@ export default class SiteMap extends Component {
           position={commuterPosition}
           zIndexOffset={1234}
           >
-          <Popup
-            offset={homeIconSelectedOffset}
-            >
-            <h4>{commuter.name}</h4>
-          </Popup>
+          {!!handleSelectCommuter &&
+            <Popup
+              offset={homeIconSelectedOffset}
+              >
+              <h4>{commuter.name}</h4>
+            </Popup>
+          }
         </Marker>
       )
       bounds.extend(commuterPosition)
@@ -138,6 +141,7 @@ export default class SiteMap extends Component {
       analysisMode,
       commuterRingRadius,
       commuters,
+      enableMapDisplayControls,
       isMultiSite,
       isochroneCutoff,
       mapDisplayMode,
@@ -322,7 +326,7 @@ export default class SiteMap extends Component {
           commuterMarkers}
         {isochrones}
         <Legend {...mapLegendProps} />
-        {mapDisplayMode === 'STANDARD' &&
+        {enableMapDisplayControls && mapDisplayMode === 'STANDARD' &&
           <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('HIDDEN') }}>
               <Icon type='compress' /> Hide Map
@@ -332,7 +336,7 @@ export default class SiteMap extends Component {
             </Button>
           </div>
         }
-        {mapDisplayMode === 'FULLSCREEN' &&
+        {enableMapDisplayControls && mapDisplayMode === 'FULLSCREEN' &&
           <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('STANDARD') }}>
               <Icon type='times' />

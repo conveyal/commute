@@ -140,10 +140,13 @@ export default class Site extends Component {
     this.setState({ activeTab: selectedTab })
   }
 
-  _setMapDisplayMode (mapDisplayMode) {
+  _setMapDisplayMode = (mapDisplayMode) => {
     this.setState({ mapDisplayMode })
     setTimeout(() => {
-      this.refs['map'].resized()
+      const map = this.refs.map
+      if (map) {
+        map.resized()
+      }
     }, 100)
   }
 
@@ -733,20 +736,22 @@ export default class Site extends Component {
                 right: 0
               } : {height: '600px', marginTop: '1em', marginBottom: '1em'}}
                 >
-                <SiteMap ref='map'
+                <SiteMap
                   activeTab={activeTab}
                   analysisMapStyle={analysisMapStyle}
                   analysisMode={analysisMode}
                   commuterRingRadius={commuterRingRadius}
                   commuters={commuters}
+                  enableMapDisplayControls
                   handleSelectCommuter={this._handleSelectCommuter}
                   isMultiSite={isMultiSite}
                   isochroneCutoff={isochroneCutoff}
                   mapDisplayMode={mapDisplayMode}
                   polygonStore={polygonStore}
+                  ref='map'
                   rideMatchMapStyle={rideMatchMapStyle}
                   selectedCommuter={selectedCommuter}
-                  setMapDisplayMode={(mode) => { this._setMapDisplayMode(mode) }}
+                  setMapDisplayMode={this._setMapDisplayMode}
                   site={site}
                   sites={sites}
                 />
