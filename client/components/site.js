@@ -734,20 +734,21 @@ export default class Site extends Component {
               } : {height: '600px', marginTop: '1em', marginBottom: '1em'}}
                 >
                 <SiteMap ref='map'
+                  activeTab={activeTab}
+                  analysisMapStyle={analysisMapStyle}
+                  analysisMode={analysisMode}
+                  commuterRingRadius={commuterRingRadius}
                   commuters={commuters}
+                  handleSelectCommuter={this._handleSelectCommuter}
                   isMultiSite={isMultiSite}
+                  isochroneCutoff={isochroneCutoff}
+                  mapDisplayMode={mapDisplayMode}
                   polygonStore={polygonStore}
+                  rideMatchMapStyle={rideMatchMapStyle}
                   selectedCommuter={selectedCommuter}
+                  setMapDisplayMode={(mode) => { this._setMapDisplayMode(mode) }}
                   site={site}
                   sites={sites}
-                  activeTab={activeTab}
-                  analysisMode={analysisMode}
-                  analysisMapStyle={analysisMapStyle}
-                  commuterRingRadius={commuterRingRadius}
-                  isochroneCutoff={isochroneCutoff}
-                  rideMatchMapStyle={rideMatchMapStyle}
-                  mapDisplayMode={mapDisplayMode}
-                  setMapDisplayMode={(mode) => { this._setMapDisplayMode(mode) }}
                 />
               </div>
             </Col>

@@ -36,13 +36,14 @@ export default class SiteMap extends Component {
   static propTypes = {
     activeTab: PropTypes.string,
     commuters: PropTypes.array,
+    handleSelectCommuter: PropTypes.func,
     isMultiSite: PropTypes.bool,
     mapDisplayMode: PropTypes.string,
     polygonStore: PropTypes.object,
     selectedCommuter: PropTypes.object,
+    setMapDisplayMode: PropTypes.func,
     site: PropTypes.object,
-    sites: PropTypes.array,
-    setMapDisplayMode: PropTypes.func
+    sites: PropTypes.array
   }
 
   resized () {
@@ -50,7 +51,14 @@ export default class SiteMap extends Component {
   }
 
   _mapSitesAndCommuters = () => {
-    const {commuters, isMultiSite, site, sites, selectedCommuter} = this.props
+    const {
+      commuters,
+      handleSelectCommuter,
+      isMultiSite,
+      site,
+      sites,
+      selectedCommuter
+    } = this.props
     const commuterMarkers = []
     const siteMarkers = []
     let sitesToMakeMarkersFor
@@ -88,7 +96,11 @@ export default class SiteMap extends Component {
         <Marker
           icon={isSelectedCommuter ? homeIconSelected : homeIcon}
           key={`commuter-marker-${commuter._id}`}
-          onClick={() => this._handleSelectCommuter(commuter, true)}
+          onClick={() => {
+            if (handleSelectCommuter) {
+              handleSelectCommuter(commuter, true)
+            }
+          }}
           position={commuterPosition}
           zIndexOffset={1234}
           >

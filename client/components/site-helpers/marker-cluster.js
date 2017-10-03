@@ -35,18 +35,25 @@ export default class MarkerCluster extends MapLayer {
     return Leaflet.markerClusterGroup()
   }
 
+  /**
+   * Update the data in the marker cluster.
+   * Called in both componentWillMount and componentWillReceiveProps.
+   */
   _addDataToCluster (nextProps) {
+    const {markers: oldMarkers} = this.props
+    const map = this.context.map
+
     // add markers to cluster layer
     if (nextProps.newMarkerData && nextProps.newMarkerData.length > 0) {
-      const markers = Object.assign({}, this.props.markers)
+      const markers = Object.assign({}, oldMarkers)
       const newMarkers = []
 
       nextProps.newMarkerData.forEach((obj) => {
         const leafletMarker = Leaflet.marker(obj.latLng, obj.markerOptions)
           .on('click', () => {
-            this.props.map.panTo(obj.latLng)
+            map.panTo(obj.latLng)
             if (obj.onClick) {
-              obj.onClick()
+              obj.onClick(obj)
             }
           })
 
@@ -63,10 +70,10 @@ export default class MarkerCluster extends MapLayer {
 
     // zoom to particular marker
     if (Object.keys(nextProps.focusMarker).length > 0) {
-      const marker = this.props.markers[nextProps.focusMarker.id]
+      const marker = oldMarkers[nextProps.focusMarker.id]
 
       this.leafletElement.zoomToShowLayer(marker, () => {
-        this.props.map.panTo(nextProps.focusMarker.latLng)
+        map.panTo(nextProps.focusMarker.latLng)
         marker.openPopup()
       })
     }
