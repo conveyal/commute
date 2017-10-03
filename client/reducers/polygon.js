@@ -1,4 +1,7 @@
-import {makeGenericReducerHandlers} from '../utils/reducers'
+import {
+  getGenericReducerInitialState,
+  makeGenericReducerHandlers
+} from '../utils/reducers'
 
 export const reducers = makeGenericReducerHandlers({
   handlers: ['set many', 'delete many'],
@@ -8,4 +11,4 @@ export const reducers = makeGenericReducerHandlers({
   }
 })
 
-export const initialState = {}
+export const initialState = getGenericReducerInitialState()

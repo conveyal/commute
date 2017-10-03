@@ -1,6 +1,6 @@
 /* globals afterAll, beforeAll, describe, it */
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 import request from 'supertest-as-promised'
 
 import app from '../../../server/app'

@@ -3,7 +3,7 @@
   "scripts": {
   },
   "env": {
-    "AUTH0_SECRET": {
+    "AUTH0_SIGNING_CERTIFICATE": {
       "required": true
     },
     "MAPZEN_SEARCH_KEY": {

@@ -1,17 +1,19 @@
 import {connect} from 'react-redux'
 
 import commuterActions from '../actions/commuter'
+import siteActions from '../actions/site'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import EditCommuter from '../components/edit-commuter'
+import * as commuterDataHandler from '../utils/data-handlers/commuter'
 
 function mapStateToProps (state, props) {
   const {commuter: commuterStore} = state
   const {commuterId, siteId} = props.params
   if (commuterId) {
-    const currentCommuter = commuterStore[commuterId]
     return {
       editMode: true,
-      siteId: currentCommuter.siteId,
-      commuter: currentCommuter
+      siteId,
+      commuter: commuterStore[commuterId]
     }
   } else if (siteId) {
     return {
@@ -21,12 +23,14 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    create: (opts) => dispatch(commuterActions.create(opts)),
-    delete: (opts) => dispatch(commuterActions.delete(opts)),
-    update: (opts) => dispatch(commuterActions.update(opts))
-  }
+const mapDispatchToProps = {
+  createCommuter: commuterActions.create,
+  deleteCommuter: commuterActions.delete,
+  loadCommuter: commuterActions.loadOne,
+  loadSite: siteActions.loadOne,
+  updateCommuter: commuterActions.update
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditCommuter)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  makeDataDependentComponent(commuterDataHandler, EditCommuter)
+)

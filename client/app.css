@@ -1,0 +1,248 @@
+body {
+  -webkit-print-color-adjust: exact;
+}
+
+footer {
+  border-top: 1px solid gray;
+  margin-top: 3em;
+  padding: 1em;
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+h4 strong {
+  margin-right: 1em;
+}
+
+/* Bootstrap add-ons */
+.tab-pane {
+  padding: 1em;
+}
+
+/*
+ * react-leaflet is silly, you have to manually style the divs it creates
+ * https://github.com/PaulLeCam/react-leaflet/blob/master/example/index.html
+ * https://github.com/PaulLeCam/react-leaflet/issues/108
+ */
+.leaflet-container {
+	height: 100%;
+	width: 100%;
+}
+
+.map-edit-container {
+  height: 400px;
+}
+
+.map-size-buttons-container {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 10000
+}
+
+/* Map Legend */
+.legend {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+.legend td {
+  padding: 5px;
+}
+
+.percent-bar-progress {
+  margin-bottom: 0;
+}
+
+/* Add Commuters Page */
+.upload-file-panel {
+  margin-top: 20px;
+}
+
+.upload-file-panel .file-upload {
+  background: #ddd;
+}
+
+.upload-file-panel .success-button-container {
+  text-align: center;
+}
+
+/* Create Report */
+.create-report .cutoff-selector-container {
+  margin-top: 15px;
+}
+
+.create-report .header {
+  margin-bottom: 40px;
+}
+
+.create-report .empty-panel {
+  text-align: center;
+}
+
+.create-report .instruction:nth-child(n+2) {
+  margin-top: 40px;
+}
+
+.create-report .main-button {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.create-report .section-header {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Infographics */
+.infographic-modeshare-container {
+  background-color: #eceee9 !important;
+  padding-top: 10px;
+}
+
+.infographic-modeshare-pct-bar {
+  border-radius: 10px;
+  height: 25px;
+  margin-bottom: 10px;
+}
+
+.infographic-well {
+  border-radius: 10px;
+  color: #fff;
+  font-size: 50px;
+  margin-bottom: 10px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.infographic-well.num-commuters {
+  background-color: #51992e;
+}
+
+.infographic-well .number {
+  margin-left: 20%;
+}
+
+.infographic-well .number-pct {
+  margin-left: 10%;
+}
+
+.summary-tab .infographic .infographic-well {
+  font-size: 30px;
+}
+
+.summary-tab .infographic h4 {
+  min-height: 40px;
+}
+
+.summary-tab .infographic p {
+  font-size:  14px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .infographic-modeshare-container {
+    min-height: 160px;
+  }
+
+  .infographic-site-column {
+    min-height: 260px;
+  }
+
+  .infographic-site-column h4 {
+    min-height: 40px;
+  }
+
+  .infographic-well {
+    font-size: 40px !important;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .infographic-modeshare-container {
+    min-height: 135px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .infographic-modeshare-container {
+    min-height: 115px;
+  }
+}
+
+/* fix table alignment */
+
+.react-bs-table {
+  margin: 5px 0px;
+}
+
+/* section break */
+
+.new-section {
+  margin-top: 30px;
+}
+
+/* navbar styling */
+
+.logo {
+  float: left;
+}
+
+.nav-vertical-center {
+  line-height: 36px;
+}
+
+/* welcome box */
+
+.welcome-box h2 {
+  margin-top: 0;
+}
+
+.welcome-image {
+  height: 260px;
+}
+
+/* help popover */
+
+.help-popover-trigger .help-button {
+  font-size: 18px;
+  padding: 0px 2px;
+  border: none;
+  color: #337ab7;
+}
+
+.help-popover .button-row {
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* printable site report */
+
+.report > .header {
+  padding: 8px;
+  margin-bottom: 20px;
+}
+
+.report .intro {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.report .map {
+  height: 600px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.report .section {
+  margin-top: 30px;
+}
+
+.download-report-panel {
+  margin-top: 20px;
+}

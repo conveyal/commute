@@ -6,6 +6,7 @@ import qs from 'qs'
 import {push} from 'react-router-redux'
 import {createAction} from 'redux-actions'
 
+import {logout} from '../actions/user'
 import {network} from './messages'
 
 /**
@@ -18,7 +19,7 @@ import {network} from './messages'
  */
 function fetchErrorHandler (alertMsg, err, res) {
   if (err.status === 401) {
-    return push('/login')
+    return logout()
   } else {
     debouncedErrorDisplay(alertMsg)
   }
@@ -55,13 +56,14 @@ export default function makeGenericModelActions (cfg) {
   const actions = {}
 
   // make local set actions
-  const addLocally = createAction(`add ${singularName}`)
+  const addManyLocally = createAction(`add many ${pluralName}`)
   const deleteLocally = createAction(`delete ${singularName}`)
   const deleteManyLocally = createAction(`delete many ${pluralName}`)
   const setLocally = createAction(`set ${singularName}`)
   const setAllLocally = createAction(`set ${pluralName}`)
 
   const baseEndpoint = `/api/${singularName}`
+  const basePublicEndpoint = `/public-api/${singularName}`
 
   const redirectionStrategies = {
     'toEntity': (entity) => {
@@ -132,7 +134,12 @@ export default function makeGenericModelActions (cfg) {
   }
 
   if (commands['Collection GET']) {
-    actions.loadMany = (queryParams) => {
+    actions.loadMany = (args) => {
+      let queryParams, isPublic
+      if (args) {
+        queryParams = args.queryParams
+        isPublic = args.isPublic
+      }
       // only include filteredKeys in querystring
       let queryString = ''
       if (queryParams) {
@@ -151,7 +158,7 @@ export default function makeGenericModelActions (cfg) {
             return setAllLocally(res.value)
           }
         },
-        url: baseEndpoint + queryString
+        url: (isPublic ? basePublicEndpoint : baseEndpoint) + queryString
       })
     }
   }
@@ -169,7 +176,7 @@ export default function makeGenericModelActions (cfg) {
             return fetchErrorHandler(network.savingError, err, res)
           } else {
             const createdEntities = res.value
-            const actions = createdEntities.map((createdEntity) => addLocally(createdEntity))
+            const actions = [addManyLocally(createdEntities)]
             doRedirectIfNecessary({
               actions,
               endpointCfg,
@@ -216,7 +223,7 @@ export default function makeGenericModelActions (cfg) {
   }
 
   if (commands['GET']) {
-    actions.loadOne = (id) => fetchAction({
+    actions.loadOne = ({ id, isPublic }) => fetchAction({
       next: (err, res) => {
         if (err) {
           return fetchErrorHandler(network.fetchingError, err, res)
@@ -224,13 +231,13 @@ export default function makeGenericModelActions (cfg) {
           return setLocally(res.value)
         }
       },
-      url: `${baseEndpoint}/${id}`
+      url: `${isPublic ? basePublicEndpoint : baseEndpoint}/${id}`
     })
   }
 
   if (commands['PUT']) {
     const endpointCfg = commands['PUT']
-    actions.update = (entity, customRedirectionStrategy) => fetchAction({
+    actions.update = ({ entity, customRedirectionStrategy }) => fetchAction({
       next: (err, res) => {
         if (err) {
           return fetchErrorHandler(network.savingError, err, res)

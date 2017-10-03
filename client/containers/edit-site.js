@@ -3,7 +3,10 @@ import {connect} from 'react-redux'
 import multiSiteActions from '../actions/multi-site'
 import polygonActions from '../actions/polygon'
 import siteActions from '../actions/site'
+import makeDataDependentComponent from '../components/util/data-dependent-component'
 import EditSite from '../components/edit-site'
+import * as siteDataHandler from '../utils/data-handlers/site'
+import {entityMapToEntityArray} from '../utils/entities'
 
 function mapStateToProps (state, props) {
   const {site: siteStore} = state
@@ -12,7 +15,7 @@ function mapStateToProps (state, props) {
     const site = siteStore[siteId]
     return {
       editMode: true,
-      multiSites: Object.values(state.multiSite),
+      multiSites: entityMapToEntityArray(state.multiSite),
       site
     }
   } else {
@@ -22,14 +25,15 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
-  return {
-    create: (opts) => dispatch(siteActions.create(opts)),
-    deletePolygons: (opts) => dispatch(polygonActions.deleteMany(opts)),
-    deleteSite: (opts) => dispatch(siteActions.delete(opts)),
-    deleteSiteFromMultiSites: (opts) => dispatch(multiSiteActions.deleteSiteFromMultiSites(opts)),
-    updateSite: (opts) => dispatch(siteActions.update(opts))
-  }
+const mapDispatchToProps = {
+  create: siteActions.create,
+  deletePolygons: polygonActions.deleteMany,
+  deleteSite: siteActions.delete,
+  deleteSiteFromMultiSites: multiSiteActions.deleteSiteFromMultiSites,
+  loadSite: siteActions.loadOne,
+  updateSite: siteActions.update
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditSite)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  makeDataDependentComponent(siteDataHandler, EditSite)
+)

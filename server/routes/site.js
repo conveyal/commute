@@ -1,23 +1,24 @@
 const models = require('../models')
-const makeRestEndpoints = require('../utils/restEndpoints')
+const endpointFactory = require('../utils/restEndpoints')
 
 module.exports = function makeRoutes (app, jwt) {
-  makeRestEndpoints(app, jwt,
-    {
-      childModels: [{
-        foreignKey: 'siteId',
-        key: 'commuters',
-        model: models.Commuter
-      }],
-      commands: {
-        'Collection GET': {},
-        'Collection POST': {},
-        'GET': {},
-        'DELETE': {},
-        'PUT': {}
-      },
-      model: models.Site,
-      name: 'site'
+  const baseCfg = {
+    childModels: [{
+      foreignKey: 'siteId',
+      key: 'commuters',
+      model: models.Commuter
+    }],
+    model: models.Site,
+    name: 'site'
+  }
+  endpointFactory.makeRestEndpoints(app, jwt, Object.assign({
+    commands: {
+      'Collection GET': {},
+      'Collection POST': {},
+      'GET': {},
+      'DELETE': {},
+      'PUT': {}
     }
-  )
+  }, baseCfg))
+  endpointFactory.makePublicRestEndpoints(app, baseCfg)
 }

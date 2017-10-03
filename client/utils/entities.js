@@ -62,7 +62,7 @@ export function deleteManyFromEntityMap (map, queryParams) {
   return update(map, {
     $apply: (entityMap) => entityArrayToEntityMap(
       Object.values(entityMap).filter((entity) => {
-        for (let key in queryParams) {
+        for (const key in queryParams) {
           if (entity[key] !== queryParams[key]) {
             return true
           }
@@ -113,4 +113,14 @@ export function entityIdArrayToEntityArray (entityIdArray, entityMap) {
     }
   }
   return entities
+}
+
+/**
+ * Get all entities in an entityMap minus by acocunting for reserved keys
+ *
+ * @param  {Object} entityMap
+ * @return {Array}
+ */
+export function entityMapToEntityArray (entityMap) {
+  return Object.keys(entityMap).filter(k => k !== '_lastUpdate').map(k => entityMap[k])
 }

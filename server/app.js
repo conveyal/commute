@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const jwt = require('express-jwt')
+const morgan = require('morgan')
 const path = require('path')
 const html = require('@conveyal/woonerf/html')
 
@@ -11,8 +12,11 @@ const app = express()
 
 // middleware
 let jwtMiddleWare
-if (env.AUTH0_SECRET && process.env.NODE_ENV !== 'test') {
-  jwtMiddleWare = jwt({secret: env.AUTH0_SECRET})
+if (env.AUTH0_SIGNING_CERTIFICATE && process.env.NODE_ENV !== 'test') {
+  jwtMiddleWare = jwt({
+    algorithms: ['HS256', 'RS256'],
+    secret: env.AUTH0_SIGNING_CERTIFICATE
+  })
 } else {
   jwtMiddleWare = (req, res, next) => {
     req.user = {
@@ -21,7 +25,8 @@ if (env.AUTH0_SECRET && process.env.NODE_ENV !== 'test') {
     next()
   }
 }
-app.use(bodyParser.json())
+app.use(morgan('combined'))
+app.use(bodyParser.json({ limit: '50mb' }))
 
 // static assets
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')))
@@ -29,35 +34,13 @@ app.use('/assets', express.static(path.resolve(__dirname, '../assets')))
 // api
 routes(app, jwtMiddleWare)
 
-let htmlString
-const title = 'Commute'
-if (process.env.STATIC_HOST) {
-  // In heroku environment, get js and css from s3
-  const host = process.env.STATIC_HOST
-  htmlString = `<!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-      <link href="${host}assets/index.css" rel="stylesheet">
-
-      <title>${title}</title>
-    </head>
-    <body>
-      <div id="root"></div>
-      <script src="${host}assets/index.js"></script>
-    </body>
-  </html>
-  `
-} else {
-  htmlString = html({title})
-}
+const htmlString = html({
+  staticHost: process.env.STATIC_HOST || '/',
+  title: 'Commute'
+})
 
 // webapp
 app.get('*', (req, res) => {
-  if (['/', '/login'].indexOf(req.originalUrl) === -1) {
-    return res.redirect('/')
-  }
   res.status(200).type('html').send(htmlString)
 })
 

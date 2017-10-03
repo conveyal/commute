@@ -10,7 +10,7 @@ export default class BreadcrumbBar extends Component {
   }
 
   _makeNavItems () {
-    let navItems = [{
+    const navItems = [{
       href: '/',
       name: 'Home'
     }]
@@ -41,17 +41,34 @@ export default class BreadcrumbBar extends Component {
       appendEntity(siteId, site ? site.name : '?', '/site/', isActive)
     }
 
-    if (path === '/' || path === '/login') {
-      // do nothing for home or login
+    if (path === '/') {
+      // do nothing for home
     } else if (path.match(/\/multi-site\/create$/)) {
-      // Create Site View
+      // Create Multi Site View
       navItems.push({
         active: true,
         name: 'Create Multi-Site Analysis'
       })
     } else if (path.match(/\/multi-site\/[\w-]+$/)) {
-      // Site View
+      // Multi Site View
       appendMultiSite(path.match(/\/multi-site\/([\w-]+)/)[1], true)
+    } else if (path.match(/\/multi-site\/[\w-]+\/edit$/)) {
+      // Edit Multi Site View
+      appendMultiSite(path.match(/\/multi-site\/([\w-]+)/)[1], true)
+    } else if (path.match(/\/multi-site\/[\w-]+\/create-report$/)) {
+      // Create Multi Site Report View
+      appendMultiSite(path.match(/\/multi-site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Create Multi-Site Report'
+      })
+    } else if (path.match(/\/multi-site\/[\w-]+\/report$/)) {
+      // Multi Site Report View
+      appendMultiSite(path.match(/\/multi-site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Multi-Site Report'
+      })
     } else if (path.match(/\/site\/create$/)) {
       // Create Site View
       navItems.push({
@@ -62,7 +79,7 @@ export default class BreadcrumbBar extends Component {
       // Site View
       appendSite(path.match(/\/site\/([\w-]+)/)[1], true)
     } else if (path.match(/\/site\/[\w-]+\/bulk-add-commuters$/)) {
-      // Create Commuter View
+      // Bulk Add Commuters View
       appendSite(path.match(/\/site\/([\w-]+)/)[1])
       navItems.push({
         active: true,
@@ -76,7 +93,7 @@ export default class BreadcrumbBar extends Component {
         name: 'Create New Commuter'
       })
     } else if (path.match(/\/site\/[\w-]+\/commuter\/[\w-]+\/edit$/)) {
-      // Create Commuter View
+      // Edit Commuter View
       appendSite(path.match(/\/site\/([\w-]+)/)[1])
       navItems.push({
         active: true,
@@ -88,6 +105,20 @@ export default class BreadcrumbBar extends Component {
       navItems.push({
         active: true,
         name: 'Edit Site'
+      })
+    } else if (path.match(/\/site\/[\w-]+\/create-report$/)) {
+      // Create Site Report View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Create Site Report'
+      })
+    } else if (path.match(/\/site\/[\w-]+\/report$/)) {
+      // Site Report View
+      appendSite(path.match(/\/site\/([\w-]+)/)[1])
+      navItems.push({
+        active: true,
+        name: 'Site Report'
       })
     } else {
       console.error(`Path not matched for breadcrumb generation: ${path}`)

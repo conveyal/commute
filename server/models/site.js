@@ -3,6 +3,7 @@ const Schema = require('mongoose').Schema
 const geocodingPlugin = require('./plugins/geocode')
 const trashPlugin = require('./plugins/trash')
 const userPlugin = require('./plugins/user')
+const reportConfig = require('./report-config')
 const later = require('../utils/later')
 
 const schema = new Schema({
@@ -13,7 +14,8 @@ const schema = new Schema({
   name: {
     required: true,
     type: String
-  }
+  },
+  reportConfig: reportConfig
 })
 
 function postGeocodeHook (site) {

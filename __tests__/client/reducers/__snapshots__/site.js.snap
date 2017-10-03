@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`client > reducers > site generic reducer tests should handle add site 1`] = `
 Object {
   "site-2": Object {

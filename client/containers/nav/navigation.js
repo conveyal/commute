@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import {logout} from '../actions/user'
-import Navigation from '../components/navigation'
+import {logout} from '../../actions/user'
+import Navigation from '../../components/nav/navigation'
 
 function mapStateToProps (state) {
   const {user} = state
@@ -11,10 +11,8 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    logout: () => dispatch(logout())
-  }
+const mapDispatchToProps = {
+  logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

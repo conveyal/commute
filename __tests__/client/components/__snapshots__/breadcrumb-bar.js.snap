@@ -1,16 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Container > BreadcrumbBar renders correctly for "/" 1`] = `
 <ol
   aria-label="breadcrumbs"
   className="breadcrumb"
-  role="navigation">
+  role="navigation"
+>
   <li>
     <Link
       onlyActiveOnIndex={false}
       style={Object {}}
-      to="/">
+      to="/"
+    >
       <a
         onClick={[Function]}
-        style={Object {}}>
+        style={Object {}}
+      >
         Home
       </a>
     </Link>
@@ -22,15 +27,18 @@ exports[`Container > BreadcrumbBar renders correctly for "/site/site-2/edit" 1`]
 <ol
   aria-label="breadcrumbs"
   className="breadcrumb"
-  role="navigation">
+  role="navigation"
+>
   <li>
     <Link
       onlyActiveOnIndex={false}
       style={Object {}}
-      to="/">
+      to="/"
+    >
       <a
         onClick={[Function]}
-        style={Object {}}>
+        style={Object {}}
+      >
         Home
       </a>
     </Link>
@@ -39,10 +47,12 @@ exports[`Container > BreadcrumbBar renders correctly for "/site/site-2/edit" 1`]
     <Link
       onlyActiveOnIndex={false}
       style={Object {}}
-      to="/site/site-2">
+      to="/site/site-2"
+    >
       <a
         onClick={[Function]}
-        style={Object {}}>
+        style={Object {}}
+      >
         Acme Corp
       </a>
     </Link>
