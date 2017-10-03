@@ -6694,6 +6694,13 @@ react-formal@^0.23.1:
     warning "^2.0.0"
     yup "^0.21.1"
 
+react-input-autosize@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.2.0.tgz#87241071159f742123897691da6796ec33b57d05"
+  dependencies:
+    create-react-class "^15.5.2"
+    prop-types "^15.5.8"
+
 react-input-autosize@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.0.1.tgz#e92190497b4026c2780ad0f2fd703c835ba03e33"
@@ -6811,6 +6818,13 @@ react-select-geocoder@^1.0.0:
     lodash.throttle "^4.1.1"
     react-pure-render "^1.0.2"
     react-select "^1.0.0-rc.3"
+
+react-select@1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.3.tgz#94ade090522153067eff09282d0525249ea1d9e3"
+  dependencies:
+    classnames "^2.2.4"
+    react-input-autosize "^1.1.0"
 
 react-select@^1.0.0-rc.3:
   version "1.0.0-rc.10"
