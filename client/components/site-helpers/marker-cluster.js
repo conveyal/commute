@@ -43,9 +43,10 @@ export default class MarkerCluster extends MapLayer {
     const {markers: oldMarkers} = this.props
     const map = this.context.map
 
+    const markers = Object.assign({}, oldMarkers)
+
     // add markers to cluster layer
     if (nextProps.newMarkerData && nextProps.newMarkerData.length > 0) {
-      const markers = Object.assign({}, oldMarkers)
       const newMarkers = []
 
       nextProps.newMarkerData.forEach((obj) => {
@@ -67,7 +68,12 @@ export default class MarkerCluster extends MapLayer {
         })
 
         if (!obj.isReport && obj.popupHtml) {
-          leafletMarker.bindPopup(obj.popupHtml, {maxHeight: 350, maxWidth: 250, minWidth: 250})
+          leafletMarker.bindPopup(obj.popupHtml, {
+            maxHeight: 350,
+            maxWidth: 250,
+            minWidth: 250,
+            offset: Leaflet.point(0, -24)
+          })
         }
 
         markers[obj.id] = leafletMarker
@@ -79,7 +85,7 @@ export default class MarkerCluster extends MapLayer {
 
     // zoom to particular marker
     if (Object.keys(nextProps.focusMarker).length > 0) {
-      const marker = oldMarkers[nextProps.focusMarker.id]
+      const marker = markers[nextProps.focusMarker.id]
 
       this.leafletElement.zoomToShowLayer(marker, () => {
         map.panTo(nextProps.focusMarker.latLng)

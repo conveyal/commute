@@ -64,7 +64,7 @@ export default class SiteMap extends Component {
     } = this.props
     const commuterMarkers = []
     const siteMarkers = []
-    let sitesToMakeMarkersFor
+    let focusMarker, sitesToMakeMarkersFor
 
     if (isMultiSite) {
       sitesToMakeMarkersFor = sites
@@ -95,11 +95,18 @@ export default class SiteMap extends Component {
       if (commuter.coordinate.lat === 0) return  // don't include commuters not geocoded yet
       const commuterPosition = toLeaflet(commuter.coordinate)
       const isSelectedCommuter = selectedCommuter && selectedCommuter._id === commuter._id
+      const commuterMarkerKey = `commuter-marker-${commuter._id}`
+      if (isSelectedCommuter) {
+        focusMarker = {
+          id: commuterMarkerKey,
+          latLng: commuterPosition
+        }
+      }
       commuterMarkers.push(
         <Marker
           commuterName={commuter.name}  // used when creating MarkerCluster
           icon={isSelectedCommuter ? homeIconSelected : homeIcon}
-          key={`commuter-marker-${commuter._id}`}
+          key={commuterMarkerKey}
           onClick={() => {
             if (!isReport) {
               handleSelectCommuter(commuter, true)
@@ -133,6 +140,7 @@ export default class SiteMap extends Component {
     return {
       bounds,
       commuterMarkers,
+      focusMarker,
       siteMarkers
     }
   }
@@ -169,7 +177,14 @@ export default class SiteMap extends Component {
     const siteIconUrl = 'https://unpkg.com/leaflet@1.0.2/dist/images/marker-icon-2x.png'
     mapLegendProps.html += `<tr><td><img src="${siteIconUrl}" style="width: 25px;"/></td><td>Site</td></tr>`
 
-    const {bounds, commuterMarkers, position, siteMarkers, zoom} = this._mapSitesAndCommuters()
+    const {
+      bounds,
+      commuterMarkers,
+      focusMarker,
+      position,
+      siteMarkers,
+      zoom
+    } = this._mapSitesAndCommuters()
     const clusterMarkers = []
     const commuterRings = []
 
@@ -314,6 +329,7 @@ export default class SiteMap extends Component {
         {(activeTab !== 'ridematches' ||
           (activeTab === 'ridematches' && rideMatchMapStyle === 'marker-clusters')) &&
           <MarkerCluster
+            focusMarker={focusMarker}
             newMarkerData={clusterMarkers}
             />
         }
