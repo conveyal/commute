@@ -204,6 +204,9 @@ export default class SiteMap extends Component {
 
       commuterMarkers.forEach((marker) => {
         clusterMarkers.push({
+          circleOptions: {
+            color: '#D69823'
+          },
           id: marker.key,
           isReport,
           latLng: marker.props.position,

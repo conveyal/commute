@@ -312,7 +312,7 @@ class ReportSection extends Component {
                   onChange={this._setType}
                   value={config.type}
                   >
-                  <option value='summary'>Site Access Summary</option>
+                  <option value='summary'>Site Access Infographic</option>
                   {!isMultiSite && <option value='map'>Commuter Access Map</option>}
                   {isMultiSite && <option value='commuter-map'>Commuter Map</option>}
                   <option value='access-table'>Commuter Access Table</option>

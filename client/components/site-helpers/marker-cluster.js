@@ -54,7 +54,7 @@ export default class MarkerCluster extends MapLayer {
         if (obj.isReport) {
           leafletMarker = Leaflet.circle(
             obj.latLng,
-            Object.assign({ radius: 250 }, obj.markerOptions)
+            Object.assign({ radius: 250 }, obj.circleOptions)
           )
         } else {
           leafletMarker = Leaflet.marker(obj.latLng, obj.markerOptions)
