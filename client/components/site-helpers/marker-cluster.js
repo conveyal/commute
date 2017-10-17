@@ -32,7 +32,9 @@ export default class MarkerCluster extends MapLayer {
   }
 
   createLeafletElement () {
-    return Leaflet.markerClusterGroup()
+    return Leaflet.markerClusterGroup({
+      singleMarkerMode: true
+    })
   }
 
   /**
@@ -50,15 +52,7 @@ export default class MarkerCluster extends MapLayer {
       const newMarkers = []
 
       nextProps.newMarkerData.forEach((obj) => {
-        let leafletMarker
-        if (obj.isReport) {
-          leafletMarker = Leaflet.circle(
-            obj.latLng,
-            Object.assign({ radius: 250 }, obj.circleOptions)
-          )
-        } else {
-          leafletMarker = Leaflet.marker(obj.latLng, obj.markerOptions)
-        }
+        const leafletMarker = Leaflet.marker(obj.latLng, obj.markerOptions)
 
         leafletMarker.on('click', () => {
           map.panTo(obj.latLng)

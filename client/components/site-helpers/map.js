@@ -17,7 +17,6 @@ import {entityMapToEntityArray} from '../../utils/entities'
 const geoJsonReader = new io.GeoJSONReader()
 const geoJsonWriter = new io.GeoJSONWriter()
 
-const circleIconUrl = `${process.env.STATIC_HOST}assets/circle.png`
 const homeIconUrl = `${process.env.STATIC_HOST}assets/home-2.png`
 const homeIcon = icon({
   iconUrl: homeIconUrl,
@@ -189,13 +188,15 @@ export default class SiteMap extends Component {
     const commuterRings = []
 
     function doClusterMarkerWork () {
+      if (!isReport) {
+        mapLegendProps.html += `<tr>
+          <td>
+            <img src="${homeIconUrl}" />
+          </td>
+          <td>Single Commuter</td>
+        </tr>`
+      }
       mapLegendProps.html += `<tr>
-        <td>
-          <img src="${isReport ? circleIconUrl : homeIconUrl}" />
-        </td>
-        <td>Single Commuter</td>
-      </tr>
-      <tr>
         <td>
           <img src="${process.env.STATIC_HOST}assets/cluster.png" style="width: 40px;"/>
         </td>
@@ -204,9 +205,6 @@ export default class SiteMap extends Component {
 
       commuterMarkers.forEach((marker) => {
         clusterMarkers.push({
-          circleOptions: {
-            color: '#D69823'
-          },
           id: marker.key,
           isReport,
           latLng: marker.props.position,
@@ -542,9 +540,10 @@ const isochroneStyleStrategies = {
     weight: 1
   },
   'blue-solid': {
-    color: '#000000',
+    color: fillColor['blue-solid'],
     fillColor: fillColor['blue-solid'],
-    fillOpacity: 0.4,
+    fillOpacity: 0.2,
+    opacity: 0.5,
     stroke: true,
     weight: 1
   },
