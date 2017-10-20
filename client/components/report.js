@@ -64,6 +64,7 @@ export default class SiteReport extends Component {
               <SiteMap ref='map'
                 commuters={commuters}
                 isMultiSite={isMultiSite}
+                isReport
                 polygonStore={polygonStore}
                 selectedCommuter={selectedCommuter}
                 site={site}

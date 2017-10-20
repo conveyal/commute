@@ -21,7 +21,7 @@ function makeGenericModelResponseFn (res) {
   }
 }
 
-function makeGetModelResponseFn (childModels, res, isCollection, returnChildrenAsEntities) {
+function makeGetModelResponseFn (childModels, res, isCollection) {
   const genericResponder = makeGenericModelResponseFn(res)
   return (err, data) => {
     if (err) return genericResponder(err)
@@ -33,13 +33,12 @@ function makeGetModelResponseFn (childModels, res, isCollection, returnChildrenA
       childModels,
       data,
       genericResponder,
-      isCollection,
-      returnChildrenAsEntities
+      isCollection
     })
   }
 }
 
-function makePublicGetModelResponseFn (config, req, res, isCollection, returnChildrenAsEntities) {
+function makePublicGetModelResponseFn (config, req, res, isCollection) {
   const genericResponder = makeGenericModelResponseFn(res)
   return (err, data) => {
     if (err) return genericResponder(err)
@@ -53,7 +52,8 @@ function makePublicGetModelResponseFn (config, req, res, isCollection, returnChi
         data,
         genericResponder,
         isCollection,
-        returnChildrenAsEntities
+        isPublic: true,
+        obfuscateAddresses: config.obfuscateAddresses
       })
     }
 
@@ -146,20 +146,19 @@ module.exports.makePublicRestEndpoints = function (app, cfg) {
   const model = cfg.model
   const modelFields = Object.keys(model.schema.paths)
   const name = cfg.name
-  const returnChildrenAsEntities = cfg.returnChildrenAsEntities
 
   app.get(`/public-api/${name}`, (req, res) => {
     // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query
     model.find(
       makeFindQuery(req, pick(req.query, modelFields), true),
-      makePublicGetModelResponseFn(cfg, req, res, true, returnChildrenAsEntities)
+      makePublicGetModelResponseFn(cfg, req, res, true)
     )
   })
 
   app.get(`/public-api/${name}/:id`, (req, res) => {
     model.findOne(
       makeFindQuery(req, { _id: req.params.id }, true),
-      makePublicGetModelResponseFn(cfg, req, res, false, returnChildrenAsEntities)
+      makePublicGetModelResponseFn(cfg, req, res, false)
     )
   })
 }
@@ -173,7 +172,6 @@ module.exports.makePublicRestEndpoints = function (app, cfg) {
  * - {Object} commands    Keys representing commands to make and their corresponding options
  * - {String} name        The endpoint name
  * - {Object} model       The mongo model to use
- * - {Bool} returnChildrenAsEntities  If true, returns children as entities, otherwise returns list of IDs
  * - {Array} childModels  An optional array of object cfgs describing child relationships
  *   Has the following keys
  *   - {String} foreignKey     Foreign key field name in child model
@@ -185,12 +183,11 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
   const model = cfg.model
   const modelFields = Object.keys(model.schema.paths)
   const name = cfg.name
-  const returnChildrenAsEntities = cfg.returnChildrenAsEntities
   if (commands['Collection DELETE']) {
     app.delete(`/api/${name}`, jwt, (req, res) => {
       // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query
       const removeQuery = makeFindQuery(req, pick(req.query, modelFields))
-      model.remove(removeQuery, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
+      model.remove(removeQuery, makeGetModelResponseFn(cfg.childModels, res, true))
     })
   }
 
@@ -198,7 +195,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
     app.get(`/api/${name}`, jwt, (req, res) => {
       // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query
       const findQuery = makeFindQuery(req, pick(req.query, modelFields))
-      model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
+      model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true))
     })
   }
 
@@ -207,7 +204,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
       res.set('Content-Type', 'application/json')
       if (!Array.isArray(req.body)) return userError(res, 'Invalid input data.  Expected an array.')
       const inputData = req.body.map((entity) => Object.assign(entity, { user: req.user.email }))
-      model.create(inputData, makeGetModelResponseFn(cfg.childModels, res, true, returnChildrenAsEntities))
+      model.create(inputData, makeGetModelResponseFn(cfg.childModels, res, true))
     })
   }
 
@@ -228,7 +225,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
   if (commands['GET']) {
     app.get(`/api/${name}/:id`, jwt, (req, res) => {
       model.findOne(makeFindQuery(req, { _id: req.params.id }),
-        makeGetModelResponseFn(cfg.childModels, res, false, returnChildrenAsEntities))
+        makeGetModelResponseFn(cfg.childModels, res, false))
     })
   }
 
@@ -239,7 +236,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
         if (err) return serverError(res, err)
         if (!doc) return userError(res, 'a database error occurred: record not found')
         doc.set(omit(req.body, 'user'))
-        doc.save(makeGetModelResponseFn(cfg.childModels, res, false, returnChildrenAsEntities))
+        doc.save(makeGetModelResponseFn(cfg.childModels, res, false))
       })
     })
   }
@@ -250,9 +247,42 @@ function respondWithData ({
   data,
   genericResponder,
   isCollection,
-  returnChildrenAsEntities
+  isPublic,
+  obfuscateAddresses
 }) {
-  if (!childModels) return genericResponder(null, isCollection ? data : data[0])
+  function censorData (record) {
+    if (record._doc) {
+      record = Object.assign({}, record._doc)
+    }
+    if (isPublic) {
+      record = omit(record, ['user', '__v'])
+      if (obfuscateAddresses) {
+        record = omit(record, [
+          'address',
+          'city',
+          'country',
+          'county',
+          'geocodeConfidence',
+          'name',
+          'originalAddress',
+          'positionLastUpdated',
+          'state'
+        ])
+        record.coordinate.lat += obfuscated()
+        record.coordinate.lon += obfuscated()
+      }
+    }
+    return record
+  }
+
+  if (!childModels) {
+    return genericResponder(
+      null,
+      isCollection
+        ? data.map(censorData)
+        : censorData(data[0])
+    )
+  }
 
   // wow, awesome, with normalized mongoose models I get to make extra queries
   // to the db to do joins!  </sarcasm>
@@ -266,16 +296,12 @@ function respondWithData ({
         user: curEntity.user
       }, (err, childEntities) => {
         if (err) return childCb(err)
-        if (returnChildrenAsEntities || childModel.returnChildrenAsEntities) {
-          curEntity[childModel.key] = childEntities
-        } else {
-          curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
-        }
+        curEntity[childModel.key] = childEntities.map((childEntity) => childEntity._id)
         childCb()
       })
     }, (err) => {
       if (err) return entityCb(err)
-      outputData.push(curEntity)
+      outputData.push(censorData(curEntity))
       entityCb()
     })
   }, (err) => {
@@ -294,4 +320,12 @@ function serverError (res, error) {
 
 function userError (res, error) {
   respondWithError(res, 400, error)
+}
+
+/**
+ * Return a value to obfuscate a lat or lon position
+ */
+function obfuscated () {
+  const choices = [-1, 1]
+  return Math.random() / 1000 * choices[Math.floor(Math.random() * 2)]
 }

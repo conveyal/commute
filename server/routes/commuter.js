@@ -22,5 +22,7 @@ module.exports = function makeRoutes (app, jwt) {
       baseCfg
     )
   )
-  endpointFactory.makePublicRestEndpoints(app, baseCfg)
+  endpointFactory.makePublicRestEndpoints(
+    app, Object.assign({ obfuscateAddresses: true }, baseCfg)
+  )
 }

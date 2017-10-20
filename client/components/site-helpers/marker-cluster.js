@@ -32,26 +32,42 @@ export default class MarkerCluster extends MapLayer {
   }
 
   createLeafletElement () {
-    return Leaflet.markerClusterGroup()
+    return Leaflet.markerClusterGroup({
+      singleMarkerMode: true
+    })
   }
 
+  /**
+   * Update the data in the marker cluster.
+   * Called in both componentWillMount and componentWillReceiveProps.
+   */
   _addDataToCluster (nextProps) {
+    const {markers: oldMarkers} = this.props
+    const map = this.context.map
+
+    const markers = Object.assign({}, oldMarkers)
+
     // add markers to cluster layer
     if (nextProps.newMarkerData && nextProps.newMarkerData.length > 0) {
-      const markers = Object.assign({}, this.props.markers)
       const newMarkers = []
 
       nextProps.newMarkerData.forEach((obj) => {
         const leafletMarker = Leaflet.marker(obj.latLng, obj.markerOptions)
-          .on('click', () => {
-            this.props.map.panTo(obj.latLng)
-            if (obj.onClick) {
-              obj.onClick()
-            }
-          })
 
-        if (obj.popupHtml) {
-          leafletMarker.bindPopup(obj.popupHtml, {maxHeight: 350, maxWidth: 250, minWidth: 250})
+        leafletMarker.on('click', () => {
+          map.panTo(obj.latLng)
+          if (obj.onClick) {
+            obj.onClick(obj)
+          }
+        })
+
+        if (!obj.isReport && obj.popupHtml) {
+          leafletMarker.bindPopup(obj.popupHtml, {
+            maxHeight: 350,
+            maxWidth: 250,
+            minWidth: 250,
+            offset: Leaflet.point(0, -24)
+          })
         }
 
         markers[obj.id] = leafletMarker
@@ -63,10 +79,10 @@ export default class MarkerCluster extends MapLayer {
 
     // zoom to particular marker
     if (Object.keys(nextProps.focusMarker).length > 0) {
-      const marker = this.props.markers[nextProps.focusMarker.id]
+      const marker = markers[nextProps.focusMarker.id]
 
       this.leafletElement.zoomToShowLayer(marker, () => {
-        this.props.map.panTo(nextProps.focusMarker.latLng)
+        map.panTo(nextProps.focusMarker.latLng)
         marker.openPopup()
       })
     }

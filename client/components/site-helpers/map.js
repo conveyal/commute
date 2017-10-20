@@ -36,13 +36,15 @@ export default class SiteMap extends Component {
   static propTypes = {
     activeTab: PropTypes.string,
     commuters: PropTypes.array,
+    handleSelectCommuter: PropTypes.func,
     isMultiSite: PropTypes.bool,
+    isReport: PropTypes.bool,
     mapDisplayMode: PropTypes.string,
     polygonStore: PropTypes.object,
     selectedCommuter: PropTypes.object,
+    setMapDisplayMode: PropTypes.func,
     site: PropTypes.object,
-    sites: PropTypes.array,
-    setMapDisplayMode: PropTypes.func
+    sites: PropTypes.array
   }
 
   resized () {
@@ -50,10 +52,18 @@ export default class SiteMap extends Component {
   }
 
   _mapSitesAndCommuters = () => {
-    const {commuters, isMultiSite, site, sites, selectedCommuter} = this.props
+    const {
+      commuters,
+      handleSelectCommuter,
+      isMultiSite,
+      isReport,
+      site,
+      sites,
+      selectedCommuter
+    } = this.props
     const commuterMarkers = []
     const siteMarkers = []
-    let sitesToMakeMarkersFor
+    let focusMarker, sitesToMakeMarkersFor
 
     if (isMultiSite) {
       sitesToMakeMarkersFor = sites
@@ -84,27 +94,42 @@ export default class SiteMap extends Component {
       if (commuter.coordinate.lat === 0) return  // don't include commuters not geocoded yet
       const commuterPosition = toLeaflet(commuter.coordinate)
       const isSelectedCommuter = selectedCommuter && selectedCommuter._id === commuter._id
+      const commuterMarkerKey = `commuter-marker-${commuter._id}`
+      if (isSelectedCommuter) {
+        focusMarker = {
+          id: commuterMarkerKey,
+          latLng: commuterPosition
+        }
+      }
       commuterMarkers.push(
         <Marker
+          commuterName={commuter.name}  // used when creating MarkerCluster
           icon={isSelectedCommuter ? homeIconSelected : homeIcon}
-          key={`commuter-marker-${commuter._id}`}
-          onClick={() => this._handleSelectCommuter(commuter, true)}
+          key={commuterMarkerKey}
+          onClick={() => {
+            if (!isReport) {
+              handleSelectCommuter(commuter, true)
+            }
+          }}
           position={commuterPosition}
           zIndexOffset={1234}
           >
-          <Popup
-            offset={homeIconSelectedOffset}
-            >
-            <h4>{commuter.name}</h4>
-          </Popup>
+          {!!handleSelectCommuter &&
+            <Popup
+              offset={homeIconSelectedOffset}
+              >
+              <h4>{commuter.name}</h4>
+            </Popup>
+          }
         </Marker>
       )
       bounds.extend(commuterPosition)
     })
 
-    // return only site marker if no commuters or commuters haven't loaded yet
+    // return position and zoom if no commuters or commuters haven't loaded yet
     if (commuterMarkers.length === 0 && siteMarkers.length === 1) {
       return {
+        commuterMarkers,
         siteMarkers,
         position: firstSiteCoordinates,
         zoom: 11
@@ -114,6 +139,7 @@ export default class SiteMap extends Component {
     return {
       bounds,
       commuterMarkers,
+      focusMarker,
       siteMarkers
     }
   }
@@ -126,6 +152,7 @@ export default class SiteMap extends Component {
       commuterRingRadius,
       commuters,
       isMultiSite,
+      isReport,
       isochroneCutoff,
       mapDisplayMode,
       polygonStore,
@@ -149,18 +176,27 @@ export default class SiteMap extends Component {
     const siteIconUrl = 'https://unpkg.com/leaflet@1.0.2/dist/images/marker-icon-2x.png'
     mapLegendProps.html += `<tr><td><img src="${siteIconUrl}" style="width: 25px;"/></td><td>Site</td></tr>`
 
-    const {bounds, commuterMarkers, position, siteMarkers, zoom} = this._mapSitesAndCommuters()
+    const {
+      bounds,
+      commuterMarkers,
+      focusMarker,
+      position,
+      siteMarkers,
+      zoom
+    } = this._mapSitesAndCommuters()
     const clusterMarkers = []
     const commuterRings = []
 
     function doClusterMarkerWork () {
+      if (!isReport) {
+        mapLegendProps.html += `<tr>
+          <td>
+            <img src="${homeIconUrl}" />
+          </td>
+          <td>Single Commuter</td>
+        </tr>`
+      }
       mapLegendProps.html += `<tr>
-        <td>
-          <img src="${homeIconUrl}" />
-        </td>
-        <td>Single Commuter</td>
-      </tr>
-      <tr>
         <td>
           <img src="${process.env.STATIC_HOST}assets/cluster.png" style="width: 40px;"/>
         </td>
@@ -170,9 +206,11 @@ export default class SiteMap extends Component {
       commuterMarkers.forEach((marker) => {
         clusterMarkers.push({
           id: marker.key,
+          isReport,
           latLng: marker.props.position,
           markerOptions: marker.props,
-          onClick: marker.props.onClick
+          onClick: marker.props.onClick,
+          popupHtml: `<h4>${marker.props.commuterName}</h4>`
         })
       })
     }
@@ -292,6 +330,7 @@ export default class SiteMap extends Component {
         {(activeTab !== 'ridematches' ||
           (activeTab === 'ridematches' && rideMatchMapStyle === 'marker-clusters')) &&
           <MarkerCluster
+            focusMarker={focusMarker}
             newMarkerData={clusterMarkers}
             />
         }
@@ -309,7 +348,7 @@ export default class SiteMap extends Component {
           commuterMarkers}
         {isochrones}
         <Legend {...mapLegendProps} />
-        {mapDisplayMode === 'STANDARD' &&
+        {!isReport && mapDisplayMode === 'STANDARD' &&
           <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('HIDDEN') }}>
               <Icon type='compress' /> Hide Map
@@ -319,7 +358,7 @@ export default class SiteMap extends Component {
             </Button>
           </div>
         }
-        {mapDisplayMode === 'FULLSCREEN' &&
+        {!isReport && mapDisplayMode === 'FULLSCREEN' &&
           <div className='map-size-buttons-container'>
             <Button bsSize='small' onClick={() => { setMapDisplayMode('STANDARD') }}>
               <Icon type='times' />
@@ -501,9 +540,10 @@ const isochroneStyleStrategies = {
     weight: 1
   },
   'blue-solid': {
-    color: '#000000',
+    color: fillColor['blue-solid'],
     fillColor: fillColor['blue-solid'],
-    fillOpacity: 0.4,
+    fillOpacity: 0.2,
+    opacity: 0.5,
     stroke: true,
     weight: 1
   },
