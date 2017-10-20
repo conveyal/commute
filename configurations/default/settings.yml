@@ -1,6 +1,6 @@
 entries:
-  - client/index.js:assets/index.js
-  - client/index.css:assets/index.css
+  - 'client/index.js:assets/index.js'
+  - 'client/index.css:assets/index.css'
 geocoder:
   boundary:
     rect:
@@ -9,11 +9,25 @@ geocoder:
       minLat: 37.7859
       minLon: -78.5797
   focus:
-    lat: 38.887090
+    lat: 38.88709
     lon: -77.095229
     radius: 100
-s3bucket: commute-staging
+lock:
+  allowSignUp: false
+  auth:
+    params:
+      scope: 'openid email user_metadata'
+    redirect: false
+  autoclose: true
+  closable: false
+  languageDictionary:
+    title: ''
+  redirectUrl: /
+  theme:
+    logo: 'https://s3.amazonaws.com/carfreeatoz-production/images/application/auth0-logo.png'
+    primaryColor: '#f5a81c'
 modeshareStats:
-  carpool: 0.10
   bike: 0.02
+  carpool: 0.1
   transit: 0.14
+s3bucket: commute-staging
