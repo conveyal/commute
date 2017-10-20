@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multi-site rest endpoint should add model 1`] = `
+Array [
+  Object {
+    "__v": 0,
+    "name": "test-multi-site",
+    "sites": Array [],
+    "user": "test-user",
+  },
+]
+`;
+
+exports[`multi-site rest endpoint should get model 1`] = `
+Object {
+  "__v": 0,
+  "name": "test-multi-site",
+  "sites": Array [],
+  "user": "test-user",
+}
+`;
+
+exports[`multi-site rest endpoint should update model 1`] = `
+Object {
+  "__v": 0,
+  "name": "updated name",
+  "sites": Array [],
+  "user": "test-user",
+}
+`;

@@ -17,4 +17,6 @@ export const reducers = {
   }
 }
 
-export const initialState = {}
+export const initialState = {
+  ...JSON.parse(window.localStorage.getItem('user'))
+}

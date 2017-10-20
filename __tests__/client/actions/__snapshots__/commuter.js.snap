@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions > commuter generic model actions create should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/site/site-id",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > commuter generic model actions delete should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/site/site-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`actions > commuter generic model actions update should work 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/site/site-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

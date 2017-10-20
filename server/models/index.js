@@ -2,8 +2,7 @@ const db = require('../db')
 
 module.exports = {
   Commuter: db.model('Commuter', require('./commuter')),
-  Group: db.model('Group', require('./group')),
-  Organization: db.model('Organization', require('./organization')),
-  SiteAnalysis: db.model('SiteAnalysis', require('./site-analysis')),
+  MultiSite: db.model('MultiSite', require('./multi-site')),
+  Polygon: db.model('Polygon', require('./polygon')),
   Site: db.model('Site', require('./site'))
 }

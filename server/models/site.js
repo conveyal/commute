@@ -1,10 +1,34 @@
-const {Schema} = require('mongoose')
+const Schema = require('mongoose').Schema
 
-module.exports = new Schema({
-  location: Object, // GeoJSON Point
-  name: String,
-  organization: {
-    ref: 'Organization',
-    type: Schema.Types.ObjectId
-  }
+const geocodingPlugin = require('./plugins/geocode')
+const trashPlugin = require('./plugins/trash')
+const userPlugin = require('./plugins/user')
+const reportConfig = require('./report-config')
+const later = require('../utils/later')
+
+const schema = new Schema({
+  calculationStatus: {
+    default: 'calculating',
+    type: String
+  },
+  name: {
+    required: true,
+    type: String
+  },
+  reportConfig: reportConfig
 })
+
+function postGeocodeHook (site) {
+  // import here to resolve circular import
+  const isochroneUtils = require('../utils/isochrones')
+
+  later(() => {
+    isochroneUtils.calculateSiteIsochrones(site)
+  })
+}
+
+schema.plugin(geocodingPlugin(postGeocodeHook))
+schema.plugin(trashPlugin)
+schema.plugin(userPlugin)
+
+module.exports = schema

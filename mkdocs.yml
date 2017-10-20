@@ -1,0 +1,20 @@
+site_name: conveyal-commute
+site_url: https://conveyal-commute.readthedocs.org
+repo_url: https://github.com/conveyal/commute
+site_dir: docs-build
+docs_dir: docs
+theme: readthedocs
+extra_css: [style.css]
+
+pages:
+  - Home: 'index.md'
+  - 'Conceptual Overview': 'conceptual-overview.md'
+  - Tutorial:
+      - 'Home Page': 'tutorial/home-page.md'
+      - 'Create/Edit Site': 'tutorial/create-edit-site.md'
+      - 'Site (first view)': 'tutorial/empty-site.md'
+      - 'Adding Commuters': 'tutorial/add-commuters.md'
+      - 'Site (with commuters)': 'tutorial/site.md'
+      - 'Create/Edit Multi-site Analysis': 'tutorial/create-edit-multi-site-analysis.md'
+      - 'Multi-site Analysis': 'tutorial/multi-site-analysis.md'
+  - Support: 'support.md'

@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`client > reducers > site generic reducer tests should handle add site 1`] = `
+Object {
+  "site-2": Object {
+    "_id": "site-2",
+    "address": "123 ABC St",
+    "city": "Megalopolis",
+    "commuters": Array [
+      "commuter-2",
+    ],
+    "coordinate": Object {
+      "lat": 38.892767,
+      "lon": -77.04074,
+    },
+    "country": "Made up land",
+    "county": "Made up county",
+    "name": "Acme Corp",
+    "neighbourhood": undefined,
+    "state": "Made up state",
+  },
+}
+`;
+
+exports[`client > reducers > site generic reducer tests should handle delete site 1`] = `Object {}`;
+
+exports[`client > reducers > site generic reducer tests should handle set site 1`] = `
+Object {
+  "site-2": Object {
+    "_id": "site-2",
+    "address": "123 ABC St",
+    "city": "Megalopolis",
+    "commuters": Array [
+      "commuter-2",
+    ],
+    "coordinate": Object {
+      "lat": 38.892767,
+      "lon": -77.04074,
+    },
+    "country": "Made up land",
+    "county": "Made up county",
+    "name": "Acme Corp",
+    "neighbourhood": undefined,
+    "state": "Made up state",
+  },
+}
+`;
+
+exports[`client > reducers > site generic reducer tests should handle set sites 1`] = `
+Object {
+  "site-2": Object {
+    "_id": "site-2",
+    "address": "123 ABC St",
+    "city": "Megalopolis",
+    "commuters": Array [
+      "commuter-2",
+    ],
+    "coordinate": Object {
+      "lat": 38.892767,
+      "lon": -77.04074,
+    },
+    "country": "Made up land",
+    "county": "Made up county",
+    "name": "Acme Corp",
+    "neighbourhood": undefined,
+    "state": "Made up state",
+  },
+}
+`;

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions > polygon generic model actions deleteMany should work 1`] = `
+Object {
+  "siteId": "site-id",
+}
+`;

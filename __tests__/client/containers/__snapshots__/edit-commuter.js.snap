@@ -1,0 +1,3345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container > EditCommuter Create commuter 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/site/site-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode 1`] = `
+<div
+  className="commuter-header col-xs-12"
+>
+  <h3>
+    <span>
+      Create Commuter
+    </span>
+    <Connect(BackButton)>
+      <BackButton
+        goBack={[Function]}
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <Icon
+              type="arrow-left"
+            >
+              <i
+                className="fa fa-arrow-left fa-fw "
+              />
+            </Icon>
+            <span>
+              Back
+            </span>
+          </button>
+        </Button>
+      </BackButton>
+    </Connect(BackButton)>
+  </h3>
+</div>
+`;
+
+exports[`Container > EditCommuter Create/Edit Commuter View loads in create mode 2`] = `
+<div
+  className="commuter-form col-md-5 col-xs-12"
+>
+  <Uncontrolled(Form)
+    onChange={[Function]}
+    onError={[Function]}
+    onSubmit={[Function]}
+    schema={
+      ObjectSchema {
+        "_blacklist": BadSet {
+          "_map": Object {},
+          "_refs": Object {},
+        },
+        "_conditions": Array [],
+        "_defaultDefault": [Function],
+        "_deps": Array [],
+        "_excludedEdges": Array [
+          "undefined-undefined",
+        ],
+        "_exclusive": Object {},
+        "_mutate": false,
+        "_nodes": Array [
+          "state",
+          "original_address",
+          "neighborhood",
+          "geocodeConfidence",
+          "county",
+          "country",
+          "coordinate",
+          "city",
+          "address",
+          "name",
+        ],
+        "_options": Object {
+          "abortEarly": true,
+          "recursive": true,
+        },
+        "_type": "object",
+        "_typeError": [Function],
+        "_whitelist": BadSet {
+          "_map": Object {},
+          "_refs": Object {},
+        },
+        "fields": Object {
+          "address": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {
+              "required": false,
+            },
+            "_label": "Address",
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [
+              [Function],
+              [Function],
+            ],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "city": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "coordinate": ObjectSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_defaultDefault": [Function],
+            "_deps": Array [],
+            "_excludedEdges": Array [
+              "undefined-undefined",
+            ],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_nodes": Array [
+              "lat",
+              "lon",
+            ],
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "object",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "fields": Object {
+              "lat": NumberSchema {
+                "_blacklist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "_conditions": Array [],
+                "_deps": Array [],
+                "_exclusive": Object {
+                  "required": false,
+                },
+                "_mutate": false,
+                "_options": Object {
+                  "abortEarly": true,
+                  "recursive": true,
+                },
+                "_type": "number",
+                "_typeError": [Function],
+                "_whitelist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "tests": Array [
+                  [Function],
+                ],
+                "transforms": Array [
+                  [Function],
+                ],
+              },
+              "lon": NumberSchema {
+                "_blacklist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "_conditions": Array [],
+                "_deps": Array [],
+                "_exclusive": Object {
+                  "required": false,
+                },
+                "_mutate": false,
+                "_options": Object {
+                  "abortEarly": true,
+                  "recursive": true,
+                },
+                "_type": "number",
+                "_typeError": [Function],
+                "_whitelist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "tests": Array [
+                  [Function],
+                ],
+                "transforms": Array [
+                  [Function],
+                ],
+              },
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "country": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "county": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "geocodeConfidence": NumberSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "number",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "name": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {
+              "required": false,
+            },
+            "_label": "Site Name",
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [
+              [Function],
+              [Function],
+            ],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "neighborhood": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "original_address": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "state": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {
+              "required": false,
+            },
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [
+              [Function],
+              [Function],
+            ],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+        },
+        "tests": Array [],
+        "transforms": Array [
+          [Function],
+        ],
+      }
+    }
+    value={
+      Object {
+        "siteId": "site-2",
+      }
+    }
+  >
+    <Form
+      component="form"
+      delay={300}
+      getter={[Function]}
+      onChange={[Function]}
+      onError={[Function]}
+      onSubmit={[Function]}
+      schema={
+        ObjectSchema {
+          "_blacklist": BadSet {
+            "_map": Object {},
+            "_refs": Object {},
+          },
+          "_conditions": Array [],
+          "_defaultDefault": [Function],
+          "_deps": Array [],
+          "_excludedEdges": Array [
+            "undefined-undefined",
+          ],
+          "_exclusive": Object {},
+          "_mutate": false,
+          "_nodes": Array [
+            "state",
+            "original_address",
+            "neighborhood",
+            "geocodeConfidence",
+            "county",
+            "country",
+            "coordinate",
+            "city",
+            "address",
+            "name",
+          ],
+          "_options": Object {
+            "abortEarly": true,
+            "recursive": true,
+          },
+          "_type": "object",
+          "_typeError": [Function],
+          "_whitelist": BadSet {
+            "_map": Object {},
+            "_refs": Object {},
+          },
+          "fields": Object {
+            "address": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {
+                "required": false,
+              },
+              "_label": "Address",
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [
+                [Function],
+                [Function],
+              ],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "city": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "coordinate": ObjectSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_defaultDefault": [Function],
+              "_deps": Array [],
+              "_excludedEdges": Array [
+                "undefined-undefined",
+              ],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_nodes": Array [
+                "lat",
+                "lon",
+              ],
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "object",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "fields": Object {
+                "lat": NumberSchema {
+                  "_blacklist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "_conditions": Array [],
+                  "_deps": Array [],
+                  "_exclusive": Object {
+                    "required": false,
+                  },
+                  "_mutate": false,
+                  "_options": Object {
+                    "abortEarly": true,
+                    "recursive": true,
+                  },
+                  "_type": "number",
+                  "_typeError": [Function],
+                  "_whitelist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "tests": Array [
+                    [Function],
+                  ],
+                  "transforms": Array [
+                    [Function],
+                  ],
+                },
+                "lon": NumberSchema {
+                  "_blacklist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "_conditions": Array [],
+                  "_deps": Array [],
+                  "_exclusive": Object {
+                    "required": false,
+                  },
+                  "_mutate": false,
+                  "_options": Object {
+                    "abortEarly": true,
+                    "recursive": true,
+                  },
+                  "_type": "number",
+                  "_typeError": [Function],
+                  "_whitelist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "tests": Array [
+                    [Function],
+                  ],
+                  "transforms": Array [
+                    [Function],
+                  ],
+                },
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "country": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "county": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "geocodeConfidence": NumberSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "number",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "name": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {
+                "required": false,
+              },
+              "_label": "Site Name",
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [
+                [Function],
+                [Function],
+              ],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "neighborhood": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "original_address": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "state": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {
+                "required": false,
+              },
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [
+                [Function],
+                [Function],
+              ],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+          },
+          "tests": Array [],
+          "transforms": Array [
+            [Function],
+          ],
+        }
+      }
+      setter={[Function]}
+      strict={false}
+      value={
+        Object {
+          "siteId": "site-2",
+        }
+      }
+    >
+      <BindingContext
+        getter={[Function]}
+        onChange={[Function]}
+        setter={[Function]}
+        value={
+          Object {
+            "siteId": "site-2",
+          }
+        }
+      >
+        <MessageListener
+          onValidationNeeded={[Function]}
+        >
+          <MessageContainer
+            mapNames={[Function]}
+            messages={Object {}}
+            onValidationNeeded={[Function]}
+          >
+            <form
+              noValidate={true}
+              onSubmit={[Function]}
+            >
+              <FormalFieldGroup
+                label="Commuter Name"
+                name="name"
+                placeholder="Enter name"
+              >
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="group-item-name"
+                >
+                  <div
+                    className="form-group"
+                  >
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      <label
+                        className="control-label"
+                        htmlFor="group-item-name"
+                      >
+                        Commuter Name
+                      </label>
+                    </ControlLabel>
+                    <Field
+                      className="form-control"
+                      exclusive={false}
+                      name="name"
+                      placeholder="Enter name"
+                      type=""
+                    >
+                      <Binding
+                        bindTo={[Function]}
+                        changeProp="onChange"
+                        mapValue={
+                          Object {
+                            "name": undefined,
+                          }
+                        }
+                        updateAfterChild={false}
+                        valueProp="value"
+                      >
+                        <ChildBridge
+                          events="onChange"
+                          onEvent={[Function]}
+                        >
+                          <MessageListener
+                            events={
+                              Array [
+                                "onChange",
+                                "onBlur",
+                              ]
+                            }
+                            for="name"
+                            mapMessages={[Function]}
+                          >
+                            <MessageTrigger
+                              events={
+                                Array [
+                                  "onChange",
+                                  "onBlur",
+                                ]
+                              }
+                              for="name"
+                              mapMessages={[Function]}
+                              messages={Object {}}
+                              noValidate={false}
+                            >
+                              <ChildBridge
+                                events={
+                                  Array [
+                                    "onChange",
+                                    "onBlur",
+                                  ]
+                                }
+                                onEvent={[Function]}
+                              >
+                                <_class
+                                  className="form-control"
+                                  meta={
+                                    Object {
+                                      "context": undefined,
+                                      "errorClass": "invalid-field",
+                                      "errors": Object {},
+                                      "invalid": false,
+                                      "onError": [Function],
+                                      "resolvedType": "string",
+                                      "schema": StringSchema {
+                                        "_blacklist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": false,
+                                        },
+                                        "_label": "Site Name",
+                                        "_mutate": false,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "valid": true,
+                                    }
+                                  }
+                                  name="name"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Enter name"
+                                  value={null}
+                                >
+                                  <Input
+                                    className="form-control"
+                                    meta={
+                                      Object {
+                                        "context": undefined,
+                                        "errorClass": "invalid-field",
+                                        "errors": Object {},
+                                        "invalid": false,
+                                        "onError": [Function],
+                                        "resolvedType": "string",
+                                        "schema": StringSchema {
+                                          "_blacklist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "_conditions": Array [],
+                                          "_deps": Array [],
+                                          "_exclusive": Object {
+                                            "required": false,
+                                          },
+                                          "_label": "Site Name",
+                                          "_mutate": false,
+                                          "_options": Object {
+                                            "abortEarly": true,
+                                            "recursive": true,
+                                          },
+                                          "_type": "string",
+                                          "_typeError": [Function],
+                                          "_whitelist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "tests": Array [
+                                            [Function],
+                                            [Function],
+                                          ],
+                                          "transforms": Array [
+                                            [Function],
+                                          ],
+                                        },
+                                        "valid": true,
+                                      }
+                                    }
+                                    name="name"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    placeholder="Enter name"
+                                    type="text"
+                                    value={null}
+                                  >
+                                    <input
+                                      className="form-control"
+                                      name="name"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Enter name"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </Input>
+                                </_class>
+                              </ChildBridge>
+                            </MessageTrigger>
+                          </MessageListener>
+                        </ChildBridge>
+                      </Binding>
+                    </Field>
+                    <ValidationMessage
+                      className="help-block"
+                      component="span"
+                      errorClass="validation-error"
+                      extract={[Function]}
+                      filter={[Function]}
+                      for="name"
+                    >
+                      <MessageListener
+                        className="help-block validation-error"
+                        component="span"
+                        for="name"
+                      >
+                        <Message
+                          className="help-block validation-error"
+                          component="span"
+                          for="name"
+                          messages={Object {}}
+                        />
+                      </MessageListener>
+                    </ValidationMessage>
+                  </div>
+                </FormGroup>
+              </FormalFieldGroup>
+              <Field
+                exclusive={false}
+                label="Address"
+                mapFromValue={
+                  Object {
+                    "address": [Function],
+                    "city": [Function],
+                    "coordinate": [Function],
+                    "country": [Function],
+                    "county": [Function],
+                    "geocodeConfidence": [Function],
+                    "neighborhood": [Function],
+                    "state": [Function],
+                  }
+                }
+                mapToValue={[Function]}
+                name="address"
+                type={[Function]}
+              >
+                <Binding
+                  bindTo={[Function]}
+                  changeProp="onChange"
+                  mapValue={
+                    Object {
+                      "address": [Function],
+                      "city": [Function],
+                      "coordinate": [Function],
+                      "country": [Function],
+                      "county": [Function],
+                      "geocodeConfidence": [Function],
+                      "neighborhood": [Function],
+                      "state": [Function],
+                    }
+                  }
+                  updateAfterChild={false}
+                  valueProp="value"
+                >
+                  <ChildBridge
+                    events="onChange"
+                    onEvent={[Function]}
+                  >
+                    <MessageListener
+                      events={
+                        Array [
+                          "onChange",
+                          "onBlur",
+                        ]
+                      }
+                      for="address"
+                      mapMessages={[Function]}
+                    >
+                      <MessageTrigger
+                        events={
+                          Array [
+                            "onChange",
+                            "onBlur",
+                          ]
+                        }
+                        for="address"
+                        mapMessages={[Function]}
+                        messages={Object {}}
+                        noValidate={false}
+                      >
+                        <ChildBridge
+                          events={
+                            Array [
+                              "onChange",
+                              "onBlur",
+                            ]
+                          }
+                          onEvent={[Function]}
+                        >
+                          <Geocoder
+                            className=""
+                            label="Address"
+                            meta={
+                              Object {
+                                "context": undefined,
+                                "errorClass": "invalid-field",
+                                "errors": Object {},
+                                "invalid": false,
+                                "onError": [Function],
+                                "resolvedType": [Function],
+                                "schema": StringSchema {
+                                  "_blacklist": BadSet {
+                                    "_map": Object {},
+                                    "_refs": Object {},
+                                  },
+                                  "_conditions": Array [],
+                                  "_deps": Array [],
+                                  "_exclusive": Object {
+                                    "required": false,
+                                  },
+                                  "_label": "Address",
+                                  "_mutate": false,
+                                  "_options": Object {
+                                    "abortEarly": true,
+                                    "recursive": true,
+                                  },
+                                  "_type": "string",
+                                  "_typeError": [Function],
+                                  "_whitelist": BadSet {
+                                    "_map": Object {},
+                                    "_refs": Object {},
+                                  },
+                                  "tests": Array [
+                                    [Function],
+                                    [Function],
+                                  ],
+                                  "transforms": Array [
+                                    [Function],
+                                  ],
+                                },
+                                "valid": true,
+                              }
+                            }
+                            name="address"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            value={null}
+                          >
+                            <FormGroup
+                              bsClass="form-group"
+                              controlId="geocode-control-address"
+                            >
+                              <div
+                                className="form-group"
+                              >
+                                <ControlLabel
+                                  bsClass="control-label"
+                                  srOnly={false}
+                                >
+                                  <label
+                                    className="control-label"
+                                    htmlFor="geocode-control-address"
+                                  >
+                                    Address
+                                  </label>
+                                </ControlLabel>
+                                <Geocoder
+                                  apiKey="test-search-key"
+                                  boundary={
+                                    Object {
+                                      "circle": Object {
+                                        "centerPoint": Object {
+                                          "lat": 39.467803,
+                                          "lon": -87.397648,
+                                          "radius": 20,
+                                        },
+                                        "radius": 20,
+                                      },
+                                    }
+                                  }
+                                  className=""
+                                  featureToLabel={[Function]}
+                                  featureToValue={[Function]}
+                                  meta={
+                                    Object {
+                                      "context": undefined,
+                                      "errorClass": "invalid-field",
+                                      "errors": Object {},
+                                      "invalid": false,
+                                      "onError": [Function],
+                                      "resolvedType": [Function],
+                                      "schema": StringSchema {
+                                        "_blacklist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": false,
+                                        },
+                                        "_label": "Address",
+                                        "_mutate": false,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "valid": true,
+                                    }
+                                  }
+                                  name="address"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  search={[Function]}
+                                  value={null}
+                                >
+                                  <Async
+                                    apiKey="test-search-key"
+                                    autoload={false}
+                                    boundary={
+                                      Object {
+                                        "circle": Object {
+                                          "centerPoint": Object {
+                                            "lat": 39.467803,
+                                            "lon": -87.397648,
+                                            "radius": 20,
+                                          },
+                                          "radius": 20,
+                                        },
+                                      }
+                                    }
+                                    cache={Object {}}
+                                    cacheAsyncResults={false}
+                                    className=""
+                                    featureToLabel={[Function]}
+                                    featureToValue={[Function]}
+                                    filterOptions={false}
+                                    ignoreAccents={true}
+                                    ignoreCase={true}
+                                    loadOptions={[Function]}
+                                    loadingPlaceholder="Loading..."
+                                    meta={
+                                      Object {
+                                        "context": undefined,
+                                        "errorClass": "invalid-field",
+                                        "errors": Object {},
+                                        "invalid": false,
+                                        "onError": [Function],
+                                        "resolvedType": [Function],
+                                        "schema": StringSchema {
+                                          "_blacklist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "_conditions": Array [],
+                                          "_deps": Array [],
+                                          "_exclusive": Object {
+                                            "required": false,
+                                          },
+                                          "_label": "Address",
+                                          "_mutate": false,
+                                          "_options": Object {
+                                            "abortEarly": true,
+                                            "recursive": true,
+                                          },
+                                          "_type": "string",
+                                          "_typeError": [Function],
+                                          "_whitelist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "tests": Array [
+                                            [Function],
+                                            [Function],
+                                          ],
+                                          "transforms": Array [
+                                            [Function],
+                                          ],
+                                        },
+                                        "valid": true,
+                                      }
+                                    }
+                                    minimumInput={3}
+                                    name="address"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    options={Array []}
+                                    search={[Function]}
+                                    searchPromptText="Type to search"
+                                    value={null}
+                                  >
+                                    <Select
+                                      addLabelText="Add \\"{label}\\"?"
+                                      apiKey="test-search-key"
+                                      arrowRenderer={[Function]}
+                                      autoload={false}
+                                      autosize={true}
+                                      backspaceRemoves={true}
+                                      backspaceToRemoveMessage="Press backspace to remove {label}"
+                                      boundary={
+                                        Object {
+                                          "circle": Object {
+                                            "centerPoint": Object {
+                                              "lat": 39.467803,
+                                              "lon": -87.397648,
+                                              "radius": 20,
+                                            },
+                                            "radius": 20,
+                                          },
+                                        }
+                                      }
+                                      cache={Object {}}
+                                      cacheAsyncResults={false}
+                                      className=""
+                                      clearAllText="Clear all"
+                                      clearRenderer={[Function]}
+                                      clearValueText="Clear value"
+                                      clearable={true}
+                                      deleteRemoves={true}
+                                      delimiter=","
+                                      disabled={false}
+                                      escapeClearsValue={true}
+                                      featureToLabel={[Function]}
+                                      featureToValue={[Function]}
+                                      filterOptions={false}
+                                      ignoreAccents={true}
+                                      ignoreCase={true}
+                                      inputProps={Object {}}
+                                      isLoading={false}
+                                      joinValues={false}
+                                      labelKey="label"
+                                      loadOptions={[Function]}
+                                      loadingPlaceholder="Loading..."
+                                      matchPos="any"
+                                      matchProp="any"
+                                      menuBuffer={0}
+                                      menuRenderer={[Function]}
+                                      meta={
+                                        Object {
+                                          "context": undefined,
+                                          "errorClass": "invalid-field",
+                                          "errors": Object {},
+                                          "invalid": false,
+                                          "onError": [Function],
+                                          "resolvedType": [Function],
+                                          "schema": StringSchema {
+                                            "_blacklist": BadSet {
+                                              "_map": Object {},
+                                              "_refs": Object {},
+                                            },
+                                            "_conditions": Array [],
+                                            "_deps": Array [],
+                                            "_exclusive": Object {
+                                              "required": false,
+                                            },
+                                            "_label": "Address",
+                                            "_mutate": false,
+                                            "_options": Object {
+                                              "abortEarly": true,
+                                              "recursive": true,
+                                            },
+                                            "_type": "string",
+                                            "_typeError": [Function],
+                                            "_whitelist": BadSet {
+                                              "_map": Object {},
+                                              "_refs": Object {},
+                                            },
+                                            "tests": Array [
+                                              [Function],
+                                              [Function],
+                                            ],
+                                            "transforms": Array [
+                                              [Function],
+                                            ],
+                                          },
+                                          "valid": true,
+                                        }
+                                      }
+                                      minimumInput={3}
+                                      multi={false}
+                                      name="address"
+                                      noResultsText="Type to search"
+                                      onBlur={[Function]}
+                                      onBlurResetsInput={true}
+                                      onChange={[Function]}
+                                      onCloseResetsInput={true}
+                                      onInputChange={[Function]}
+                                      openAfterFocus={false}
+                                      optionComponent={[Function]}
+                                      options={Array []}
+                                      pageSize={5}
+                                      placeholder="Select..."
+                                      required={false}
+                                      scrollMenuIntoView={true}
+                                      search={[Function]}
+                                      searchPromptText="Type to search"
+                                      searchable={true}
+                                      simpleValue={false}
+                                      tabSelectsValue={true}
+                                      value={null}
+                                      valueComponent={[Function]}
+                                      valueKey="value"
+                                    >
+                                      <div
+                                        className="Select Select--single is-searchable"
+                                      >
+                                        <div
+                                          className="Select-control"
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          onTouchEnd={[Function]}
+                                          onTouchMove={[Function]}
+                                          onTouchStart={[Function]}
+                                        >
+                                          <span
+                                            className="Select-multi-value-wrapper"
+                                            id="react-select-3--value"
+                                          >
+                                            <div
+                                              className="Select-placeholder"
+                                            >
+                                              Select...
+                                            </div>
+                                            <AutosizeInput
+                                              aria-activedescendant="react-select-3--value"
+                                              aria-expanded="false"
+                                              aria-haspopup="false"
+                                              aria-owns=""
+                                              className="Select-input"
+                                              minWidth="5"
+                                              onBlur={[Function]}
+                                              onChange={[Function]}
+                                              onFocus={[Function]}
+                                              required={false}
+                                              role="combobox"
+                                              value=""
+                                            >
+                                              <div
+                                                className="Select-input"
+                                                style={
+                                                  Object {
+                                                    "display": "inline-block",
+                                                  }
+                                                }
+                                              >
+                                                <input
+                                                  aria-activedescendant="react-select-3--value"
+                                                  aria-expanded="false"
+                                                  aria-haspopup="false"
+                                                  aria-owns=""
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  required={false}
+                                                  role="combobox"
+                                                  style={
+                                                    Object {
+                                                      "boxSizing": "content-box",
+                                                      "width": "5px",
+                                                    }
+                                                  }
+                                                  value=""
+                                                />
+                                                <div
+                                                  style={
+                                                    Object {
+                                                      "height": 0,
+                                                      "left": 0,
+                                                      "overflow": "scroll",
+                                                      "position": "absolute",
+                                                      "top": 0,
+                                                      "visibility": "hidden",
+                                                      "whiteSpace": "pre",
+                                                    }
+                                                  }
+                                                />
+                                              </div>
+                                            </AutosizeInput>
+                                          </span>
+                                          <span
+                                            className="Select-arrow-zone"
+                                            onMouseDown={[Function]}
+                                          >
+                                            <span
+                                              className="Select-arrow"
+                                              onMouseDown={[Function]}
+                                            />
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </Select>
+                                  </Async>
+                                </Geocoder>
+                                <ValidationMessage
+                                  className="help-block"
+                                  component="span"
+                                  errorClass="validation-error"
+                                  extract={[Function]}
+                                  filter={[Function]}
+                                  for="address"
+                                >
+                                  <MessageListener
+                                    className="help-block validation-error"
+                                    component="span"
+                                    for="address"
+                                  >
+                                    <Message
+                                      className="help-block validation-error"
+                                      component="span"
+                                      for="address"
+                                      messages={Object {}}
+                                    />
+                                  </MessageListener>
+                                </ValidationMessage>
+                              </div>
+                            </FormGroup>
+                          </Geocoder>
+                        </ChildBridge>
+                      </MessageTrigger>
+                    </MessageListener>
+                  </ChildBridge>
+                </Binding>
+              </Field>
+              <ButtonGroup
+                block={false}
+                bsClass="btn-group"
+                justified={false}
+                vertical={false}
+              >
+                <div
+                  className="btn-group"
+                >
+                  <Button
+                    className="btn btn-success"
+                    component="button"
+                    events={
+                      Array [
+                        "onClick",
+                      ]
+                    }
+                    type="submit"
+                  >
+                    <button
+                      className="btn btn-success"
+                      onClick={[Function]}
+                    >
+                      Create
+                    </button>
+                  </Button>
+                </div>
+              </ButtonGroup>
+            </form>
+          </MessageContainer>
+        </MessageListener>
+      </BindingContext>
+    </Form>
+  </Uncontrolled(Form)>
+</div>
+`;
+
+exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 1`] = `
+<div
+  className="commuter-header col-xs-12"
+>
+  <h3>
+    <span>
+      Edit Commuter
+    </span>
+    <Connect(BackButton)>
+      <BackButton
+        goBack={[Function]}
+      >
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="pull-right"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <button
+            className="pull-right btn btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <Icon
+              type="arrow-left"
+            >
+              <i
+                className="fa fa-arrow-left fa-fw "
+              />
+            </Icon>
+            <span>
+              Back
+            </span>
+          </button>
+        </Button>
+      </BackButton>
+    </Connect(BackButton)>
+  </h3>
+</div>
+`;
+
+exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 2`] = `
+<div
+  className="commuter-form col-md-5 col-xs-12"
+>
+  <Uncontrolled(Form)
+    onChange={[Function]}
+    onError={[Function]}
+    onSubmit={[Function]}
+    schema={
+      ObjectSchema {
+        "_blacklist": BadSet {
+          "_map": Object {},
+          "_refs": Object {},
+        },
+        "_conditions": Array [],
+        "_defaultDefault": [Function],
+        "_deps": Array [],
+        "_excludedEdges": Array [
+          "undefined-undefined",
+        ],
+        "_exclusive": Object {},
+        "_mutate": false,
+        "_nodes": Array [
+          "state",
+          "original_address",
+          "neighborhood",
+          "geocodeConfidence",
+          "county",
+          "country",
+          "coordinate",
+          "city",
+          "address",
+          "name",
+        ],
+        "_options": Object {
+          "abortEarly": true,
+          "recursive": true,
+        },
+        "_type": "object",
+        "_typeError": [Function],
+        "_whitelist": BadSet {
+          "_map": Object {},
+          "_refs": Object {},
+        },
+        "fields": Object {
+          "address": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {
+              "required": false,
+            },
+            "_label": "Address",
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [
+              [Function],
+              [Function],
+            ],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "city": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "coordinate": ObjectSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_defaultDefault": [Function],
+            "_deps": Array [],
+            "_excludedEdges": Array [
+              "undefined-undefined",
+            ],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_nodes": Array [
+              "lat",
+              "lon",
+            ],
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "object",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "fields": Object {
+              "lat": NumberSchema {
+                "_blacklist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "_conditions": Array [],
+                "_deps": Array [],
+                "_exclusive": Object {
+                  "required": false,
+                },
+                "_mutate": false,
+                "_options": Object {
+                  "abortEarly": true,
+                  "recursive": true,
+                },
+                "_type": "number",
+                "_typeError": [Function],
+                "_whitelist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "tests": Array [
+                  [Function],
+                ],
+                "transforms": Array [
+                  [Function],
+                ],
+              },
+              "lon": NumberSchema {
+                "_blacklist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "_conditions": Array [],
+                "_deps": Array [],
+                "_exclusive": Object {
+                  "required": false,
+                },
+                "_mutate": false,
+                "_options": Object {
+                  "abortEarly": true,
+                  "recursive": true,
+                },
+                "_type": "number",
+                "_typeError": [Function],
+                "_whitelist": BadSet {
+                  "_map": Object {},
+                  "_refs": Object {},
+                },
+                "tests": Array [
+                  [Function],
+                ],
+                "transforms": Array [
+                  [Function],
+                ],
+              },
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "country": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "county": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "geocodeConfidence": NumberSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "number",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "name": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {
+              "required": false,
+            },
+            "_label": "Site Name",
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [
+              [Function],
+              [Function],
+            ],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "neighborhood": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "original_address": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {},
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+          "state": StringSchema {
+            "_blacklist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "_conditions": Array [],
+            "_deps": Array [],
+            "_exclusive": Object {
+              "required": false,
+            },
+            "_mutate": false,
+            "_options": Object {
+              "abortEarly": true,
+              "recursive": true,
+            },
+            "_type": "string",
+            "_typeError": [Function],
+            "_whitelist": BadSet {
+              "_map": Object {},
+              "_refs": Object {},
+            },
+            "tests": Array [
+              [Function],
+              [Function],
+            ],
+            "transforms": Array [
+              [Function],
+            ],
+          },
+        },
+        "tests": Array [],
+        "transforms": Array [
+          [Function],
+        ],
+      }
+    }
+    value={
+      Object {
+        "_id": "commuter-2",
+        "address": "4321 XYZ Boulevard",
+        "city": "Megalopolis",
+        "coordinate": Object {
+          "lat": 38.910822,
+          "lon": -77.041094,
+        },
+        "country": "Made up land",
+        "county": "Made up county",
+        "geocodeConfidence": 0.77,
+        "name": "Luke Warm",
+        "neighbourhood": undefined,
+        "siteId": "site-2",
+        "state": "Made up state",
+      }
+    }
+  >
+    <Form
+      component="form"
+      delay={300}
+      getter={[Function]}
+      onChange={[Function]}
+      onError={[Function]}
+      onSubmit={[Function]}
+      schema={
+        ObjectSchema {
+          "_blacklist": BadSet {
+            "_map": Object {},
+            "_refs": Object {},
+          },
+          "_conditions": Array [],
+          "_defaultDefault": [Function],
+          "_deps": Array [],
+          "_excludedEdges": Array [
+            "undefined-undefined",
+          ],
+          "_exclusive": Object {},
+          "_mutate": false,
+          "_nodes": Array [
+            "state",
+            "original_address",
+            "neighborhood",
+            "geocodeConfidence",
+            "county",
+            "country",
+            "coordinate",
+            "city",
+            "address",
+            "name",
+          ],
+          "_options": Object {
+            "abortEarly": true,
+            "recursive": true,
+          },
+          "_type": "object",
+          "_typeError": [Function],
+          "_whitelist": BadSet {
+            "_map": Object {},
+            "_refs": Object {},
+          },
+          "fields": Object {
+            "address": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {
+                "required": false,
+              },
+              "_label": "Address",
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [
+                [Function],
+                [Function],
+              ],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "city": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "coordinate": ObjectSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_defaultDefault": [Function],
+              "_deps": Array [],
+              "_excludedEdges": Array [
+                "undefined-undefined",
+              ],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_nodes": Array [
+                "lat",
+                "lon",
+              ],
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "object",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "fields": Object {
+                "lat": NumberSchema {
+                  "_blacklist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "_conditions": Array [],
+                  "_deps": Array [],
+                  "_exclusive": Object {
+                    "required": false,
+                  },
+                  "_mutate": false,
+                  "_options": Object {
+                    "abortEarly": true,
+                    "recursive": true,
+                  },
+                  "_type": "number",
+                  "_typeError": [Function],
+                  "_whitelist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "tests": Array [
+                    [Function],
+                  ],
+                  "transforms": Array [
+                    [Function],
+                  ],
+                },
+                "lon": NumberSchema {
+                  "_blacklist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "_conditions": Array [],
+                  "_deps": Array [],
+                  "_exclusive": Object {
+                    "required": false,
+                  },
+                  "_mutate": false,
+                  "_options": Object {
+                    "abortEarly": true,
+                    "recursive": true,
+                  },
+                  "_type": "number",
+                  "_typeError": [Function],
+                  "_whitelist": BadSet {
+                    "_map": Object {},
+                    "_refs": Object {},
+                  },
+                  "tests": Array [
+                    [Function],
+                  ],
+                  "transforms": Array [
+                    [Function],
+                  ],
+                },
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "country": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "county": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "geocodeConfidence": NumberSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "number",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "name": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {
+                "required": false,
+              },
+              "_label": "Site Name",
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [
+                [Function],
+                [Function],
+              ],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "neighborhood": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "original_address": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {},
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+            "state": StringSchema {
+              "_blacklist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "_conditions": Array [],
+              "_deps": Array [],
+              "_exclusive": Object {
+                "required": false,
+              },
+              "_mutate": false,
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "string",
+              "_typeError": [Function],
+              "_whitelist": BadSet {
+                "_map": Object {},
+                "_refs": Object {},
+              },
+              "tests": Array [
+                [Function],
+                [Function],
+              ],
+              "transforms": Array [
+                [Function],
+              ],
+            },
+          },
+          "tests": Array [],
+          "transforms": Array [
+            [Function],
+          ],
+        }
+      }
+      setter={[Function]}
+      strict={false}
+      value={
+        Object {
+          "_id": "commuter-2",
+          "address": "4321 XYZ Boulevard",
+          "city": "Megalopolis",
+          "coordinate": Object {
+            "lat": 38.910822,
+            "lon": -77.041094,
+          },
+          "country": "Made up land",
+          "county": "Made up county",
+          "geocodeConfidence": 0.77,
+          "name": "Luke Warm",
+          "neighbourhood": undefined,
+          "siteId": "site-2",
+          "state": "Made up state",
+        }
+      }
+    >
+      <BindingContext
+        getter={[Function]}
+        onChange={[Function]}
+        setter={[Function]}
+        value={
+          Object {
+            "_id": "commuter-2",
+            "address": "4321 XYZ Boulevard",
+            "city": "Megalopolis",
+            "coordinate": Object {
+              "lat": 38.910822,
+              "lon": -77.041094,
+            },
+            "country": "Made up land",
+            "county": "Made up county",
+            "geocodeConfidence": 0.77,
+            "name": "Luke Warm",
+            "neighbourhood": undefined,
+            "siteId": "site-2",
+            "state": "Made up state",
+          }
+        }
+      >
+        <MessageListener
+          onValidationNeeded={[Function]}
+        >
+          <MessageContainer
+            mapNames={[Function]}
+            messages={Object {}}
+            onValidationNeeded={[Function]}
+          >
+            <form
+              noValidate={true}
+              onSubmit={[Function]}
+            >
+              <FormalFieldGroup
+                label="Commuter Name"
+                name="name"
+                placeholder="Enter name"
+              >
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="group-item-name"
+                >
+                  <div
+                    className="form-group"
+                  >
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      <label
+                        className="control-label"
+                        htmlFor="group-item-name"
+                      >
+                        Commuter Name
+                      </label>
+                    </ControlLabel>
+                    <Field
+                      className="form-control"
+                      exclusive={false}
+                      name="name"
+                      placeholder="Enter name"
+                      type=""
+                    >
+                      <Binding
+                        bindTo={[Function]}
+                        changeProp="onChange"
+                        mapValue={
+                          Object {
+                            "name": undefined,
+                          }
+                        }
+                        updateAfterChild={false}
+                        valueProp="value"
+                      >
+                        <ChildBridge
+                          events="onChange"
+                          onEvent={[Function]}
+                        >
+                          <MessageListener
+                            events={
+                              Array [
+                                "onChange",
+                                "onBlur",
+                              ]
+                            }
+                            for="name"
+                            mapMessages={[Function]}
+                          >
+                            <MessageTrigger
+                              events={
+                                Array [
+                                  "onChange",
+                                  "onBlur",
+                                ]
+                              }
+                              for="name"
+                              mapMessages={[Function]}
+                              messages={Object {}}
+                              noValidate={false}
+                            >
+                              <ChildBridge
+                                events={
+                                  Array [
+                                    "onChange",
+                                    "onBlur",
+                                  ]
+                                }
+                                onEvent={[Function]}
+                              >
+                                <_class
+                                  className="form-control"
+                                  meta={
+                                    Object {
+                                      "context": undefined,
+                                      "errorClass": "invalid-field",
+                                      "errors": Object {},
+                                      "invalid": false,
+                                      "onError": [Function],
+                                      "resolvedType": "string",
+                                      "schema": StringSchema {
+                                        "_blacklist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": false,
+                                        },
+                                        "_label": "Site Name",
+                                        "_mutate": false,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "valid": true,
+                                    }
+                                  }
+                                  name="name"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Enter name"
+                                  value="Luke Warm"
+                                >
+                                  <Input
+                                    className="form-control"
+                                    meta={
+                                      Object {
+                                        "context": undefined,
+                                        "errorClass": "invalid-field",
+                                        "errors": Object {},
+                                        "invalid": false,
+                                        "onError": [Function],
+                                        "resolvedType": "string",
+                                        "schema": StringSchema {
+                                          "_blacklist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "_conditions": Array [],
+                                          "_deps": Array [],
+                                          "_exclusive": Object {
+                                            "required": false,
+                                          },
+                                          "_label": "Site Name",
+                                          "_mutate": false,
+                                          "_options": Object {
+                                            "abortEarly": true,
+                                            "recursive": true,
+                                          },
+                                          "_type": "string",
+                                          "_typeError": [Function],
+                                          "_whitelist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "tests": Array [
+                                            [Function],
+                                            [Function],
+                                          ],
+                                          "transforms": Array [
+                                            [Function],
+                                          ],
+                                        },
+                                        "valid": true,
+                                      }
+                                    }
+                                    name="name"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    placeholder="Enter name"
+                                    type="text"
+                                    value="Luke Warm"
+                                  >
+                                    <input
+                                      className="form-control"
+                                      name="name"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Enter name"
+                                      type="text"
+                                      value="Luke Warm"
+                                    />
+                                  </Input>
+                                </_class>
+                              </ChildBridge>
+                            </MessageTrigger>
+                          </MessageListener>
+                        </ChildBridge>
+                      </Binding>
+                    </Field>
+                    <ValidationMessage
+                      className="help-block"
+                      component="span"
+                      errorClass="validation-error"
+                      extract={[Function]}
+                      filter={[Function]}
+                      for="name"
+                    >
+                      <MessageListener
+                        className="help-block validation-error"
+                        component="span"
+                        for="name"
+                      >
+                        <Message
+                          className="help-block validation-error"
+                          component="span"
+                          for="name"
+                          messages={Object {}}
+                        />
+                      </MessageListener>
+                    </ValidationMessage>
+                  </div>
+                </FormGroup>
+              </FormalFieldGroup>
+              <Field
+                exclusive={false}
+                label="Address"
+                mapFromValue={
+                  Object {
+                    "address": [Function],
+                    "city": [Function],
+                    "coordinate": [Function],
+                    "country": [Function],
+                    "county": [Function],
+                    "geocodeConfidence": [Function],
+                    "neighborhood": [Function],
+                    "state": [Function],
+                  }
+                }
+                mapToValue={[Function]}
+                name="address"
+                type={[Function]}
+              >
+                <Binding
+                  bindTo={[Function]}
+                  changeProp="onChange"
+                  mapValue={
+                    Object {
+                      "address": [Function],
+                      "city": [Function],
+                      "coordinate": [Function],
+                      "country": [Function],
+                      "county": [Function],
+                      "geocodeConfidence": [Function],
+                      "neighborhood": [Function],
+                      "state": [Function],
+                    }
+                  }
+                  updateAfterChild={false}
+                  valueProp="value"
+                >
+                  <ChildBridge
+                    events="onChange"
+                    onEvent={[Function]}
+                  >
+                    <MessageListener
+                      events={
+                        Array [
+                          "onChange",
+                          "onBlur",
+                        ]
+                      }
+                      for="address"
+                      mapMessages={[Function]}
+                    >
+                      <MessageTrigger
+                        events={
+                          Array [
+                            "onChange",
+                            "onBlur",
+                          ]
+                        }
+                        for="address"
+                        mapMessages={[Function]}
+                        messages={Object {}}
+                        noValidate={false}
+                      >
+                        <ChildBridge
+                          events={
+                            Array [
+                              "onChange",
+                              "onBlur",
+                            ]
+                          }
+                          onEvent={[Function]}
+                        >
+                          <Geocoder
+                            className=""
+                            label="Address"
+                            meta={
+                              Object {
+                                "context": undefined,
+                                "errorClass": "invalid-field",
+                                "errors": Object {},
+                                "invalid": false,
+                                "onError": [Function],
+                                "resolvedType": [Function],
+                                "schema": StringSchema {
+                                  "_blacklist": BadSet {
+                                    "_map": Object {},
+                                    "_refs": Object {},
+                                  },
+                                  "_conditions": Array [],
+                                  "_deps": Array [],
+                                  "_exclusive": Object {
+                                    "required": false,
+                                  },
+                                  "_label": "Address",
+                                  "_mutate": false,
+                                  "_options": Object {
+                                    "abortEarly": true,
+                                    "recursive": true,
+                                  },
+                                  "_type": "string",
+                                  "_typeError": [Function],
+                                  "_whitelist": BadSet {
+                                    "_map": Object {},
+                                    "_refs": Object {},
+                                  },
+                                  "tests": Array [
+                                    [Function],
+                                    [Function],
+                                  ],
+                                  "transforms": Array [
+                                    [Function],
+                                  ],
+                                },
+                                "valid": true,
+                              }
+                            }
+                            name="address"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            value={
+                              Object {
+                                "label": "4321 XYZ Boulevard",
+                              }
+                            }
+                          >
+                            <FormGroup
+                              bsClass="form-group"
+                              controlId="geocode-control-address"
+                            >
+                              <div
+                                className="form-group"
+                              >
+                                <ControlLabel
+                                  bsClass="control-label"
+                                  srOnly={false}
+                                >
+                                  <label
+                                    className="control-label"
+                                    htmlFor="geocode-control-address"
+                                  >
+                                    Address
+                                  </label>
+                                </ControlLabel>
+                                <Geocoder
+                                  apiKey="test-search-key"
+                                  boundary={
+                                    Object {
+                                      "circle": Object {
+                                        "centerPoint": Object {
+                                          "lat": 39.467803,
+                                          "lon": -87.397648,
+                                          "radius": 20,
+                                        },
+                                        "radius": 20,
+                                      },
+                                    }
+                                  }
+                                  className=""
+                                  featureToLabel={[Function]}
+                                  featureToValue={[Function]}
+                                  meta={
+                                    Object {
+                                      "context": undefined,
+                                      "errorClass": "invalid-field",
+                                      "errors": Object {},
+                                      "invalid": false,
+                                      "onError": [Function],
+                                      "resolvedType": [Function],
+                                      "schema": StringSchema {
+                                        "_blacklist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": false,
+                                        },
+                                        "_label": "Address",
+                                        "_mutate": false,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": BadSet {
+                                          "_map": Object {},
+                                          "_refs": Object {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "valid": true,
+                                    }
+                                  }
+                                  name="address"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  search={[Function]}
+                                  value={
+                                    Object {
+                                      "label": "4321 XYZ Boulevard",
+                                    }
+                                  }
+                                >
+                                  <Async
+                                    apiKey="test-search-key"
+                                    autoload={false}
+                                    boundary={
+                                      Object {
+                                        "circle": Object {
+                                          "centerPoint": Object {
+                                            "lat": 39.467803,
+                                            "lon": -87.397648,
+                                            "radius": 20,
+                                          },
+                                          "radius": 20,
+                                        },
+                                      }
+                                    }
+                                    cache={Object {}}
+                                    cacheAsyncResults={false}
+                                    className=""
+                                    featureToLabel={[Function]}
+                                    featureToValue={[Function]}
+                                    filterOptions={false}
+                                    ignoreAccents={true}
+                                    ignoreCase={true}
+                                    loadOptions={[Function]}
+                                    loadingPlaceholder="Loading..."
+                                    meta={
+                                      Object {
+                                        "context": undefined,
+                                        "errorClass": "invalid-field",
+                                        "errors": Object {},
+                                        "invalid": false,
+                                        "onError": [Function],
+                                        "resolvedType": [Function],
+                                        "schema": StringSchema {
+                                          "_blacklist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "_conditions": Array [],
+                                          "_deps": Array [],
+                                          "_exclusive": Object {
+                                            "required": false,
+                                          },
+                                          "_label": "Address",
+                                          "_mutate": false,
+                                          "_options": Object {
+                                            "abortEarly": true,
+                                            "recursive": true,
+                                          },
+                                          "_type": "string",
+                                          "_typeError": [Function],
+                                          "_whitelist": BadSet {
+                                            "_map": Object {},
+                                            "_refs": Object {},
+                                          },
+                                          "tests": Array [
+                                            [Function],
+                                            [Function],
+                                          ],
+                                          "transforms": Array [
+                                            [Function],
+                                          ],
+                                        },
+                                        "valid": true,
+                                      }
+                                    }
+                                    minimumInput={3}
+                                    name="address"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    options={Array []}
+                                    search={[Function]}
+                                    searchPromptText="Type to search"
+                                    value={
+                                      Object {
+                                        "label": "4321 XYZ Boulevard",
+                                      }
+                                    }
+                                  >
+                                    <Select
+                                      addLabelText="Add \\"{label}\\"?"
+                                      apiKey="test-search-key"
+                                      arrowRenderer={[Function]}
+                                      autoload={false}
+                                      autosize={true}
+                                      backspaceRemoves={true}
+                                      backspaceToRemoveMessage="Press backspace to remove {label}"
+                                      boundary={
+                                        Object {
+                                          "circle": Object {
+                                            "centerPoint": Object {
+                                              "lat": 39.467803,
+                                              "lon": -87.397648,
+                                              "radius": 20,
+                                            },
+                                            "radius": 20,
+                                          },
+                                        }
+                                      }
+                                      cache={Object {}}
+                                      cacheAsyncResults={false}
+                                      className=""
+                                      clearAllText="Clear all"
+                                      clearRenderer={[Function]}
+                                      clearValueText="Clear value"
+                                      clearable={true}
+                                      deleteRemoves={true}
+                                      delimiter=","
+                                      disabled={false}
+                                      escapeClearsValue={true}
+                                      featureToLabel={[Function]}
+                                      featureToValue={[Function]}
+                                      filterOptions={false}
+                                      ignoreAccents={true}
+                                      ignoreCase={true}
+                                      inputProps={Object {}}
+                                      isLoading={false}
+                                      joinValues={false}
+                                      labelKey="label"
+                                      loadOptions={[Function]}
+                                      loadingPlaceholder="Loading..."
+                                      matchPos="any"
+                                      matchProp="any"
+                                      menuBuffer={0}
+                                      menuRenderer={[Function]}
+                                      meta={
+                                        Object {
+                                          "context": undefined,
+                                          "errorClass": "invalid-field",
+                                          "errors": Object {},
+                                          "invalid": false,
+                                          "onError": [Function],
+                                          "resolvedType": [Function],
+                                          "schema": StringSchema {
+                                            "_blacklist": BadSet {
+                                              "_map": Object {},
+                                              "_refs": Object {},
+                                            },
+                                            "_conditions": Array [],
+                                            "_deps": Array [],
+                                            "_exclusive": Object {
+                                              "required": false,
+                                            },
+                                            "_label": "Address",
+                                            "_mutate": false,
+                                            "_options": Object {
+                                              "abortEarly": true,
+                                              "recursive": true,
+                                            },
+                                            "_type": "string",
+                                            "_typeError": [Function],
+                                            "_whitelist": BadSet {
+                                              "_map": Object {},
+                                              "_refs": Object {},
+                                            },
+                                            "tests": Array [
+                                              [Function],
+                                              [Function],
+                                            ],
+                                            "transforms": Array [
+                                              [Function],
+                                            ],
+                                          },
+                                          "valid": true,
+                                        }
+                                      }
+                                      minimumInput={3}
+                                      multi={false}
+                                      name="address"
+                                      noResultsText="Type to search"
+                                      onBlur={[Function]}
+                                      onBlurResetsInput={true}
+                                      onChange={[Function]}
+                                      onCloseResetsInput={true}
+                                      onInputChange={[Function]}
+                                      openAfterFocus={false}
+                                      optionComponent={[Function]}
+                                      options={Array []}
+                                      pageSize={5}
+                                      placeholder="Select..."
+                                      required={false}
+                                      scrollMenuIntoView={true}
+                                      search={[Function]}
+                                      searchPromptText="Type to search"
+                                      searchable={true}
+                                      simpleValue={false}
+                                      tabSelectsValue={true}
+                                      value={
+                                        Object {
+                                          "label": "4321 XYZ Boulevard",
+                                        }
+                                      }
+                                      valueComponent={[Function]}
+                                      valueKey="value"
+                                    >
+                                      <div
+                                        className="Select Select--single is-searchable has-value"
+                                      >
+                                        <input
+                                          disabled={false}
+                                          name="address"
+                                          type="hidden"
+                                          value=""
+                                        />
+                                        <div
+                                          className="Select-control"
+                                          onKeyDown={[Function]}
+                                          onMouseDown={[Function]}
+                                          onTouchEnd={[Function]}
+                                          onTouchMove={[Function]}
+                                          onTouchStart={[Function]}
+                                        >
+                                          <span
+                                            className="Select-multi-value-wrapper"
+                                            id="react-select-4--value"
+                                          >
+                                            <Value
+                                              disabled={false}
+                                              id="react-select-4--value-item"
+                                              instancePrefix="react-select-4-"
+                                              onClick={null}
+                                              value={
+                                                Object {
+                                                  "label": "4321 XYZ Boulevard",
+                                                }
+                                              }
+                                            >
+                                              <div
+                                                className="Select-value"
+                                              >
+                                                <span
+                                                  aria-selected="true"
+                                                  className="Select-value-label"
+                                                  id="react-select-4--value-item"
+                                                  role="option"
+                                                >
+                                                  4321 XYZ Boulevard
+                                                </span>
+                                              </div>
+                                            </Value>
+                                            <AutosizeInput
+                                              aria-activedescendant="react-select-4--value"
+                                              aria-expanded="false"
+                                              aria-haspopup="false"
+                                              aria-owns=""
+                                              className="Select-input"
+                                              minWidth="5"
+                                              onBlur={[Function]}
+                                              onChange={[Function]}
+                                              onFocus={[Function]}
+                                              required={false}
+                                              role="combobox"
+                                              value=""
+                                            >
+                                              <div
+                                                className="Select-input"
+                                                style={
+                                                  Object {
+                                                    "display": "inline-block",
+                                                  }
+                                                }
+                                              >
+                                                <input
+                                                  aria-activedescendant="react-select-4--value"
+                                                  aria-expanded="false"
+                                                  aria-haspopup="false"
+                                                  aria-owns=""
+                                                  onBlur={[Function]}
+                                                  onChange={[Function]}
+                                                  onFocus={[Function]}
+                                                  required={false}
+                                                  role="combobox"
+                                                  style={
+                                                    Object {
+                                                      "boxSizing": "content-box",
+                                                      "width": "5px",
+                                                    }
+                                                  }
+                                                  value=""
+                                                />
+                                                <div
+                                                  style={
+                                                    Object {
+                                                      "height": 0,
+                                                      "left": 0,
+                                                      "overflow": "scroll",
+                                                      "position": "absolute",
+                                                      "top": 0,
+                                                      "visibility": "hidden",
+                                                      "whiteSpace": "pre",
+                                                    }
+                                                  }
+                                                />
+                                              </div>
+                                            </AutosizeInput>
+                                          </span>
+                                          <span
+                                            aria-label="Clear value"
+                                            className="Select-clear-zone"
+                                            onMouseDown={[Function]}
+                                            onTouchEnd={[Function]}
+                                            onTouchMove={[Function]}
+                                            onTouchStart={[Function]}
+                                            title="Clear value"
+                                          >
+                                            <span
+                                              className="Select-clear"
+                                              dangerouslySetInnerHTML={
+                                                Object {
+                                                  "__html": "&times;",
+                                                }
+                                              }
+                                            />
+                                          </span>
+                                          <span
+                                            className="Select-arrow-zone"
+                                            onMouseDown={[Function]}
+                                          >
+                                            <span
+                                              className="Select-arrow"
+                                              onMouseDown={[Function]}
+                                            />
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </Select>
+                                  </Async>
+                                </Geocoder>
+                                <ValidationMessage
+                                  className="help-block"
+                                  component="span"
+                                  errorClass="validation-error"
+                                  extract={[Function]}
+                                  filter={[Function]}
+                                  for="address"
+                                >
+                                  <MessageListener
+                                    className="help-block validation-error"
+                                    component="span"
+                                    for="address"
+                                  >
+                                    <Message
+                                      className="help-block validation-error"
+                                      component="span"
+                                      for="address"
+                                      messages={Object {}}
+                                    />
+                                  </MessageListener>
+                                </ValidationMessage>
+                              </div>
+                            </FormGroup>
+                          </Geocoder>
+                        </ChildBridge>
+                      </MessageTrigger>
+                    </MessageListener>
+                  </ChildBridge>
+                </Binding>
+              </Field>
+              <ButtonGroup
+                block={false}
+                bsClass="btn-group"
+                justified={false}
+                vertical={false}
+              >
+                <div
+                  className="btn-group"
+                >
+                  <Button
+                    className="btn btn-warning"
+                    component="button"
+                    events={
+                      Array [
+                        "onClick",
+                      ]
+                    }
+                    type="submit"
+                  >
+                    <button
+                      className="btn btn-warning"
+                      onClick={[Function]}
+                    >
+                      Update
+                    </button>
+                  </Button>
+                  <Button
+                    active={false}
+                    block={false}
+                    bsClass="btn"
+                    bsStyle="danger"
+                    disabled={false}
+                    onClick={[Function]}
+                  >
+                    <button
+                      className="btn btn-danger"
+                      disabled={false}
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Delete
+                    </button>
+                  </Button>
+                </div>
+              </ButtonGroup>
+            </form>
+          </MessageContainer>
+        </MessageListener>
+      </BindingContext>
+    </Form>
+  </Uncontrolled(Form)>
+</div>
+`;
+
+exports[`Container > EditCommuter Create/Edit Commuter View loads in edit mode 3`] = `
+Object {
+  "lat": 38.910822,
+  "lng": -77.041094,
+}
+`;
+
+exports[`Container > EditCommuter Delete Commuter 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/site/site-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;
+
+exports[`Container > EditCommuter Update commuter 1`] = `
+Object {
+  "payload": Object {
+    "args": Array [
+      "/site/site-2",
+    ],
+    "method": "push",
+  },
+  "type": "@@router/CALL_HISTORY_METHOD",
+}
+`;

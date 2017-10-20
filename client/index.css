@@ -1,2 +1,15 @@
 
 @import url(node_modules/normalize.css/normalize.css);
+@import url(node_modules/font-awesome/css/font-awesome.css);
+@import url(node_modules/rc-slider/assets/index.css);
+@import url(node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css);
+@import url(node_modules/react-widgets/dist/css/react-widgets.css);
+@import url(https://unpkg.com/leaflet@1.0.2/dist/leaflet.css);
+@import url(node_modules/leaflet.markercluster/dist/MarkerCluster.css);
+@import url(node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css);
+@import url(node_modules/react-select/dist/react-select.css);
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css);
+
+@import url(client/app.css);
+@import url(client/modeify-icons.css);
+@import url(client/cfaz.css);
