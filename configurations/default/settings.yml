@@ -16,7 +16,7 @@ lock:
   allowSignUp: false
   auth:
     params:
-      scope: 'openid email user_metadata'
+      scope: 'app_metadata email openid user_metadata'
     redirect: false
   autoclose: true
   closable: false

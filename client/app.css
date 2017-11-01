@@ -21,6 +21,11 @@ h4 strong {
   padding: 1em;
 }
 
+/* unauthorized page */
+.unauthorized {
+  margin-top: 2em;
+}
+
 /*
  * react-leaflet is silly, you have to manually style the divs it creates
  * https://github.com/PaulLeCam/react-leaflet/blob/master/example/index.html

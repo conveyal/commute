@@ -4,6 +4,14 @@ const pick = require('lodash.pick')
 
 const models = require('../models')
 
+function requireAdmin (req, res, next) {
+  if (!req.user || !req.user.app_metadata || !req.user.app_metadata.isAdmin) {
+    res.status(401).send('Unauthorized')
+  } else {
+    next()
+  }
+}
+
 function makeFindQuery (req, query, isPublic) {
   const moreParams = { trashed: undefined }
   if (!isPublic) {
@@ -184,7 +192,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
   const modelFields = Object.keys(model.schema.paths)
   const name = cfg.name
   if (commands['Collection DELETE']) {
-    app.delete(`/api/${name}`, jwt, (req, res) => {
+    app.delete(`/api/${name}`, jwt, requireAdmin, (req, res) => {
       // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query
       const removeQuery = makeFindQuery(req, pick(req.query, modelFields))
       model.remove(removeQuery, makeGetModelResponseFn(cfg.childModels, res, true))
@@ -192,7 +200,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
   }
 
   if (commands['Collection GET']) {
-    app.get(`/api/${name}`, jwt, (req, res) => {
+    app.get(`/api/${name}`, jwt, requireAdmin, (req, res) => {
       // TODO: security concern: findQuery uses any parsed json, allowing any kind of mongoose query
       const findQuery = makeFindQuery(req, pick(req.query, modelFields))
       model.find(findQuery, makeGetModelResponseFn(cfg.childModels, res, true))
@@ -200,7 +208,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
   }
 
   if (commands['Collection POST']) {
-    app.post(`/api/${name}`, jwt, (req, res) => {
+    app.post(`/api/${name}`, jwt, requireAdmin, (req, res) => {
       res.set('Content-Type', 'application/json')
       if (!Array.isArray(req.body)) return userError(res, 'Invalid input data.  Expected an array.')
       const inputData = req.body.map((entity) => Object.assign(entity, { user: req.user.email }))
@@ -209,7 +217,7 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
   }
 
   if (commands['DELETE']) {
-    app.delete(`/api/${name}/:id`, jwt, (req, res) => {
+    app.delete(`/api/${name}/:id`, jwt, requireAdmin, (req, res) => {
       // don't use findByIdAndUpdate because it doesn't trigger pre('save') hook
       model.findOne(makeFindQuery(req, { _id: req.params.id }), (err, doc) => {
         if (err) return serverError(res, err)
@@ -223,14 +231,14 @@ module.exports.makeRestEndpoints = function (app, jwt, cfg) {
   }
 
   if (commands['GET']) {
-    app.get(`/api/${name}/:id`, jwt, (req, res) => {
+    app.get(`/api/${name}/:id`, jwt, requireAdmin, (req, res) => {
       model.findOne(makeFindQuery(req, { _id: req.params.id }),
         makeGetModelResponseFn(cfg.childModels, res, false))
     })
   }
 
   if (commands['PUT']) {
-    app.put(`/api/${name}/:id`, jwt, (req, res) => {
+    app.put(`/api/${name}/:id`, jwt, requireAdmin, (req, res) => {
       // don't use findByIdAndUpdate because it doesn't trigger pre('save') hook
       model.findOne(makeFindQuery(req, { _id: req.params.id }), (err, doc) => {
         if (err) return serverError(res, err)
