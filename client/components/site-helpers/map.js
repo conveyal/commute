@@ -332,6 +332,7 @@ export default class SiteMap extends Component {
           <MarkerCluster
             focusMarker={focusMarker}
             newMarkerData={clusterMarkers}
+            singleMarkerMode={isReport}
             />
         }
         {activeTab === 'ridematches' && rideMatchMapStyle === 'heatmap' &&
