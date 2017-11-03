@@ -5,6 +5,10 @@ import Application from '../components/application'
 function mapStateToProps (state) {
   return {
     ...state,
+    userIsAdmin:
+      state.user.profile &&
+      state.user.profile.app_metadata &&
+      state.user.profile.app_metadata.isAdmin,
     userIsLoggedIn: !!state.user.profile
   }
 }

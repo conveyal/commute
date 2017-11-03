@@ -11,7 +11,8 @@ export default class MarkerCluster extends MapLayer {
     focusMarker: PropTypes.object,
     map: PropTypes.object,
     markers: PropTypes.object,
-    newMarkerData: PropTypes.array.isRequired
+    newMarkerData: PropTypes.array.isRequired,
+    singleMarkerMode: PropTypes.boolean
   }
 
   static defaultProps = {
@@ -33,7 +34,7 @@ export default class MarkerCluster extends MapLayer {
 
   createLeafletElement () {
     return Leaflet.markerClusterGroup({
-      singleMarkerMode: true
+      singleMarkerMode: this.props.singleMarkerMode
     })
   }
 

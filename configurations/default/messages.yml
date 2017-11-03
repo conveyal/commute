@@ -1,9 +1,25 @@
 authentication:
   logIn: Log in
   logOut: Log out
+  unauthorized:
+    body: Please contact the website administrator if you feel that your account is not setup properly.
+    title: Your account is not authorized to view this page.
   username: Logged in as
 commuter:
   deleteConfirmation: Are you sure you want to delete this commuter?
+docs:
+  multisiteOverview:
+    body: Multi-site Analyses include a collection of sites and thus the sites' respective commuters. Multi-site Analyses can be used to calculate aggregate metrics comprised of the data from each site.
+    title: Multi-Site Analyses
+    url: 'http://commute.readthedocs.io/en/docs/tutorial/home-page/#multi-site-analyses'
+  siteOverview:
+    body: 'A Site represents a single geographic location of an employer worksite, and contains a collection of commuters. Once commuters are uploaded it is possible to analyze commuting opportunites at the site.'
+    title: Sites
+    url: 'http://commute.readthedocs.io/en/docs/tutorial/home-page/#sites'
+  welcome:
+    body: CarFreeAtoZ Commute Analysis facilitates quick and meaningful insight into the commuting possibilities at a particular worksite. The website allows users to analyze worksites and the possible commutes of all workers at that worksite. Worksites can also be aggregated to view combined statistics among multiple sites in a particular area.
+    title: Welcome to CarFreeAtoZ Commute Analysis
+    url: 'http://commute.readthedocs.io/en/docs/'
 multiSite:
   deleteConfirmation: Are you sure you want to delete this Multi-Site Analysis?
 network:
@@ -11,16 +27,3 @@ network:
   savingError: An error occurred while saving the data.  Reload the page and try again?
 site:
   deleteConfirmation: Are you sure you want to delete this site?
-docs:
-  welcome:
-    title: Welcome to CarFreeAtoZ Commute Analysis
-    body: CarFreeAtoZ Commute Analysis facilitates quick and meaningful insight into the commuting possibilities at a particular worksite. The website allows users to analyze worksites and the possible commutes of all workers at that worksite. Worksites can also be aggregated to view combined statistics among multiple sites in a particular area.
-    url: http://commute.readthedocs.io/en/docs/
-  siteOverview:
-    title: Sites
-    body: A Site represents a single geographic location of an employer worksite, and contains a collection of commuters. Once commuters are uploaded it is possible to analyze commuting opportunites at the site.
-    url: http://commute.readthedocs.io/en/docs/tutorial/home-page/#sites
-  multisiteOverview:
-    title: Multi-Site Analyses
-    body: Multi-site Analyses include a collection of sites and thus the sites' respective commuters. Multi-site Analyses can be used to calculate aggregate metrics comprised of the data from each site.
-    url: http://commute.readthedocs.io/en/docs/tutorial/home-page/#multi-site-analyses
