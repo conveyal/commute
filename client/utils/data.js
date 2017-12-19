@@ -151,7 +151,7 @@ export const modeStats = memoize(
 
     commuters.forEach(commuter => {
       let travelTime
-      if (commuter.modeStats) {
+      if (commuter.modeStats && commuter.modeStats.hasOwnProperty(analysisMode)) {
         travelTime = commuter.modeStats[analysisMode].travelTime
       } else {
         travelTime = 'calculating...'

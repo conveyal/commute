@@ -21,15 +21,6 @@ const geocodeRequestQueue = queue((task, callback) => {
 
 const maxRetries = 10
 
-const geocodeSearchOptions = {
-  boundary: {
-    circle: {
-      centerPoint: env.settings.geocoder.focus,
-      radius: env.settings.geocoder.focus.radius
-    }
-  }
-}
-
 module.exports = function (postGeocodeHook) {
   if (!postGeocodeHook) {
     postGeocodeHook = () => null
@@ -125,17 +116,25 @@ module.exports = function (postGeocodeHook) {
       }
 
       later(() => {
+        let curGeocodeMethod = 'autocomplete'
         geocodeRequestQueue.push((queueCallback) => {
           let numTries = 0
           const doGeocodeUntilSuccess = () => {
             numTries++
             console.log(`try geocode for ${addressToGeocode}`)
-            geocoder.search(Object.assign(geocodeSearchOptions, {
+            geocoder[curGeocodeMethod](Object.assign(env.settings.geocoder, {
               apiKey: env.env.MAPZEN_SEARCH_KEY,
               text: this.mapzenSafeDCAddress()
             }))
               .then((geojson) => {
-                if (!geojson.features) throw geojson
+                if (!geojson.features || geojson.features.length === 0) {
+                  if (curGeocodeMethod === 'autocomplete') {
+                    curGeocodeMethod = 'search'
+                    numTries--
+                    throw new Error(`autocomplete did not find a result for ${addressToGeocode}`)
+                  }
+                  throw geojson
+                }
                 console.log(`successful geocode for ${addressToGeocode}`)
                 const firstResult = geojson.features[0]
                 this.address = firstResult.properties.label
@@ -146,7 +145,15 @@ module.exports = function (postGeocodeHook) {
                 }
                 this.country = firstResult.properties.country
                 this.county = firstResult.properties.county
-                this.geocodeConfidence = firstResult.properties.confidence
+                if (!firstResult.properties.confidence) {
+                  this.geocodeConfidence = (
+                    firstResult.properties.accuracy === 'point'
+                      ? 0.9
+                      : 0.5
+                  )
+                } else {
+                  this.geocodeConfidence = firstResult.properties.confidence
+                }
                 this.neighborhood = firstResult.properties.neighborhood
                 this.state = firstResult.properties.region
                 this.positionLastUpdated = new Date()
