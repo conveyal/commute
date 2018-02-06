@@ -42,6 +42,7 @@
   "devDependencies": {
     "enzyme": "^2.6.0",
     "enzyme-to-json": "^1.3.0",
+    "eslint-plugin-jest": "^21.7.0",
     "lcov-result-merger": "^1.2.0",
     "lodash.uniqueid": "^4.0.1",
     "nock": "^9.0.2",
@@ -56,8 +57,9 @@
     "uuid": "^3.0.1"
   },
   "dependencies": {
+    "@conveyal/geocoder-arcgis-geojson": "^0.0.1",
     "@conveyal/lonlat": "^1.1.1",
-    "@conveyal/react-select-geocoder-arcgis": "conveyal/react-select-geocoder-arcgis#dev",
+    "@conveyal/react-select-geocoder-arcgis": "^2.0.0",
     "@conveyal/woonerf": "^2.4.1",
     "@turf/distance": "^3.7.5",
     "@turf/helpers": "^3.7.3",
@@ -74,7 +76,6 @@
     "font-awesome": "^4.6.3",
     "humanize-duration": "^3.9.1",
     "invariant": "^2.2.2",
-    "isomorphic-mapzen-search": "^1.0.0",
     "jsts": "^1.3.0",
     "leaflet": "^1.0.3",
     "leaflet.markercluster": "^1.0.3",

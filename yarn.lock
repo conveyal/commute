@@ -2,22 +2,22 @@
 # yarn lockfile v1
 
 
-"@conveyal/geocoder-arcgis-geojson@https://github.com/conveyal/geocoder-arcgis-geojson#dev":
-  version "0.0.0-semantically-released"
-  resolved "https://github.com/conveyal/geocoder-arcgis-geojson#5c439a5cfd37f2bf8e9fdb7eefb97fe9b5dcd56e"
+"@conveyal/geocoder-arcgis-geojson@0.0.1", "@conveyal/geocoder-arcgis-geojson@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@conveyal/geocoder-arcgis-geojson/-/geocoder-arcgis-geojson-0.0.1.tgz#705aa0f6ae36c32cca9170b9f1de7842471f7d8c"
   dependencies:
     "@conveyal/lonlat" "^1.3.0"
-    geocoder-arcgis evansiroky/geocoder-arcgis
+    geocoder-arcgis "^2.0.4"
 
 "@conveyal/lonlat@^1.1.1", "@conveyal/lonlat@^1.1.2", "@conveyal/lonlat@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@conveyal/lonlat/-/lonlat-1.3.0.tgz#3fe586ee21a9159052156959bc3c3eaa22f056f5"
 
-"@conveyal/react-select-geocoder-arcgis@conveyal/react-select-geocoder-arcgis#dev":
-  version "0.0.0-semantically-released"
-  resolved "https://codeload.github.com/conveyal/react-select-geocoder-arcgis/tar.gz/7f3eacb2fb1c5461bc6a184b1621f46cf5037ed3"
+"@conveyal/react-select-geocoder-arcgis@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@conveyal/react-select-geocoder-arcgis/-/react-select-geocoder-arcgis-2.0.0.tgz#5967883e4639842cb78f61acaba9265f70281e48"
   dependencies:
-    "@conveyal/geocoder-arcgis-geojson" "https://github.com/conveyal/geocoder-arcgis-geojson#dev"
+    "@conveyal/geocoder-arcgis-geojson" "0.0.1"
     react-select-geocoder "^1.2.1"
 
 "@conveyal/woonerf@^2.4.1":
@@ -2756,6 +2756,10 @@ eslint-plugin-import@^2.2.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
 
+eslint-plugin-jest@^21.7.0:
+  version "21.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.7.0.tgz#651f1c6ce999af3ac59ab8bf8a376d742fd0fc23"
+
 eslint-plugin-jsx-a11y@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-4.0.0.tgz#779bb0fe7b08da564a422624911de10061e048ee"
@@ -3110,6 +3114,13 @@ fbjs@^0.8.4, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
+fetch-everywhere@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/fetch-everywhere/-/fetch-everywhere-1.0.5.tgz#b2497f47a57d9026b3907c09756acf5f4bd34e8b"
+  dependencies:
+    node-fetch "^1.0.1"
+    whatwg-fetch ">=0.10.0"
+
 figures@^1.3.5:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-1.7.0.tgz#cbe1e3affcf1cd44b80cadfed28dc793a9701d2e"
@@ -3259,7 +3270,7 @@ form-data@1.0.0-rc4:
     combined-stream "^1.0.5"
     mime-types "^2.1.10"
 
-form-data@^2.1.1:
+form-data@^2.1.1, form-data@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.3.1.tgz#6fb94fbd71885306d73d15cc497fe4cc4ecd44bf"
   dependencies:
@@ -3415,12 +3426,13 @@ generate-object-property@^1.1.0:
   dependencies:
     is-property "^1.0.0"
 
-geocoder-arcgis@evansiroky/geocoder-arcgis:
-  version "2.0.0"
-  resolved "https://codeload.github.com/evansiroky/geocoder-arcgis/tar.gz/7395f5e0a619d2c636df7497bd2a0d818c264fd5"
+geocoder-arcgis@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/geocoder-arcgis/-/geocoder-arcgis-2.0.4.tgz#20dc83ebd33b62b509b4d80c19c4e1e2b0113e23"
   dependencies:
     es6-promise "^4.1.1"
-    isomorphic-fetch "^2.2.1"
+    fetch-everywhere "^1.0.5"
+    form-data "^2.3.1"
     lodash.get "^4.4.2"
     lodash.isobject "^3.0.2"
     lodash.isstring "^4.0.1"
@@ -4207,14 +4219,6 @@ isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   dependencies:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
-
-isomorphic-mapzen-search@^1.0.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/isomorphic-mapzen-search/-/isomorphic-mapzen-search-1.3.0.tgz#d522e9e94c8bd46c07c85f5ee6eae74c78db035b"
-  dependencies:
-    "@conveyal/lonlat" "^1.1.2"
-    isomorphic-fetch "^2.2.1"
-    qs "^6.3.0"
 
 isomorphic-mapzen-search@^1.3.0:
   version "1.3.1"
