@@ -1,25 +1,56 @@
 const Schema = require('mongoose').Schema
 
-const queue = require('async/queue')
-const geocoder = require('isomorphic-mapzen-search')
+const {bulk} = require('@conveyal/geocoder-arcgis-geojson')
+const {asyncify, cargo} = require('async')
 
 const env = require('../../utils/env')
 const later = require('../../utils/later')
 
-function now () {
-  return (new Date()).getTime()
+const GEOCODE_BATCH_SIZE = 150
+const bulkGeocodeRequestQueue = cargo(
+  asyncify(addresses => {
+    console.log('geocoding ' + addresses.length + ' addresses in bulk')
+    return bulk({
+      addresses,
+      boundary: env.settings.geocoder.boundary,
+      clientId: env.env.ARCGIS_CLIENT_ID,
+      clientSecret: env.env.ARCGIS_CLIENT_SECRECT
+    })
+      .then(results => {
+        console.log('received bulk response with ' + results.features.length + ' addresses')
+        const resultsByObjectId = {}
+        results.features.forEach(feature => {
+          resultsByObjectId[feature.properties.resultId] = feature
+        })
+        return resultsByObjectId
+      })
+  }),
+  GEOCODE_BATCH_SIZE
+)
+
+let UNIQUE_ID = 0
+
+/**
+ * Helper to get unique integer ids because arcgis can't handle unique strings
+ */
+function getUniqueId () {
+  return UNIQUE_ID++
 }
 
-let lastRequestTime = 0
-const geocodeRequestQueue = queue((task, callback) => {
-  setTimeout(() => {
-    console.log('do a new reqeust')
-    lastRequestTime = now()
-    task(callback)
-  }, Math.max(0, 600 - (now() - lastRequestTime))) // wait at least 0.5 second between requests
-})
-
-const maxRetries = 10
+/**
+ * Geocode an address and invoke the callback upon
+ * completion of the bulk geocode request
+ *
+ * @param  {Object}   address  An object with the `address` and `OBJECTID` keys`
+ * @param  {Function} callback [description]
+ * @return {[type]}            [description]
+ */
+function geocodeAddress (address, callback) {
+  bulkGeocodeRequestQueue.push(address, (err, results) => {
+    if (err) return callback(err)
+    callback(null, results[address.OBJECTID])
+  })
+}
 
 module.exports = function (postGeocodeHook) {
   if (!postGeocodeHook) {
@@ -109,73 +140,11 @@ module.exports = function (postGeocodeHook) {
     schema.methods.geocode = function () {
       const addressToGeocode = this.fullAddress()
 
-      console.log('addressToGeocode:', addressToGeocode)
-
       if (!addressToGeocode || addressToGeocode.length < 3) {
         return
       }
 
-      later(() => {
-        let curGeocodeMethod = 'autocomplete'
-        geocodeRequestQueue.push((queueCallback) => {
-          let numTries = 0
-          const doGeocodeUntilSuccess = () => {
-            numTries++
-            console.log(`try geocode for ${addressToGeocode}`)
-            geocoder[curGeocodeMethod](Object.assign(env.settings.geocoder, {
-              apiKey: env.env.MAPZEN_SEARCH_KEY,
-              text: this.mapzenSafeDCAddress()
-            }))
-              .then((geojson) => {
-                if (!geojson.features || geojson.features.length === 0) {
-                  if (curGeocodeMethod === 'autocomplete') {
-                    curGeocodeMethod = 'search'
-                    numTries--
-                    throw new Error(`autocomplete did not find a result for ${addressToGeocode}`)
-                  }
-                  throw geojson
-                }
-                console.log(`successful geocode for ${addressToGeocode}`)
-                const firstResult = geojson.features[0]
-                this.address = firstResult.properties.label
-                this.city = firstResult.properties.locality
-                this.coordinate = {
-                  lat: firstResult.geometry.coordinates[1],
-                  lon: firstResult.geometry.coordinates[0]
-                }
-                this.country = firstResult.properties.country
-                this.county = firstResult.properties.county
-                if (!firstResult.properties.confidence) {
-                  this.geocodeConfidence = (
-                    firstResult.properties.accuracy === 'point'
-                      ? 0.9
-                      : 0.5
-                  )
-                } else {
-                  this.geocodeConfidence = firstResult.properties.confidence
-                }
-                this.neighborhood = firstResult.properties.neighborhood
-                this.state = firstResult.properties.region
-                this.positionLastUpdated = new Date()
-                this.save()
-                queueCallback()
-                postGeocodeHook(this)
-              })
-              .catch((err) => {
-                console.error(err)
-                if (numTries < maxRetries) {
-                  const secondsToWait = Math.pow(2, numTries)
-                  console.log(`wait ${secondsToWait} seconds before retrying ${addressToGeocode}`)
-                  setTimeout(doGeocodeUntilSuccess, secondsToWait * 1000)
-                } else {
-                  console.error(`Geocoding failed for ${addressToGeocode} after 5 tries!`)
-                  queueCallback(err)
-                }
-              })
-          }
-          doGeocodeUntilSuccess()
-        })
-      })
+      this.geocodeLater(addressToGeocode)
     }
 
     /**
@@ -183,29 +152,37 @@ module.exports = function (postGeocodeHook) {
      */
 
     schema.methods.reverseGeocode = function () {
-      var self = this
+      this.geocodeLater(this.coordinate)
+    }
+
+    schema.methods.geocodeLater = function (addressQuery) {
       later(() => {
-        geocodeRequestQueue.push(() => {
-          geocoder.reverse({
-            apiKey: env.env.MAPZEN_SEARCH_KEY,
-            point: this.coordinate
-          })
-            .then((address) => {
-              self.address = address.address
-              self.neighborhood = address.neighborhood
-              self.city = address.city
-              self.county = address.county
-              self.state = address.state
-              self.country = address.country
-              self.positionLastUpdated = new Date()
-              self.save()
-              postGeocodeHook(self)
-            })
-            .catch((err) => {
-              console.error('reverse geocode error')
+        geocodeAddress(
+          {
+            address: addressQuery,
+            OBJECTID: getUniqueId()  // ESRI needs to have an int for this.  String is no good
+          },
+          (err, feature) => {
+            if (err) {
               console.error(err)
-            })
-        })
+              throw err
+            }
+            this.address = feature.properties.label
+            this.city = feature.properties.locality
+            this.coordinate = {
+              lat: feature.geometry.coordinates[1],
+              lon: feature.geometry.coordinates[0]
+            }
+            this.country = feature.properties.country
+            this.county = feature.properties.county
+            this.geocodeConfidence = feature.properties.confidence
+            this.neighborhood = feature.properties.neighborhood
+            this.state = feature.properties.region
+            this.positionLastUpdated = new Date()
+            this.save()
+            postGeocodeHook(this)
+          }
+        )
       })
     }
 
