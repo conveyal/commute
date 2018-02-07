@@ -3,6 +3,12 @@
   "scripts": {
   },
   "env": {
+    "ARCGIS_CLIENT_ID": {
+      "required": true
+    },
+    "ARCGIS_CLIENT_SECRECT": {
+      "required": true
+    },
     "AUTH0_SIGNING_CERTIFICATE": {
       "required": true
     },
