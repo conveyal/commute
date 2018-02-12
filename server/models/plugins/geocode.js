@@ -179,7 +179,8 @@ module.exports = function (postGeocodeHook) {
             this.neighborhood = feature.properties.neighborhood
             this.state = feature.properties.region
             this.positionLastUpdated = new Date()
-            this.save()
+            // saving of the commuter will happen in the postGeocodeHook
+            // this is to avoid initiating to save hook of this plugin again
             postGeocodeHook(this)
           }
         )

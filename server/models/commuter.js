@@ -66,6 +66,9 @@ function postGeocodeHook (commuter) {
     })
     .catch((err) => {
       console.error('error calculating commuter stats:', err)
+      // still save the commuter because this function might have been called
+      // after a geocode that has added address info to the model
+      commuter.save()
     })
 }
 
