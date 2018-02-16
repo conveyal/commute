@@ -57,7 +57,7 @@
     "uuid": "^3.0.1"
   },
   "dependencies": {
-    "@conveyal/geocoder-arcgis-geojson": "^0.0.1",
+    "@conveyal/geocoder-arcgis-geojson": "^0.0.2",
     "@conveyal/lonlat": "^1.1.1",
     "@conveyal/react-select-geocoder-arcgis": "^2.0.0",
     "@conveyal/woonerf": "^2.4.1",

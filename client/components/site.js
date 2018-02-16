@@ -338,14 +338,14 @@ export default class Site extends Component {
                   {!allCommutersGeocoded &&
                     <ProgressBar
                       striped
-                      now={pctGeocoded}
+                      now={Math.max(pctGeocoded, 25)}
                       label='Geocoding Commuters'
                       />
                   }
                   {allCommutersGeocoded && !allCommutersStatsCalculated &&
                     <ProgressBar
                       striped
-                      now={pctStatsCalculated}
+                      now={Math.max(pctStatsCalculated, 50)}
                       label='Analyzing Commutes'
                       />
                   }

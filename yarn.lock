@@ -2,9 +2,16 @@
 # yarn lockfile v1
 
 
-"@conveyal/geocoder-arcgis-geojson@0.0.1", "@conveyal/geocoder-arcgis-geojson@^0.0.1":
+"@conveyal/geocoder-arcgis-geojson@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@conveyal/geocoder-arcgis-geojson/-/geocoder-arcgis-geojson-0.0.1.tgz#705aa0f6ae36c32cca9170b9f1de7842471f7d8c"
+  dependencies:
+    "@conveyal/lonlat" "^1.3.0"
+    geocoder-arcgis "^2.0.4"
+
+"@conveyal/geocoder-arcgis-geojson@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@conveyal/geocoder-arcgis-geojson/-/geocoder-arcgis-geojson-0.0.2.tgz#19ddf10160a76aba2a669c0f13ac5c079ba48f6b"
   dependencies:
     "@conveyal/lonlat" "^1.3.0"
     geocoder-arcgis "^2.0.4"

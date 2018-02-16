@@ -51,21 +51,25 @@ function postGeocodeHook (commuter) {
               siteIsochrones[polygon.mode].features.push(polygon)
             })
 
-            if (site.calculationStatus === 'successfully') {
-              isochroneUtils.calculateIsochroneStatsForCommuter(commuter, siteIsochrones)
+            isochroneUtils.calculateIsochroneStatsForCommuter(commuter, siteIsochrones)
 
-              console.log('commuter stats calculated')
-
-              commuter.save()
-            }
+            // save stats and positionLastUpdated
+            commuter.save()
           })
           .catch((err) => {
             console.error('error calculating commuter stats:', err)
+            // save because positionLastUpdated needs to be saved
+            commuter.save()
           })
+      } else {
+        // save because positionLastUpdated needs to be saved
+        commuter.save()
       }
     })
     .catch((err) => {
       console.error('error calculating commuter stats:', err)
+      // save because positionLastUpdated needs to be saved
+      commuter.save()
     })
 }
 
