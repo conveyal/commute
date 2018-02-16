@@ -17,7 +17,6 @@ const bulkGeocodeRequestQueue = cargo(
       clientSecret: env.env.ARCGIS_CLIENT_SECRECT
     })
       .then(results => {
-        console.log('received bulk response with ' + results.features.length + ' addresses')
         const resultsByObjectId = {}
         results.features.forEach(feature => {
           resultsByObjectId[feature.properties.resultId] = feature
@@ -93,18 +92,14 @@ module.exports = function (postGeocodeHook) {
         if (!this.address && this.validCoordinate()) {
           // coordinates provided, but address is blank
           // perform reverse geocode
-          console.log('initiating reverse geodcode')
           this.reverseGeocode()
         } else if (this.address && !this.validCoordinate()) {
           // address provided, but coordinates are blank
           // perform geocode
-          console.log('initiating geodcode')
           this.originalAddress = this.address
           this.geocode()
         } else {
           // address and coordinates provided
-          // assume geocode happened elsewhere and only update positionLastUpdated
-          console.log('geodcode not needed')
           this.positionLastUpdated = new Date()
           postGeocodeHook(this)  // initiate since it's the first time
         }
@@ -117,8 +112,7 @@ module.exports = function (postGeocodeHook) {
           this.geocode()
         } else if (addressChanged && coordinateModified) {
           // address and coordinates provided
-          // assume geocode happened elsewhere and only update positionLastUpdated
-          console.log('geodcode not needed')
+          // geocode information has been provided
           this.positionLastUpdated = new Date()
           postGeocodeHook(this)
         }
@@ -179,9 +173,9 @@ module.exports = function (postGeocodeHook) {
             this.neighborhood = feature.properties.neighborhood
             this.state = feature.properties.region
             this.positionLastUpdated = new Date()
-            // saving of the commuter will happen in the postGeocodeHook
-            // this is to avoid initiating to save hook of this plugin again
-            postGeocodeHook(this)
+            // save geocode info
+            // this will trigger this save hook again with address and coord changes
+            this.save()
           }
         )
       })
