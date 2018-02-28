@@ -9,3 +9,5 @@
 [travis-url]: https://travis-ci.org/conveyal/commute
 
 A website for analyzing commuting patterns and more.
+
+Check out our [blog post](https://blog.conveyal.com/conveyal-commute-identifying-mode-shift-opportunities-2f8666a3ee90) for more details!
