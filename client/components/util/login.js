@@ -1,6 +1,6 @@
-import {getLock} from '@conveyal/woonerf/auth0'
 import {Component, PropTypes} from 'react'
 
+import {getLock} from '../../utils/auth0'
 import settings from '../../utils/settings'
 
 export default class Login extends Component {
@@ -14,7 +14,7 @@ export default class Login extends Component {
     lock.show()
     lock.on('authenticated', (authResult) => {
       lock.hide()
-      lock.getProfile(authResult.idToken, (error, profile) => {
+      lock.getProfile(authResult.accessToken, (error, profile) => {
         if (error) {
           setAuth0User(null)
         } else {
